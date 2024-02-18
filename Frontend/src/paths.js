@@ -82,6 +82,7 @@ export const paths = {
       }
     },
     kanban: '/dashboard/kanban',
+    learningPaths: '/dashboard/learning-path',
     logistics: {
       index: '/dashboard/logistics',
       fleet: '/dashboard/logistics/fleet'

@@ -22,7 +22,7 @@ export const Layout = (props) => {
       <Box
         sx={{
           alignItems: 'center',
-          backgroundColor: 'neutral.800',
+          backgroundColor: '#012034',
           backgroundImage: 'url("/assets/gradient-bg.svg")',
           backgroundPosition: 'top center',
           backgroundRepeat: 'no-repeat',
@@ -39,9 +39,7 @@ export const Layout = (props) => {
           }
         }}
       >
-        <Box maxWidth="md">
-          Image
-        </Box>
+        <img src="/login-background.png"/>
       </Box>
       <Box
         sx={{

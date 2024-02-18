@@ -1,7 +1,5 @@
 import Head from 'next/head';
 import { usePageView } from '../hooks/use-page-view';
-import { Layout as MarketingLayout } from '../layouts/marketing';
-import { HomeHero } from '../sections/home/home-hero';
 import { Home } from '../sections/home/home';
 
 const Page = () => {

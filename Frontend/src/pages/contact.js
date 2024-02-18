@@ -6,12 +6,6 @@ import { Avatar, Box, Container, Link, Stack, SvgIcon, Typography } from '@mui/m
 import { usePageView } from '../hooks/use-page-view';
 import { paths } from '../paths';
 import { ContactForm } from '../sections/contact/contact-form';
-import { LogoSamsung } from '../components/companies-logos/logo-samsung';
-import { LogoVisma } from '../components/companies-logos/logo-visma';
-import { LogoBolt } from '../components/companies-logos/logo-bolt';
-import { LogoAws } from '../components/companies-logos/logo-aws';
-import { LogoAccenture } from '../components/companies-logos/logo-accenture';
-import { LogoAtt } from '../components/companies-logos/logo-att';
 
 const Page = () => {
   usePageView();
@@ -126,12 +120,6 @@ const Page = () => {
                 }
               }}
             >
-              <LogoSamsung />
-              <LogoVisma />
-              <LogoBolt />
-              <LogoAws />
-              <LogoAccenture />
-              <LogoAtt />
             </Stack>
           </Container>
         </Box>

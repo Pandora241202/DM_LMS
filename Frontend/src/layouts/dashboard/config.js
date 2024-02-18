@@ -27,6 +27,8 @@ import XSquareIcon from '../../icons/untitled-ui/duocolor/x-square';
 import { tokens } from '../../locales/tokens';
 import { paths } from '../../paths';
 
+// navigation silde
+
 export const getSections = (t) => [
   {
     items: [
