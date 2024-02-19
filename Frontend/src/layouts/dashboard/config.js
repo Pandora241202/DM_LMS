@@ -42,6 +42,15 @@ export const getSections = (t) => [
         )
       },
       {
+        title: t(tokens.nav.learningPath),
+        path: paths.dashboard.learningPaths,
+        icon: (
+          <SvgIcon fontSize="small">
+            <HomeSmileIcon />
+          </SvgIcon>
+        )
+      },
+      {
         title: t(tokens.nav.analytics),
         path: paths.dashboard.analytics,
         icon: (

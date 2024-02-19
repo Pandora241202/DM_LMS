@@ -32,6 +32,7 @@ export const tokens = {
     invoiceList: 'nav.invoices',
     jobList: 'nav.jobList',
     kanban: 'nav.kanban',
+    learningPath: 'nav.learningPath',
     list: 'nav.list',
     login: 'nav.login',
     logistics: 'nav.logistics',
