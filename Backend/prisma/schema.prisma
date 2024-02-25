@@ -1,0 +1,270 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AuthenticatedUser {
+  id          Int         @id @default(autoincrement())
+  email       String
+  username    String
+  password    String
+  language    String
+  refeshToken String      @map("refesh_token")
+  lastLogin   String      @map("last_login")
+  lastLogout  String      @map("last_logout")
+  state       Boolean
+  accountType AccountType
+
+  Statement  Statement[]
+  Dataset    Dataset[]
+  Model      Model[]
+  Framework  Framework[]
+  Role       Role[]
+  Permission Permission[]
+
+  @@map("authenticated_user")
+}
+
+model Learner {
+  id                  Int     @id @default(autoincrement())
+  age                 Int
+  gender              String
+  active              Boolean
+  sensitive           Boolean
+  visual              Boolean
+  global              Boolean
+  backgroundKnowledge String  @map("background_knowledge")
+  qualification       String
+
+  Practice Practice[]
+  Forum    Forum[]
+
+  @@map("learners")
+}
+
+model LeaningMaterial {
+  id Int @id @default(autoincrement())
+
+  LearnerLog   LearnerLog[]
+  LearningPath LearningPath[]
+  Topic        Topic[]
+
+  @@map("leaning_materials")
+}
+
+model Exercise {
+  id Int @id @default(autoincrement())
+
+  Practice Practice[]
+
+  @@map("exercises")
+}
+
+model Course {
+  id           Int     @id @default(autoincrement())
+  idInstructor Int     @map("id_instructor")
+  name         String
+  visibility   Boolean
+  level        String
+  description  String
+  amountOfTime Int     @map("amount_of_time")
+
+  Lesson Lesson[]
+
+  @@map("courses")
+}
+
+model Lesson {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  Course Course[]
+  Topic  Topic[]
+
+  @@map("lessons")
+}
+
+model Topic {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  Lesson           Lesson[]
+  LearningMaterial LeaningMaterial[]
+
+  @@map("topics")
+}
+
+model Other {
+  id      Int                  @id @default(autoincrement())
+  type    LearningMaterialType
+  content String
+
+  @@map("others")
+}
+
+model Code {
+  id       Int    @id @default(autoincrement())
+  question String
+  answer   String
+
+  @@map("codes")
+}
+
+model Quizz {
+  id               Int       @id @default(autoincrement())
+  question         String
+  choice           String[]
+  answer           Boolean[]
+  duration         BigInt
+  shuffleQuestions Boolean   @map("shuffle_question")
+
+  @@map("quizzes")
+}
+
+model Practice {
+  id       Int    @id @default(autoincrement())
+  attempt  Int
+  answer   String
+  language String
+
+  learner   Learner @relation(fields: [learnerId], references: [id])
+  learnerId Int
+
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId Int
+
+  @@map("practices")
+}
+
+model LearnerLog {
+  id                           Int @id @default(autoincrement())
+  learningMaterialVisittedTime Int @map("learning_material_visitted_time")
+  learningMaterialRating       Int @map("learning_material_rating")
+
+  learningMaterial  LeaningMaterial @relation(fields: [leaningMaterialId], references: [id])
+  leaningMaterialId Int
+
+  @@map("leaner_logs")
+}
+
+model LearningPath {
+  id                    Int     @id @default(autoincrement())
+  learningMaterialOrder Int     @map("learning_material_order")
+  learned               Boolean
+
+  learningMaterial  LeaningMaterial @relation(fields: [leaningMaterialId], references: [id])
+  leaningMaterialId Int
+
+  @@map("learning_paths")
+}
+
+model Forum {
+  id    Int            @id @default(autoincrement())
+  title String
+  label LabelOfForum[]
+
+  learner   Learner @relation(fields: [learnerId], references: [id])
+  learnerId Int
+
+  Statement Statement[]
+
+  @@map("forums")
+}
+
+model Statement {
+  id Int @id @default(autoincrement())
+
+  forum   Forum @relation(fields: [forumId], references: [id])
+  forumId Int
+
+  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
+  authenticatedUserId Int
+
+  preStatement Statement   @relation("pre_order", fields: [statementId], references: [id])
+  Statement    Statement[] @relation("pre_order")
+  statementId  Int
+
+  @@map("statements")
+}
+
+model Role {
+  id   Int    @id @default(autoincrement())
+  role String
+
+  AuthenticatedUser   AuthenticatedUser? @relation(fields: [authenticatedUserId], references: [id])
+  authenticatedUserId Int?
+
+  @@map("roles")
+}
+
+model Permission {
+  id         Int    @id @default(autoincrement())
+  permission String
+
+  AuthenticatedUser   AuthenticatedUser? @relation(fields: [authenticatedUserId], references: [id])
+  authenticatedUserId Int?
+
+  @@map("permissions")
+}
+
+model Dataset {
+  id          Int     @id @default(autoincrement())
+  description String
+  content     String
+  status      Boolean
+
+  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
+  authenticatedUserId Int
+  Model               Model[]
+
+  @@map("datasets")
+}
+
+model Model {
+  id             Int     @id @default(autoincrement())
+  modelAttribute String  @map("model_attribute")
+  content        String
+  status         Boolean
+
+  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
+  authenticatedUserId Int
+
+  dataset   Dataset @relation(fields: [datasetId], references: [id])
+  datasetId Int
+
+  @@map("models")
+}
+
+model Framework {
+  id                  Int    @id @default(autoincrement())
+  description         String
+  usedTimes           Int    @map("used_times")
+  programmingLanguage String @map("programming_language")
+  content             String
+
+  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
+  authenticatedUserId Int
+
+  @@map("frameworks")
+}
+
+enum LearningMaterialType {
+  PDF
+  VIDEO
+  QUIZZ
+}
+
+enum LabelOfForum {
+  DATASET
+  PYTHON
+  MODEL
+}
+
+enum AccountType {
+  ADMIN
+  INSTRUCTOR
+}
