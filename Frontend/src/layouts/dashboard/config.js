@@ -24,6 +24,7 @@ import Truck01Icon from '../../icons/untitled-ui/duocolor/truck-01';
 import Upload04Icon from '../../icons/untitled-ui/duocolor/upload-04';
 import Users03Icon from '../../icons/untitled-ui/duocolor/users-03';
 import XSquareIcon from '../../icons/untitled-ui/duocolor/x-square';
+import RouteIcon from '@mui/icons-material/Route';
 import { tokens } from '../../locales/tokens';
 import { paths } from '../../paths';
 
@@ -46,7 +47,25 @@ export const getSections = (t) => [
         path: paths.dashboard.learningPaths,
         icon: (
           <SvgIcon fontSize="small">
-            <HomeSmileIcon />
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
+      {
+        title: t(tokens.nav.myCourses),
+        path: paths.dashboard.myCourses,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
+      {
+        title: t(tokens.nav.explore),
+        path: paths.dashboard.explore,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
           </SvgIcon>
         )
       },
@@ -93,6 +112,125 @@ export const getSections = (t) => [
           </SvgIcon>
         )
       }
+    ]
+  },
+  {
+    subheader: t(tokens.nav.models),
+    items: [
+      {
+        title: t(tokens.nav.model),
+        path: paths.dashboard.model,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
+      {
+        title: t(tokens.nav.code),
+        path: paths.dashboard.code,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
+      {
+        title: t(tokens.nav.dataset),
+        path: paths.dashboard.dataset,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
+    ]
+  },
+  {
+    subheader: t(tokens.nav.communications),
+    items: [
+      {
+        title: t(tokens.nav.forum),
+        path: paths.dashboard.forum,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
+      {
+        title: t(tokens.nav.chat),
+        path: paths.dashboard.chat,
+        icon: (
+          <SvgIcon fontSize="small">
+            <MessageChatSquareIcon />
+          </SvgIcon>
+        )
+      },
+    ]
+  },
+  {
+    subheader: t(tokens.nav.personal),
+    items: [
+      {
+        title: t(tokens.nav.personal_info),
+        path: paths.dashboard.personal_info,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
+      {
+        title: t(tokens.nav.note),
+        path: paths.dashboard.note,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
+      {
+        title: t(tokens.nav.calendar),
+        path: paths.dashboard.calendar,
+        icon: (
+          <SvgIcon fontSize="small">
+            <CalendarIcon />
+          </SvgIcon>
+        )
+      }
+    ]
+  },
+  {
+    subheader: t(tokens.nav.admin),
+    items: [
+      {
+        title: t(tokens.nav.LM_Manage),
+        path: paths.dashboard.LM_Manage,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
+      {
+        title: t(tokens.nav.Topic_Manage),
+        path: paths.dashboard.Topic_Manage,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
+      {
+        title: t(tokens.nav.Account_Manage),
+        path: paths.dashboard.Account_Manage,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
     ]
   },
   {
@@ -308,24 +446,6 @@ export const getSections = (t) => [
           </SvgIcon>
         )
       },
-      {
-        title: t(tokens.nav.chat),
-        path: paths.dashboard.chat,
-        icon: (
-          <SvgIcon fontSize="small">
-            <MessageChatSquareIcon />
-          </SvgIcon>
-        )
-      },
-      {
-        title: t(tokens.nav.calendar),
-        path: paths.dashboard.calendar,
-        icon: (
-          <SvgIcon fontSize="small">
-            <CalendarIcon />
-          </SvgIcon>
-        )
-      }
     ]
   },
   {

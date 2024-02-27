@@ -62,14 +62,18 @@ export const paths = {
     },
     calendar: '/dashboard/calendar',
     chat: '/dashboard/chat',
+    code: '/dashboard/code',
     crypto: '/dashboard/crypto',
     customers: {
       index: '/dashboard/customers',
       details: '/dashboard/customers/:customerId',
       edit: '/dashboard/customers/:customerId/edit'
     },
+    dataset: '/dashboard/dataset',
     ecommerce: '/dashboard/ecommerce',
+    explore: '/dashboard/explore',
     fileManager: '/dashboard/file-manager',
+    forum: '/dashboard/forum',
     invoices: {
       index: '/dashboard/invoices',
       details: '/dashboard/invoices/:orderId'
@@ -87,7 +91,10 @@ export const paths = {
       index: '/dashboard/logistics',
       fleet: '/dashboard/logistics/fleet'
     },
+    note: '/dashboard/note',
     mail: '/dashboard/mail',
+    model: '/dashboard/model',
+    myCourses: '/dashboard/my-courses',
     orders: {
       index: '/dashboard/orders',
       details: '/dashboard/orders/:orderId'
@@ -96,11 +103,15 @@ export const paths = {
       index: '/dashboard/products',
       create: '/dashboard/products/create'
     },
+    personal_info: '/dashboard/personal-info',
     social: {
       index: '/dashboard/social',
       profile: '/dashboard/social/profile',
       feed: '/dashboard/social/feed'
-    }
+    },
+    Topic_Manage: '/dashboard/Topic-Manage',
+    LM_Manage: '/dashboard/LM-Manage',
+    Account_Manage: '/dashboard/Account-Manage',
   },
   components: {
     index: '/components',

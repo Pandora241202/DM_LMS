@@ -26,6 +26,10 @@ const sections = [
             path: paths.dashboard.index
           },
           {
+            title: 'Learning Path',
+            path: paths.dashboard.learningPaths
+          },
+          {
             title: 'Customers',
             path: paths.dashboard.customers.index
           },
