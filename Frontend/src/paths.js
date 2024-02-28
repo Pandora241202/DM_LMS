@@ -78,7 +78,6 @@ export const paths = {
     ecommerce: '/dashboard/ecommerce',
     explore: '/dashboard/explore',
     fileManager: '/dashboard/file-manager',
-    forum: '/dashboard/forum',
     invoices: {
       index: '/dashboard/invoices',
       details: '/dashboard/invoices/:orderId'
