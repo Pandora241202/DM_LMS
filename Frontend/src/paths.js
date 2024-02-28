@@ -60,6 +60,11 @@ export const paths = {
       postDetails: '/dashboard/blog/:postId',
       postCreate: '/dashboard/blog/create'
     },
+    forum: {
+      index: '/dashboard/forum',
+      forumDetails: '/dashboard/forum/:forumId',
+      forumCreate: '/dashboard/forum/create'
+    },
     calendar: '/dashboard/calendar',
     chat: '/dashboard/chat',
     code: '/dashboard/code',

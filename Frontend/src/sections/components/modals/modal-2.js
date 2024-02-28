@@ -12,7 +12,12 @@ const languageOptions = [
   {
     icon: '/assets/flags/flag-es.svg',
     label: 'Spanish'
-  }
+  },
+  {
+    icon: '/assets/flags/flag-vn.svg',
+    label: 'Vietnam'
+  },
+
 ];
 
 export const Modal2 = () => (

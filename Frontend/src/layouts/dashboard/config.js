@@ -420,6 +420,29 @@ export const getSections = (t) => [
         ]
       },
       {
+        title: t(tokens.nav.forum),
+        path: paths.dashboard.forum.index,
+        icon: (
+          <SvgIcon fontSize="small">
+            <Users03Icon />
+          </SvgIcon>
+        ),
+        items: [
+          {
+            title: t(tokens.nav.forumList),
+            path: paths.dashboard.forum.index
+          },
+          /*{
+            title: t(tokens.nav.forumDetails),
+            path: paths.dashboard.forum.forumDetails
+          },*/
+          {
+            title: t(tokens.nav.forumCreate),
+            path: paths.dashboard.forum.forumCreate
+          }
+        ]
+      },
+      {
         title: t(tokens.nav.fileManager),
         path: paths.dashboard.fileManager,
         icon: (
