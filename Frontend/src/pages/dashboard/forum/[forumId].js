@@ -6,8 +6,6 @@ import {
   Avatar,
   Box,
   Breadcrumbs,
-  Button,
-  Card,
   Chip,
   Container,
   Divider,
@@ -15,16 +13,15 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import { blogApi } from '../../../api/blog';
+import { forumApi } from '../../../api/forum';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
-import { PostComment } from '../../../sections/dashboard/blog/post-comment';
-import { PostCommentAdd } from '../../../sections/dashboard/blog/post-comment-add';
-import { PostNewsletter } from '../../../sections/dashboard/blog/post-newsletter';
-import { PostContent } from '../../../sections/dashboard/blog/post-content';
+import { ForumComment } from '../../../sections/dashboard/forum/forum-comment';
+import { ForumCommentAdd } from '../../../sections/dashboard/forum/forum-comment-add';
+import { ForumContent } from '../../../sections/dashboard/forum/forum-content';
 
 const useComments = () => {
   return [
@@ -51,16 +48,16 @@ const useComments = () => {
   ];
 };
 
-const usePost = () => {
+const useForumDetail = () => {
   const isMounted = useMounted();
-  const [post, setPost] = useState(null);
+  const [forumDetail, setForumDetail] = useState(null);
 
-  const getPost = useCallback(async () => {
+  const getForumDetail = useCallback(async () => {
     try {
-      const response = await blogApi.getPost();
+      const response = await forumApi.getForumDetail();
 
       if (isMounted()) {
-        setPost(response);
+        setForumDetail(response);
       }
     } catch (err) {
       console.error(err);
@@ -68,31 +65,31 @@ const usePost = () => {
   }, [isMounted]);
 
   useEffect(() => {
-      getPost();
+      getForumDetail();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []);
 
-  return post;
+  return forumDetail;
 };
 
 const Page = () => {
-  const post = usePost();
+  const forumDetail = useForumDetail();
   const comments = useComments();
 
   usePageView();
 
-  if (!post) {
+  if (!forumDetail) {
     return null;
   }
 
-  const publishedAt = format(post.publishedAt, 'MMMM d, yyyy');
+  const publishedAt = format(forumDetail.publishedAt, 'dd-MM-yyyy');
 
   return (
     <>
       <Head>
         <title>
-          Blog: Post Details | Devias Kit PRO
+          Forum: Forum Detail
         </title>
       </Head>
       <Box
@@ -105,7 +102,7 @@ const Page = () => {
         <Container maxWidth="xl">
           <Stack spacing={1}>
             <Typography variant="h3">
-              Post
+              Diễn đàn
             </Typography>
             <Breadcrumbs separator={<BreadcrumbsSeparator />}>
               <Link
@@ -119,55 +116,31 @@ const Page = () => {
               <Link
                 color="text.primary"
                 component={NextLink}
-                href={paths.dashboard.blog.index}
+                href={paths.dashboard.forum.index}
                 variant="subtitle2"
               >
-                Blog
+                Diễn đàn
               </Link>
               <Typography
                 color="text.secondary"
                 variant="subtitle2"
               >
-                Details
+                {forumDetail.title}
               </Typography>
             </Breadcrumbs>
           </Stack>
-          <Card
-            elevation={16}
-            sx={{
-              alignItems: 'center',
-              borderRadius: 1,
-              display: 'flex',
-              justifyContent: 'space-between',
-              mb: 8,
-              mt: 6,
-              px: 3,
-              py: 2
-            }}
-          >
-            <Typography variant="subtitle1">
-              Hello, Admin
-            </Typography>
-            <Button
-              component={NextLink}
-              href={paths.dashboard.blog.postCreate}
-              variant="contained"
-            >
-              Edit Post
-            </Button>
-          </Card>
           <Stack spacing={3}>
             <div>
-              <Chip label={post.category} />
+              <Chip label={forumDetail.category} />
             </div>
             <Typography variant="h3">
-              {post.title}
+              {forumDetail.title}
             </Typography>
             <Typography
               color="text.secondary"
               variant="subtitle1"
             >
-              {post.shortDescription}
+              {forumDetail.shortDescription}
             </Typography>
             <Stack
               alignItems="center"
@@ -175,12 +148,12 @@ const Page = () => {
               spacing={2}
               sx={{ mt: 3 }}
             >
-              <Avatar src={post.author.avatar} />
+              <Avatar src={forumDetail.author.avatar} />
               <div>
                 <Typography variant="subtitle2">
-                  By
+                  Đăng bởi
                   {' '}
-                  {post.author.name}
+                  {forumDetail.author.name}
                   {' '}
                   •
                   {' '}
@@ -190,14 +163,14 @@ const Page = () => {
                   color="text.secondary"
                   variant="body2"
                 >
-                  {post.readTime} read
+                  {forumDetail.readTime} lượt đọc
                 </Typography>
               </div>
             </Stack>
           </Stack>
           <Box
             sx={{
-              backgroundImage: `url(${post.cover})`,
+              backgroundImage: `url(${forumDetail.cover})`,
               backgroundPosition: 'center',
               backgroundSize: 'cover',
               borderRadius: 1,
@@ -205,24 +178,21 @@ const Page = () => {
               mt: 3
             }}
           />
-          {post.content && (
+          {forumDetail.content && (
             <Container sx={{ py: 3 }}>
-              <PostContent content={post.content} />
+              <ForumContent content={forumDetail.content} />
             </Container>
           )}
           <Divider sx={{ my: 3 }} />
           <Stack spacing={2}>
             {comments.map((comment) => (
-              <PostComment
+              <ForumComment
                 key={comment.id}
                 {...comment} />
             ))}
           </Stack>
           <Divider sx={{ my: 3 }} />
-          <PostCommentAdd />
-          <Box sx={{ mt: 8 }}>
-            <PostNewsletter />
-          </Box>
+          <ForumCommentAdd />
         </Container>
       </Box>
     </>

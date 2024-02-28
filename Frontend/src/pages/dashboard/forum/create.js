@@ -45,7 +45,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Blog: Post Create | Devias Kit PRO
+          Forum: Forum Create
         </title>
       </Head>
       <Box
@@ -58,7 +58,7 @@ const Page = () => {
         <Container maxWidth="xl">
           <Stack spacing={1}>
             <Typography variant="h3">
-              Create a new post
+              Tạo diễn đàn mới
             </Typography>
             <Breadcrumbs separator={<BreadcrumbsSeparator />}>
               <Link
@@ -72,63 +72,21 @@ const Page = () => {
               <Link
                 color="text.primary"
                 component={NextLink}
-                href={paths.dashboard.blog.index}
+                href={paths.dashboard.forum.index}
                 variant="subtitle2"
               >
-                Blog
+                Diễn đàn
               </Link>
               <Typography
                 color="text.secondary"
                 variant="subtitle2"
               >
-                Create
+                Tạo mới
               </Typography>
             </Breadcrumbs>
           </Stack>
-          <Card
-            elevation={16}
-            sx={{
-              alignItems: 'center',
-              borderRadius: 1,
-              display: 'flex',
-              justifyContent: 'space-between',
-              mb: 8,
-              mt: 6,
-              px: 3,
-              py: 2
-            }}
-          >
-            <Typography variant="subtitle1">
-              Hello, Admin
-            </Typography>
-            <Stack
-              alignItems="center"
-              direction="row"
-              spacing={2}
-            >
-              <Button
-                color="inherit"
-                component={NextLink}
-                href={paths.dashboard.blog.index}
-              >
-                Cancel
-              </Button>
-              <Button
-                component={NextLink}
-                href={paths.dashboard.blog.postDetails}
-                variant="contained"
-              >
-                Publish changes
-              </Button>
-              <IconButton>
-                <SvgIcon>
-                  <DotsHorizontalIcon />
-                </SvgIcon>
-              </IconButton>
-            </Stack>
-          </Card>
           <Stack spacing={3}>
-            <Card>
+            <Card sx={{mt: 6}}>
               <CardContent>
                 <Grid
                   container
@@ -139,7 +97,7 @@ const Page = () => {
                     md={4}
                   >
                     <Typography variant="h6">
-                      Basic details
+                      Thông tin căn bản
                     </Typography>
                   </Grid>
                   <Grid
@@ -172,7 +130,7 @@ const Page = () => {
                     md={4}
                   >
                     <Typography variant="h6">
-                      Post cover
+                      Ảnh minh họa
                     </Typography>
                   </Grid>
                   <Grid
@@ -306,6 +264,48 @@ const Page = () => {
               </CardContent>
             </Card>
           </Stack>
+          <Card
+            elevation={16}
+            sx={{
+              alignItems: 'center',
+              borderRadius: 1,
+              display: 'flex',
+              justifyContent: 'space-between',
+              mb: 8,
+              mt: 6,
+              px: 3,
+              py: 2
+            }}
+          >
+            <Typography variant="subtitle1">
+              
+            </Typography>
+            <Stack
+              alignItems="center"
+              direction="row"
+              spacing={2}
+            >
+              <Button
+                color="inherit"
+                component={NextLink}
+                href={paths.dashboard.blog.index}
+              >
+                Cancel
+              </Button>
+              <Button
+                component={NextLink}
+                href={paths.dashboard.blog.postDetails}
+                variant="contained"
+              >
+                Publish changes
+              </Button>
+              <IconButton>
+                <SvgIcon>
+                  <DotsHorizontalIcon />
+                </SvgIcon>
+              </IconButton>
+            </Stack>
+          </Card>
           <Box
             sx={{
               display: {

@@ -18,25 +18,24 @@ import {
   Unstable_Grid2 as Grid,
   Input,
 } from '@mui/material';
-import { blogApi } from '../../../api/blog';
+import { forumApi } from '../../../api/forum';
 import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
-import { PostNewsletter } from '../../../sections/dashboard/blog/post-newsletter';
-import { PostCard } from '../../../sections/dashboard/blog/post-card';
+import { ForumCard } from '../../../sections/dashboard/forum/forum-card';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 
-const usePosts = () => {
+const useForums = () => {
   const isMounted = useMounted();
-  const [posts, setPosts] = useState([]);
+  const [forums, setForums] = useState([]);
 
-  const getPosts = useCallback(async () => {
+  const getForums = useCallback(async () => {
     try {
-      const response = await blogApi.getPosts();
+      const response = await forumApi.getForums();
 
       if (isMounted()) {
-        setPosts(response);
+        setForums(response);
       }
     } catch (err) {
       console.error(err);
@@ -44,16 +43,16 @@ const usePosts = () => {
   }, [isMounted]);
 
   useEffect(() => {
-      getPosts();
+    getForums();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []);
 
-  return posts;
+  return forums;
 };
 
 const Page = () => {
-  const posts = usePosts();
+  const forums = useForums();
 
   usePageView();
 
@@ -165,21 +164,21 @@ const Page = () => {
             container
             spacing={4}
           >
-            {posts.map((post) => (
+            {forums.map((forum) => (
               <Grid
-                key={post.title}
+                key={forum.title}
                 xs={12}
                 md={6}
               >
-                <PostCard
-                  authorAvatar={post.author.avatar}
-                  authorName={post.author.name}
-                  category={post.category}
-                  cover={post.cover}
-                  publishedAt={post.publishedAt}
-                  readTime={post.readTime}
-                  shortDescription={post.shortDescription}
-                  title={post.title}
+                <ForumCard
+                  authorAvatar={forum.author.avatar}
+                  authorName={forum.author.name}
+                  category={forum.category}
+                  cover={forum.cover}
+                  publishedAt={forum.publishedAt}
+                  readTime={forum.readTime}
+                  shortDescription={forum.shortDescription}
+                  title={forum.title}
                   sx={{ height: '100%' }}
                 />
               </Grid>
@@ -203,7 +202,7 @@ const Page = () => {
                 </SvgIcon>
               )}
             >
-              Newer
+              Mới hơn
             </Button>
             <Button
               endIcon={(
@@ -212,7 +211,7 @@ const Page = () => {
                 </SvgIcon>
               )}
             >
-              Older posts
+              Cũ hơn
             </Button>
           </Stack>
         </Container>
