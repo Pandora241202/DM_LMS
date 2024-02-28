@@ -44,12 +44,16 @@ export const tokens = {
     postCreate: 'nav.postCreate',
     postDetails: 'nav.postDetails',
     postList: 'nav.postList',
+    forumCreate: 'nav.forumCreate',
+    forumDetails: 'nav.forumDetails',
+    forumList: 'nav.forumList',
     pricing: 'nav.pricing',
     productList: 'nav.products',
     profile: 'nav.profile',
     register: 'nav.register',
     resetPassword: 'nav.resetPassword',
     socialMedia: 'nav.socialMedia',
-    verifyCode: 'nav.verifyCode'
+    verifyCode: 'nav.verifyCode',
+    forum: 'nav.forum'
   }
 };

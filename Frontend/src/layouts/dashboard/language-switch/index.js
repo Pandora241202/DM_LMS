@@ -6,7 +6,8 @@ import { LanguagePopover } from './language-popover';
 const languages = {
   en: '/assets/flags/flag-uk.svg',
   de: '/assets/flags/flag-de.svg',
-  es: '/assets/flags/flag-es.svg'
+  es: '/assets/flags/flag-es.svg',
+  vn: '/assets/flags/flag-vn.svg',
 };
 
 export const LanguageSwitch = () => {

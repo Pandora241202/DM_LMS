@@ -1,6 +1,6 @@
 import { tokens } from '../tokens';
 
-export const en = {
+export const vn = {
   [tokens.common.languageChanged]: 'Language changed',
   [tokens.nav.academy]: 'Academy',
   [tokens.nav.account]: 'Account',
@@ -48,8 +48,8 @@ export const en = {
   [tokens.nav.resetPassword]: 'Reset Password',
   [tokens.nav.socialMedia]: 'Social Media',
   [tokens.nav.verifyCode]: 'Verify Code',
-  [tokens.nav.forum]: 'Forum',
-  [tokens.nav.forumCreate]: 'Forum Create',
-  [tokens.nav.forumDetails]: 'Forum Details',
-  [tokens.nav.forumList]: 'Forum List',
+  [tokens.nav.forum]: 'Diễn đàn',
+  [tokens.nav.forumCreate]: 'Tạo mới',
+  [tokens.nav.forumDetails]: 'Chi tiết',
+  [tokens.nav.forumList]: 'Danh sách',
 };

@@ -17,7 +17,12 @@ const languageOptions = {
   es: {
     icon: '/assets/flags/flag-es.svg',
     label: 'Spanish'
-  }
+  },
+  vn: {
+    icon: '/assets/flags/flag-vn.svg',
+    label: 'Vietnam'
+  },
+
 };
 
 export const LanguagePopover = (props) => {
