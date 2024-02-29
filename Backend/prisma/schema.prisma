@@ -10,13 +10,16 @@ datasource db {
 model AuthenticatedUser {
   id          Int         @id @default(autoincrement())
   email       String
-  username    String
-  password    String
+  name        String
+  birth       BigInt
+  gender      GenderType  @default(UNKNOWN)
   language    String
-  refeshToken String      @map("refesh_token")
-  lastLogin   String      @map("last_login")
-  lastLogout  String      @map("last_logout")
-  state       Boolean
+  lastLogin   BigInt      @map("last_login")
+  lastLogout  BigInt      @map("last_logout")
+  password    String
+  username    String
+  refeshToken String?     @map("refesh_token")
+  state       Boolean     @default(true)
   accountType AccountType
 
   Statement  Statement[]
@@ -25,43 +28,50 @@ model AuthenticatedUser {
   Framework  Framework[]
   Role       Role[]
   Permission Permission[]
+  Learner    Learner[]
 
   @@map("authenticated_user")
 }
 
 model Learner {
-  id                  Int     @id @default(autoincrement())
-  age                 Int
-  gender              String
-  active              Boolean
-  sensitive           Boolean
-  visual              Boolean
-  global              Boolean
-  backgroundKnowledge String  @map("background_knowledge")
-  qualification       String
+  id                  Int                     @id @default(autoincrement())
+  activeReflective    Int                     @map("active_reflective")
+  sensitiveIntuitive  Int                     @map("sensitive_intuitive")
+  visualVerbal        Int                     @map("visual_verbal")
+  globalSequential    Int                     @map("global_sequence")
+  backgroundKnowledge BackgroundKnowledgeType @map("background_knowledge")
+  qualification       QualificationType
+
+  user   AuthenticatedUser @relation(fields: [userId], references: [id])
+  userId Int
+
+  learningPath   LearningPath? @relation(fields: [learningPathId], references: [id])
+  learningPathId Int?
 
   Practice Practice[]
   Forum    Forum[]
 
+  log LearnerLog[]
+
   @@map("learners")
 }
 
-model LeaningMaterial {
-  id Int @id @default(autoincrement())
+model LearningMaterial {
+  id         Int                  @id @default(autoincrement())
+  name       String
+  difficulty Float
+  type       LearningMaterialType
+  rating     Float
+  score      Float
+  time       Float?
 
   LearnerLog   LearnerLog[]
   LearningPath LearningPath[]
   Topic        Topic[]
+  Exercise     Exercise[]
+  Other        Other[]
 
-  @@map("leaning_materials")
-}
-
-model Exercise {
-  id Int @id @default(autoincrement())
-
-  Practice Practice[]
-
-  @@map("exercises")
+  @@map("learning_materials")
 }
 
 model Course {
@@ -93,15 +103,29 @@ model Topic {
   title String
 
   Lesson           Lesson[]
-  LearningMaterial LeaningMaterial[]
+  LearningMaterial LearningMaterial[]
 
   @@map("topics")
+}
+
+model Exercise {
+  id Int @id @default(autoincrement())
+
+  learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
+  learningMaterialId Int
+
+  Practice Practice[]
+
+  @@map("exercises")
 }
 
 model Other {
   id      Int                  @id @default(autoincrement())
   type    LearningMaterialType
   content String
+
+  learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
+  learningMaterialId Int
 
   @@map("others")
 }
@@ -145,10 +169,16 @@ model LearnerLog {
   learningMaterialVisittedTime Int @map("learning_material_visitted_time")
   learningMaterialRating       Int @map("learning_material_rating")
 
-  learningMaterial  LeaningMaterial @relation(fields: [leaningMaterialId], references: [id])
-  leaningMaterialId Int
+  score    Float
+  time     BigInt
+  attempts Int
 
-  @@map("leaner_logs")
+  learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
+  learningMaterialId Int              @map("learning_material_id")
+  learner            Learner?         @relation(fields: [learnerId], references: [id])
+  learnerId          Int?             @map("learner_id")
+
+  @@map("learner_logs")
 }
 
 model LearningPath {
@@ -156,8 +186,8 @@ model LearningPath {
   learningMaterialOrder Int     @map("learning_material_order")
   learned               Boolean
 
-  learningMaterial  LeaningMaterial @relation(fields: [leaningMaterialId], references: [id])
-  leaningMaterialId Int
+  learningMaterial LearningMaterial[]
+  Learner          Learner[]
 
   @@map("learning_paths")
 }
@@ -196,7 +226,7 @@ model Role {
   role String
 
   AuthenticatedUser   AuthenticatedUser? @relation(fields: [authenticatedUserId], references: [id])
-  authenticatedUserId Int?
+  authenticatedUserId Int?               @map("authenticated_user_id")
 
   @@map("roles")
 }
@@ -206,7 +236,7 @@ model Permission {
   permission String
 
   AuthenticatedUser   AuthenticatedUser? @relation(fields: [authenticatedUserId], references: [id])
-  authenticatedUserId Int?
+  authenticatedUserId Int?               @map("authenticated_user_id")
 
   @@map("permissions")
 }
@@ -218,7 +248,7 @@ model Dataset {
   status      Boolean
 
   authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
-  authenticatedUserId Int
+  authenticatedUserId Int               @map("authenticated_user_id")
   Model               Model[]
 
   @@map("datasets")
@@ -231,7 +261,7 @@ model Model {
   status         Boolean
 
   authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
-  authenticatedUserId Int
+  authenticatedUserId Int               @map("authenticated_user_id")
 
   dataset   Dataset @relation(fields: [datasetId], references: [id])
   datasetId Int
@@ -247,7 +277,7 @@ model Framework {
   content             String
 
   authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
-  authenticatedUserId Int
+  authenticatedUserId Int               @map("authenticated_user_id")
 
   @@map("frameworks")
 }
@@ -267,4 +297,23 @@ enum LabelOfForum {
 enum AccountType {
   ADMIN
   INSTRUCTOR
+  LEARNER
+}
+
+enum GenderType {
+  MALE
+  FEMALE
+  UNKNOWN
+}
+
+enum BackgroundKnowledgeType {
+  BASIC
+  INTERMEDIA
+  EXPERT
+}
+
+enum QualificationType {
+  HIGH_SCHOOL
+  GRADUATE
+  POST_GRADUATE
 }

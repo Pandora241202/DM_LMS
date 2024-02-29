@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/service/prisma/prisma.service';
 
 @Injectable()
 export class LearningPathService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async detail(id: number) {
-    return this.prismaService.learningPath.findMany({
+    const learningPath = await this.prismaService.learningPath.findMany({
       where: { id },
     });
   }

@@ -1,7 +1,7 @@
 ## Installation
-
 ```bash
 $ npm install
+$ npm install --global yarn
 ```
 
 ## Running the app
@@ -32,9 +32,12 @@ $ npm run test:cov
 
 ## Run prisma
 ```bash
-$ yarn prisma:generate
+$ npm install typescript ts-node @types/node --save-dev
+$ npm install prisma --save-dev
 
-for every change schema.prisma to update database
+# $ yarn prisma:generate
+
+//for every change schema.prisma to update database
 $ yarn prisma db push 
 
 ```
