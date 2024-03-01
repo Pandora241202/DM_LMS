@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -165,8 +165,10 @@ model LearningPath {
 model Forum {
   id    Int            @id @default(autoincrement())
   title String
+  shortDescription String
+  coverImage String
   label LabelOfForum[]
-
+  
   learner   Learner @relation(fields: [learnerId], references: [id])
   learnerId Int
 
