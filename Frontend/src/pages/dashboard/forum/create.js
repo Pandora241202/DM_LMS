@@ -18,7 +18,7 @@ import {
   Unstable_Grid2 as Grid
 } from '@mui/material';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
-import { FileDropzone } from '../../../components/file-dropzone';
+import { FileDropzoneVn } from '../../../components/file-dropzone-vn';
 import { QuillEditor } from '../../../components/quill-editor';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
@@ -107,12 +107,12 @@ const Page = () => {
                     <Stack spacing={3}>
                       <TextField
                         fullWidth
-                        label="Post title"
+                        label="Tiêu đề"
                         name="title"
                       />
                       <TextField
                         fullWidth
-                        label="Short description"
+                        label="Mô tả ngắn"
                       />
                     </Stack>
                   </Grid>
@@ -172,7 +172,7 @@ const Page = () => {
                               color="text.secondary"
                               variant="h6"
                             >
-                              Select a cover image
+                              Chọn ảnh minh họa
                             </Typography>
                             <Typography
                               align="center"
@@ -180,7 +180,7 @@ const Page = () => {
                               sx={{ mt: 1 }}
                               variant="subtitle1"
                             >
-                              Image used for the blog post cover and also for Open Graph meta
+                              Hình ảnh được sử dụng để minh họa cho bài đăng
                             </Typography>
                           </Box>
                         )}
@@ -190,14 +190,14 @@ const Page = () => {
                           disabled={!cover}
                           onClick={handleCoverRemove}
                         >
-                          Remove photo
+                          Bỏ hình ảnh
                         </Button>
                       </div>
-                      <FileDropzone
+                      <FileDropzoneVn
                         accept={{ 'image/*': [] }}
                         maxFiles={1}
                         onDrop={handleCoverDrop}
-                        caption="(SVG, JPG, PNG, or gif maximum 900x400)"
+                        caption="(SVG, JPG, PNG, hoặc gif tối đa 900x400)"
                       />
                     </Stack>
                   </Grid>
@@ -215,7 +215,7 @@ const Page = () => {
                     md={4}
                   >
                     <Typography variant="h6">
-                      Content
+                      Nội dung
                     </Typography>
                   </Grid>
                   <Grid
@@ -223,7 +223,7 @@ const Page = () => {
                     md={8}
                   >
                     <QuillEditor
-                      placeholder="Write something"
+                      placeholder="Viết nội dung"
                       sx={{ height: 330 }}
                     />
                   </Grid>
@@ -251,12 +251,12 @@ const Page = () => {
                     <Stack spacing={3}>
                       <TextField
                         fullWidth
-                        label="SEO title"
+                        label="Thẻ tiêu đề"
                         name="title"
                       />
                       <TextField
                         fullWidth
-                        label="SEO description"
+                        label="Mô tả thẻ tiêu đề"
                       />
                     </Stack>
                   </Grid>
@@ -290,14 +290,14 @@ const Page = () => {
                 component={NextLink}
                 href={paths.dashboard.blog.index}
               >
-                Cancel
+                Hủy
               </Button>
               <Button
                 component={NextLink}
                 href={paths.dashboard.blog.postDetails}
                 variant="contained"
               >
-                Publish changes
+                Đăng bài
               </Button>
               <IconButton>
                 <SvgIcon>
@@ -316,10 +316,10 @@ const Page = () => {
           >
             <Button
               component={NextLink}
-              href={paths.dashboard.blog.postDetails}
+              href={paths.dashboard.forum.forumDetails}
               variant="contained"
             >
-              Publish changes
+              Đăng bài
             </Button>
           </Box>
         </Container>

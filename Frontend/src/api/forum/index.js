@@ -1,8 +1,12 @@
 import { deepCopy } from '../../utils/deep-copy';
 import { forumDetail, forums } from './data';
+import axios from 'axios';
 
 class ForumApi {
   getForums(request) {
+    /*return axios.get(
+      `https://famous-quotes4.p.rapidapi.com/random`
+    );*/
     return Promise.resolve(deepCopy(forums));
   }
 
