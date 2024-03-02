@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/service/prisma/prisma.service';
+import { PrismaService } from 'src/services/prisma/prisma.service';
 import { UserCreateREQ } from './request/user-create.request';
 import { AccountType } from '@prisma/client';
 import { UserLearnerDTO } from './dto/user-learner.dto';
@@ -13,6 +13,7 @@ export class UserService {
       data: UserCreateREQ.toCreateInput(body),
       select: { id: true },
     });
+
     if (body.accountType === AccountType.LEARNER)
       await this.prismaService.learner.create({
         data: UserLearnerDTO.toCreateInput(user.id, body.learningStyleQA, body.backgroundKnowledge, body.qualification),

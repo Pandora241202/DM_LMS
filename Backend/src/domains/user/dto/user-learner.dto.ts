@@ -40,11 +40,11 @@ export class UserLearnerDTO {
 
   static toCreateInput(
     userId: number,
-    learningStyleQA: string[],
-    backgroundKnowledge: BackgroundKnowledgeType,
-    qualification: QualificationType,
+    learningStyleQA: string[] = null,
+    backgroundKnowledge: BackgroundKnowledgeType = BackgroundKnowledgeType.BASIC,
+    qualification: QualificationType = QualificationType.HIGH_SCHOOL,
   ): Prisma.LearnerCreateInput {
-    const style = this.learningStyle(learningStyleQA);
+    const style = learningStyleQA ? this.learningStyle(learningStyleQA) : {activeReflective: 0, sensitiveIntuitive: 0, visualVerbal: 0, globalSequential: 0};
 
     return {
       activeReflective: style.activeReflective,

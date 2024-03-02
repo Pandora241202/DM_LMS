@@ -1,5 +1,6 @@
 import { AccountType, BackgroundKnowledgeType, GenderType, Prisma, QualificationType } from '@prisma/client';
-import { IsArray, IsDate, IsEmail, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsDate, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { timeEpoch } from 'src/shared/date.helper';
 
 export class UserCreateREQ {
   @IsNotEmpty()
@@ -13,8 +14,8 @@ export class UserCreateREQ {
   @IsEnum(GenderType)
   gender: GenderType;
 
-  @IsDate()
-  birth: Date;
+  @IsString()
+  birth: string;
 
   @IsNotEmpty()
   @IsString()
@@ -35,12 +36,15 @@ export class UserCreateREQ {
   @IsEnum(AccountType)
   accountType: AccountType;
 
+  @IsOptional()
   @IsArray()
   learningStyleQA: string[];
 
+  @IsOptional()
   @IsEnum(BackgroundKnowledgeType)
   backgroundKnowledge: BackgroundKnowledgeType;
 
+  @IsOptional()
   @IsEnum(QualificationType)
   qualification: QualificationType;
 
@@ -48,7 +52,7 @@ export class UserCreateREQ {
     return {
       email: body.email,
       name: body.name,
-      birth: body.birth.valueOf(),
+      birth: timeEpoch(body.birth),
       gender: body.gender ? body.gender : GenderType.UNKNOWN,
       language: body.language,
       lastLogin: new Date().valueOf(),

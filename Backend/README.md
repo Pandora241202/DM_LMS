@@ -34,6 +34,7 @@ $ npm run test:cov
 ```bash
 $ npm install typescript ts-node @types/node --save-dev
 $ npm install prisma --save-dev
+$ npm install @prisma/client
 
 # $ yarn prisma:generate
 
