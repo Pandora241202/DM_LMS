@@ -1,5 +1,5 @@
 import { Prisma, Forum } from '@prisma/client';
-import { ArrayNotEmpty, IsNumber, IsNotEmpty, IsString } from 'class-validator';
+import { ArrayNotEmpty, IsNumber, IsNotEmpty, IsString,  } from 'class-validator';
 import { DatetimeService } from 'src/service/datetime/datetime.service';
 
 class ForumCreateRequestDto {
@@ -24,36 +24,58 @@ class ForumCreateRequestDto {
 
   @IsNotEmpty()
   @IsNumber()
-  learnerId: number;
+  userId: number;
 
+  // Map from dto request to entity create input
   static toCreateInput(data: ForumCreateRequestDto): Prisma.ForumUncheckedCreateInput {
     return {
-      title: data.title,
-      label: data.label,
-      shortDescription: data.shortDescription,
-      content: data.content,
-      coverImage: data.coverImage,
-      learnerId: data.learnerId,
+      ...data
     };
   }
 }
 
-class ForumCreateResponseDto {
+class ForumUpdateRequestDto {
+
+  @IsString()
+  title?: string;
+
+  @IsString({ each: true })
+  label?: string[];
+
+  @IsString()
+  shortDescription?: string;
+
+  @IsString()
+  content?: string;
+
+  @IsString()
+  coverImage?: string;
+
+  // Map from dto request to entity update input
+  static toUpdateInput(data: ForumUpdateRequestDto): Prisma.ForumUncheckedUpdateInput {
+    return {
+      ...data,
+      updated_at: new Date(),
+    };
+  }
+}
+
+class ForumResponseDto {
+
+  id: number;
   title: string;
   label: string[];
   shortDescription: string;
   content: string;
+  userId: number;
   coverImage: string;
   updated_at: string;
   created_at: string;
 
-  static fromCreateOutput(data: Forum): ForumCreateResponseDto {
+  // Map from Forum entity to dto
+  static fromForum(data: Forum): ForumResponseDto {
     return {
-      title: data.title,
-      label: data.label,
-      shortDescription: data.shortDescription,
-      content: data.content,
-      coverImage: data.coverImage,
+      ...data,
       updated_at: DatetimeService.formatVNTime(data.updated_at),
       created_at: DatetimeService.formatVNTime(data.created_at),
     };
@@ -61,6 +83,7 @@ class ForumCreateResponseDto {
 }
 
 export {
-  ForumCreateResponseDto,
+  ForumResponseDto,
   ForumCreateRequestDto,
+  ForumUpdateRequestDto,
 }
