@@ -8,9 +8,10 @@
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:system-ontology="http://www.semanticweb.org/thuha/ontologies/system-ontology#">
     <owl:Ontology rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology"/>    
+    
+    
 
 
-
-
+    
 </rdf:RDF>
 

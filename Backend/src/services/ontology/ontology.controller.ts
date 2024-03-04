@@ -1,12 +1,17 @@
-import { Controller, Get } from "@nestjs/common";
-import { OntologyService } from "./ontology.service";
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { SystemOntology } from './ontology.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { TopicCreateREQ } from 'src/domains/topic/request/topic-create.request';
 
-@Controller('/ontology')
+@Controller('ontology')
 export class OntologyController {
-    constructor(private readonly ontologyService: OntologyService){}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly systemOntology: SystemOntology,
+  ) {}
 
-    @Get()
-    async getOntologies() {
-        return this.ontologyService.addOnto();
-    }
+  @Get()
+  async getOntologies() {
+    return this.systemOntology.showRDF();
+  }
 }

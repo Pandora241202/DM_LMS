@@ -37,18 +37,24 @@ export class UserCreateREQ {
   accountType: AccountType;
 
   @IsOptional()
+  @IsBoolean()
+  priorTest: boolean = false;
+
+  @IsOptional()
   @IsArray()
-  learningStyleQA: string[];
+  learningStyleQA: string[] = null;
 
   @IsOptional()
   @IsEnum(BackgroundKnowledgeType)
-  backgroundKnowledge: BackgroundKnowledgeType;
+  backgroundKnowledge: BackgroundKnowledgeType = BackgroundKnowledgeType.BASIC;
 
   @IsOptional()
   @IsEnum(QualificationType)
-  qualification: QualificationType;
+  qualification: QualificationType = QualificationType.HIGH_SCHOOL;
 
   static toCreateInput(body: UserCreateREQ): Prisma.AuthenticatedUserCreateInput {
+    if (body.learningStyleQA) body.priorTest = true;
+
     return {
       email: body.email,
       name: body.name,

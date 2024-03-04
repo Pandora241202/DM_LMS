@@ -105,7 +105,22 @@ model Topic {
   Lesson           Lesson[]
   LearningMaterial LearningMaterial[]
 
+  StartLink TopicLink[] @relation("start_link")
+  EndLink   TopicLink[] @relation("end_link")
+
   @@map("topics")
+}
+
+model TopicLink {
+  id    Int     @id @default(autoincrement())
+  state Boolean @default(true)
+
+  start   Topic @relation("start_link", fields: [startId], references: [id])
+  startId Int
+  end     Topic @relation("end_link", fields: [endId], references: [id])
+  endId   Int
+
+  @@map("topic_link")
 }
 
 model Exercise {

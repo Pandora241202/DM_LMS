@@ -1,18 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { readFile, readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import { fromFile } from 'rdf-utils-fs';
 
 @Injectable()
-export class OntologyService {
-  private learners;
-  private lms;
-  private log;
+class Ontology {
+  private filePath: string;
+  private rdf: any;
+  constructor(type: string) {
+    this.filePath = `./src/services/ontology/rdf/${type}-onto.rdf`;
+    this.rdf = fromFile(this.filePath);
+  }
 
-  constructor(public readonly prismaService: PrismaService) {}
+  addNode(nodeInput: string, type: 'system' | 'topic') {
+    let onto = readFileSync(join(process.cwd(), this.filePath), 'utf-8');
+    const index = onto.length - 16; // index of inser to file .rdf
+    const ontoWrite = onto.substring(0, index) + nodeInput + onto.substring(index);
+    writeFileSync(this.filePath, ontoWrite, { flag: 'w' });
+  }
 
-  createLearnerInfo(newLearner: any) {
-    let learner = `
+  showRDF(){
+    return this.rdf
+  }
+}
+
+export class SystemOntology extends Ontology {
+  constructor(public readonly prismaService: PrismaService) {
+    super('system');
+  }
+
+  addLearner(newLearner: any) {
+    const learner = `
       <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner${'-' + newLearner['learnerID']}">
           <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
           <system-ontology:learnerID>${newLearner['learnerID']}</system-ontology:learnerID>
@@ -30,11 +49,11 @@ export class OntologyService {
 
 
       `;
-    return learner;
+    this.addNode(learner, 'system');
   }
 
-  createLMSInfo(newLMS: any) {
-    let learning_material = `
+  addLMS(newLMS: any) {
+    const learning_material = `
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material${'-' + newLMS['lmID'].replace(' ', '_')}">
         <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
         <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">${newLMS['difficulty']}</system-ontology:difficulty>
@@ -49,11 +68,11 @@ export class OntologyService {
 
     `;
 
-    return learning_material;
+    this.addNode(learning_material, 'system');
   }
 
-  createLogInfo(newLog: any) {
-    let log = `
+  addLog(newLog: any) {
+    const log = `
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log${'-' + newLog['learnerID'] + '-' + newLog['lmID'].replace(' ', '_')}">
         <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
         <system-ontology:learnerID>${newLog['learnerID']}</system-ontology:learnerID>
@@ -66,13 +85,59 @@ export class OntologyService {
     
 
     `;
-    return log;
+    this.addNode(log, 'system');
   }
 
-  addOnto(newLearner: string = "", newLMS: string = "", newLog: string = "") {
-    let onto = readFileSync(join(process.cwd(), './src/services/ontology/rdf/system-onto.rdf'), 'utf-8');
-    const index = onto.length - 16 // index of inser to file system-onto.rdf
-    const ontoWrite = onto.substring(0, index) + newLearner + newLMS + newLog + onto.substring(index)
-    writeFileSync('./src/services/ontology/rdf/system.rdf', ontoWrite, {flag: 'w'});
+  sparqlSystem() {
+    // load onto from file
+    const rdf = fromFile();
+
+    const sparql_query = `
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX onto: <http://www.semanticweb.org/thuha/ontologies/system-ontology#>
+        BASE <http://www.semanticweb.org/thuha/ontologies/system-ontology/>
+        SELECT *
+        WHERE
+        {{
+            ?lm onto:topic "{topicID}".
+            ?lm onto:lmID ?lmID.
+            ?lm onto:material_ratings ?rating.
+            ?lm onto:score ?maxScore.
+            ?lm onto:time ?maxTime.
+            ?lm onto:difficulty ?difficulty.
+        }}
+    `;
+    // g = rdflib.Graph()
+    // g.parse("rdf/system-onto.rdf")
+
+    // lms = []
+    // for row in qres:
+    //     lms += [(int(row["rating"].value), 0, row["lmID"].value)]
+
+    // return lms
   }
+}
+
+export class TopicOntology extends Ontology {
+  addTopic(newTopic: any) {
+    const topic = '';
+    // const topic = `
+    // <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic${row[0]}">
+    //     <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
+    //     <topic-onto:topicID>topic${row[0]}</topic-onto:topicID>`
+
+    // if (row[3] != ""){
+    //   for (const target of row[3].split(','))
+    //       topic += `\n\t\t<topic-onto:link>topic{target}</topic-onto:link>`
+
+    //   topic += "\n\t</owl:NamedIndividual>\n"
+    // }
+    this.addNode(topic, 'topic');
+  }
+
+  sparqlTopic() {}
 }

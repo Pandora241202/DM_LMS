@@ -30,6 +30,8 @@
     "dotenv-cli": "^7.3.0",
     "dotenv-expand": "^11.0.6",
     "eslint-plugin-nestjs": "^1.2.3",
+    "rdf-utils-fs": "^3.0.0",
+    "rdflib": "^2.2.34-1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "validator.ts": "^0.2.2"
