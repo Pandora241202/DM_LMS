@@ -195,7 +195,12 @@ model LearningPath {
 model Forum {
   id    Int            @id @default(autoincrement())
   title String
-  label LabelOfForum[]
+  label String[]
+  shortDescription String
+  content String
+  coverImage String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 
   learner   Learner @relation(fields: [learnerId], references: [id])
   learnerId Int
@@ -286,12 +291,6 @@ enum LearningMaterialType {
   PDF
   VIDEO
   QUIZZ
-}
-
-enum LabelOfForum {
-  DATASET
-  PYTHON
-  MODEL
 }
 
 enum AccountType {

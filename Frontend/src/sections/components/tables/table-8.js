@@ -46,7 +46,13 @@ const countries = [
     name: 'Germany',
     seo: 45,
     visits: 2932
-  }
+  },
+  {
+    flag: '/assets/flags/flag-vn.svg',
+    name: 'Vietnam',
+    seo: 65,
+    visits: 10360
+  },
 ];
 
 export const Table8 = () => (

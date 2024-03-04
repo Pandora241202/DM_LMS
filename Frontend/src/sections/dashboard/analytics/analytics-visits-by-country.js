@@ -28,7 +28,8 @@ const flagMap = {
   es: '/assets/flags/flag-es.svg',
   ru: '/assets/flags/flag-ru.svg',
   uk: '/assets/flags/flag-uk.svg',
-  us: '/assets/flags/flag-us.svg'
+  us: '/assets/flags/flag-us.svg',
+  vn: '/assets/flags/flag-vn.svg'
 };
 
 export const AnalyticsVisitsByCountry = (props) => {
