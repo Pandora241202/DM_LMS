@@ -19,6 +19,7 @@ model AuthenticatedUser {
   state       Boolean
   accountType AccountType
 
+  Forum    Forum[]
   Statement  Statement[]
   Dataset    Dataset[]
   Model      Model[]
@@ -41,7 +42,6 @@ model Learner {
   qualification       String
 
   Practice Practice[]
-  Forum    Forum[]
 
   @@map("learners")
 }
@@ -165,13 +165,15 @@ model LearningPath {
 model Forum {
   id    Int            @id @default(autoincrement())
   title String
-  label String
+  label String[]
   shortDescription String
   content String
   coverImage String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 
-  learner   Learner @relation(fields: [learnerId], references: [id])
-  learnerId Int
+  authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
+  userId Int
 
   Statement Statement[]
 
