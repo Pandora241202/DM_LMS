@@ -182,6 +182,8 @@ model Forum {
 
 model Statement {
   id Int @id @default(autoincrement())
+  content String
+  updated_at DateTime @default(now())
 
   forum   Forum @relation(fields: [forumId], references: [id])
   forumId Int
@@ -189,9 +191,9 @@ model Statement {
   authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
   authenticatedUserId Int
 
-  preStatement Statement   @relation("pre_order", fields: [statementId], references: [id])
+  preStatement Statement?   @relation("pre_order", fields: [statementId], references: [id])
   Statement    Statement[] @relation("pre_order")
-  statementId  Int
+  statementId  Int?
 
   @@map("statements")
 }
