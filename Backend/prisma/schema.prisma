@@ -22,6 +22,7 @@ model AuthenticatedUser {
   state       Boolean     @default(true)
   accountType AccountType
 
+  Forum    Forum[]
   Statement  Statement[]
   Dataset    Dataset[]
   Model      Model[]
@@ -49,7 +50,6 @@ model Learner {
   learningPathId Int?
 
   Practice Practice[]
-  Forum    Forum[]
 
   log LearnerLog[]
 
@@ -202,8 +202,8 @@ model Forum {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
-  learner   Learner @relation(fields: [learnerId], references: [id])
-  learnerId Int
+  authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
+  userId Int
 
   Statement Statement[]
 
