@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useState } from 'react'; // Import useState hook
 import { addDays, subDays, subHours, subMinutes } from 'date-fns';
 import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
 import {
@@ -25,11 +26,23 @@ import { OverviewJobs } from '../../../sections/dashboard/overview/overview-jobs
 import { OverviewOpenTickets } from '../../../sections/dashboard/overview/overview-open-tickets';
 import { OverviewTips } from '../../../sections/dashboard/overview/overview-tips';
 import { LearningObject } from '../../../sections/dashboard/overview/learning-object';
-
+import { Learning_Path_List } from '../../../sections/dashboard/overview/learning-path-list';
 const now = new Date();
 
 const Page = () => {
   const settings = useSettings();
+  const [page, setPage] = useState(1); // State to manage current page
+  const tasksPerPage = 10; // Number of tasks per page
+
+  usePageView();
+
+  const handleNextPage = () => {
+    setPage(page + 1);
+  };
+
+  const handlePrevPage = () => {
+    setPage(page - 1);
+  };
 
   usePageView();
 
@@ -90,7 +103,7 @@ const Page = () => {
               xs={12}
               md={4}
             >
-              <LearningObject amount={31} />
+              <OverviewDoneTasks amount={31} />
             </Grid>
             <Grid
               xs={12}
@@ -104,33 +117,27 @@ const Page = () => {
             >
               <OverviewOpenTickets amount={5} />
             </Grid>
-            <Grid
-              xs={12}
-              md={7}
-            >
-              <OverviewBanner />
-            </Grid>
-            <Grid
-              xs={12}
-              md={5}
-            >
-              <OverviewTips
-                sx={{ height: '100%' }}
-                tips={[
-                  {
-                    title: 'New fresh design.',
-                    content: 'Your favorite template has a new trendy look, more customization options, screens & more.'
-                  },
-                  {
-                    title: 'Tip 2.',
-                    content: 'Tip content'
-                  },
-                  {
-                    title: 'Tip 3.',
-                    content: 'Tip content'
-                  }
-                ]}
-              />
+            {/* Render Learning Path Lisi */}
+            <Learning_Path_List page={page} />
+            {/* Pagination controls */}
+            <Grid xs={12}>
+              <Box mt={4}
+                display="flex"
+                justifyContent="center"
+              >
+                <Button
+                  disabled={page === 0}
+                  onClick={handlePrevPage}
+                >
+                  Previous Page
+                </Button>
+                <Button
+                  disabled={page * tasksPerPage >= 100}
+                  onClick={handleNextPage}
+                >
+                  Next Page
+                </Button>
+              </Box>
             </Grid>
           </Grid>
         </Container>
