@@ -20,7 +20,7 @@ class ForumCreateRequestDto {
   content: string;
 
   @IsString()
-  coverImage: string;
+  coverImage?: string;
 
   @IsNotEmpty()
   @IsNumber()

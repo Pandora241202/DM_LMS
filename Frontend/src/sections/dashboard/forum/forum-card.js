@@ -19,11 +19,12 @@ export const ForumCard = (props) => {
   const {
     authorAvatar,
     authorName,
-    category,
+    labels,
     cover,
     publishedAt,
     readTime,
     shortDescription,
+    rating,
     title,
     ...other
   } = props;
@@ -40,7 +41,7 @@ export const ForumCard = (props) => {
       />
       <CardContent>
         <Box sx={{ mb: 2 }}>
-          <Chip label={category} />
+          {labels.map((label, index) => <Chip key={index} label={label} sx={{mr: 1, mb: 1}} />)}
         </Box>
         <Link
           color="text.primary"
