@@ -1,18 +1,17 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useRef } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import NextLink from 'next/link';
-import DotsHorizontalIcon from '@untitled-ui/icons-react/build/esm/DotsHorizontal';
 import {
   Box,
   Breadcrumbs,
   Button,
   Card,
+  Chip,
   CardContent,
   Container,
-  IconButton,
   Link,
   Stack,
-  SvgIcon,
   TextField,
   Typography,
   Unstable_Grid2 as Grid
@@ -24,13 +23,24 @@ import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
 import { fileToBase64 } from '../../../utils/file-to-base64';
+import { forumApi } from '../../../api/forum';
 
 const initialCover = '/assets/covers/abstract-1-4x3-large.png';
+const userId = 2;
 
 const Page = () => {
   const [cover, setCover] = useState(initialCover);
+  const [labels, setLabels] = useState([]);
+  const [title, setTitle] = useState('');
+  const [shortDescription, setShortDescription] = useState('');
+  const [content, setContent] = useState('');
 
   usePageView();
+
+  const titleRef = useRef();
+  const labelsRef = useRef();
+
+  const router = useRouter();
 
   const handleCoverDrop = useCallback(async ([file]) => {
     const data = await fileToBase64(file);
@@ -40,6 +50,30 @@ const Page = () => {
   const handleCoverRemove = useCallback(() => {
     setCover(null);
   }, []);
+
+  const handleSubmitButton = useCallback(() => {
+    if (title == '') {
+      titleRef.current.focus();
+    } else if (labels.length == 0) {
+      labelsRef.current.focus();
+    } else if (content !== '' && content !== '<p><br></p>') {
+      forumApi.postForum({
+        "title": title,
+        "label": labels,
+        "shortDescription": shortDescription,
+        "content": content.slice(3, -4),
+        "coverImage": cover,
+        "userId": userId
+      })
+        .then((response) => {
+          console.log(response);
+          router.push(paths.dashboard.forum.forumDetails);
+        })
+        .catch(error => {
+          console.error('Error posting data:', error);
+        })
+    }
+  }, [title, cover, labels, shortDescription, content]);
 
   return (
     <>
@@ -109,10 +143,18 @@ const Page = () => {
                         fullWidth
                         label="Tiêu đề"
                         name="title"
+                        required
+                        inputRef={titleRef}
+                        value={title}
+                        onChange={e => {
+                          setTitle(e.target.value);
+                        }}
                       />
                       <TextField
                         fullWidth
                         label="Mô tả ngắn"
+                        value={shortDescription}
+                        onChange={e => setShortDescription(e.target.value)}
                       />
                     </Stack>
                   </Grid>
@@ -215,7 +257,7 @@ const Page = () => {
                     md={4}
                   >
                     <Typography variant="h6">
-                      Nội dung
+                      Nội dung *
                     </Typography>
                   </Grid>
                   <Grid
@@ -223,8 +265,10 @@ const Page = () => {
                     md={8}
                   >
                     <QuillEditor
-                      placeholder="Viết nội dung"
+                      placeholder="Nội dung"
                       sx={{ height: 330 }}
+                      value={content}
+                      onChange={value => setContent(value)}
                     />
                   </Grid>
                 </Grid>
@@ -241,23 +285,35 @@ const Page = () => {
                     md={4}
                   >
                     <Typography variant="h6">
-                      Meta
+                      Nhãn *
                     </Typography>
                   </Grid>
                   <Grid
                     xs={12}
                     lg={8}
                   >
-                    <Stack spacing={3}>
+                    <Stack >
                       <TextField
                         fullWidth
-                        label="Thẻ tiêu đề"
-                        name="title"
+                        label="Thêm nhãn"
+                        name="labels"
+                        inputRef={labelsRef}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            if (e.target.value !== '') {
+                              setLabels([...labels,e.target.value]);
+                            }
+                            e.target.value = '';
+                            e.preventDefault();
+                          }}
+                        }
                       />
-                      <TextField
-                        fullWidth
-                        label="Mô tả thẻ tiêu đề"
-                      />
+                      <Typography sx={{ mt: 1, mb: 3, fontStyle: 'italic', fontSize: 13 }}>
+                        Nhấn "Enter" để thêm nhãn. Ít nhất 1 nhãn
+                      </Typography>
+                      <Box >
+                        {labels.map((label,index) => <Chip key={index} label={label} sx={{mr: 1, mb: 1}} />)}
+                      </Box>
                     </Stack>
                   </Grid>
                 </Grid>
@@ -277,8 +333,8 @@ const Page = () => {
               py: 2
             }}
           >
-            <Typography variant="subtitle1">
-              
+            <Typography sx={{ color: 'red', fontSize: 17, fontWeight: '500', fontStyle: 'italic' }}>
+              {(content == '' || content == '<p><br></p>') && "Thiếu nội dung!"}
             </Typography>
             <Stack
               alignItems="center"
@@ -288,40 +344,31 @@ const Page = () => {
               <Button
                 color="inherit"
                 component={NextLink}
-                href={paths.dashboard.blog.index}
+                href={paths.dashboard.forum.index}
               >
                 Hủy
               </Button>
-              <Button
+              {/*<Button
                 component={NextLink}
+                onClick={handleSubmitButton}
                 href={paths.dashboard.blog.postDetails}
                 variant="contained"
               >
                 Đăng bài
+              </Button>*/}
+              <Button
+                onClick={handleSubmitButton}
+                variant="contained"
+              >
+                Đăng bài
               </Button>
-              <IconButton>
+              {/*<IconButton>
                 <SvgIcon>
                   <DotsHorizontalIcon />
                 </SvgIcon>
-              </IconButton>
+              </IconButton>*/}
             </Stack>
           </Card>
-          <Box
-            sx={{
-              display: {
-                sm: 'none'
-              },
-              mt: 2
-            }}
-          >
-            <Button
-              component={NextLink}
-              href={paths.dashboard.forum.forumDetails}
-              variant="contained"
-            >
-              Đăng bài
-            </Button>
-          </Box>
         </Container>
       </Box>
     </>

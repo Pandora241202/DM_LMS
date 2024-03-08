@@ -2,6 +2,8 @@ import { deepCopy } from '../../utils/deep-copy';
 import { forumDetail, forums } from './data';
 import axios from 'axios';
 
+const apiUrl = 'http://localhost:8080/forum';
+
 class ForumApi {
   getForums(request) {
     /*return axios.get(
@@ -12,6 +14,10 @@ class ForumApi {
 
   getForumDetail(request) {
     return Promise.resolve(deepCopy(forumDetail));
+  }
+
+  postForum(request) {
+    return axios.post(apiUrl, request)
   }
 }
 

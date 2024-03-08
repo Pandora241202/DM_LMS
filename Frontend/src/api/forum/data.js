@@ -9,7 +9,7 @@ export const forums = [
       avatar: '/assets/avatars/avatar-jie-yan-song.png',
       name: 'Jie Yan Song'
     },
-    category: 'Programming',
+    labels: ['Programming', 'Sleeping'],
     cover: '/assets/covers/business-2-4x4-large.png',
     publishedAt: subMinutes(subSeconds(now, 16), 45).getTime(),
     readTime: '5',
@@ -22,7 +22,7 @@ export const forums = [
       avatar: '/assets/avatars/avatar-omar-darboe.png',
       name: 'Omar Darobe'
     },
-    category: 'Productivity',
+    labels: ['Productivity'],
     cover: '/assets/covers/abstract-2-4x4-large.png',
     publishedAt: subHours(subMinutes(subSeconds(now, 29), 51), 6).getTime(),
     readTime: '6',
@@ -35,7 +35,7 @@ export const forums = [
       avatar: '/assets/avatars/avatar-siegbert-gottfried.png',
       name: 'Siegbert Gottfried'
     },
-    category: 'Entrepreneurs',
+    labels: ['Entrepreneurs'],
     cover: '/assets/covers/minimal-2-4x4-large.png',
     publishedAt: subHours(subMinutes(subSeconds(now, 6), 46), 16).getTime(),
     readTime: '3',
@@ -48,7 +48,7 @@ export const forums = [
       avatar: '/assets/avatars/avatar-iulia-albu.png',
       name: 'Iulia Albu'
     },
-    category: 'Innovation',
+    labels: ['Innovation'],
     cover: '/assets/covers/minimal-1-4x4-large.png',
     publishedAt: subDays(subHours(subMinutes(subSeconds(now, 52), 39), 7), 5).getTime(),
     readTime: '1',
@@ -63,7 +63,7 @@ export const forumDetail = {
     avatar: '/assets/avatars/avatar-jie-yan-song.png',
     name: 'Jie Yan Song'
   },
-  category: 'Programming',
+  labels: ['Programming'],
   content: `
 ## Cras at molestie lacus. Phasellus feugiat leo quis sem iaculis, sed mattis nibh accumsan.
 

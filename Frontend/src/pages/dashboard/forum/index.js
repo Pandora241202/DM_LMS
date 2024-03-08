@@ -173,7 +173,7 @@ const Page = () => {
                 <ForumCard
                   authorAvatar={forum.author.avatar}
                   authorName={forum.author.name}
-                  category={forum.category}
+                  labels={forum.labels}
                   cover={forum.cover}
                   publishedAt={forum.publishedAt}
                   readTime={forum.readTime}
