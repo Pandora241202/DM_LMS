@@ -1,11 +1,20 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
-import os
+from urllib.parse import urlparse, parse_qs
+from ontology import SpraqlLM, SpraqlTopic
 import json
 
 pythonServer = Path(__file__).resolve().parent
 systemOntology = pythonServer / 'ontology'
 
+class LearningStyle:
+    def __init__(self, query):
+        self.qualification = query['qualification'][0]
+        self.backgroundKnowledge = query['backgroundKnowledge'][0]
+        self.active_reflective = query['active_reflective'][0]
+        self.visual_verbal = query['visual_verbal'][0]
+        self.global_sequential = query['global_sequential'][0]
+        self.sensitive_intuitive = query['sensitive_intuitive'][0]
 class OntologyHandler(BaseHTTPRequestHandler):
     def send_reponse(self, status, type, response):
         self.send_response(status)
@@ -14,16 +23,24 @@ class OntologyHandler(BaseHTTPRequestHandler):
         self.wfile.write(response)
         
     def do_GET(self):
-        json_path = systemOntology / 'json' / 'paths.json'
-        try:
-            with open(json_path, 'r') as json_file:
-                paths = json.load(json_file)
-            json_string = json.dumps(paths)
-            
-            self.send_reponse(200, 'application/json', json_string.encode('utf-8'))
-        except FileNotFoundError:            
-            print(json_path)
-            self.send_reponse(404, 'text/html', b'File not found')
+        if self.path == '/spraql-topic':
+            json_path = systemOntology / 'json' / 'paths.json'
+            try:
+                with open(json_path, 'r') as json_file:
+                    paths = json.load(json_file)
+                json_string = json.dumps(paths)
+                
+                self.send_reponse(200, 'application/json', json_string.encode('utf-8'))
+            except FileNotFoundError:            
+                self.send_reponse(404, 'text/html', b'File not found')
+        elif '/spraql-lm' in self.path:
+            query = parse_qs(urlparse(self.path).query)
+            learningSytle = LearningStyle(query)
+            paths = SpraqlLM().spraql_lm(learningSytle)
+            self.send_reponse(200, 'application/json', b'SPRAQL LM')
+        else:
+            print(self.path)
+            self.send_reponse(404, 'text/html', b'Not found')
 
 def main():
     PORT = 8181

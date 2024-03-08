@@ -106,7 +106,7 @@
 //         }}
 //     `;
 //     // g = rdflib.Graph()
-//     // g.parse("rdf/system-onto.rdf")
+//     // g.parse(os.getcwd() + "/ontology/rdf/system-onto.rdf")
 
 //     // lms = []
 //     // for row in qres:

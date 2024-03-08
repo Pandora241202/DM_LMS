@@ -1,8 +1,9 @@
 import rdflib
 import json
+import os
 
 g = rdflib.Graph()
-g.parse("rdf/system-onto.rdf")
+g.parse(os.getcwd() + "/ontology/rdf/system-onto.rdf")
 
 sparql_query = f"""
     PREFIX owl: <http://www.w3.org/2002/07/owl#>

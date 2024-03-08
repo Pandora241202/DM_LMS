@@ -1,4 +1,5 @@
 import csv
+import os
 
 topics = ""
 with open('data/topic.csv', newline='') as csvfile:
@@ -21,7 +22,7 @@ with open('data/topic.csv', newline='') as csvfile:
         topics += topic
 
 if __name__ == "__main__":
-    file_path = "rdf/topic-onto.rdf"
+    file_path = os.getcwd() + "/ontology/rdf/topic-onto.rdf"
 
     with open(file_path, 'r') as file:
         content = file.read()
