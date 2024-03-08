@@ -3,7 +3,6 @@ import { IsNumber, IsNotEmpty, IsString } from 'class-validator';
 import { DatetimeService } from 'src/services/datetime/datetime.service';
 
 class StatementCreateRequestDto {
-
   @IsNumber()
   statementId?: number;
 
@@ -22,13 +21,12 @@ class StatementCreateRequestDto {
   // Map from dto request to entity create input
   static toCreateInput(data: StatementCreateRequestDto): Prisma.StatementUncheckedCreateInput {
     return {
-      ...data
+      ...data,
     };
   }
 }
 
 class StatementUpdateRequestDto {
-
   @IsString()
   content: string;
 
@@ -42,7 +40,6 @@ class StatementUpdateRequestDto {
 }
 
 class StatementResponseDto {
-
   id: number;
   content: string;
   updated_at: string;
@@ -59,8 +56,4 @@ class StatementResponseDto {
   }
 }
 
-export {
-  StatementResponseDto,
-  StatementCreateRequestDto,
-  StatementUpdateRequestDto,
-}
+export { StatementResponseDto, StatementCreateRequestDto, StatementUpdateRequestDto };

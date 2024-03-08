@@ -7,42 +7,42 @@ import * as StatementDto from './dto/statement.dto';
 
 @Controller('forum')
 export class ForumController {
-  constructor(private readonly forumService: ForumService, private readonly statementService: StatementService) {}
+  constructor(
+    private readonly forumService: ForumService,
+    private readonly statementService: StatementService,
+  ) {}
 
   @Post()
   async create(@Body() body: ForumDto.ForumCreateRequestDto) {
     try {
       const result = await this.forumService.create(ForumDto.ForumCreateRequestDto.toCreateInput(body));
       return JSON.stringify(ForumDto.ForumResponseDto.fromForum(result));
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       throw error;
-    }    
+    }
   }
 
   @Get()
   async getAll() {
     try {
       const result = await this.forumService.getAll();
-      return JSON.stringify(result.map(f => ForumDto.ForumResponseDto.fromForum({...f, content: ''})));
-    }
-    catch (error) {
+      return JSON.stringify(result.map((f) => ForumDto.ForumResponseDto.fromForum({ ...f, content: '' })));
+    } catch (error) {
       console.log(error);
       throw error;
-    }    
+    }
   }
 
   @Get('user/:userId')
   async getAllUserOwned(@Param('userId', ParseIntPipe) userId: number) {
     try {
       const result = await this.forumService.getAllOwned(userId);
-      return JSON.stringify(result.map(f => ForumDto.ForumResponseDto.fromForum({...f, content: ''})));
-    }
-    catch (error) {
+      return JSON.stringify(result.map((f) => ForumDto.ForumResponseDto.fromForum({ ...f, content: '' })));
+    } catch (error) {
       console.log(error);
       throw error;
-    }    
+    }
   }
 
   @Get(':id')
@@ -53,11 +53,10 @@ export class ForumController {
         throw new NotFoundException(`Forum with id ${id} not found`);
       }
       return JSON.stringify(ForumDto.ForumResponseDto.fromForum(result));
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       throw error;
-    }    
+    }
   }
 
   @Put(':id')
@@ -68,11 +67,10 @@ export class ForumController {
         throw new NotFoundException(`Forum with id ${id} not found`);
       }
       return JSON.stringify(ForumDto.ForumResponseDto.fromForum(result));
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       throw error;
-    }    
+    }
   }
 
   @Post('comment')
@@ -90,11 +88,10 @@ export class ForumController {
 
       const result = await this.statementService.create(StatementDto.StatementCreateRequestDto.toCreateInput(body));
       return JSON.stringify(StatementDto.StatementResponseDto.fromForum(result));
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       throw error;
-    }    
+    }
   }
 
   @Get(':forumId/comment')
@@ -107,12 +104,11 @@ export class ForumController {
       }
 
       const result = await this.statementService.getAllInForum(forumId);
-      return JSON.stringify(result.map(c => StatementDto.StatementResponseDto.fromForum(c)));
-    }
-    catch (error) {
+      return JSON.stringify(result.map((c) => StatementDto.StatementResponseDto.fromForum(c)));
+    } catch (error) {
       console.log(error);
       throw error;
-    }    
+    }
   }
 
   @Put('comment/:id')
@@ -123,10 +119,9 @@ export class ForumController {
         throw new NotFoundException(`Statement with id ${id} not found`);
       }
       return JSON.stringify(StatementDto.StatementResponseDto.fromForum(result));
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       throw error;
-    }    
+    }
   }
 }

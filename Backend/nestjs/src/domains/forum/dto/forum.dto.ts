@@ -1,9 +1,8 @@
 import { Prisma, Forum } from '@prisma/client';
-import { ArrayNotEmpty, IsNumber, IsNotEmpty, IsString,  } from 'class-validator';
+import { ArrayNotEmpty, IsNumber, IsNotEmpty, IsString } from 'class-validator';
 import { DatetimeService } from 'src/services/datetime/datetime.service';
 
 class ForumCreateRequestDto {
-
   @IsNotEmpty()
   @IsString()
   title: string;
@@ -29,13 +28,12 @@ class ForumCreateRequestDto {
   // Map from dto request to entity create input
   static toCreateInput(data: ForumCreateRequestDto): Prisma.ForumUncheckedCreateInput {
     return {
-      ...data
+      ...data,
     };
   }
 }
 
 class ForumUpdateRequestDto {
-
   @IsString()
   title?: string;
 
@@ -61,7 +59,6 @@ class ForumUpdateRequestDto {
 }
 
 class ForumResponseDto {
-
   id: number;
   title: string;
   label: string[];
@@ -82,8 +79,4 @@ class ForumResponseDto {
   }
 }
 
-export {
-  ForumResponseDto,
-  ForumCreateRequestDto,
-  ForumUpdateRequestDto,
-}
+export { ForumResponseDto, ForumCreateRequestDto, ForumUpdateRequestDto };

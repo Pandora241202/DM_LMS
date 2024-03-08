@@ -3,14 +3,10 @@ import { PrismaService } from 'src/services/prisma/prisma.service';
 import { UserCreateREQ } from './request/user-create.request';
 import { AccountType } from '@prisma/client';
 import { UserLearnerDTO } from './dto/user-learner.dto';
-import { SystemOntology } from 'src/services/ontology/ontology.service';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private readonly prismaService: PrismaService,
-    private readonly ontologyService: SystemOntology,
-  ) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   async create(body: UserCreateREQ) {
     const user = await this.prismaService.authenticatedUser.create({

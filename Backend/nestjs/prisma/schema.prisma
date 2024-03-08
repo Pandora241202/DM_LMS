@@ -22,7 +22,7 @@ model AuthenticatedUser {
   state       Boolean     @default(true)
   accountType AccountType
 
-  Forum    Forum[]
+  Forum      Forum[]
   Statement  Statement[]
   Dataset    Dataset[]
   Model      Model[]
@@ -44,7 +44,7 @@ model Learner {
   qualification       QualificationType
 
   user   AuthenticatedUser @relation(fields: [userId], references: [id])
-  userId Int
+  userId Int               @map("user_id")
 
   learningPath   LearningPath? @relation(fields: [learningPathId], references: [id])
   learningPathId Int?
@@ -116,9 +116,9 @@ model TopicLink {
   state Boolean @default(true)
 
   start   Topic @relation("start_link", fields: [startId], references: [id])
-  startId Int
+  startId Int   @map("start_id")
   end     Topic @relation("end_link", fields: [endId], references: [id])
-  endId   Int
+  endId   Int   @map("end_id")
 
   @@map("topic_link")
 }
@@ -127,7 +127,7 @@ model Exercise {
   id Int @id @default(autoincrement())
 
   learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
-  learningMaterialId Int
+  learningMaterialId Int              @map("learning_material_id")
 
   Practice Practice[]
 
@@ -140,7 +140,7 @@ model Other {
   content String
 
   learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
-  learningMaterialId Int
+  learningMaterialId Int @map("learning_material_id")
 
   @@map("others")
 }
@@ -171,10 +171,10 @@ model Practice {
   language String
 
   learner   Learner @relation(fields: [learnerId], references: [id])
-  learnerId Int
+  learnerId Int @map("learner_id")
 
   exercise   Exercise @relation(fields: [exerciseId], references: [id])
-  exerciseId Int
+  exerciseId Int @map("exercise_id")
 
   @@map("practices")
 }
@@ -208,17 +208,17 @@ model LearningPath {
 }
 
 model Forum {
-  id    Int            @id @default(autoincrement())
-  title String
-  label String[]
+  id               Int      @id @default(autoincrement())
+  title            String
+  label            String[]
   shortDescription String
-  content String
-  coverImage String?
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  content          String
+  coverImage       String?
+  created_at       DateTime @default(now())
+  updated_at       DateTime @default(now())
 
   authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
-  userId Int
+  userId            Int
 
   Statement Statement[]
 
@@ -226,8 +226,8 @@ model Forum {
 }
 
 model Statement {
-  id Int @id @default(autoincrement())
-  content String
+  id         Int      @id @default(autoincrement())
+  content    String
   updated_at DateTime @default(now())
 
   forum   Forum @relation(fields: [forumId], references: [id])
@@ -236,7 +236,7 @@ model Statement {
   authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
   authenticatedUserId Int
 
-  preStatement Statement?   @relation("pre_order", fields: [statementId], references: [id])
+  preStatement Statement?  @relation("pre_order", fields: [statementId], references: [id])
   Statement    Statement[] @relation("pre_order")
   statementId  Int?
 

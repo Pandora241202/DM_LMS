@@ -1,7 +1,8 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
-from ontology import SpraqlLM, SpraqlTopic
+from ontology import *
+from database import *
 import json
 
 pythonServer = Path(__file__).resolve().parent
@@ -38,6 +39,9 @@ class OntologyHandler(BaseHTTPRequestHandler):
             learningSytle = LearningStyle(query)
             paths = SpraqlLM().spraql_lm(learningSytle)
             self.send_reponse(200, 'application/json', b'SPRAQL LM')
+        elif '/feature-test' in self.path:
+            connectDatabase().learners()
+            self.send_reponse(200, 'text/html', b'test')
         else:
             print(self.path)
             self.send_reponse(404, 'text/html', b'Not found')

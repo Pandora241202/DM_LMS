@@ -1,17 +1,13 @@
-import { Body, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { TopicCreateREQ } from './request/topic-create.request';
-import { TopicOntology } from 'src/services/ontology/ontology.service';
 import { TopicUpdateREQ } from './request/topic-update.request';
 import { TopicLinkDeleteREQ } from './request/topic-link-delete.request';
 import { TopicDetailRESP } from './response/topic-detail.response';
 
 @Injectable()
 export class TopicService {
-  constructor(
-    private readonly prismaService: PrismaService,
-    private readonly ontologyService: TopicOntology,
-  ) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   async create(body: TopicCreateREQ) {
     await this.prismaService.topic.create({ data: TopicCreateREQ.toCreateInput(body) });
