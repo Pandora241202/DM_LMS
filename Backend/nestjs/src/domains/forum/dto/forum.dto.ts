@@ -1,6 +1,6 @@
 import { Prisma, Forum } from '@prisma/client';
 import { ArrayNotEmpty, IsNumber, IsNotEmpty, IsString,  } from 'class-validator';
-import { DatetimeService } from 'src/service/datetime/datetime.service';
+import { DatetimeService } from 'src/services/datetime/datetime.service';
 
 class ForumCreateRequestDto {
 

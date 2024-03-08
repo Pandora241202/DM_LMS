@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Get, Param, ParseIntPipe, NotFoundException, Put } from '@nestjs/common';
 import { ForumService } from './forum.service';
 import { StatementService } from './statement.service';
-import { PrismaService } from 'src/service/prisma/prisma.service';
+import { PrismaService } from 'src/services/prisma/prisma.service';
 import * as ForumDto from './dto/forum.dto';
 import * as StatementDto from './dto/statement.dto';
 
