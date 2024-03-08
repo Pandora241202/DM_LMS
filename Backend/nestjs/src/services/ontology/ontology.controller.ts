@@ -12,6 +12,6 @@ export class OntologyController {
 
   @Get()
   async getOntologies() {
-    return this.systemOntology.showRDF();
+    return await this.systemOntology.showRDF();
   }
 }

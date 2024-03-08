@@ -19,7 +19,7 @@ export class UserService {
     });
 
     if (body.accountType === AccountType.LEARNER) {
-      if (body.priorTest) this.ontologyService.addLearner(body); // add to ontology if test had done
+      // if (body.priorTest) this.ontologyService.addLearner(body); // add to ontology if test had done
       await this.prismaService.learner.create({
         data: UserLearnerDTO.toCreateInput(user.id, body.learningStyleQA, body.backgroundKnowledge, body.qualification),
       });
