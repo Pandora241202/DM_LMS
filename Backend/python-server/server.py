@@ -40,8 +40,8 @@ class OntologyHandler(BaseHTTPRequestHandler):
             paths = SpraqlLM().spraql_lm(learningSytle)
             self.send_reponse(200, 'application/json', b'SPRAQL LM')
         elif '/feature-test' in self.path:
-            connectDatabase().learners()
-            self.send_reponse(200, 'text/html', b'test')
+            json_ = connectDatabase().learners()
+            self.send_reponse(200, 'text/html', json_.encode('utf-8'))
         else:
             print(self.path)
             self.send_reponse(404, 'text/html', b'Not found')

@@ -7,8 +7,9 @@ import { OntologyModule } from './services/ontology/ontology.module';
 import { LearningModule } from './domains/learning/learning.module';
 import { TopicModule } from './domains/topic/topic.module';
 import { ForumModule } from './domains/forum/forum.module';
+import { AuthModule } from './domains/auth/auth.module';
 @Module({
-  imports: [PrismaModule, UserModule, OntologyModule, LearningModule, TopicModule, ForumModule],
+  imports: [PrismaModule, AuthModule, UserModule, OntologyModule, LearningModule, TopicModule, ForumModule],
   controllers: [AppController],
   providers: [AppService],
 })

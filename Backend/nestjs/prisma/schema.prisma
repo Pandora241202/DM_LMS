@@ -14,9 +14,7 @@ model AuthenticatedUser {
   birth       BigInt
   gender      GenderType  @default(UNKNOWN)
   language    String
-  lastLogin   BigInt      @map("last_login")
-  lastLogout  BigInt      @map("last_logout")
-  password    String
+  password    String      @db.Char(60)
   username    String
   refeshToken String?     @map("refesh_token")
   state       Boolean     @default(true)
@@ -31,6 +29,7 @@ model AuthenticatedUser {
   Permission Permission[]
   Learner    Learner[]
 
+  @@unique([username])
   @@map("authenticated_user")
 }
 
@@ -39,7 +38,7 @@ model Learner {
   activeReflective    Int                     @map("active_reflective")
   sensitiveIntuitive  Int                     @map("sensitive_intuitive")
   visualVerbal        Int                     @map("visual_verbal")
-  globalSequential    Int                     @map("global_sequence")
+  globalSequential    Int                     @map("global_sequential")
   backgroundKnowledge BackgroundKnowledgeType @map("background_knowledge")
   qualification       QualificationType
 
@@ -140,7 +139,7 @@ model Other {
   content String
 
   learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
-  learningMaterialId Int @map("learning_material_id")
+  learningMaterialId Int              @map("learning_material_id")
 
   @@map("others")
 }
@@ -171,10 +170,10 @@ model Practice {
   language String
 
   learner   Learner @relation(fields: [learnerId], references: [id])
-  learnerId Int @map("learner_id")
+  learnerId Int     @map("learner_id")
 
   exercise   Exercise @relation(fields: [exerciseId], references: [id])
-  exerciseId Int @map("exercise_id")
+  exerciseId Int      @map("exercise_id")
 
   @@map("practices")
 }

@@ -11,7 +11,6 @@ export class TopicService {
 
   async create(body: TopicCreateREQ) {
     await this.prismaService.topic.create({ data: TopicCreateREQ.toCreateInput(body) });
-    // this.ontologyService.addTopic(body);
   }
 
   async detail(id: number) {

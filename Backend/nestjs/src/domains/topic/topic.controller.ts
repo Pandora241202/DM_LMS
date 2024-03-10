@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { TopicService } from './topic.service';
 import { TopicCreateREQ } from './request/topic-create.request';
 import { TopicUpdateREQ } from './request/topic-update.request';
 import { TopicLinkDeleteREQ } from './request/topic-link-delete.request';
+import { AuthGuard } from '../auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('topics')
 export class TopicController {
   constructor(public readonly topicService: TopicService) {}
