@@ -14,10 +14,12 @@ model AuthenticatedUser {
   birth       BigInt
   gender      GenderType  @default(UNKNOWN)
   language    String
-  password    String      @db.Char(60)
+  password    String
   username    String
   refeshToken String?     @map("refesh_token")
   state       Boolean     @default(true)
+  lastLogin   BigInt      @map("last_login")
+  lastLogout  BigInt      @map("last_logout")
   accountType AccountType
 
   Forum      Forum[]
@@ -45,12 +47,10 @@ model Learner {
   user   AuthenticatedUser @relation(fields: [userId], references: [id])
   userId Int               @map("user_id")
 
-  learningPath   LearningPath? @relation(fields: [learningPathId], references: [id])
-  learningPathId Int?
-
   Practice Practice[]
 
-  log LearnerLog[]
+  log          LearnerLog[]
+  LearningPath LearningPath[]
 
   @@map("learners")
 }
@@ -179,11 +179,11 @@ model Practice {
 }
 
 model LearnerLog {
-  id                           Int @id @default(autoincrement())
-  learningMaterialVisittedTime Int @map("learning_material_visitted_time")
-  learningMaterialRating       Int @map("learning_material_rating")
+  id                           Int    @id @default(autoincrement())
+  learningMaterialVisittedTime BigInt @map("learning_material_visitted_time")
+  learningMaterialRating       Int    @map("learning_material_rating")
 
-  score    Float
+  score    Float?
   time     BigInt
   attempts Int
 
@@ -200,8 +200,10 @@ model LearningPath {
   learningMaterialOrder Int     @map("learning_material_order")
   learned               Boolean
 
-  learningMaterial LearningMaterial[]
-  Learner          Learner[]
+  learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
+  learningMaterialId Int
+  learner            Learner?         @relation(fields: [learnerId], references: [id])
+  learnerId          Int?
 
   @@map("learning_paths")
 }

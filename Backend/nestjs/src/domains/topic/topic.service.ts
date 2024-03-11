@@ -4,13 +4,22 @@ import { TopicCreateREQ } from './request/topic-create.request';
 import { TopicUpdateREQ } from './request/topic-update.request';
 import { TopicLinkDeleteREQ } from './request/topic-link-delete.request';
 import { TopicDetailRESP } from './response/topic-detail.response';
+import { connectManyRelation, connectRelation } from 'src/shared/prisma.helper';
 
 @Injectable()
 export class TopicService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(body: TopicCreateREQ) {
-    await this.prismaService.topic.create({ data: TopicCreateREQ.toCreateInput(body) });
+    const topic = await this.prismaService.topic.create({
+      data: TopicCreateREQ.toCreateInput(body),
+      select: { id: true },
+    });
+
+    if (body.postTopicIds)
+      await this.prismaService.topicLink.createMany({
+        data: body.postTopicIds.map((postId) => ({ startId: topic.id, endId: postId })),
+      });
   }
 
   async detail(id: number) {
