@@ -228,7 +228,7 @@ model Forum {
 model Statement {
   id         Int      @id @default(autoincrement())
   content    String
-  updated_at DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   forum   Forum @relation(fields: [forumId], references: [id])
   forumId Int

@@ -1,12 +1,11 @@
 import { Body, Controller, Post, Get, Param, ParseIntPipe, NotFoundException, Put, UseGuards } from '@nestjs/common';
 import { ForumService } from './forum.service';
 import { StatementService } from './statement.service';
-import { PrismaService } from 'src/services/prisma/prisma.service';
 import * as ForumDto from './dto/forum.dto';
 import * as StatementDto from './dto/statement.dto';
-import { AuthGuard } from '../auth/auth.guard';
+//import { AuthGuard } from '../auth/auth.guard';
 
-@UseGuards(AuthGuard)
+//@UseGuards(AuthGuard)
 @Controller('forum')
 export class ForumController {
   constructor(
@@ -78,16 +77,17 @@ export class ForumController {
   @Post('comment')
   async addComment(@Body() body: StatementDto.StatementCreateRequestDto) {
     try {
-      // Check if preComment exist
-      const comment = await this.statementService.getOne(body.statementId);
-      if (comment == null) {
-        throw new NotFoundException(`Statement with id ${body.statementId} not found`);
+      if (body.statementId) {
+        // Check if preComment exist
+        const comment = await this.statementService.getOne(body.statementId);
+        if (comment == null) {
+          throw new NotFoundException(`Statement with id ${body.statementId} not found`);
+        }
+        // Check preComment in forum
+        if (comment.forumId != body.forumId) {
+          throw new NotFoundException(`Statement with id ${body.statementId} not found in forum ${body.forumId}`);
+        }
       }
-      // Check preComment in forum
-      if (comment.forumId != body.forumId) {
-        throw new NotFoundException(`Statement with id ${body.statementId} not found in forum ${body.forumId}`);
-      }
-
       const result = await this.statementService.create(StatementDto.StatementCreateRequestDto.toCreateInput(body));
       return JSON.stringify(StatementDto.StatementResponseDto.fromForum(result));
     } catch (error) {

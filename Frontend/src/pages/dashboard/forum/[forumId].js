@@ -39,7 +39,8 @@ const useComments = () => {
         const commentsInfo = await Promise.all(response.data.map(async r => {
           const userResponse = await userApi.getUser(r.authenticatedUserId);
           return {
-            ...r, 
+            ...r,
+            replies: [], 
             authorAvatar: userResponse.avatar,
             authorName: userResponse.username,
             authorRole: "",
@@ -49,7 +50,19 @@ const useComments = () => {
         }));
 
         if (isMounted()) {
-          setComments(commentsInfo);
+          let commentsWithRep = [];
+          let map = new Map();
+          commentsInfo.map(c => {
+            map.set(c.id, c);
+          })
+          commentsInfo.map(c => {
+            if (c.statementId != null) {
+              map.get(c.statementId).replies.push(c);
+            } else {
+              commentsWithRep.push(c);
+            }
+          })
+          setComments(commentsWithRep);
         }
       }
     } catch (err) {
@@ -104,6 +117,7 @@ const useForumDetail = () => {
         if (isMounted()) {
           setForumDetail({
             ...response.data, 
+            cover: '/assets/covers/minimal-1-4x4-large.png',
             author: {
               avatar: userResponse.avatar,
               name: userResponse.username

@@ -1,6 +1,5 @@
 import { Prisma, Statement } from '@prisma/client';
 import { IsNumber, IsNotEmpty, IsString } from 'class-validator';
-import { DatetimeService } from 'src/services/datetime/datetime.service';
 
 class StatementCreateRequestDto {
   @IsNumber()
