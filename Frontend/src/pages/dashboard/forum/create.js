@@ -66,8 +66,7 @@ const Page = () => {
         "userId": userId
       })
         .then((response) => {
-          console.log(response);
-          router.push(paths.dashboard.forum.forumDetails);
+          router.push(paths.dashboard.forum.forumDetails.replace(':forumId', response.data.id));
         })
         .catch(error => {
           console.error('Error posting data:', error);
@@ -312,7 +311,14 @@ const Page = () => {
                         Nhấn "Enter" để thêm nhãn. Ít nhất 1 nhãn
                       </Typography>
                       <Box >
-                        {labels.map((label,index) => <Chip key={index} label={label} sx={{mr: 1, mb: 1}} />)}
+                        {labels.map((label,index) => 
+                          <Chip 
+                            key={index} 
+                            label={label}  
+                            onDelete={e => setLabels(labels.filter(l => l !== label))}
+                            sx={{mr: 1, mb: 1}} 
+                          />
+                        )}
                       </Box>
                     </Stack>
                   </Grid>
@@ -333,8 +339,8 @@ const Page = () => {
               py: 2
             }}
           >
-            <Typography sx={{ color: 'red', fontSize: 17, fontWeight: '500', fontStyle: 'italic' }}>
-              {(content == '' || content == '<p><br></p>') && "Thiếu nội dung!"}
+            <Typography sx={{ color: 'red', fontSize: 17, fontWeight: '400' }}>
+              {(content == '' || content == '<p><br></p>') && "Thiếu nội dung !"}
             </Typography>
             <Stack
               alignItems="center"

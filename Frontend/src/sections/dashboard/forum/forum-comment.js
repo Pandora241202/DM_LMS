@@ -44,9 +44,12 @@ export const ForumComment = (props) => {
     authorName,
     authorRole,
     content,
-    createdAt,
+    updatedAt,
     isLiked: isLikedProp,
     likes: likesProp,
+    forumId,
+    authenticatedUserId,
+    statementId,  
     ...other
   } = props;
 
@@ -81,7 +84,7 @@ export const ForumComment = (props) => {
             color="text.secondary"
             variant="caption"
           >
-            {translateToVietnamese(formatDistanceToNow(createdAt, { addSuffix: true }))}
+            {translateToVietnamese(formatDistanceToNow(new Date(updatedAt), { addSuffix: true }))}
           </Typography>
         </Box>
         <Typography
@@ -100,7 +103,10 @@ ForumComment.propTypes = {
   authorName: PropTypes.string.isRequired,
   authorRole: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  createdAt: PropTypes.number.isRequired,
+  updatedAt: PropTypes.string.isRequired,
   isLiked: PropTypes.bool.isRequired,
-  likes: PropTypes.number.isRequired
+  likes: PropTypes.number.isRequired,
+  forumId: PropTypes.number.isRequired,
+  authenticatedUserId: PropTypes.number.isRequired,
+  statementId: PropTypes.number
 };

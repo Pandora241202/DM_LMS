@@ -1,6 +1,5 @@
 import NextLink from 'next/link';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
 import {
   Avatar,
   Box,
@@ -15,38 +14,39 @@ import {
 import { paths } from '../../../paths';
 import { getInitials } from '../../../utils/get-initials';
 
+const initialCover = '/assets/covers/abstract-1-4x3-large.png';
+
 export const ForumCard = (props) => {
   const {
     authorAvatar,
     authorName,
-    labels,
+    label,
     cover,
-    publishedAt,
-    readTime,
+    createdAt,
+    readTimes,
     shortDescription,
     rating,
     title,
+    id,
     ...other
   } = props;
-
-  const formattedPublishedAt = format(publishedAt, 'dd-MM-yyyy');
 
   return (
     <Card {...other}>
       <CardMedia
         component={NextLink}
-        href={paths.dashboard.forum.forumDetails}
-        image={cover}
+        href={paths.dashboard.forum.forumDetails.replace(':forumId', id)}
+        image={cover?cover:initialCover}
         sx={{ height: 280 }}
       />
       <CardContent>
         <Box sx={{ mb: 2 }}>
-          {labels.map((label, index) => <Chip key={index} label={label} sx={{mr: 1, mb: 1}} />)}
+          {label.map((l, index) => <Chip key={index} label={l} sx={{mr: 1, mb: 1}} />)}
         </Box>
         <Link
           color="text.primary"
           component={NextLink}
-          href={paths.dashboard.forum.forumDetails}
+          href={paths.dashboard.forum.forumDetails.replace(':forumId', id)}
           variant="h5"
         >
           {title}
@@ -87,7 +87,7 @@ export const ForumCard = (props) => {
               {' '}
               •
               {' '}
-              {formattedPublishedAt}
+              {createdAt}
             </Typography>
           </Stack>
           <Typography
@@ -96,7 +96,7 @@ export const ForumCard = (props) => {
             sx={{ flexGrow: 1 }}
             variant="body2"
           >
-            {readTime} lượt đọc
+            {readTimes} lượt đọc
           </Typography>
         </Stack>
       </CardContent>
@@ -105,12 +105,13 @@ export const ForumCard = (props) => {
 };
 
 ForumCard.propTypes = {
+  id: PropTypes.number.isRequired,
   authorAvatar: PropTypes.string.isRequired,
   authorName: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
-  cover: PropTypes.string.isRequired,
-  publishedAt: PropTypes.number.isRequired,
-  readTime: PropTypes.string.isRequired,
+  label: PropTypes.array.isRequired,
+  cover: PropTypes.string,
+  createdAt: PropTypes.string.isRequired,
+  readTimes: PropTypes.number.isRequired,
   shortDescription: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired
 };

@@ -19,6 +19,7 @@ import {
   Input,
 } from '@mui/material';
 import { forumApi } from '../../../api/forum';
+import { userApi } from '../../../api/user';
 import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
@@ -33,9 +34,19 @@ const useForums = () => {
   const getForums = useCallback(async () => {
     try {
       const response = await forumApi.getForums();
+      const forumsInfo = await Promise.all(response.data.map(async r => {
+        const userResponse = await userApi.getUser(r.userId);
+        return {
+          ...r, 
+          author: {
+            avatar: userResponse.avatar,
+            name: userResponse.username
+          }
+        }
+      }));
 
       if (isMounted()) {
-        setForums(response);
+        setForums(forumsInfo);
       }
     } catch (err) {
       console.error(err);
@@ -115,7 +126,7 @@ const Page = () => {
             <SvgIcon fontSize="large" htmlColor="#848C97" >
               <SearchMdIcon />
             </SvgIcon>
-            <Input placeholder="Tìm kiếm chủ đề trên diễn đàn..." autoComplete disableUnderline fullWidth sx={{marginLeft: 2}} inputProps={{ style: { fontSize: '17px' } }}/>
+            <Input placeholder="Tìm kiếm chủ đề trên diễn đàn..." disableUnderline fullWidth sx={{marginLeft: 2}} inputProps={{ style: { fontSize: '17px' } }}/>
           </Card>
           <Card
             elevation={16}
@@ -166,17 +177,18 @@ const Page = () => {
           >
             {forums.map((forum) => (
               <Grid
-                key={forum.title}
+                key={forum.id}
                 xs={12}
                 md={6}
               >
                 <ForumCard
+                  id={forum.id} 
                   authorAvatar={forum.author.avatar}
                   authorName={forum.author.name}
-                  labels={forum.labels}
+                  label={forum.label}
                   cover={forum.cover}
-                  publishedAt={forum.publishedAt}
-                  readTime={forum.readTime}
+                  createdAt={forum.createdAt}
+                  readTimes={forum.readTimes}
                   shortDescription={forum.shortDescription}
                   title={forum.title}
                   sx={{ height: '100%' }}
