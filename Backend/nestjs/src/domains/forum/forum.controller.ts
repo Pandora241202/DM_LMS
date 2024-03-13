@@ -1,8 +1,10 @@
 import { Body, Controller, Post, Get, Param, ParseIntPipe, NotFoundException, Put, UseGuards } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { ForumService } from './forum.service';
 import { StatementService } from './statement.service';
 import * as ForumDto from './dto/forum.dto';
 import * as StatementDto from './dto/statement.dto';
+import { map } from 'rxjs/operators';
 //import { AuthGuard } from '../auth/auth.guard';
 
 //@UseGuards(AuthGuard)
@@ -11,13 +13,18 @@ export class ForumController {
   constructor(
     private readonly forumService: ForumService,
     private readonly statementService: StatementService,
+    private readonly httpService: HttpService
   ) {}
 
   @Post()
   async create(@Body() body: ForumDto.ForumCreateRequestDto) {
     try {
-      const result = await this.forumService.create(ForumDto.ForumCreateRequestDto.toCreateInput(body));
-      return JSON.stringify(ForumDto.ForumResponseDto.fromForum(result));
+      const response = this.httpService.post('http://127.0.0.1:8181/similar-forums', body.content).pipe(
+        map(res => res.data)
+      )
+      console.log(response)
+      //const result = await this.forumService.create(ForumDto.ForumCreateRequestDto.toCreateInput(body));
+      //return JSON.stringify(ForumDto.ForumResponseDto.fromForum(result));
     } catch (error) {
       console.log(error);
       throw error;
