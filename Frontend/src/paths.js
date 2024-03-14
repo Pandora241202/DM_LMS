@@ -98,7 +98,6 @@ export const paths = {
     note: '/dashboard/note',
     mail: '/dashboard/mail',
     model: '/dashboard/model',
-    myCourses: '/dashboard/my-courses',
     orders: {
       index: '/dashboard/orders',
       details: '/dashboard/orders/:orderId'

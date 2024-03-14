@@ -83,7 +83,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: My Course 
+          Dashboard: Academy Course | Devias Kit PRO
         </title>
       </Head>
       <Box
@@ -118,7 +118,7 @@ const Page = () => {
                       <ArrowLeftIcon />
                     </SvgIcon>
                     <Typography variant="subtitle2">
-                      My courses
+                      Academy
                     </Typography>
                   </Link>
                 </div>

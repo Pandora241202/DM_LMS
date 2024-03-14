@@ -3,7 +3,7 @@ import { tokens } from '../tokens';
 export const en = {
   [tokens.common.languageChanged]: 'Language changed',
   [tokens.nav.admin]: 'Admin',
-  [tokens.nav.academy]: 'Academy',
+  [tokens.nav.academy]: 'My Courses',
   [tokens.nav.account]: 'Account',
   [tokens.nav.analytics]: 'Analytics',
   [tokens.nav.auth]: 'Auth',
@@ -45,7 +45,7 @@ export const en = {
   [tokens.nav.management]: 'Management',
   [tokens.nav.model]: 'Model',
   [tokens.nav.models]: 'Models',
-  [tokens.nav.myCourses]: 'My Courses',
+  // [tokens.nav.myCourses]: 'My Courses',
   [tokens.nav.orderList]: 'Orders',
   [tokens.nav.overview]: 'Overview',
   [tokens.nav.pages]: 'Pages',

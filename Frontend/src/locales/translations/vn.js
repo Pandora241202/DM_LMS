@@ -2,7 +2,7 @@ import { tokens } from '../tokens';
 
 export const vn = {
   [tokens.common.languageChanged]: 'Language changed',
-  [tokens.nav.academy]: 'Academy',
+  [tokens.nav.academy]: 'Khoá học của tôi',
   [tokens.nav.account]: 'Account',
   [tokens.nav.analytics]: 'Analytics',
   [tokens.nav.auth]: 'Auth',
@@ -30,6 +30,7 @@ export const vn = {
   [tokens.nav.invoiceList]: 'Invoices',
   [tokens.nav.jobList]: 'Job Listings',
   [tokens.nav.kanban]: 'Kanban',
+  [tokens.nav.learningPath]: 'Lộ trình học',
   [tokens.nav.list]: 'List',
   [tokens.nav.login]: 'Login',
   [tokens.nav.logistics]: 'Logistics',
