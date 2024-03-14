@@ -5,6 +5,7 @@ import { StatementService } from './statement.service';
 import * as ForumDto from './dto/forum.dto';
 import * as StatementDto from './dto/statement.dto';
 import { map } from 'rxjs/operators';
+import { lastValueFrom } from 'rxjs';
 //import { AuthGuard } from '../auth/auth.guard';
 
 //@UseGuards(AuthGuard)
@@ -19,12 +20,21 @@ export class ForumController {
   @Post()
   async create(@Body() body: ForumDto.ForumCreateRequestDto) {
     try {
-      const response = this.httpService.post('http://127.0.0.1:8181/similar-forums', body.content).pipe(
+      const result = await this.forumService.create(ForumDto.ForumCreateRequestDto.toCreateInput(body));
+      return JSON.stringify(ForumDto.ForumResponseDto.fromForum(result));
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  @Post('similarForums')
+  async findSimilarForums(@Body() body: ForumDto.ForumCreateRequestDto) {
+    try {
+      const similarForums = await lastValueFrom(this.httpService.post('http://127.0.0.1:8181/similar-forums', body.content).pipe(
         map(res => res.data)
-      )
-      console.log(response)
-      //const result = await this.forumService.create(ForumDto.ForumCreateRequestDto.toCreateInput(body));
-      //return JSON.stringify(ForumDto.ForumResponseDto.fromForum(result));
+      ));
+      return JSON.stringify(similarForums);
     } catch (error) {
       console.log(error);
       throw error;

@@ -23,9 +23,6 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.send_header('Content-Type', type)
         self.end_headers()
         self.wfile.write(response)
-      
-    def _set_response(self):
-        self.send_header('Access-Control-Allow-Origin', '*')  # Allow requests from any origin
         
     def do_GET(self):
         if self.path == '/spraql-topic':
@@ -51,12 +48,11 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_reponse(404, 'text/html', b'Not found')
             
     def do_POST(self):
-        self._set_response()
         if self.path == '/similar-forums':
             content_len = int(self.headers.get('Content-Length'))
             post_body = self.rfile.read(content_len).decode('utf-8')
-            json_string = ForumService.findSimilarForums(json.loads(post_body))
-            self.send_reponse(200, 'application/json', json.dumps(json_string).encode('utf-8'))
+            forums = ForumService.findSimilarForums(post_body)
+            self.send_reponse(200, 'application/json', json.dumps(forums).encode('utf-8'))
 
 def main():
     PORT = 8181

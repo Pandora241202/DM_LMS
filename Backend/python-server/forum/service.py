@@ -30,5 +30,5 @@ class Service:
             similarity_score = util.pytorch_cos_sim(embeddings_content, embeddings_forum_content)[0][0].item()
             print(f"Similarity score to forum id {forum['id']}: {similarity_score}")
             if similarity_score >= 0.6:
-                similarForums += [forum]
+                similarForums += [forum['id']]
         return similarForums
