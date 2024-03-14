@@ -15,6 +15,10 @@ class ForumApi {
     //return Promise.resolve(deepCopy(forumDetail));
   }
 
+  getSimilarForumS(request) {
+    return axios.post(`${apiUrl}/similarForums`, request)
+  }
+
   postForum(request) {
     return axios.post(apiUrl, request)
   }

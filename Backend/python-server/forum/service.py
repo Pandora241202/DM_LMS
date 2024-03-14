@@ -13,12 +13,13 @@ class Service:
         
         # Get all forums
         conn = connectDatabase()
-        conn.cursor.execute("SELECT id, content FROM forums")
+        conn.cursor.execute("SELECT id, content, title FROM forums")
         rows = conn.cursor.fetchall()
         forums = [
             {
                 "id": row[0],
                 "content": row[1],
+                "title": row[2]
             } for row in rows]
         
         # Encode the content
@@ -30,5 +31,5 @@ class Service:
             similarity_score = util.pytorch_cos_sim(embeddings_content, embeddings_forum_content)[0][0].item()
             print(f"Similarity score to forum id {forum['id']}: {similarity_score}")
             if similarity_score >= 0.6:
-                similarForums += [forum['id']]
+                similarForums += [{"id": forum['id'], "title": forum['title']}]
         return similarForums

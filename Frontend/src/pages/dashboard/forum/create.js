@@ -23,7 +23,7 @@ import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
 import { fileToBase64 } from '../../../utils/file-to-base64';
-import { forumApi } from '../../../api/forum';
+import { SearchDialog } from '../../../sections/dashboard/forum/search-dialog'
 
 const initialCover = '/assets/covers/abstract-1-4x3-large.png';
 const userId = 2;
@@ -34,13 +34,13 @@ const Page = () => {
   const [title, setTitle] = useState('');
   const [shortDescription, setShortDescription] = useState('');
   const [content, setContent] = useState('');
+  const [contentQuil, setContentQuil] = useState('');
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   usePageView();
 
   const titleRef = useRef();
   const labelsRef = useRef();
-
-  const router = useRouter();
 
   const handleCoverDrop = useCallback(async ([file]) => {
     const data = await fileToBase64(file);
@@ -57,20 +57,7 @@ const Page = () => {
     } else if (labels.length == 0) {
       labelsRef.current.focus();
     } else if (content !== '' && content !== '<p><br></p>') {
-      forumApi.postForum({
-        "title": title,
-        "label": labels,
-        "shortDescription": shortDescription,
-        "content": content.slice(3, -4),
-        "coverImage": cover,
-        "userId": userId
-      })
-        .then((response) => {
-          router.push(paths.dashboard.forum.forumDetails.replace(':forumId', response.data.id));
-        })
-        .catch(error => {
-          console.error('Error posting data:', error);
-        })
+      setOpenConfirmDialog(true);
     }
   }, [title, cover, labels, shortDescription, content]);
 
@@ -266,8 +253,11 @@ const Page = () => {
                     <QuillEditor
                       placeholder="Nội dung"
                       sx={{ height: 330 }}
-                      value={content}
-                      onChange={value => setContent(value)}
+                      value={contentQuil}
+                      onChange={(content, delta, source, editor) => {
+                        setContentQuil(content)
+                        setContent(editor.getText())
+                      }}
                     />
                   </Grid>
                 </Grid>
@@ -354,14 +344,6 @@ const Page = () => {
               >
                 Hủy
               </Button>
-              {/*<Button
-                component={NextLink}
-                onClick={handleSubmitButton}
-                href={paths.dashboard.blog.postDetails}
-                variant="contained"
-              >
-                Đăng bài
-              </Button>*/}
               <Button
                 onClick={handleSubmitButton}
                 variant="contained"
@@ -377,6 +359,18 @@ const Page = () => {
           </Card>
         </Container>
       </Box>
+      {openConfirmDialog && <SearchDialog 
+        onClose={e => setOpenConfirmDialog(false)}
+        open={openConfirmDialog}
+        forumDetail={{
+          "title": title,
+          "label": labels,
+          "shortDescription": shortDescription,
+          "content": content,
+          "coverImage": cover,
+          "userId": userId
+        }}
+      />}
     </>
   );
 };
