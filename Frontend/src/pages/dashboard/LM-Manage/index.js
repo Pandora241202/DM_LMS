@@ -1,43 +1,108 @@
+import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
-import { addDays, subDays, subHours, subMinutes } from 'date-fns';
+import NextLink from 'next/link';
 import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
 import {
   Box,
+  Breadcrumbs,
   Button,
+  Card,
   Container,
+  Link,
   Stack,
   SvgIcon,
-  Typography,
-  Unstable_Grid2 as Grid
+  Typography
 } from '@mui/material';
+import { productsApi } from '../../../api/products';
+import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
+import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
-import { useSettings } from '../../../hooks/use-settings';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
-import { OverviewBanner } from '../../../sections/dashboard/overview/overview-banner';
-import { OverviewDoneTasks } from '../../../sections/dashboard/overview/overview-done-tasks';
-import { OverviewEvents } from '../../../sections/dashboard/overview/overview-events';
-import { OverviewInbox } from '../../../sections/dashboard/overview/overview-inbox';
-import { OverviewTransactions } from '../../../sections/dashboard/overview/overview-transactions';
-import { OverviewPendingIssues } from '../../../sections/dashboard/overview/overview-pending-issues';
-import { OverviewSubscriptionUsage } from '../../../sections/dashboard/overview/overview-subscription-usage';
-import { OverviewHelp } from '../../../sections/dashboard/overview/overview-help';
-import { OverviewJobs } from '../../../sections/dashboard/overview/overview-jobs';
-import { OverviewOpenTickets } from '../../../sections/dashboard/overview/overview-open-tickets';
-import { OverviewTips } from '../../../sections/dashboard/overview/overview-tips';
-import { LearningObject } from '../../../sections/dashboard/overview/learning-object';
+import { paths } from '../../../paths';
+import { LMManageListSearch } from '../../../sections/dashboard/LM-Manage/lm-manage-list-search';
+import { LMManageListTable } from '../../../sections/dashboard/LM-Manage/lm-manage-list-table';
 
-const now = new Date();
+const useSearch = () => {
+  const [search, setSearch] = useState({
+    filters: {
+      name: undefined,
+      category: [],
+      status: [],
+      inStock: undefined
+    },
+    page: 0,
+    rowsPerPage: 5
+  });
 
-const Page = () => {
-  const settings = useSettings();
+  return {
+    search,
+    updateSearch: setSearch
+  };
+};
+
+const useProducts = (search) => {
+  const isMounted = useMounted();
+  const [state, setState] = useState({
+    products: [],
+    productsCount: 0
+  });
+
+  const getProducts = useCallback(async () => {
+    try {
+      const response = await productsApi.getProducts(search);
+
+      if (isMounted()) {
+        setState({
+          products: response.data,
+          productsCount: response.count
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [search, isMounted]);
+
+  useEffect(() => {
+      getProducts();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [search]);
+
+  return state;
+};
+
+const ProductList = () => {
+  const { search, updateSearch } = useSearch();
+  const { products, productsCount } = useProducts(search);
 
   usePageView();
+
+  const handleFiltersChange = useCallback((filters) => {
+    updateSearch((prevState) => ({
+      ...prevState,
+      filters
+    }));
+  }, [updateSearch]);
+
+  const handlePageChange = useCallback((event, page) => {
+    updateSearch((prevState) => ({
+      ...prevState,
+      page
+    }));
+  }, [updateSearch]);
+
+  const handleRowsPerPageChange = useCallback((event) => {
+    updateSearch((prevState) => ({
+      ...prevState,
+      rowsPerPage: parseInt(event.target.value, 10)
+    }));
+  }, [updateSearch]);
 
   return (
     <>
       <Head>
         <title>
-          Dashboard: Overview | Devias Kit PRO
+          Dashboard: Quản lý tài liệu học tập
         </title>
       </Head>
       <Box
@@ -47,102 +112,84 @@ const Page = () => {
           py: 8
         }}
       >
-        <Container maxWidth={settings.stretch ? false : 'xl'}>
-          <Grid
-            container
-            disableEqualOverflow
-            spacing={{
-              xs: 3,
-              lg: 4
-            }}
-          >
-            <Grid xs={12}>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                spacing={4}
-              >
-                <div>
-                  <Typography variant="h4">
-                    Your Learning Path
-                  </Typography>
-                </div>
-                <div>
-                  <Stack
-                    direction="row"
-                    spacing={4}
+        <Container maxWidth="xl">
+          <Stack spacing={4}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              spacing={4}
+            >
+              <Stack spacing={1}>
+                <Typography variant="h4">
+                  Quản lý tài liệu học tập
+                </Typography>
+                <Breadcrumbs separator={<BreadcrumbsSeparator />}>
+                  <Link
+                    color="text.primary"
+                    component={NextLink}
+                    href={paths.dashboard.index}
+                    variant="subtitle2"
                   >
-                    <Button
-                      startIcon={(
-                        <SvgIcon>
-                          <PlusIcon />
-                        </SvgIcon>
-                      )}
-                      variant="contained"
-                    >
-                      New Dashboard
-                    </Button>
-                  </Stack>
-                </div>
+                    Trang chủ
+                  </Link>
+                  <Link
+                    color="text.primary"
+                    component={NextLink}
+                    href={paths.dashboard.products.index}
+                    variant="subtitle2"
+                  >
+                    Tài liệu học tập
+                  </Link>
+                  <Typography
+                    color="text.secondary"
+                    variant="subtitle2"
+                  >
+                    Danh sách
+                  </Typography>
+                </Breadcrumbs>
               </Stack>
-            </Grid>
-            <Grid
-              xs={12}
-              md={4}
-            >
-              <LearningObject amount={31} />
-            </Grid>
-            <Grid
-              xs={12}
-              md={4}
-            >
-              <OverviewPendingIssues amount={12} />
-            </Grid>
-            <Grid
-              xs={12}
-              md={4}
-            >
-              <OverviewOpenTickets amount={5} />
-            </Grid>
-            <Grid
-              xs={12}
-              md={7}
-            >
-              <OverviewBanner />
-            </Grid>
-            <Grid
-              xs={12}
-              md={5}
-            >
-              <OverviewTips
-                sx={{ height: '100%' }}
-                tips={[
-                  {
-                    title: 'New fresh design.',
-                    content: 'Your favorite template has a new trendy look, more customization options, screens & more.'
-                  },
-                  {
-                    title: 'Tip 2.',
-                    content: 'Tip content'
-                  },
-                  {
-                    title: 'Tip 3.',
-                    content: 'Tip content'
-                  }
-                ]}
+              <Stack
+                alignItems="center"
+                direction="row"
+                spacing={3}
+              >
+                <Button
+                  component={NextLink}
+                  // Thay đổi đường dẫn để lưu vào db
+                  href={paths.dashboard.products.create}
+                  startIcon={(
+                    <SvgIcon>
+                      <PlusIcon />
+                    </SvgIcon>
+                  )}
+                  variant="contained"
+                >
+                  Thêm tài liệu học tập
+                </Button>
+              </Stack>
+            </Stack>
+            <Card>
+              <LMManageListSearch onFiltersChange={handleFiltersChange} />
+              <LMManageListTable
+                onPageChange={handlePageChange}
+                onRowsPerPageChange={handleRowsPerPageChange}
+                page={search.page}
+                products={products}
+                productsCount={productsCount}
+                rowsPerPage={search.rowsPerPage}
               />
-            </Grid>
-          </Grid>
+            </Card>
+          </Stack>
         </Container>
       </Box>
     </>
   );
 };
 
-Page.getLayout = (page) => (
+ProductList.getLayout = (page) => (
   <DashboardLayout>
     {page}
   </DashboardLayout>
 );
 
-export default Page;
+export default ProductList;

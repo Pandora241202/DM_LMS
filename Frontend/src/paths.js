@@ -50,7 +50,8 @@ export const paths = {
     index: '/dashboard',
     academy: {
       index: '/dashboard/academy',
-      courseDetails: '/dashboard/academy/courses/:courseId'
+      courseDetails: '/dashboard/academy/courses/:courseId',
+      lessonDetails: '/dashboard/academy/courses/lesson_admin',
     },
     account: '/dashboard/account',
     analytics: '/dashboard/analytics',

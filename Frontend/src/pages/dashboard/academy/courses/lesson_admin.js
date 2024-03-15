@@ -13,14 +13,13 @@ import {
   SvgIcon,
   Typography
 } from '@mui/material';
-import { productsApi } from '../../../api/products';
-import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
-import { useMounted } from '../../../hooks/use-mounted';
-import { usePageView } from '../../../hooks/use-page-view';
-import { Layout as DashboardLayout } from '../../../layouts/dashboard';
-import { paths } from '../../../paths';
-import { AccountManageListSearch } from '../../../sections/dashboard/Account-Manage/account-manage-list-search';
-import { AccountManageListTable } from '../../../sections/dashboard/Account-Manage/account-manage-list-table';
+import { productsApi } from '../../../../api/products';
+import { BreadcrumbsSeparator } from '../../../../components/breadcrumbs-separator';
+import { useMounted } from '../../../../hooks/use-mounted';
+import { usePageView } from '../../../../hooks/use-page-view';
+import { Layout as DashboardLayout } from '../../../../layouts/dashboard';
+import { paths } from '../../../../paths';
+import { AccountManageListTable } from '../../../../sections/dashboard/academy/lesson-list-table';
 
 const useSearch = () => {
   const [search, setSearch] = useState({
@@ -102,7 +101,7 @@ const ProductList = () => {
     <>
       <Head>
         <title>
-          Dashboard: Quản lý tài khoản
+          Dashboard: Lesson
         </title>
       </Head>
       <Box
@@ -121,7 +120,7 @@ const ProductList = () => {
             >
               <Stack spacing={1}>
                 <Typography variant="h4">
-                  Quản lý tài khoản
+                  Tên khoá học
                 </Typography>
                 <Breadcrumbs separator={<BreadcrumbsSeparator />}>
                   <Link
@@ -135,10 +134,10 @@ const ProductList = () => {
                   <Link
                     color="text.primary"
                     component={NextLink}
-                    href={paths.dashboard.products.index}
+                    href={paths.dashboard.academy.index}
                     variant="subtitle2"
                   >
-                    Tài khoản
+                    Khoá học của tôi
                   </Link>
                   <Typography
                     color="text.secondary"
@@ -164,12 +163,11 @@ const ProductList = () => {
                   )}
                   variant="contained"
                 >
-                  Thêm tài khoản
+                  Thêm bài học
                 </Button>
               </Stack>
             </Stack>
             <Card>
-              <AccountManageListSearch onFiltersChange={handleFiltersChange} />
               <AccountManageListTable
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleRowsPerPageChange}
