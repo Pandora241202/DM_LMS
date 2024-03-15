@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
+import PropTypes, { any } from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
-import { Avatar, Box, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
+import { useState } from 'react';
 
 const translation_dict = {
   "seconds": "giây",
@@ -44,54 +45,63 @@ export const ForumComment = (props) => {
     authorName,
     authorRole,
     content,
-    createdAt,
+    replies,
+    updatedAt,
     isLiked: isLikedProp,
     likes: likesProp,
+    forumId,
+    authenticatedUserId,
+    statementId,  
     ...other
   } = props;
 
+  const [showReplies, setShowReplies] = useState(replies.length == 0 ? null : false);
+
   return (
-    <Stack
-      alignItems="flex-start"
-      direction="row"
-      spacing={2}
-      {...other}>
+    <Stack alignItems="flex-start" direction="row" spacing={1} width="100%">
       <Avatar src={authorAvatar} />
-      <Box
-        sx={{
-          backgroundColor: (theme) => theme.palette.mode === 'dark'
-            ? 'neutral.900'
-            : 'neutral.100',
-          borderRadius: 1,
-          p: 2,
-          flexGrow: 1
-        }}
-      >
+      <Stack flexGrow={1} direction="column" spacing={1} width="100%">
         <Box
           sx={{
-            alignItems: 'flex-start',
-            display: 'flex',
-            justifyContent: 'space-between'
+            backgroundColor: (theme) => theme.palette.mode === 'dark'
+              ? 'neutral.900'
+              : 'neutral.100',
+            borderRadius: 1,
+            p: 2,
+            flexGrow: 1
           }}
         >
-          <Typography variant="subtitle2">
-            {authorName}
-          </Typography>
-          <Typography
-            color="text.secondary"
-            variant="caption"
+          <Box
+            sx={{
+              alignItems: 'flex-start',
+              display: 'flex',
+              justifyContent: 'space-between'
+            }}
           >
-            {translateToVietnamese(formatDistanceToNow(createdAt, { addSuffix: true }))}
+            <Typography variant="subtitle2">
+              {authorName}
+            </Typography>
+            <Typography
+              color="text.secondary"
+              variant="caption"
+            >
+              {translateToVietnamese(formatDistanceToNow(new Date(updatedAt), { addSuffix: true }))}
+            </Typography>
+          </Box>
+          <Typography
+            variant="body2"
+            sx={{ mt: 1 }}
+          >
+            {content}
           </Typography>
         </Box>
-        <Typography
-          variant="body2"
-          sx={{ mt: 1 }}
-        >
-          {content}
-        </Typography>
-      </Box>
-    </Stack>
+        <Stack justifyContent="flex-start" direction="row" spacing={0.5} width="100%" >
+          <Button color="inherit" sx={{p: 0.5, fontWeight: 500, fontSize: 12}}>Phản hồi</Button>
+          {showReplies == false && <Button color="inherit"  sx={{p: 0.5, fontWeight: 500, fontSize: 12}} onClick={e => setShowReplies(true)}>Hiển thị tất cả phản hồi</Button>}
+        </Stack>
+        {showReplies == true && replies.map(r => <ForumComment key={r.id} {...r} />)}
+      </Stack>
+    </Stack>   
   );
 };
 
@@ -100,7 +110,11 @@ ForumComment.propTypes = {
   authorName: PropTypes.string.isRequired,
   authorRole: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  createdAt: PropTypes.number.isRequired,
+  updatedAt: PropTypes.string.isRequired,
   isLiked: PropTypes.bool.isRequired,
-  likes: PropTypes.number.isRequired
+  likes: PropTypes.number.isRequired,
+  forumId: PropTypes.number.isRequired,
+  authenticatedUserId: PropTypes.number.isRequired,
+  statementId: PropTypes.number,
+  replies: PropTypes.arrayOf(any)
 };

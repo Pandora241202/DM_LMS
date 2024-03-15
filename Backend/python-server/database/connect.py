@@ -2,6 +2,8 @@ from time import strftime, localtime
 import psycopg2
 import json
 from datetime import datetime
+import os
+from dotenv import load_dotenv
 class Learner:
     def fromEntity(learner):
         birth_year = datetime.fromtimestamp(learner[1]/1000).year
@@ -21,7 +23,9 @@ class Learner:
         
 class connectDatabase:
     def __init__(self):
-        self.connection = psycopg2.connect(host='localhost', database='learning_system', user='root', password='12345')
+        load_dotenv()
+        print(os.getenv("HOST"))
+        self.connection = psycopg2.connect(host=os.getenv("HOST"), database=os.getenv("DB"), user=os.getenv("DB_USERNAME"), password=os.getenv("DB_PASSWORD"))
         self.cursor = self.connection.cursor()
         
     def learners(self):

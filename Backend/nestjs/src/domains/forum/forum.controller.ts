@@ -1,17 +1,20 @@
 import { Body, Controller, Post, Get, Param, ParseIntPipe, NotFoundException, Put, UseGuards } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { ForumService } from './forum.service';
 import { StatementService } from './statement.service';
-import { PrismaService } from 'src/services/prisma/prisma.service';
 import * as ForumDto from './dto/forum.dto';
 import * as StatementDto from './dto/statement.dto';
-import { AuthGuard } from '../auth/auth.guard';
+import { map } from 'rxjs/operators';
+import { lastValueFrom } from 'rxjs';
+//import { AuthGuard } from '../auth/auth.guard';
 
-@UseGuards(AuthGuard)
+//@UseGuards(AuthGuard)
 @Controller('forum')
 export class ForumController {
   constructor(
     private readonly forumService: ForumService,
     private readonly statementService: StatementService,
+    private readonly httpService: HttpService
   ) {}
 
   @Post()
@@ -19,6 +22,19 @@ export class ForumController {
     try {
       const result = await this.forumService.create(ForumDto.ForumCreateRequestDto.toCreateInput(body));
       return JSON.stringify(ForumDto.ForumResponseDto.fromForum(result));
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  @Post('similarForums')
+  async findSimilarForums(@Body() body: ForumDto.ForumCreateRequestDto) {
+    try {
+      const similarForums = await lastValueFrom(this.httpService.post('http://127.0.0.1:8181/similar-forums', body.content).pipe(
+        map(res => res.data)
+      ));
+      return JSON.stringify(similarForums);
     } catch (error) {
       console.log(error);
       throw error;
@@ -78,16 +94,17 @@ export class ForumController {
   @Post('comment')
   async addComment(@Body() body: StatementDto.StatementCreateRequestDto) {
     try {
-      // Check if preComment exist
-      const comment = await this.statementService.getOne(body.statementId);
-      if (comment == null) {
-        throw new NotFoundException(`Statement with id ${body.statementId} not found`);
+      if (body.statementId) {
+        // Check if preComment exist
+        const comment = await this.statementService.getOne(body.statementId);
+        if (comment == null) {
+          throw new NotFoundException(`Statement with id ${body.statementId} not found`);
+        }
+        // Check preComment in forum
+        if (comment.forumId != body.forumId) {
+          throw new NotFoundException(`Statement with id ${body.statementId} not found in forum ${body.forumId}`);
+        }
       }
-      // Check preComment in forum
-      if (comment.forumId != body.forumId) {
-        throw new NotFoundException(`Statement with id ${body.statementId} not found in forum ${body.forumId}`);
-      }
-
       const result = await this.statementService.create(StatementDto.StatementCreateRequestDto.toCreateInput(body));
       return JSON.stringify(StatementDto.StatementResponseDto.fromForum(result));
     } catch (error) {

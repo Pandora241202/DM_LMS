@@ -5,19 +5,26 @@ import axios from 'axios';
 const apiUrl = 'http://localhost:8080/forum';
 
 class ForumApi {
-  getForums(request) {
-    /*return axios.get(
-      `https://famous-quotes4.p.rapidapi.com/random`
-    );*/
-    return Promise.resolve(deepCopy(forums));
+  getForums() {
+    return axios.get(apiUrl);
+    //return Promise.resolve(deepCopy(forums));
   }
 
-  getForumDetail(request) {
-    return Promise.resolve(deepCopy(forumDetail));
+  getForumDetail(id) {
+    return axios.get(`${apiUrl}/${id}`);
+    //return Promise.resolve(deepCopy(forumDetail));
+  }
+
+  getSimilarForumS(request) {
+    return axios.post(`${apiUrl}/similarForums`, request)
   }
 
   postForum(request) {
     return axios.post(apiUrl, request)
+  }
+
+  getComments(id) {
+    return axios.get(`${apiUrl}/${id}/comment`);
   }
 }
 

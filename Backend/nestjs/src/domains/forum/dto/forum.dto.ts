@@ -29,6 +29,7 @@ class ForumCreateRequestDto {
   static toCreateInput(data: ForumCreateRequestDto): Prisma.ForumUncheckedCreateInput {
     return {
       ...data,
+      readTimes: 0,
     };
   }
 }
@@ -49,11 +50,16 @@ class ForumUpdateRequestDto {
   @IsString()
   coverImage?: string;
 
+  @IsNumber()
+  readTimes?: number
+
   // Map from dto request to entity update input
   static toUpdateInput(data: ForumUpdateRequestDto): Prisma.ForumUncheckedUpdateInput {
-    return {
+    return data.readTimes == null ? {
       ...data,
-      updated_at: new Date(),
+      updatedAt: new Date(),
+    } : {
+      ...data,
     };
   }
 }
@@ -66,15 +72,15 @@ class ForumResponseDto {
   content: string;
   userId: number;
   coverImage: string;
-  updated_at: string;
-  created_at: string;
+  updatedAt: string;
+  createdAt: string;
 
   // Map from Forum entity to dto
   static fromForum(data: Forum): ForumResponseDto {
     return {
       ...data,
-      updated_at: DatetimeService.formatVNTime(data.updated_at),
-      created_at: DatetimeService.formatVNTime(data.created_at),
+      updatedAt: DatetimeService.formatVNTime(data.updatedAt),
+      createdAt: DatetimeService.formatVNTime(data.createdAt),
     };
   }
 }

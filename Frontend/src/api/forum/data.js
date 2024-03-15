@@ -5,52 +5,44 @@ const now = new Date();
 export const forums = [
   {
     id: '24b76cac9a128cd949747080',
-    author: {
-      avatar: '/assets/avatars/avatar-jie-yan-song.png',
-      name: 'Jie Yan Song'
-    },
+    userId: 1,
     labels: ['Programming', 'Sleeping'],
     cover: '/assets/covers/business-2-4x4-large.png',
-    publishedAt: subMinutes(subSeconds(now, 16), 45).getTime(),
+    createdAt: '03-03-2024',   
+    updatedAt: '03-03-2024',
     readTime: '5',
     shortDescription: 'Aliquam dapibus elementum nulla at malesuada. Ut mi nisl, aliquet non mollis vel, feugiat non nibh.',
     title: 'Why I Still Lisp, and You Should Too'
   },
   {
     id: 'a9c19d0caf2ca91020aacd1f',
-    author: {
-      avatar: '/assets/avatars/avatar-omar-darboe.png',
-      name: 'Omar Darobe'
-    },
+    userId: 1,
     labels: ['Productivity'],
     cover: '/assets/covers/abstract-2-4x4-large.png',
-    publishedAt: subHours(subMinutes(subSeconds(now, 29), 51), 6).getTime(),
+    createdAt: '03-03-2024',
+    updatedAt: '03-03-2024',
     readTime: '6',
     shortDescription: 'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
     title: 'Scrum Has Hit the Glass Ceiling'
   },
   {
     id: '44df90cbf89963b8aa625c7d',
-    author: {
-      avatar: '/assets/avatars/avatar-siegbert-gottfried.png',
-      name: 'Siegbert Gottfried'
-    },
+    userId: 1,
     labels: ['Entrepreneurs'],
     cover: '/assets/covers/minimal-2-4x4-large.png',
-    publishedAt: subHours(subMinutes(subSeconds(now, 6), 46), 16).getTime(),
+    createdAt: '03-03-2024',
+    updatedAt: '03-03-2024',
     readTime: '3',
     shortDescription: 'Praesent eget leo mauris. Morbi ac vulputate nibh. In hac habitasse platea dictumst.',
     title: 'How Model View Controller (MVC) Architectures Work'
   },
   {
     id: 'c597c300fe3f817c41a2f01d',
-    author: {
-      avatar: '/assets/avatars/avatar-iulia-albu.png',
-      name: 'Iulia Albu'
-    },
+    userId: 1,
     labels: ['Innovation'],
     cover: '/assets/covers/minimal-1-4x4-large.png',
-    publishedAt: subDays(subHours(subMinutes(subSeconds(now, 52), 39), 7), 5).getTime(),
+    createdAt: '03-03-2024',
+    updatedAt: '03-03-2024',
     readTime: '1',
     shortDescription: 'Phasellus eu commodo lacus, eget tristique nunc. Ut ullamcorper semper nunc sit amet vehicula.',
     title: 'Generating Passive Income Is Hard, Here Is a Better Option'
@@ -59,10 +51,7 @@ export const forums = [
 
 export const forumDetail = {
   id: '24b76cac9a128cd949747080',
-  author: {
-    avatar: '/assets/avatars/avatar-jie-yan-song.png',
-    name: 'Jie Yan Song'
-  },
+  userId: 1,
   labels: ['Programming'],
   content: `
 ## Cras at molestie lacus. Phasellus feugiat leo quis sem iaculis, sed mattis nibh accumsan.
@@ -93,7 +82,8 @@ Duis placerat turpis non metus dapibus sagittis. Vestibulum ex massa, tempus pul
 Suspendisse pharetra dolor in massa molestie, vel molestie nunc accumsan. Cras varius aliquet pellentesque. Curabitur ac mi fermentum nibh congue pharetra in eu nunc. Vivamus mattis urna a fringilla facilisis. Cras finibus nulla in nulla imperdiet pharetra. Morbi vel tortor turpis.
 `,
   cover: '/assets/covers/business-2-4x4-large.png',
-  publishedAt: subMinutes(subSeconds(now, 16), 45).getTime(),
+  createdAt: '03-03-2024',
+  updatedAt: '04-03-2024',
   readTime: '5',
   shortDescription: 'Aliquam dapibus elementum nulla at malesuada. Ut mi nisl, aliquet non mollis vel, feugiat non nibh.',
   title: 'Why I Still Lisp, and You Should Too'
