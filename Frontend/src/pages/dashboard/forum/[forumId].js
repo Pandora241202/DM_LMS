@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
-import { format, subHours } from 'date-fns';
+import { subHours } from 'date-fns';
+import { useRouter } from 'next/router';
 import {
   Avatar,
   Box,
@@ -14,6 +15,7 @@ import {
   Typography
 } from '@mui/material';
 import { forumApi } from '../../../api/forum';
+import { userApi } from '../../../api/user';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
@@ -24,7 +26,59 @@ import { ForumCommentAdd } from '../../../sections/dashboard/forum/forum-comment
 import { ForumContent } from '../../../sections/dashboard/forum/forum-content';
 
 const useComments = () => {
-  return [
+  const isMounted = useMounted();
+  const [comments, setComments] = useState([]);
+  const router = useRouter();
+
+  const getComments = useCallback(async () => {
+    try {
+      if (router.isReady) {
+        const forumId = router.query.forumId;
+        const response = await forumApi.getComments(forumId);
+        console.log(response);
+        const commentsInfo = await Promise.all(response.data.map(async r => {
+          const userResponse = await userApi.getUser(r.authenticatedUserId);
+          return {
+            ...r,
+            replies: [], 
+            authorAvatar: userResponse.avatar,
+            authorName: userResponse.username,
+            authorRole: "",
+            isLiked: true,
+            likes: 12,
+          }
+        }));
+
+        if (isMounted()) {
+          let commentsWithRep = [];
+          let map = new Map();
+          commentsInfo.map(c => {
+            map.set(c.id, c);
+          })
+          commentsInfo.map(c => {
+            if (c.statementId != null) {
+              map.get(c.statementId).replies.push(c);
+            } else {
+              commentsWithRep.push(c);
+            }
+          })
+          setComments(commentsWithRep);
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isMounted,router.isReady]);
+
+  useEffect(() => {
+      getComments();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [router.isReady]);
+
+  return comments;
+
+  /*return [
     {
       id: 'd0ab3d02ef737fa6b007e35d',
       authorAvatar: '/assets/avatars/avatar-alcides-antonio.png',
@@ -45,30 +99,42 @@ const useComments = () => {
       isLiked: false,
       likes: 8
     }
-  ];
+  ];*/
 };
 
 const useForumDetail = () => {
   const isMounted = useMounted();
   const [forumDetail, setForumDetail] = useState(null);
+  const router = useRouter();
 
   const getForumDetail = useCallback(async () => {
     try {
-      const response = await forumApi.getForumDetail();
-
-      if (isMounted()) {
-        setForumDetail(response);
+      if (router.isReady) {
+        const forumId = router.query.forumId;
+        const response = await forumApi.getForumDetail(forumId);
+        console.log(response);
+        const userResponse = await userApi.getUser(response.data.userId);
+        if (isMounted()) {
+          setForumDetail({
+            ...response.data, 
+            cover: '/assets/covers/minimal-1-4x4-large.png',
+            author: {
+              avatar: userResponse.avatar,
+              name: userResponse.username
+            }
+          });
+        }
       }
     } catch (err) {
       console.error(err);
     }
-  }, [isMounted]);
+  }, [isMounted,router.isReady]);
 
   useEffect(() => {
       getForumDetail();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []);
+    [router.isReady]);
 
   return forumDetail;
 };
@@ -82,8 +148,6 @@ const Page = () => {
   if (!forumDetail) {
     return null;
   }
-
-  const publishedAt = format(forumDetail.publishedAt, 'dd-MM-yyyy');
 
   return (
     <>
@@ -130,8 +194,8 @@ const Page = () => {
             </Breadcrumbs>
           </Stack>
           <Stack spacing={3}>
-            <div>
-              <Chip label={forumDetail.category} />
+            <div style={{marginTop: 10}}>
+             {forumDetail.label.map((l, index) => <Chip key={index} label={l} sx={{mr: 1, mb: 1}} />)}
             </div>
             <Typography variant="h3">
               {forumDetail.title}
@@ -157,16 +221,25 @@ const Page = () => {
                   {' '}
                   •
                   {' '}
-                  {publishedAt}
+                  {forumDetail.createdAt}
                 </Typography>
                 <Typography
                   color="text.secondary"
                   variant="body2"
                 >
-                  {forumDetail.readTime} lượt đọc
+                  {forumDetail.readTimes} lượt đọc
                 </Typography>
               </div>
             </Stack>
+            {forumDetail.updatedAt !== forumDetail.createdAt && 
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx ={{ fontStyle: 'italic' }}
+              >
+                • Cập nhật lần cuối {forumDetail.updatedAt}
+              </Typography>
+            }
           </Stack>
           <Box
             sx={{

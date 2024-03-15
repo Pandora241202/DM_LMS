@@ -29,7 +29,8 @@ export const createPalette = (config) => {
     text: {
       primary: neutral[900],
       secondary: neutral[500],
-      disabled: alpha(neutral[900], 0.38)
+      disabled: alpha(neutral[900], 0.38),
+      lightGrey: '#cccccc'
     },
     warning
   };

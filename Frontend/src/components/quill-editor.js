@@ -108,7 +108,6 @@ export const QuillEditor = (props) => {
       ref={ref}
       {...other}>
       <Quill
-        
         onChange={onChange}
         placeholder={placeholder}
         value={value}

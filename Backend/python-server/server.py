@@ -3,6 +3,7 @@ from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 from ontology import *
 from database import *
+from forum import *
 import json
 
 pythonServer = Path(__file__).resolve().parent
@@ -16,7 +17,7 @@ class LearningStyle:
         self.visual_verbal = query['visual_verbal'][0]
         self.global_sequential = query['global_sequential'][0]
         self.sensitive_intuitive = query['sensitive_intuitive'][0]
-class OntologyHandler(BaseHTTPRequestHandler):
+class RequestHandler(BaseHTTPRequestHandler):
     def send_reponse(self, status, type, response):
         self.send_response(status)
         self.send_header('Content-Type', type)
@@ -45,10 +46,17 @@ class OntologyHandler(BaseHTTPRequestHandler):
         else:
             print(self.path)
             self.send_reponse(404, 'text/html', b'Not found')
+            
+    def do_POST(self):
+        if self.path == '/similar-forums':
+            content_len = int(self.headers.get('Content-Length'))
+            post_body = self.rfile.read(content_len).decode('utf-8')
+            forums = ForumService.findSimilarForums(post_body)
+            self.send_reponse(200, 'application/json', json.dumps(forums).encode('utf-8'))
 
 def main():
     PORT = 8181
-    server  = HTTPServer(("", PORT), OntologyHandler)
+    server  = HTTPServer(("", PORT), RequestHandler)
     print("Ontology server is listening on port:", PORT)
     server.serve_forever()
     

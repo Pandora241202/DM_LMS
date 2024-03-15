@@ -1,6 +1,5 @@
 import { Prisma, Statement } from '@prisma/client';
 import { IsNumber, IsNotEmpty, IsString } from 'class-validator';
-import { DatetimeService } from 'src/services/datetime/datetime.service';
 
 class StatementCreateRequestDto {
   @IsNumber()
@@ -34,7 +33,7 @@ class StatementUpdateRequestDto {
   static toUpdateInput(data: StatementUpdateRequestDto): Prisma.StatementUncheckedUpdateInput {
     return {
       ...data,
-      updated_at: new Date(),
+      updatedAt: new Date(),
     };
   }
 }
@@ -42,7 +41,7 @@ class StatementUpdateRequestDto {
 class StatementResponseDto {
   id: number;
   content: string;
-  updated_at: string;
+  updatedAt: Date;
   authenticatedUserId: number;
   statementId: number;
   forumId: number;
@@ -50,8 +49,7 @@ class StatementResponseDto {
   // Map from Forum entity to dto
   static fromForum(data: Statement): StatementResponseDto {
     return {
-      ...data,
-      updated_at: DatetimeService.formatVNTime(data.updated_at),
+      ...data
     };
   }
 }
