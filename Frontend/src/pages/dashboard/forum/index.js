@@ -62,8 +62,11 @@ const useForums = () => {
   return forums;
 };
 
+const FORUM_PER_PAGE = 6;
+
 const Page = () => {
   const forums = useForums();
+  const [page, setPage] = useState(0);
 
   usePageView();
 
@@ -175,7 +178,9 @@ const Page = () => {
             container
             spacing={4}
           >
-            {forums.map((forum) => (
+            {forums
+            .slice(page*FORUM_PER_PAGE, page*FORUM_PER_PAGE + FORUM_PER_PAGE)
+            .map((forum) => (
               <Grid
                 key={forum.id}
                 xs={12}
@@ -207,21 +212,30 @@ const Page = () => {
             }}
           >
             <Button
-              disabled
+              disabled={page == 0}
               startIcon={(
                 <SvgIcon>
                   <ArrowLeftIcon />
                 </SvgIcon>
               )}
+              onClick={() => {
+                setPage(page - 1);
+                window.scrollTo(0,0);
+              }}
             >
               Mới hơn
             </Button>
             <Button
+              disabled={page == Math.floor(forums.length / FORUM_PER_PAGE)}
               endIcon={(
                 <SvgIcon>
                   <ArrowRightIcon />
                 </SvgIcon>
               )}
+              onClick={() => {
+                setPage(page + 1);
+                window.scrollTo(0,0);
+              }}
             >
               Cũ hơn
             </Button>
