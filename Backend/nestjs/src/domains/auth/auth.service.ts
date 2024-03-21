@@ -14,12 +14,16 @@ export class AuthService {
   ) {}
 
   async login(body: AuthLoginREQ) {
-    const user = await this.prismaService.authenticatedUser.findFirstOrThrow({
+    const user = await this.prismaService.authenticatedUser.findFirst({
       where: { username: body.username },
       select: { id: true, password: true, username: true, accountType: true },
     });
+
+    if (!user) {
+      throw new UnauthorizedException("Sai tên đăng nhập hoặc mật khẩu");
+    }
     const isMatch = await bcrypt.compare(body.password, user.password);
-    if (!isMatch) throw new UnauthorizedException();
+    if (!isMatch) throw new UnauthorizedException("Sai tên đăng nhập hoặc mật khẩu");
 
     const jwtToken = await this.jwtService.signAsync({ user: AuthDTO.fromEntity(user as any) });
     return AuthLoginRESP.fromEntity(user as any, jwtToken);

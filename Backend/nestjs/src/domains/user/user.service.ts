@@ -15,8 +15,7 @@ export class UserService {
   async create(body: UserCreateREQ) {
     body.password = await bcrypt.hash(body.password, 10);
     const user = await this.prismaService.authenticatedUser.create({
-      data: UserCreateREQ.toCreateInput(body),
-      select: { id: true },
+      data: UserCreateREQ.toCreateInput(body)
     });
 
     if (body.accountType === AccountType.LEARNER) {
@@ -24,6 +23,8 @@ export class UserService {
         data: UserLearnerDTO.toCreateInput(user.id, body.learningStyleQA, body.backgroundKnowledge, body.qualification),
       });
     }
+
+    return UserInfoDTO.fromEntity(user);
   }
 
   async detail(id: number) {

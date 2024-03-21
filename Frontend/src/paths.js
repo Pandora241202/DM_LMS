@@ -46,6 +46,27 @@ export const paths = {
       modern: '/auth-demo/verify-code/modern'
     }
   },
+  usedAuth: {
+    auth0: {
+      callback: '/used-auth/auth0/callback',
+      login: '/used-auth/auth0/login'
+    },
+    jwt: {
+      login: '/used-auth/jwt/login',
+      register: '/used-auth/jwt/register'
+    },
+    firebase: {
+      login: '/used-auth/firebase/login',
+      register: '/used-auth/firebase/register'
+    },
+    amplify: {
+      confirmRegister: '/used-auth/amplify/confirm-register',
+      forgotPassword: '/used-auth/amplify/forgot-password',
+      login: '/used-auth/amplify/login',
+      register: '/used-auth/amplify/register',
+      resetPassword: '/used-auth/amplify/reset-password'
+    }
+  },
   dashboard: {
     index: '/dashboard',
     academy: {
