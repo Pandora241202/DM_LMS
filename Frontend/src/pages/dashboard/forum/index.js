@@ -55,9 +55,7 @@ const useForums = () => {
 
   useEffect(() => {
     getForums();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []);
+  },[]);
 
   return forums;
 };

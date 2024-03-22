@@ -163,7 +163,7 @@ export const SearchDialog = (props) => {
           Nhấn vào các đường link diễn đàn dưới đây để bạn có thể duyệt qua chúng trong tab trình duyệt mới. Tiến trình của bạn sẽ được lưu trữ tại đây để bạn có thể quay lại và tiếp tục!
         </Typography>
         <Box
-          sx={{ my: 2, borderRadius: '10px', border: '1px solid', borderColor: "text.lightGrey", py: 1, px: 2 }}
+          sx={{ my: 2, borderRadius: '10px', border: '1px solid', borderColor: "text.disabled", py: 1, px: 2 }}
         >
           {similarForums.map(forum => 
             <Stack flexDirection="row" key={forum.id} >
