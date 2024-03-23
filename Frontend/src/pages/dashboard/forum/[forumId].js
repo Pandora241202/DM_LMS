@@ -76,29 +76,6 @@ const useComments = () => {
     [router.isReady]);
 
   return comments;
-
-  /*return [
-    {
-      id: 'd0ab3d02ef737fa6b007e35d',
-      authorAvatar: '/assets/avatars/avatar-alcides-antonio.png',
-      authorName: 'Alcides Antonio',
-      authorRole: 'Product Designer',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      createdAt: subHours(new Date(), 2).getTime(),
-      isLiked: true,
-      likes: 12
-    },
-    {
-      id: '3ac1e17289e38a84108efdf3',
-      authorAvatar: '/assets/avatars/avatar-jie-yan-song.png',
-      authorName: 'Jie Yan Song',
-      authorRole: 'Web Developer',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-      createdAt: subHours(new Date(), 8).getTime(),
-      isLiked: false,
-      likes: 8
-    }
-  ];*/
 };
 
 const useForumDetail = () => {
@@ -112,14 +89,17 @@ const useForumDetail = () => {
         const forumId = router.query.forumId;
         const response = await forumApi.getForumDetail(forumId);
         console.log(response);
-        const userResponse = await userApi.getUser(response.data.userId);
+        const userResponse = await userApi.getU
+        
+        
+        ser(response.data.userId);
         if (isMounted()) {
           setForumDetail({
             ...response.data, 
             cover: '/assets/covers/minimal-1-4x4-large.png',
             author: {
-              avatar: userResponse.avatar,
-              name: userResponse.username
+              avatar: userResponse.data.avatar,
+              name: userResponse.data.username
             }
           });
         }

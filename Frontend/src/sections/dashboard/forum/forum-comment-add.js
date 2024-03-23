@@ -12,12 +12,12 @@ import {
   SvgIcon,
   useMediaQuery
 } from '@mui/material';
-import { useMockedUser } from '../../../hooks/use-mocked-user';
-import { getInitials } from '../../../utils/get-initials';
+import { useAuth } from '../../../hooks/use-auth';
+import User01Icon from '@untitled-ui/icons-react/build/esm/User01';
 
 export const ForumCommentAdd = (props) => {
   const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
-  const user = useMockedUser();
+  const { user } = useAuth();
 
   return (
     <div {...props}>
@@ -33,7 +33,9 @@ export const ForumCommentAdd = (props) => {
             width: 40
           }}
         >
-          {getInitials(user.name)}
+          <SvgIcon>
+            <User01Icon />
+          </SvgIcon>
         </Avatar>
         <Box sx={{ flexGrow: 1 }}>
           <OutlinedInput

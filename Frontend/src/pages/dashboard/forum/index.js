@@ -27,6 +27,8 @@ import { paths } from '../../../paths';
 import { ForumCard } from '../../../sections/dashboard/forum/forum-card';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 
+const consts = require('../../../constants');
+
 const useForums = () => {
   const isMounted = useMounted();
   const [forums, setForums] = useState([]);
@@ -39,8 +41,8 @@ const useForums = () => {
         return {
           ...r, 
           author: {
-            avatar: userResponse.avatar,
-            name: userResponse.username
+            avatar: userResponse.data.avatar,
+            name: userResponse.data.username
           }
         }
       }));
@@ -59,8 +61,6 @@ const useForums = () => {
 
   return forums;
 };
-
-const FORUM_PER_PAGE = 6;
 
 const Page = () => {
   const forums = useForums();
@@ -177,7 +177,7 @@ const Page = () => {
             spacing={4}
           >
             {forums
-            .slice(page*FORUM_PER_PAGE, page*FORUM_PER_PAGE + FORUM_PER_PAGE)
+            .slice(page*consts.FORUMS_PER_PAGE, page*consts.FORUMS_PER_PAGE + consts.FORUMS_PER_PAGE)
             .map((forum) => (
               <Grid
                 key={forum.id}
@@ -224,7 +224,7 @@ const Page = () => {
               Mới hơn
             </Button>
             <Button
-              disabled={page == Math.floor(forums.length / FORUM_PER_PAGE)}
+              disabled={page == Math.floor(forums.length / consts.FORUMS_PER_PAGE)}
               endIcon={(
                 <SvgIcon>
                   <ArrowRightIcon />

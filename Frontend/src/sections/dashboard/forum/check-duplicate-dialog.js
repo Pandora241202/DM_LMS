@@ -42,7 +42,7 @@ const useSimilarForums = (forumDetail) => {
 };
 
 
-export const SearchDialog = (props) => {
+export const CheckDuplicateDialog = (props) => {
   const { onClose, open = false, forumDetail, ...other } = props;
   const similarForums = useSimilarForums(forumDetail)
   const router = useRouter();
@@ -194,7 +194,7 @@ export const SearchDialog = (props) => {
   );
 };
 
-SearchDialog.propTypes = {
+CheckDuplicateDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool,
   forumDetail: any

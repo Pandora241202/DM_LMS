@@ -39,7 +39,7 @@ export const AccountButton = () => {
             height: 32,
             width: 32
           }}
-          src={user.avatar?user.avatar:'/assets/avatars/avatar-anika-visser.png'}
+          src={user.avatar}
         >
           <SvgIcon>
             <User01Icon />
