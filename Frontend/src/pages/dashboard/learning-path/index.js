@@ -19,6 +19,8 @@ import { LearningPathLockedLOs } from '../../../sections/dashboard/learning-path
 import { useMounted } from '../../../hooks/use-mounted';
 import { learningPathApi } from '../../../api/learning-path';
 
+const consts = require('../../../constants');
+
 const useLOs = () => {
   const isMounted = useMounted();
   const [LOs, setLOs] = useState([]);
@@ -42,15 +44,13 @@ const useLOs = () => {
   return LOs;
 };
 
-const LOS_PER_PAGE = 9;
-
 const Page = () => {
   const LOs = useLOs();
   const settings = useSettings();
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    const onProcessingLOPage = Math.floor((LOs.map(LO => LO.finished == 0).indexOf(true) - 1) / LOS_PER_PAGE)
+    const onProcessingLOPage = Math.floor((LOs.map(LO => LO.finished == 0).indexOf(true) - 1) / consts.LOS_PER_PAGE)
     setPage(onProcessingLOPage >= 0 ? onProcessingLOPage : 0);
   },[LOs]);
 
@@ -111,9 +111,10 @@ const Page = () => {
               </Stack>
             </Grid>
             {LOs
-            .slice(page*LOS_PER_PAGE, page*LOS_PER_PAGE + LOS_PER_PAGE)
-            .map(LO => {
-              const LearningPathLOs = LO.finished >= 80 ? LearningPathDoneLOs : LO.finished == 0 ? LearningPathLockedLOs : LearningPathProcessLOs;
+            .slice(page*consts.LOS_PER_PAGE, page*consts.LOS_PER_PAGE + consts.LOS_PER_PAGE)
+            .map((LO, index) => {
+              const LearningPathLOs = LO.finished >= consts.PERCENTAGE_TO_PASS_LO ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].finished >= consts.PERCENTAGE_TO_PASS_LO) ? LearningPathProcessLOs : LearningPathLockedLOs;
+              console.log(consts.PERCENTAGE_TO_PASS_LO)
               return (
                 <Grid
                   xs={12}
@@ -139,7 +140,7 @@ const Page = () => {
                   Trước
                 </Button>
                 <Button
-                  disabled={page == Math.floor(LOs.length / LOS_PER_PAGE)}
+                  disabled={page == Math.floor(LOs.length / consts.LOS_PER_PAGE)}
                   onClick={() => {
                     setPage(page + 1);
                     window.scrollTo(0, 0);

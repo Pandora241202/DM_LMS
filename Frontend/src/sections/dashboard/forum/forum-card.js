@@ -12,7 +12,6 @@ import {
   Typography
 } from '@mui/material';
 import { paths } from '../../../paths';
-import { getInitials } from '../../../utils/get-initials';
 
 const initialCover = '/assets/covers/abstract-1-4x3-large.png';
 
@@ -77,9 +76,7 @@ export const ForumCard = (props) => {
             direction="row"
             spacing={2}
           >
-            <Avatar src={authorAvatar}>
-              {getInitials(authorName)}
-            </Avatar>
+            <Avatar src={authorAvatar} />
             <Typography variant="subtitle2">
               Đăng bởi
               {' '}
@@ -106,7 +103,7 @@ export const ForumCard = (props) => {
 
 ForumCard.propTypes = {
   id: PropTypes.number.isRequired,
-  authorAvatar: PropTypes.string.isRequired,
+  authorAvatar: PropTypes.string,
   authorName: PropTypes.string.isRequired,
   label: PropTypes.array.isRequired,
   cover: PropTypes.string,

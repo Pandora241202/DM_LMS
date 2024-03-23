@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import Lock01Icon from '@untitled-ui/icons-react/build/esm/Lock01';
 import { Box, Button, Card, CardActions, Divider, Stack, SvgIcon, Typography } from '@mui/material';
 
+const consts = require('../../../constants')
+
 export const LearningPathLockedLOs = (props) => {
   const { id, topic, learningObject, finished, ...other } = props;
 
@@ -53,7 +55,7 @@ export const LearningPathLockedLOs = (props) => {
           fontStyle="italic"
           pl={2}
         >
-          Hoàn thành 80% bài học trước để mở
+          Hoàn thành {consts.POTENTIAL_TO_PASS_LO}% bài học trước để mở
         </Typography>
         <Button
           color="inherit"

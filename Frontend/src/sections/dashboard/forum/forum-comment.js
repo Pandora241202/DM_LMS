@@ -2,6 +2,7 @@ import PropTypes, { any } from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
 import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
+import { ForumCommentAdd } from './forum-comment-add';
 
 const translation_dict = {
   "seconds": "giây",
@@ -25,7 +26,11 @@ const translation_dict = {
   "last week": "tuần trước",
   "next month": "tháng sau",
   "a few": "vài",
-  "about": "khoảng"
+  "about": "khoảng", 
+  "less": "ít",
+  "more": "nhiều",
+  "than": "hơn",
+  "a": "1"
 }
 
 function translateToVietnamese(sentence) {
@@ -52,9 +57,12 @@ export const ForumComment = (props) => {
     forumId,
     authenticatedUserId,
     statementId,  
+    id,
     ...other
   } = props;
 
+  const [addReply, setAddReply] = useState(false);
+  const [renderedReplies, setRenderedReplies] = useState(replies);
   const [showReplies, setShowReplies] = useState(replies.length == 0 ? null : false);
 
   return (
@@ -96,17 +104,21 @@ export const ForumComment = (props) => {
           </Typography>
         </Box>
         <Stack justifyContent="flex-start" direction="row" spacing={0.5} width="100%" >
-          <Button color="inherit" sx={{p: 0.5, fontWeight: 500, fontSize: 12}}>Phản hồi</Button>
-          {showReplies == false && <Button color="inherit"  sx={{p: 0.5, fontWeight: 500, fontSize: 12}} onClick={e => setShowReplies(true)}>Hiển thị tất cả phản hồi</Button>}
+          <Button color="inherit" sx={{p: 0.5, fontWeight: 500, fontSize: 12}} onClick={() => {
+            setAddReply(true);
+            setShowReplies(true);
+          }}>Phản hồi</Button>
+          {showReplies == false && <Button color="inherit"  sx={{p: 0.5, fontWeight: 500, fontSize: 12}} onClick={() => setShowReplies(true)}>Hiển thị tất cả phản hồi</Button>}
         </Stack>
-        {showReplies == true && replies.map(r => <ForumComment key={r.id} {...r} />)}
+        {addReply == true && <ForumCommentAdd forumId={forumId} statementId={id} setComments={setRenderedReplies}/>}
+        {showReplies == true && renderedReplies.map(r => <ForumComment key={r.id} {...r} />)}
       </Stack>
     </Stack>   
   );
 };
 
 ForumComment.propTypes = {
-  authorAvatar: PropTypes.string.isRequired,
+  authorAvatar: PropTypes.string,
   authorName: PropTypes.string.isRequired,
   authorRole: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
@@ -116,5 +128,6 @@ ForumComment.propTypes = {
   forumId: PropTypes.number.isRequired,
   authenticatedUserId: PropTypes.number.isRequired,
   statementId: PropTypes.number,
-  replies: PropTypes.arrayOf(any)
+  replies: PropTypes.arrayOf(any),
+  id: PropTypes.number.isRequired,
 };
