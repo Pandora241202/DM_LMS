@@ -9,4 +9,4 @@ define("FORUMS_PER_PAGE", 6);
 
 define("LOS_PER_PAGE", 9);
 
-define("POTENTIAL_TO_PASS_LO", 80);
+define("PERCENTAGE_TO_PASS_LO", 80);
