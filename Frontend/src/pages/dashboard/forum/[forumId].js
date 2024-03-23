@@ -40,8 +40,8 @@ const useComments = () => {
           return {
             ...r,
             replies: [], 
-            authorAvatar: userResponse.avatar,
-            authorName: userResponse.username,
+            authorAvatar: userResponse.data.avatar,
+            authorName: userResponse.data.username,
             authorRole: "",
             isLiked: true,
             likes: 12,
@@ -75,7 +75,7 @@ const useComments = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [router.isReady]);
 
-  return comments;
+  return {comments, setComments};
 };
 
 const useForumDetail = () => {
@@ -89,10 +89,7 @@ const useForumDetail = () => {
         const forumId = router.query.forumId;
         const response = await forumApi.getForumDetail(forumId);
         console.log(response);
-        const userResponse = await userApi.getU
-        
-        
-        ser(response.data.userId);
+        const userResponse = await userApi.getUser(response.data.userId);
         if (isMounted()) {
           setForumDetail({
             ...response.data, 
@@ -120,14 +117,14 @@ const useForumDetail = () => {
 
 const Page = () => {
   const forumDetail = useForumDetail();
-  const comments = useComments();
-
+  const { comments, setComments } = useComments();
+  
   usePageView();
 
   if (!forumDetail) {
     return null;
   }
-
+ 
   return (
     <>
       <Head>
@@ -240,11 +237,12 @@ const Page = () => {
             {comments.map((comment) => (
               <ForumComment
                 key={comment.id}
-                {...comment} />
+                {...comment} 
+              />
             ))}
           </Stack>
           <Divider sx={{ my: 3 }} />
-          <ForumCommentAdd />
+          <ForumCommentAdd forumId={forumDetail.id} statementId={null} setComments={setComments}/>
         </Container>
       </Box>
     </>
