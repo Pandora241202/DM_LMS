@@ -2,6 +2,7 @@ import { BackgroundKnowledgeType, GenderType, Prisma, QualificationType } from '
 import { PrismaService } from '../prisma/prisma.service';
 import { parseEponch } from 'src/shared/date.helper';
 import { Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 class Learner {
   id: number;
   activeReflective: number;
@@ -31,7 +32,10 @@ class Learner {
 }
 @Injectable()
 export class OntologyService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly httpService: HttpService,
+  ) {}
 
   async getLearners() {
     const learners = await this.prismaService.learner.findMany({

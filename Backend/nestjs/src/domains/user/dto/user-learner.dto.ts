@@ -38,6 +38,18 @@ export class UserLearnerDTO {
     };
   }
 
+  static selectLearner(): Prisma.LearnerSelect {
+    return {
+      id: true,
+      qualification: true,
+      backgroundKnowledge: true,
+      activeReflective: true,
+      sensitiveIntuitive: true,
+      visualVerbal: true,
+      globalSequential: true,
+    };
+  }
+
   static toCreateInput(
     userId: number,
     learningStyleQA: string[] = null,

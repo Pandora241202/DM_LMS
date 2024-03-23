@@ -49,7 +49,7 @@ class StatementResponseDto {
   // Map from Forum entity to dto
   static fromForum(data: Statement): StatementResponseDto {
     return {
-      ...data
+      ...data,
     };
   }
 }

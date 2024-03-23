@@ -1,6 +1,7 @@
 [
   {
-    "lmID": "Document A",
+    "lmID": 1,
+    "name": "Document A",
     "difficulty": 0.4,
     "learning_resouce_type": "pdf",
     "material_ratings": 3,
@@ -9,7 +10,8 @@
     "topic": "K-Means Clustering"
   },
   {
-    "lmID": "Document B",
+    "lmID": 2,
+    "name": "Document B",
     "difficulty": 0.5,
     "learning_resouce_type": "pdf",
     "material_ratings": 4,
@@ -18,7 +20,8 @@
     "topic": "K-Means Clustering"
   },
   {
-    "lmID": "Video A",
+    "lmID": 3,
+    "name": "Video A",
     "difficulty": 0.6,
     "learning_resouce_type": "video",
     "material_ratings": 5,
@@ -27,7 +30,8 @@
     "topic": "DBSCAN"
   },
   {
-    "lmID": "Video B",
+    "lmID": 4,
+    "name": "Video B",
     "difficulty": 0.6,
     "learning_resouce_type": "video",
     "material_ratings": 3,
@@ -36,7 +40,8 @@
     "topic": "DBSCAN"
   },
   {
-    "lmID": "Code A",
+    "lmID": 5,
+    "name": "Code A",
     "difficulty": 0.3,
     "learning_resouce_type": "code",
     "material_ratings": 2,
@@ -45,7 +50,8 @@
     "topic": "DBSCAN"
   },
   {
-    "lmID": "Document C",
+    "lmID": 6,
+    "name": "Document C",
     "difficulty": 0.3,
     "learning_resouce_type": "word",
     "material_ratings": 4,
@@ -54,7 +60,8 @@
     "topic": "Matrices and linear algebra fundamentals"
   },
   {
-    "lmID": "Code B",
+    "lmID": 7,
+    "name": "Code B",
     "difficulty": 0.3,
     "learning_resouce_type": "code",
     "material_ratings": 2,
@@ -63,7 +70,8 @@
     "topic": "Matrices and linear algebra fundamentals"
   },
   {
-    "lmID": "Document D",
+    "lmID": 8,
+    "name": "Document D",
     "difficulty": 0.3,
     "learning_resouce_type": "word",
     "material_ratings": 4,
@@ -72,7 +80,8 @@
     "topic": "Data mining"
   },
   {
-    "lmID": "Document F",
+    "lmID": 9,
+    "name": "Document F",
     "difficulty": 0.3,
     "learning_resouce_type": "word",
     "material_ratings": 5,
@@ -81,7 +90,8 @@
     "topic": "Data mining"
   },
   {
-    "lmID": "Video C",
+    "lmID": 10,
+    "name": "Video C",
     "difficulty": 0.3,
     "learning_resouce_type": "video",
     "material_ratings": 2,
@@ -90,7 +100,8 @@
     "topic": "HDBSCAN"
   },
   {
-    "lmID": "Code C",
+    "lmID": 11,
+    "name": "Code C",
     "difficulty": 0.3,
     "learning_resouce_type": "code",
     "material_ratings": 2,
@@ -99,7 +110,8 @@
     "topic": "Machine Learning"
   },
   {
-    "lmID": "Video D",
+    "lmID": 12,
+    "name": "Video D",
     "difficulty": 0.3,
     "learning_resouce_type": "video",
     "material_ratings": 2,

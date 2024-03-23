@@ -3,10 +3,22 @@ import { OntologyService } from './ontology.service';
 
 @Controller('ontology')
 export class OntologyController {
-  constructor(private readonly ontologyService: OntologyService) {}
+  constructor(
+    private readonly ontologyService: OntologyService,
+  ) {}
 
-  @Get('feature-test')
+  @Get('learners')
   async getLearners() {
+    return this.ontologyService.getLearners();
+  }
+
+  @Get('learners')
+  async getLMs() {
     return this.ontologyService.getLMs();
+  }
+
+  @Get('learners')
+  async getLogs() {
+    return this.ontologyService.getLogs();
   }
 }

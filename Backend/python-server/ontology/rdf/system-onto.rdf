@@ -273,8 +273,9 @@
     
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-l4-Document_A">
         <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
-        <system-ontology:learnerID>l4</system-ontology:learnerID>
-        <system-ontology:lmID>Document A</system-ontology:lmID>
+        <system-ontology:learnerID>4</system-ontology:learnerID>
+        <system-ontology:lmID>1</system-ontology:lmID>
+        <system-ontology:name>Document A</system-ontology:name>
         <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
         <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.0</system-ontology:time>
         <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
@@ -285,7 +286,8 @@
     
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-l3-Document_B">
         <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
-        <system-ontology:learnerID>l3</system-ontology:learnerID>
+        <system-ontology:learnerID>3</system-ontology:learnerID>
+        <system-ontology:lmID>2</system-ontology:lmID>
         <system-ontology:lmID>Document B</system-ontology:lmID>
         <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
         <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:time>
@@ -387,7 +389,8 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
         <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.4</system-ontology:difficulty>
         <system-ontology:learning_resouce_type>pdf</system-ontology:learning_resouce_type>
-        <system-ontology:lmID>Document A</system-ontology:lmID>
+        <system-ontology:lmID>1</system-ontology:lmID>
+        <system-ontology:name>Document A</system-ontology:name>
         <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3</system-ontology:material_ratings>
         <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
         <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>

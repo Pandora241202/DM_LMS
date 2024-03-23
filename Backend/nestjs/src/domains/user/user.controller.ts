@@ -16,9 +16,13 @@ export class UserController {
   }
 
   @Get()
-  async findAll(@Req() req: any, @Query() query: PaginationREQ) {
-    console.log(req.user);
+  async findAll(@Query() query: PaginationREQ) {
     return await this.userService.findAll(query);
+  }
+
+  @Get('generate-paths')
+  async generatePaths(@Req() req: any, @Query() query: {start: number, end: number}) {
+    return await this.userService.generatePaths(req.user.id, query.start, query.end);
   }
 
   @Get('profile')

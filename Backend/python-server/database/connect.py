@@ -19,7 +19,29 @@ class Learner:
             "sensitive_intuitive": learner[8],
             "visual_verbal": learner[9]   
         }
+
+class LM:
+    def fromEntity(lm):
+        return {
+            "id": lm[0],
+            "name": lm[1],
+            "difficulty": lm[2],
+            "type": lm[3],
+            "rating": lm[4],
+            "score": lm[5],
+            "time": lm[6]
+        }
         
+class Log:
+    def fromEntity(log):
+        return {
+            "learning_material_visitted_time": log[0], "learning_material_rating": log[1], 
+            "score": log[2], 
+            "time": log[3], 
+            "attempts": log[4],
+            "learning_material_id": log[5], 
+            "learner_id": log[6]
+        }
         
 class connectDatabase:
     def __init__(self):
@@ -35,11 +57,21 @@ class connectDatabase:
         
         return json.dumps(learners)
 
-    def lms():
-        pass
+    def lms(self):
+        query = "SELECT id, name, difficultym, type, rating, score, time FROM learning_materials"
+        
+        self.cursor.execute(query)
+        lms = list(map(LM.fromEntity, self.cursor.fetchall()))
+        
+        return json.dumps(lms)
     
-    def logs():
-        pass
+    def logs(self):
+        query = "SELECT learning_material_visitted_time, learning_material_rating, score, time, attempts, learning_material_id, learner_id"
+        
+        self.cursor.execute(query)
+        logs = list(map(Log.fromEntity, self.cursor.fetchall()))
+        
+        return json.dumps(logs)
     
     def __del__(self):
         self.cursor.close()

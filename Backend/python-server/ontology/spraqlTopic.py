@@ -40,15 +40,8 @@ class SpraqlTopic:
 
     def spraqlTopic(self):
         paths = []
-
         self.DFS([], [], paths)
-        return paths
-
-        for path in paths:
-            for topic in path:
-                print(topic)
-                
-            print("\n================================")
-            
         with open(os.getcwd() + '/ontology/json/paths.json', 'w') as json_file:
             json.dump(paths, json_file, indent=2)
+            
+        return paths

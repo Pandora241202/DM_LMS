@@ -15,5 +15,7 @@ export class LearningPathService {
     const learningPath = await this.prismaService.learningPath.findMany({
       where: { id },
     });
+
+    return learningPath
   }
 }

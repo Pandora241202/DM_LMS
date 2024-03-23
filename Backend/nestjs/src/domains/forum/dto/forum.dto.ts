@@ -51,16 +51,18 @@ class ForumUpdateRequestDto {
   coverImage?: string;
 
   @IsNumber()
-  readTimes?: number
+  readTimes?: number;
 
   // Map from dto request to entity update input
   static toUpdateInput(data: ForumUpdateRequestDto): Prisma.ForumUncheckedUpdateInput {
-    return data.readTimes == null ? {
-      ...data,
-      updatedAt: new Date(),
-    } : {
-      ...data,
-    };
+    return data.readTimes == null
+      ? {
+          ...data,
+          updatedAt: new Date(),
+        }
+      : {
+          ...data,
+        };
   }
 }
 

@@ -12,7 +12,7 @@ systemOntology = pythonServer / 'ontology'
 class LearningStyle:
     def __init__(self, query):
         self.qualification = query['qualification'][0]
-        self.backgroundKnowledge = query['backgroundKnowledge'][0]
+        self.backgroundKnowledge = query['background_knowledge'][0]
         self.active_reflective = query['active_reflective'][0]
         self.visual_verbal = query['visual_verbal'][0]
         self.global_sequential = query['global_sequential'][0]
@@ -31,18 +31,20 @@ class RequestHandler(BaseHTTPRequestHandler):
                 with open(json_path, 'r') as json_file:
                     paths = json.load(json_file)
                 json_string = json.dumps(paths)
-                
                 self.send_reponse(200, 'application/json', json_string.encode('utf-8'))
             except FileNotFoundError:            
                 self.send_reponse(404, 'text/html', b'File not found')
+                
         elif '/spraql-lm' in self.path:
             query = parse_qs(urlparse(self.path).query)
+            SpraqlTopic(query["start"][0], query["end"][0] )
             learningSytle = LearningStyle(query)
             paths = SpraqlLM().spraql_lm(learningSytle)
-            self.send_reponse(200, 'application/json', b'SPRAQL LM')
-        elif '/feature-test' in self.path:
-            json_ = connectDatabase().learners()
-            self.send_reponse(200, 'text/html', json_.encode('utf-8'))
+            self.send_reponse(200, 'application/json', json.dumps(paths).encode('utf-8'))
+            
+        elif self.path == '/feature-test':
+            self.send_reponse(200, 'text/html', b'Feature test')
+            
         else:
             print(self.path)
             self.send_reponse(404, 'text/html', b'Not found')

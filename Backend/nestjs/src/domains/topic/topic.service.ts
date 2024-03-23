@@ -4,7 +4,6 @@ import { TopicCreateREQ } from './request/topic-create.request';
 import { TopicUpdateREQ } from './request/topic-update.request';
 import { TopicLinkDeleteREQ } from './request/topic-link-delete.request';
 import { TopicDetailRESP } from './response/topic-detail.response';
-import { connectManyRelation, connectRelation } from 'src/shared/prisma.helper';
 
 @Injectable()
 export class TopicService {

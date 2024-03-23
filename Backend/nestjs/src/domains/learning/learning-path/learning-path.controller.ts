@@ -11,8 +11,8 @@ export class LearningPathConttroller {
     await this.learningPathService.create(req.user.id, body);
   }
 
-  @Get()
-  async detailLearningPath(@Param('id', ParseIntPipe) id: number) {
+  @Get(':id')
+  async detail(@Param('id', ParseIntPipe) id: number) {
     return await this.learningPathService.detail(id);
   }
 }

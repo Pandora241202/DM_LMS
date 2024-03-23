@@ -14,7 +14,7 @@ export class ForumController {
   constructor(
     private readonly forumService: ForumService,
     private readonly statementService: StatementService,
-    private readonly httpService: HttpService
+    private readonly httpService: HttpService,
   ) {}
 
   @Post()
@@ -31,9 +31,9 @@ export class ForumController {
   @Post('similarForums')
   async findSimilarForums(@Body() body: ForumDto.ForumCreateRequestDto) {
     try {
-      const similarForums = await lastValueFrom(this.httpService.post('http://127.0.0.1:8181/similar-forums', body.content).pipe(
-        map(res => res.data)
-      ));
+      const similarForums = await lastValueFrom(
+        this.httpService.post('http://127.0.0.1:8181/similar-forums', body.content).pipe(map((res) => res.data)),
+      );
       return JSON.stringify(similarForums);
     } catch (error) {
       console.log(error);

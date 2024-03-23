@@ -36,6 +36,9 @@ class SpraqlLM:
         return lms
 
     def spraql_lm(self, learningStyle):
+        result = []
+        index = 0
+
         sparql_query = f"""
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -112,7 +115,7 @@ class SpraqlLM:
                 similarity = abs(0.4*(aScore/lms[lm]["maxScore"]) + 0.3*(1.0 - aTime/lms[lm]["maxTime"]) + 0.3*(1.0 - aAttempt) - lms[lm]["difficulty"])
                 topics[lms[lm]["topic"]] += [(lms[lm]["rating"], similarity, lm)]
 
-
+            recommendTopicMaterial = []
             for topic in topics:
                 if topics[topic] == []:
                     topics[topic] = SpraqlLM().getLMtopic(topic)
@@ -120,10 +123,13 @@ class SpraqlLM:
                 topics[topic].sort(key=lambda x: x[0], reverse=True)
                 end = round(len(topics[topic])*0.2 + 0.5)
                 topics[topic] = topics[topic][0:end]
-                topics[topic].sort(key=lambda x: x[1])
-
-            return topics
-            for topic in topics:
-                print(topic + " - " + topics[topic][0][2])
+                topics[topic].sort(key=lambda x: x[1]) # sort by similarity
+                
+                recommendTopicMaterial += [{
+                    "topic": topic,
+                    "learning_material": topics[topic][0][2]
+                }]
             
-            print("\n================================")
+            result += [recommendTopicMaterial]
+
+        return result

@@ -9,4 +9,13 @@ export class LearningMaterialService {
   async create(body: LearningMaterialCreateREQ) {
     await this.prismaService.learningMaterial.create({ data: LearningMaterialCreateREQ.toCreateInput(body) });
   }
+
+  async createMany(body: LearningMaterialCreateREQ[]){
+    await this.prismaService.learningMaterial.createMany({ data: body.map(lm => LearningMaterialCreateREQ.toCreateInput(lm)) });
+  }
+
+  async detail(id: number) {
+    const lm = await this.prismaService.learningMaterial.findUniqueOrThrow({ where: { id } });
+    return lm;
+  }
 }
