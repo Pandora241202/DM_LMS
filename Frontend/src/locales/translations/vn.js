@@ -52,4 +52,5 @@ export const vn = {
   [tokens.nav.forumCreate]: 'Tạo mới',
   [tokens.nav.forumDetails]: 'Chi tiết',
   [tokens.nav.forumList]: 'Danh sách',
+  [tokens.nav.learningPath]: 'Lộ trình học',
 };

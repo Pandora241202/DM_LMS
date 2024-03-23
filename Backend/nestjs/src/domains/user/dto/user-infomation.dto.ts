@@ -15,6 +15,7 @@ export class UserInfoDTO {
   static selectUser(): Prisma.AuthenticatedUserSelect {
     return {
       id: true,
+      avatar: true,
       email: true,
       name: true,
       birth: true,
@@ -29,6 +30,7 @@ export class UserInfoDTO {
   static fromEntity(e: Prisma.AuthenticatedUserGetPayload<unknown>) {
     return {
       id: e.id,
+      avatar: e.avatar,
       email: e.email,
       name: e.name,
       birth: parseEponch(Date.now()).year - parseEponch(e.birth).year,

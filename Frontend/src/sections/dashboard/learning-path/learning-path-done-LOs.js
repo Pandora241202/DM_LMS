@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
 import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
 import { Box, Button, Card, CardActions, Divider, Stack, SvgIcon, Typography } from '@mui/material';
+import { paths } from '../../../paths';
+import NextLink from 'next/link';
 
-export const OverviewOpenTickets = (props) => {
-  const { amount } = props;
+export const LearningPathDoneLOs = (props) => {
+  const { id, topic, learningObject, finished, ...other } = props;
 
   return (
-    <Card>
+    <Card
+
+    >
       <Stack
         alignItems="center"
         direction={{
@@ -21,27 +25,38 @@ export const OverviewOpenTickets = (props) => {
       >
         <div>
           <img
-            src="/assets/iconly/iconly-glass-paper-purple.svg"
+            src="/assets/iconly/iconly-glass-tick.svg"
             width={48}
           />
         </div>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, overflow: "hidden" }}>
           <Typography
             color="text.secondary"
             variant="body2"
+            textOverflow="ellipsis"
+            noWrap
           >
-            Open tickets
+            {topic}
           </Typography>
           <Typography
             color="text.primary"
-            variant="h4"
+            variant="h6"
+            noWrap
+            textOverflow="ellipsis"
           >
-            {amount}
+            {learningObject}
           </Typography>
         </Box>
       </Stack>
       <Divider />
-      <CardActions>
+      <CardActions sx={{ justifyContent: "space-between" }}>
+        <Typography
+          color="text.primary"
+          fontWeight={600}
+          pl={2}
+        >
+          {finished} %
+        </Typography>
         <Button
           color="inherit"
           endIcon={(
@@ -50,14 +65,19 @@ export const OverviewOpenTickets = (props) => {
             </SvgIcon>
           )}
           size="small"
+          component={NextLink}
+          href={paths.dashboard.blog.postDetails}
         >
-          See all tickets
+          Xem lại
         </Button>
       </CardActions>
     </Card>
   );
 };
 
-OverviewOpenTickets.propTypes = {
-  amount: PropTypes.number.isRequired
+LearningPathDoneLOs.propTypes = {
+  id: PropTypes.number.isRequired,
+  topic: PropTypes.string.isRequired,
+  learningObject: PropTypes.string.isRequired,
+  finished: PropTypes.number.isRequired
 };

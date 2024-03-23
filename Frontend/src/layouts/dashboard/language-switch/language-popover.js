@@ -6,6 +6,10 @@ import { Box, ListItemIcon, ListItemText, MenuItem, Popover, Typography } from '
 import { tokens } from '../../../locales/tokens';
 
 const languageOptions = {
+  vn: {
+    icon: '/assets/flags/flag-vn.svg',
+    label: 'Vietnam'
+  },
   en: {
     icon: '/assets/flags/flag-uk.svg',
     label: 'English'
@@ -18,11 +22,6 @@ const languageOptions = {
     icon: '/assets/flags/flag-es.svg',
     label: 'Spanish'
   },
-  vn: {
-    icon: '/assets/flags/flag-vn.svg',
-    label: 'Vietnam'
-  },
-
 };
 
 export const LanguagePopover = (props) => {
@@ -51,7 +50,8 @@ export const LanguagePopover = (props) => {
       onClose={onClose}
       open={open}
       PaperProps={{ sx: { width: 220 } }}
-      {...other}>
+      {...other}
+    >
       {Object.keys(languageOptions).map((language) => {
         const option = languageOptions[language];
 
