@@ -3,16 +3,22 @@ import { UserService } from './user.service';
 import { UserCreateREQ } from './request/user-create.request';
 import { PaginationREQ } from 'src/shared/pagination.request';
 import { UserUpdateREQ } from './request/user-update.request';
-import { AuthGuard } from '../auth/auth.guard';
+//import { AuthGuard } from '../auth/auth.guard';
 
-@UseGuards(AuthGuard)
+//@UseGuards(AuthGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
   async create(@Body() body: UserCreateREQ) {
-    await this.userService.create(body);
+    try {
+      const result = await this.userService.create(body);;
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
   @Get()

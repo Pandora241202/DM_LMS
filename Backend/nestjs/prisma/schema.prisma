@@ -9,6 +9,7 @@ datasource db {
 
 model AuthenticatedUser {
   id          Int         @id @default(autoincrement())
+  avatar      String?
   email       String
   name        String
   birth       BigInt

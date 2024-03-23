@@ -37,7 +37,7 @@ export const Home = () =>{
             >
                 <Button
                     component={NextLink}
-                    href={paths.authDemo.register.modern}
+                    href={paths.usedAuth.jwt.register}
                     sx={
                         (theme) => 
                             theme.palette.mode === 'dark'
@@ -67,7 +67,7 @@ export const Home = () =>{
 
                 <Button
                     component={NextLink}
-                    href={paths.authDemo.login.modern}
+                    href={paths.usedAuth.jwt.login}
                     sx={(theme) => theme.palette.mode === 'dark'
                     ? {
                         backgroundColor: 'neutral.50',
