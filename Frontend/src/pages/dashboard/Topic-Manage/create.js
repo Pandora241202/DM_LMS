@@ -5,7 +5,7 @@ import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator'
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
-import { TopicCreateForm } from '../../../sections/dashboard/Topic-Manage/topic-create-form';
+import { TopicCreateForm } from '../../../sections/dashboard/Topic-Manage/topic-manage-create-form';
 
 const TopicCreate = () => {
   usePageView();
@@ -14,7 +14,7 @@ const TopicCreate = () => {
     <>
       <Head>
         <title>
-          Dashboard: Topic Create 
+        Dashboard: Topic Create
         </title>
       </Head>
       <Box
@@ -28,7 +28,7 @@ const TopicCreate = () => {
           <Stack spacing={3}>
             <Stack spacing={1}>
               <Typography variant="h4">
-                Create a new product
+                Tạo một chủ đề học mới
               </Typography>
               <Breadcrumbs separator={<BreadcrumbsSeparator />}>
                 <Link
@@ -37,21 +37,21 @@ const TopicCreate = () => {
                   href={paths.dashboard.index}
                   variant="subtitle2"
                 >
-                  Dashboard
+                  Trang chủ
                 </Link>
                 <Link
                   color="text.primary"
                   component={NextLink}
-                  href={paths.dashboard.products.index}
+                  href={paths.dashboard.Topic_Manage}
                   variant="subtitle2"
                 >
-                  Products
+                  Quản lý chủ đề
                 </Link>
                 <Typography
                   color="text.secondary"
                   variant="subtitle2"
                 >
-                  Create
+                  Tạo mới
                 </Typography>
               </Breadcrumbs>
             </Stack>

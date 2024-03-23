@@ -13,7 +13,7 @@ import {
   SvgIcon,
   Typography
 } from '@mui/material';
-import { productsApi } from '../../../api/products';
+import { lm_manageApi } from '../../../api/LM-Manage';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
@@ -40,21 +40,51 @@ const useSearch = () => {
   };
 };
 
-const useProducts = (search) => {
+// const useProducts = (search) => {
+//   const isMounted = useMounted();
+//   const [state, setState] = useState({
+//     products: [],
+//     productsCount: 0
+//   });
+
+//   const getProducts = useCallback(async () => {
+//     try {
+//       const response = await productsApi.getProducts(search);
+
+//       if (isMounted()) {
+//         setState({
+//           products: response.data,
+//           productsCount: response.count
+//         });
+//       }
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   }, [search, isMounted]);
+
+//   useEffect(() => {
+//       getProducts();
+//     },
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//     [search]);
+
+//   return state;
+// };
+const useTopics = (search) => {
   const isMounted = useMounted();
   const [state, setState] = useState({
-    products: [],
-    productsCount: 0
+    Topics: [],
+    TopicsCount: 0
   });
 
-  const getProducts = useCallback(async () => {
+  const getTopics = useCallback(async () => {
     try {
-      const response = await productsApi.getProducts(search);
+      const response = await lm_manageApi.getLMs(search);
 
       if (isMounted()) {
         setState({
-          products: response.data,
-          productsCount: response.count
+          Topics: response.data,
+          TopicsCount: response.count
         });
       }
     } catch (err) {
@@ -63,7 +93,7 @@ const useProducts = (search) => {
   }, [search, isMounted]);
 
   useEffect(() => {
-      getProducts();
+      getTopics();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [search]);
@@ -71,9 +101,9 @@ const useProducts = (search) => {
   return state;
 };
 
-const ProductList = () => {
+const TopicList = () => {
   const { search, updateSearch } = useSearch();
-  const { products, productsCount } = useProducts(search);
+  const { Topics, TopicsCount } = useTopics(search);
 
   usePageView();
 
@@ -102,7 +132,7 @@ const ProductList = () => {
     <>
       <Head>
         <title>
-          Dashboard: Quản lý chủ đề
+          Dashboard: Quản lý chủ đề học tập
         </title>
       </Head>
       <Box
@@ -135,17 +165,11 @@ const ProductList = () => {
                   <Link
                     color="text.primary"
                     component={NextLink}
-                    href={paths.dashboard.products.index}
+                    href={paths.dashboard.Topic_Manage}
                     variant="subtitle2"
                   >
                     Quản lý chủ đề
                   </Link>
-                  <Typography
-                    color="text.secondary"
-                    variant="subtitle2"
-                  >
-                    Danh sách
-                  </Typography>
                 </Breadcrumbs>
               </Stack>
               <Stack
@@ -156,7 +180,7 @@ const ProductList = () => {
                 <Button
                   component={NextLink}
                   // Thay đổi đường dẫn để lưu vào db
-                  href={paths.dashboard.products.create}
+                  href={`${paths.dashboard.Topic_Manage}/create`}
                   startIcon={(
                     <SvgIcon>
                       <PlusIcon />
@@ -174,8 +198,8 @@ const ProductList = () => {
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleRowsPerPageChange}
                 page={search.page}
-                products={products}
-                productsCount={productsCount}
+                Topics={Topics}
+                TopicsCount={TopicsCount}
                 rowsPerPage={search.rowsPerPage}
               />
             </Card>
@@ -186,10 +210,10 @@ const ProductList = () => {
   );
 };
 
-ProductList.getLayout = (page) => (
+TopicList.getLayout = (page) => (
   <DashboardLayout>
     {page}
   </DashboardLayout>
 );
 
-export default ProductList;
+export default TopicList;

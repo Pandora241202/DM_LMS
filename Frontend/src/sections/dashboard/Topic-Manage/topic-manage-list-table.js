@@ -34,29 +34,25 @@ import { SeverityPill } from '../../../components/severity-pill';
 
 const categoryOptions = [
   {
-    label: 'Healthcare',
-    value: 'healthcare'
+    label: 'Video',
+    value: 'video'
   },
   {
-    label: 'Makeup',
-    value: 'makeup'
+    label: 'PDF',
+    value: 'pdf'
   },
   {
-    label: 'Dress',
-    value: 'dress'
+    label: 'Quiz',
+    value: 'quiz'
   },
   {
-    label: 'Skincare',
-    value: 'skincare'
+    label: 'Podcast',
+    value: 'podcast'
   },
   {
-    label: 'Jewelry',
-    value: 'jewelry'
+    label: 'Khác',
+    value: 'somethingelse'
   },
-  {
-    label: 'Blouse',
-    value: 'blouse'
-  }
 ];
 
 export const TopicManageListTable = (props) => {
@@ -64,8 +60,8 @@ export const TopicManageListTable = (props) => {
     onPageChange,
     onRowsPerPageChange,
     page,
-    products,
-    productsCount,
+    Topics,
+    TopicsCount,
     rowsPerPage,
     ...other
   } = props;
@@ -105,71 +101,34 @@ export const TopicManageListTable = (props) => {
         <Table sx={{ minWidth: 1200 }}>
           <TableHead>
             <TableRow>
-              <TableCell />
               <TableCell width="25%">
-                Name
+                Tiêu đề
+              </TableCell>
+              <TableCell>
+                Mô tả
               </TableCell>
               <TableCell width="25%">
-                Email
-              </TableCell>
-              <TableCell>
-                Location
-              </TableCell>
-              <TableCell>
-                Phone
-              </TableCell>
-              <TableCell>
-                Signed Up
+                Ngày cập nhật
               </TableCell>
               <TableCell align="right">
-                Actions
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product) => {
-              const isCurrent = product.id === currentProduct;
-              const price = numeral(product.price).format(`${product.currency}0,0.00`);
-              const quantityColor = product.quantity >= 10 ? 'success' : 'error';
-              const statusColor = product.status === 'published' ? 'success' : 'info';
-              const hasManyVariants = product.variants > 1;
+            {Topics.map((Topic) => {
+              const isCurrent = Topic.id === currentProduct;
+              // const price = numeral(Topic.price).format(`${Topic.currency}0,0.00`);
+              // const quantityColor = Topic.quantity >= 10 ? 'success' : 'error';
+              const statusColor = Topic.status === 'published' ? 'success' : 'info';
+              const hasManyVariants = Topic.variants > 1;
               // const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
               return (
-                <Fragment key={product.id}>
+                <Fragment key={Topic.id}>
                   <TableRow
                     hover
-                    key={product.id}
+                    key={Topic.id}
                   >
-                    <TableCell
-                      padding="checkbox"
-                      sx={{
-                        ...(isCurrent && {
-                          position: 'relative',
-                          '&:after': {
-                            position: 'absolute',
-                            content: '" "',
-                            top: 0,
-                            left: 0,
-                            backgroundColor: 'primary.main',
-                            width: 3,
-                            height: 'calc(100% + 1px)'
-                          }
-                        })
-                      }}
-                      width="25%"
-                    >
-                      {/* <IconButton onClick={() => handleProductToggle(product.id)}>
-                        <SvgIcon>
-                          {isCurrent ? <ChevronDownIcon /> : <ChevronRightIcon />}
-                        </SvgIcon>
-                      </IconButton> */}
-                      <Checkbox 
-                        key = {product.id}
-                        onChange = {handleToggle}
-                        checked = {state[product.id]}
-                      />
-                    </TableCell>
                     <TableCell width="25%">
                       <Box
                         sx={{
@@ -177,13 +136,13 @@ export const TopicManageListTable = (props) => {
                           display: 'flex'
                         }}
                       >
-                        {product.image
+                        {Topic.image
                           ? (
                             <Box
                               sx={{
                                 alignItems: 'center',
                                 backgroundColor: 'neutral.50',
-                                backgroundImage: `url(${product.image})`,
+                                backgroundImage: `url(${Topic.image})`,
                                 backgroundPosition: 'center',
                                 backgroundSize: 'cover',
                                 borderRadius: 1,
@@ -219,20 +178,20 @@ export const TopicManageListTable = (props) => {
                           }}
                         >
                           <Typography variant="subtitle2">
-                            {product.name}
+                            {Topic.name}
                           </Typography>
                           <Typography
                             color="text.secondary"
                             variant="body2"
                           >
-                            in {product.category}
+                            in {Topic.category}
                           </Typography>
                         </Box>
                       </Box>
                     </TableCell>
-                    <TableCell width="25%">
-                      <LinearProgress
-                        value={product.quantity}
+                    <TableCell>
+                      {/* <LinearProgress
+                        value={Topic.quantity}
                         variant="determinate"
                         color={quantityColor}
                         sx={{
@@ -244,25 +203,37 @@ export const TopicManageListTable = (props) => {
                         color="text.secondary"
                         variant="body2"
                       >
-                        {product.quantity}
+                        {Topic.quantity}
                         {' '}
                         in stock
-                        {hasManyVariants && ` in ${product.variants} variants`}
+                        {hasManyVariants && ` in ${Topic.variants} variants`}
+                      </Typography> */}
+                      <Stack space={3}>
+                        <Typography variant="subtitle2">
+                          Loại hình: {Topic.category} 
+                        </Typography>
+                        <Typography variant="subtitle2">
+                          Thời gian: {Topic.duration}
+                        </Typography>
+                        <Typography variant="subtitle2">
+                          Topic
+                        </Typography>
+                      </Stack>
+                    </TableCell>
+                    <TableCell>
+                      {/* <SeverityPill color={statusColor}>
+                        {Topic.status}
+                      </SeverityPill
+                      > */}
+                      <Typography
+                        color="textSecondary"
+                        variant="body2"
+                      >
+                        {Topic.updatedAt ? new Date(Topic.updatedAt).toLocaleDateString('en-GB') : 'N/A'}
                       </Typography>
                     </TableCell>
-                    <TableCell>
-                      {price}
-                    </TableCell>
-                    <TableCell>
-                      {product.sku}
-                    </TableCell>
-                    <TableCell>
-                      <SeverityPill color={statusColor}>
-                        {product.status}
-                      </SeverityPill>
-                    </TableCell>
                     <TableCell align="right">
-                      <IconButton>
+                      <IconButton onClick={() => handleProductToggle(Topic.id)}   >
                         <SvgIcon>
                           <DotsHorizontalIcon />
                         </SvgIcon>
@@ -311,7 +282,7 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.name}
+                                    defaultValue={Topic.name}
                                     fullWidth
                                     label="Product name"
                                     name="name"
@@ -323,7 +294,7 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.sku}
+                                    defaultValue={Topic.sku}
                                     disabled
                                     fullWidth
                                     label="SKU"
@@ -336,7 +307,7 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.category}
+                                    defaultValue={Topic.category}
                                     fullWidth
                                     label="Category"
                                     select
@@ -357,7 +328,7 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.id}
+                                    defaultValue={Topic.id}
                                     disabled
                                     fullWidth
                                     label="Barcode"
@@ -385,14 +356,14 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.price}
+                                    defaultValue={Topic.price}
                                     fullWidth
                                     label="Old price"
                                     name="old-price"
                                     InputProps={{
                                       startAdornment: (
                                         <InputAdornment position="start">
-                                          {product.currency}
+                                          {Topic.currency}
                                         </InputAdornment>
                                       )
                                     }}
@@ -405,7 +376,7 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.price}
+                                    defaultValue={Topic.price}
                                     fullWidth
                                     label="New price"
                                     name="new-price"
@@ -468,7 +439,7 @@ export const TopicManageListTable = (props) => {
                               onClick={handleProductDelete}
                               color="error"
                             >
-                              Delete product
+                              Delete Topic
                             </Button>
                           </div>
                         </Stack>
@@ -483,7 +454,7 @@ export const TopicManageListTable = (props) => {
       </Scrollbar>
       <TablePagination
         component="div"
-        count={productsCount}
+        count={TopicsCount}
         onPageChange={onPageChange}
         onRowsPerPageChange={onRowsPerPageChange}
         page={page}
@@ -495,8 +466,8 @@ export const TopicManageListTable = (props) => {
 };
 
 TopicManageListTable.propTypes = {
-  products: PropTypes.array.isRequired,
-  productsCount: PropTypes.number.isRequired,
+  Topics: PropTypes.array.isRequired,
+  TopicsCount: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   onRowsPerPageChange: PropTypes.func,
   page: PropTypes.number.isRequired,

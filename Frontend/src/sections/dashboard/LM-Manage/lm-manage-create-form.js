@@ -17,58 +17,56 @@ import {
   Typography,
   Unstable_Grid2 as Grid
 } from '@mui/material';
-import { FileDropzone } from '../../../components/file-dropzone';
+import { FileDropzoneVn } from '../../../components/file-dropzone-vn';
 import { QuillEditor } from '../../../components/quill-editor';
 import { paths } from '../../../paths';
 
 const categoryOptions = [
   {
-    label: 'Healthcare',
-    value: 'healthcare'
+    label: 'Video',
+    value: 'video'
   },
   {
-    label: 'Makeup',
-    value: 'makeup'
+    label: 'PDF',
+    value: 'pdf'
   },
   {
-    label: 'Dress',
-    value: 'dress'
+    label: 'Quiz',
+    value: 'quiz'
   },
   {
-    label: 'Skincare',
-    value: 'skincare'
+    label: 'Podcast',
+    value: 'podcast'
   },
   {
-    label: 'Jewelry',
-    value: 'jewelry'
+    label: 'Khác',
+    value: 'somethingelse'
   },
-  {
-    label: 'Blouse',
-    value: 'blouse'
-  }
 ];
 
 const initialValues = {
-  barcode: '925487986526',
+  id: '',
   category: '',
   description: '',
   images: [],
   name: '',
-  newPrice: 0,
-  oldPrice: 0,
-  sku: 'IYV-8745',
+  duration : 0,
+  difficulty: 0,
+  // newPrice: 0,
+  // oldPrice: 0,
   submit: null
 };
 
 const validationSchema = Yup.object({
-  barcode: Yup.string().max(255),
+  id: Yup.number().min(0),
   category: Yup.string().max(255),
   description: Yup.string().max(5000),
   images: Yup.array(),
   name: Yup.string().max(255).required(),
-  newPrice: Yup.number().min(0).required(),
-  oldPrice: Yup.number().min(0),
-  sku: Yup.string().max(255)
+  duration : Yup.number().min(0).required(),
+  difficulty: Yup.number().min(0).required(),
+  // newPrice: Yup.number().min(0).required(),
+  // oldPrice: Yup.number().min(0),
 });
 
 export const LMCreateForm = (props) => {
@@ -80,8 +78,8 @@ export const LMCreateForm = (props) => {
     onSubmit: async (values, helpers) => {
       try {
         // NOTE: Make API request
-        toast.success('Product created');
-        router.push(paths.dashboard.products.index);
+        toast.success('Tài liệu học tập đã được tạo');
+        router.push(paths.dashboard.LM_Manage);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');
@@ -124,7 +122,7 @@ export const LMCreateForm = (props) => {
                 md={4}
               >
                 <Typography variant="h6">
-                  Basic details
+                  Thông tin cơ bản
                 </Typography>
               </Grid>
               <Grid
@@ -136,11 +134,50 @@ export const LMCreateForm = (props) => {
                     error={!!(formik.touched.name && formik.errors.name)}
                     fullWidth
                     helperText={formik.touched.name && formik.errors.name}
-                    label="Product Name"
+                    label="Tên tài liệu học tập"
                     name="name"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     value={formik.values.name}
+                  />
+                  <TextField
+                    error={!!(formik.touched.category && formik.errors.category)}
+                    fullWidth
+                    label="Phân loại"
+                    name="category"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    select
+                    value={formik.values.category}
+                  >
+                    {categoryOptions.map((option) => (
+                      <MenuItem
+                        key={option.value}
+                        value={option.value}
+                      >
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <TextField
+                    error={!!(formik.touched.duration && formik.errors.duration)}
+                    fullWidth
+                    label="Thời lượng"
+                    name="duration"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    type="number"
+                    value={formik.values.duration}
+                  />
+                  <TextField
+                    error={!!(formik.touched.difficulty && formik.errors.difficulty)}
+                    fullWidth
+                    label="Độ khó (Trên thang 1-10)"
+                    name="difficulty"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    type="number"
+                    value={formik.values.difficulty}
                   />
                   <div>
                     <Typography
@@ -148,7 +185,7 @@ export const LMCreateForm = (props) => {
                       sx={{ mb: 2 }}
                       variant="subtitle2"
                     >
-                      Description
+                      Mô tả
                     </Typography>
                     <QuillEditor
                       onChange={(value) => {
@@ -183,13 +220,13 @@ export const LMCreateForm = (props) => {
               >
                 <Stack spacing={1}>
                   <Typography variant="h6">
-                    Images
+                    Tài liệu học
                   </Typography>
                   <Typography
                     color="text.secondary"
                     variant="body2"
                   >
-                    Images will appear in the store front of your website.
+                    Tài liệu học sẽ xuất hiện trên hệ thống.
                   </Typography>
                 </Stack>
               </Grid>
@@ -197,9 +234,9 @@ export const LMCreateForm = (props) => {
                 xs={12}
                 md={8}
               >
-                <FileDropzone
-                  accept={{ 'image/*': [] }}
-                  caption="(SVG, JPG, PNG, or gif maximum 900x400)"
+                <FileDropzoneVn
+                  accept={{ '*/*': [] }}
+                  caption="(PDF, SVG, JPG, PNG, or gif maximum 900x400, ...)"
                   files={files}
                   onDrop={handleFilesDrop}
                   onRemove={handleFileRemove}
@@ -209,7 +246,7 @@ export const LMCreateForm = (props) => {
             </Grid>
           </CardContent>
         </Card>
-        <Card>
+        {/* <Card>
           <CardContent>
             <Grid
               container
@@ -258,8 +295,8 @@ export const LMCreateForm = (props) => {
               </Grid>
             </Grid>
           </CardContent>
-        </Card>
-        <Card>
+        </Card> */}
+        {/* <Card>
           <CardContent>
             <Grid
               container
@@ -297,31 +334,11 @@ export const LMCreateForm = (props) => {
                       </MenuItem>
                     ))}
                   </TextField>
-                  <TextField
-                    disabled
-                    error={!!(formik.touched.barcode && formik.errors.barcode)}
-                    fullWidth
-                    label="Barcode"
-                    name="barcode"
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    value={formik.values.barcode}
-                  />
-                  <TextField
-                    disabled
-                    error={!!(formik.touched.sku && formik.errors.sku)}
-                    fullWidth
-                    label="SKU"
-                    name="sku"
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    value={formik.values.sku}
-                  />
                 </Stack>
               </Grid>
             </Grid>
           </CardContent>
-        </Card>
+        </Card> */}
         <Stack
           alignItems="center"
           direction="row"
@@ -329,13 +346,13 @@ export const LMCreateForm = (props) => {
           spacing={1}
         >
           <Button color="inherit">
-            Cancel
+            Huỷ thay đổi
           </Button>
           <Button
             type="submit"
             variant="contained"
           >
-            Create
+            Tạo mới
           </Button>
         </Stack>
       </Stack>

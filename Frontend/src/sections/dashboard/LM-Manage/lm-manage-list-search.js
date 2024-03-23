@@ -7,29 +7,25 @@ import { useUpdateEffect } from '../../../hooks/use-update-effect';
 
 const categoryOptions = [
   {
-    label: 'Healthcare',
-    value: 'healthcare'
+    label: 'Video',
+    value: 'video'
   },
   {
-    label: 'Makeup',
-    value: 'makeup'
+    label: 'PDF',
+    value: 'pdf'
   },
   {
-    label: 'Dress',
-    value: 'dress'
+    label: 'Quiz',
+    value: 'quiz'
   },
   {
-    label: 'Skincare',
-    value: 'skincare'
+    label: 'Podcast',
+    value: 'podcast'
   },
   {
-    label: 'Jewelry',
-    value: 'jewelry'
+    label: 'Khác',
+    value: 'somethingelse'
   },
-  {
-    label: 'Blouse',
-    value: 'blouse'
-  }
 ];
 
 const statusOptions = [
@@ -276,7 +272,7 @@ export const LMManageListSearch = (props) => {
           disableUnderline
           fullWidth
           inputProps={{ ref: queryRef }}
-          placeholder="Search by product name"
+          placeholder="Tìm kiếm tên tài liệu học tập"
           sx={{ flexGrow: 1 }}
           value={query}
         />
@@ -326,7 +322,7 @@ export const LMManageListSearch = (props) => {
               color="text.secondary"
               variant="subtitle2"
             >
-              No filters applied
+              Không có bộ lọc nào được chọn
             </Typography>
           </Box>
         )}
@@ -339,7 +335,7 @@ export const LMManageListSearch = (props) => {
         sx={{ p: 1 }}
       >
         <MultiSelect
-          label="Category"
+          label="Phân loại"
           onChange={handleCategoryChange}
           options={categoryOptions}
           value={categoryValues}

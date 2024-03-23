@@ -34,29 +34,25 @@ import { SeverityPill } from '../../../components/severity-pill';
 
 const categoryOptions = [
   {
-    label: 'Healthcare',
-    value: 'healthcare'
+    label: 'Video',
+    value: 'video'
   },
   {
-    label: 'Makeup',
-    value: 'makeup'
+    label: 'PDF',
+    value: 'pdf'
   },
   {
-    label: 'Dress',
-    value: 'dress'
+    label: 'Quiz',
+    value: 'quiz'
   },
   {
-    label: 'Skincare',
-    value: 'skincare'
+    label: 'Podcast',
+    value: 'podcast'
   },
   {
-    label: 'Jewelry',
-    value: 'jewelry'
+    label: 'Khác',
+    value: 'somethingelse'
   },
-  {
-    label: 'Blouse',
-    value: 'blouse'
-  }
 ];
 
 export const LMManageListTable = (props) => {
@@ -64,8 +60,8 @@ export const LMManageListTable = (props) => {
     onPageChange,
     onRowsPerPageChange,
     page,
-    products,
-    productsCount,
+    LMs,
+    LMsCount,
     rowsPerPage,
     ...other
   } = props;
@@ -119,19 +115,19 @@ export const LMManageListTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product) => {
-              const isCurrent = product.id === currentProduct;
-              const price = numeral(product.price).format(`${product.currency}0,0.00`);
-              const quantityColor = product.quantity >= 10 ? 'success' : 'error';
-              const statusColor = product.status === 'published' ? 'success' : 'info';
-              const hasManyVariants = product.variants > 1;
+            {LMs.map((LM) => {
+              const isCurrent = LM.id === currentProduct;
+              // const price = numeral(LM.price).format(`${LM.currency}0,0.00`);
+              // const quantityColor = LM.quantity >= 10 ? 'success' : 'error';
+              const statusColor = LM.status === 'published' ? 'success' : 'info';
+              const hasManyVariants = LM.variants > 1;
               // const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
               return (
-                <Fragment key={product.id}>
+                <Fragment key={LM.id}>
                   <TableRow
                     hover
-                    key={product.id}
+                    key={LM.id}
                   >
                     <TableCell width="25%">
                       <Box
@@ -140,13 +136,13 @@ export const LMManageListTable = (props) => {
                           display: 'flex'
                         }}
                       >
-                        {product.image
+                        {LM.image
                           ? (
                             <Box
                               sx={{
                                 alignItems: 'center',
                                 backgroundColor: 'neutral.50',
-                                backgroundImage: `url(${product.image})`,
+                                backgroundImage: `url(${LM.image})`,
                                 backgroundPosition: 'center',
                                 backgroundSize: 'cover',
                                 borderRadius: 1,
@@ -182,20 +178,20 @@ export const LMManageListTable = (props) => {
                           }}
                         >
                           <Typography variant="subtitle2">
-                            {product.name}
+                            {LM.name}
                           </Typography>
                           <Typography
                             color="text.secondary"
                             variant="body2"
                           >
-                            in {product.category}
+                            in {LM.category}
                           </Typography>
                         </Box>
                       </Box>
                     </TableCell>
                     <TableCell>
                       {/* <LinearProgress
-                        value={product.quantity}
+                        value={LM.quantity}
                         variant="determinate"
                         color={quantityColor}
                         sx={{
@@ -207,30 +203,37 @@ export const LMManageListTable = (props) => {
                         color="text.secondary"
                         variant="body2"
                       >
-                        {product.quantity}
+                        {LM.quantity}
                         {' '}
                         in stock
-                        {hasManyVariants && ` in ${product.variants} variants`}
+                        {hasManyVariants && ` in ${LM.variants} variants`}
                       </Typography> */}
                       <Stack space={3}>
                         <Typography variant="subtitle2">
-                          Loại hình 
+                          Loại hình: {LM.category} 
                         </Typography>
                         <Typography variant="subtitle2">
-                          Thời gian
+                          Thời gian: {LM.duration}
                         </Typography>
                         <Typography variant="subtitle2">
                           Topic
                         </Typography>
                       </Stack>
                     </TableCell>
-                    <TableCell width="25%">
-                      <SeverityPill color={statusColor}>
-                        {product.status}
-                      </SeverityPill>
+                    <TableCell>
+                      {/* <SeverityPill color={statusColor}>
+                        {LM.status}
+                      </SeverityPill
+                      > */}
+                      <Typography
+                        color="textSecondary"
+                        variant="body2"
+                      >
+                        {LM.updatedAt ? new Date(LM.updatedAt).toLocaleDateString('en-GB') : 'N/A'}
+                      </Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <IconButton>
+                      <IconButton onClick={() => handleProductToggle(LM.id)}   >
                         <SvgIcon>
                           <DotsHorizontalIcon />
                         </SvgIcon>
@@ -279,7 +282,7 @@ export const LMManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.name}
+                                    defaultValue={LM.name}
                                     fullWidth
                                     label="Product name"
                                     name="name"
@@ -291,7 +294,7 @@ export const LMManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.sku}
+                                    defaultValue={LM.sku}
                                     disabled
                                     fullWidth
                                     label="SKU"
@@ -304,7 +307,7 @@ export const LMManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.category}
+                                    defaultValue={LM.category}
                                     fullWidth
                                     label="Category"
                                     select
@@ -325,7 +328,7 @@ export const LMManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.id}
+                                    defaultValue={LM.id}
                                     disabled
                                     fullWidth
                                     label="Barcode"
@@ -353,14 +356,14 @@ export const LMManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.price}
+                                    defaultValue={LM.price}
                                     fullWidth
                                     label="Old price"
                                     name="old-price"
                                     InputProps={{
                                       startAdornment: (
                                         <InputAdornment position="start">
-                                          {product.currency}
+                                          {LM.currency}
                                         </InputAdornment>
                                       )
                                     }}
@@ -373,7 +376,7 @@ export const LMManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.price}
+                                    defaultValue={LM.price}
                                     fullWidth
                                     label="New price"
                                     name="new-price"
@@ -436,7 +439,7 @@ export const LMManageListTable = (props) => {
                               onClick={handleProductDelete}
                               color="error"
                             >
-                              Delete product
+                              Delete LM
                             </Button>
                           </div>
                         </Stack>
@@ -451,7 +454,7 @@ export const LMManageListTable = (props) => {
       </Scrollbar>
       <TablePagination
         component="div"
-        count={productsCount}
+        count={LMsCount}
         onPageChange={onPageChange}
         onRowsPerPageChange={onRowsPerPageChange}
         page={page}
@@ -463,8 +466,8 @@ export const LMManageListTable = (props) => {
 };
 
 LMManageListTable.propTypes = {
-  products: PropTypes.array.isRequired,
-  productsCount: PropTypes.number.isRequired,
+  LMs: PropTypes.array.isRequired,
+  LMsCount: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   onRowsPerPageChange: PropTypes.func,
   page: PropTypes.number.isRequired,
