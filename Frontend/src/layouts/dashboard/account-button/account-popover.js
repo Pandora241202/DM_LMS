@@ -77,13 +77,13 @@ export const AccountPopover = (props) => {
       {...other}>
       <Box sx={{ p: 2 }}>
         <Typography variant="body1">
-          Anika Visser
+          {auth.user.username}
         </Typography>
         <Typography
           color="text.secondary"
           variant="body2"
         >
-          demo@devias.io
+          {auth.user.email}
         </Typography>
       </Box>
       <Divider />

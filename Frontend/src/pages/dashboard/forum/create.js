@@ -1,5 +1,4 @@
 import { useCallback, useState, useRef } from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import {
@@ -23,10 +22,10 @@ import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
 import { fileToBase64 } from '../../../utils/file-to-base64';
-import { SearchDialog } from '../../../sections/dashboard/forum/search-dialog'
+import { CheckDuplicateDialog } from '../../../sections/dashboard/forum/check-duplicate-dialog'
+import { useAuth } from '../../../hooks/use-auth';
 
 const initialCover = '/assets/covers/abstract-1-4x3-large.png';
-const userId = 2;
 
 const Page = () => {
   const [cover, setCover] = useState(initialCover);
@@ -36,6 +35,7 @@ const Page = () => {
   const [content, setContent] = useState('');
   const [contentQuil, setContentQuil] = useState('');
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const { user } = useAuth();
 
   usePageView();
 
@@ -329,8 +329,8 @@ const Page = () => {
               py: 2
             }}
           >
-            <Typography sx={{ color: 'red', fontSize: 17, fontWeight: '400' }}>
-              {(content == '' || content == '<p><br></p>') && "Thiếu nội dung !"}
+            <Typography sx={{ color: 'text.caution', fontSize: 17, fontWeight: '500' }}>
+              {(contentQuil == '' || contentQuil == '<p><br></p>') && "Thiếu nội dung !"}
             </Typography>
             <Stack
               alignItems="center"
@@ -359,8 +359,8 @@ const Page = () => {
           </Card>
         </Container>
       </Box>
-      {openConfirmDialog && <SearchDialog 
-        onClose={e => setOpenConfirmDialog(false)}
+      {openConfirmDialog && <CheckDuplicateDialog 
+        onClose={() => setOpenConfirmDialog(false)}
         open={openConfirmDialog}
         forumDetail={{
           "title": title,
@@ -368,7 +368,7 @@ const Page = () => {
           "shortDescription": shortDescription,
           "content": content,
           "coverImage": cover,
-          "userId": userId
+          "userId": user.id
         }}
       />}
     </>

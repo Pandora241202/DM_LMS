@@ -21,7 +21,7 @@ export const OverviewOpenTickets = (props) => {
       >
         <div>
           <img
-            src="/assets/iconly/iconly-glass-paper.svg"
+            src="/assets/iconly/iconly-glass-paper-purple.svg"
             width={48}
           />
         </div>

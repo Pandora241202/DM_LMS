@@ -27,6 +27,8 @@ import { paths } from '../../../paths';
 import { ForumCard } from '../../../sections/dashboard/forum/forum-card';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 
+const consts = require('../../../constants');
+
 const useForums = () => {
   const isMounted = useMounted();
   const [forums, setForums] = useState([]);
@@ -39,8 +41,8 @@ const useForums = () => {
         return {
           ...r, 
           author: {
-            avatar: userResponse.avatar,
-            name: userResponse.username
+            avatar: userResponse.data.avatar,
+            name: userResponse.data.username
           }
         }
       }));
@@ -55,15 +57,14 @@ const useForums = () => {
 
   useEffect(() => {
     getForums();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []);
+  },[]);
 
   return forums;
 };
 
 const Page = () => {
   const forums = useForums();
+  const [page, setPage] = useState(0);
 
   usePageView();
 
@@ -175,7 +176,9 @@ const Page = () => {
             container
             spacing={4}
           >
-            {forums.map((forum) => (
+            {forums
+            .slice(page*consts.FORUMS_PER_PAGE, page*consts.FORUMS_PER_PAGE + consts.FORUMS_PER_PAGE)
+            .map((forum) => (
               <Grid
                 key={forum.id}
                 xs={12}
@@ -207,21 +210,30 @@ const Page = () => {
             }}
           >
             <Button
-              disabled
+              disabled={page == 0}
               startIcon={(
                 <SvgIcon>
                   <ArrowLeftIcon />
                 </SvgIcon>
               )}
+              onClick={() => {
+                setPage(page - 1);
+                window.scrollTo(0,0);
+              }}
             >
               Mới hơn
             </Button>
             <Button
+              disabled={page == Math.floor(forums.length / consts.FORUMS_PER_PAGE)}
               endIcon={(
                 <SvgIcon>
                   <ArrowRightIcon />
                 </SvgIcon>
               )}
+              onClick={() => {
+                setPage(page + 1);
+                window.scrollTo(0,0);
+              }}
             >
               Cũ hơn
             </Button>

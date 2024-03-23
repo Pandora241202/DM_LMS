@@ -1,7 +1,9 @@
+import PropTypes from 'prop-types';
 import FaceSmileIcon from '@untitled-ui/icons-react/build/esm/FaceSmile';
 import Attachment01Icon from '@untitled-ui/icons-react/build/esm/Attachment01';
 import Image01Icon from '@untitled-ui/icons-react/build/esm/Image01';
 import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
+import { useCallback, useState } from 'react';
 import {
   Avatar,
   Box,
@@ -10,17 +12,49 @@ import {
   OutlinedInput,
   Stack,
   SvgIcon,
-  useMediaQuery
+  useMediaQuery,
 } from '@mui/material';
-import { useMockedUser } from '../../../hooks/use-mocked-user';
-import { getInitials } from '../../../utils/get-initials';
+import { useAuth } from '../../../hooks/use-auth';
+import User01Icon from '@untitled-ui/icons-react/build/esm/User01';
+import { forumApi } from '../../../api/forum';
 
 export const ForumCommentAdd = (props) => {
+  const { forumId, statementId, setComments , ...other } = props;
+
   const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
-  const user = useMockedUser();
+  const { user } = useAuth();
+  const [content, setContent] = useState('');
+
+  const handleSubmitButton = useCallback(() => {
+    console.log(content);
+    if (content != '') {
+      forumApi.postComment({
+        "statementId": statementId,
+        "content": content,
+        "forumId": forumId,
+        "authenticatedUserId": user.id
+      })
+        .then((response) => {
+          console.log(response);
+          setContent('');
+          setComments(pre => [...pre, {
+            ...response.data,
+            replies: [], 
+            authorAvatar: user.avatar,
+            authorName: user.username,
+            authorRole: "",
+            isLiked: false,
+            likes: 0,
+          }])
+        })
+        .catch(error => {
+          console.error('Error posting data:', error);
+        })
+    }
+  }, [content]);
 
   return (
-    <div {...props}>
+    <div {...other}>
       <Stack
         alignItems="flex-start"
         direction="row"
@@ -33,7 +67,9 @@ export const ForumCommentAdd = (props) => {
             width: 40
           }}
         >
-          {getInitials(user.name)}
+          <SvgIcon>
+            <User01Icon />
+          </SvgIcon>
         </Avatar>
         <Box sx={{ flexGrow: 1 }}>
           <OutlinedInput
@@ -41,6 +77,17 @@ export const ForumCommentAdd = (props) => {
             multiline
             placeholder="Thêm bình luận..."
             rows={3}
+            value={content}
+            onChange={e => {
+              console.log(e.target.value)
+              setContent(e.target.value);
+            }}
+            onKeyDown={e => {
+              if (e.key === "Enter") {
+                handleSubmitButton();
+                e.preventDefault();
+              }}
+            }
           />
           <Stack
             alignItems="center"
@@ -82,7 +129,7 @@ export const ForumCommentAdd = (props) => {
               )}
             </Stack>
             <div>
-              <Button variant="contained">
+              <Button variant="contained" onClick={handleSubmitButton}>
                 Gửi
               </Button>
             </div>
@@ -91,4 +138,10 @@ export const ForumCommentAdd = (props) => {
       </Stack>
     </div>
   );
+};
+
+ForumCommentAdd.propTypes = {
+  forumId: PropTypes.number.isRequired,
+  statementId: PropTypes.number,
+  setComments: PropTypes.func.isRequired
 };

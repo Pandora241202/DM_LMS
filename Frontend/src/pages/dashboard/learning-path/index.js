@@ -1,7 +1,6 @@
 import Head from 'next/head';
-import { useState } from 'react'; // Import useState hook
-import { addDays, subDays, subHours, subMinutes } from 'date-fns';
-import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
+import { useState, useCallback, useEffect } from 'react';
+import Shuffle01Icon from '@untitled-ui/icons-react/build/esm/Shuffle01';
 import {
   Box,
   Button,
@@ -14,43 +13,55 @@ import {
 import { usePageView } from '../../../hooks/use-page-view';
 import { useSettings } from '../../../hooks/use-settings';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
-import { OverviewBanner } from '../../../sections/dashboard/overview/overview-banner';
-import { OverviewDoneTasks } from '../../../sections/dashboard/overview/overview-done-tasks';
-import { OverviewEvents } from '../../../sections/dashboard/overview/overview-events';
-import { OverviewInbox } from '../../../sections/dashboard/overview/overview-inbox';
-import { OverviewTransactions } from '../../../sections/dashboard/overview/overview-transactions';
-import { OverviewPendingIssues } from '../../../sections/dashboard/overview/overview-pending-issues';
-import { OverviewSubscriptionUsage } from '../../../sections/dashboard/overview/overview-subscription-usage';
-import { OverviewHelp } from '../../../sections/dashboard/overview/overview-help';
-import { OverviewJobs } from '../../../sections/dashboard/overview/overview-jobs';
-import { OverviewOpenTickets } from '../../../sections/dashboard/overview/overview-open-tickets';
-import { OverviewTips } from '../../../sections/dashboard/overview/overview-tips';
-import { LearningObject } from '../../../sections/dashboard/overview/learning-object';
-import { Learning_Path_List } from '../../../sections/dashboard/overview/learning-path-list';
-const now = new Date();
+import { LearningPathDoneLOs } from '../../../sections/dashboard/learning-path/learning-path-done-LOs';
+import { LearningPathProcessLOs } from '../../../sections/dashboard/learning-path/learning-path-process-LOs';
+import { LearningPathLockedLOs } from '../../../sections/dashboard/learning-path/learning-path-locked-LOs';
+import { useMounted } from '../../../hooks/use-mounted';
+import { learningPathApi } from '../../../api/learning-path';
+
+const consts = require('../../../constants');
+
+const useLOs = () => {
+  const isMounted = useMounted();
+  const [LOs, setLOs] = useState([]);
+
+  const getLOs = useCallback(async () => {
+    try {
+      const response = await learningPathApi.getLOs();
+
+      if (isMounted()) {
+        setLOs(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isMounted]);
+
+  useEffect(() => {
+    getLOs();
+  },[]);
+
+  return LOs;
+};
 
 const Page = () => {
+  const LOs = useLOs();
   const settings = useSettings();
-  const [page, setPage] = useState(1); // State to manage current page
-  const tasksPerPage = 10; // Number of tasks per page
+  const [page, setPage] = useState(0);
 
-  usePageView();
+  useEffect(() => {
+    const onProcessingLOPage = Math.floor((LOs.map(LO => LO.finished == 0).indexOf(true) - 1) / consts.LOS_PER_PAGE)
+    setPage(onProcessingLOPage >= 0 ? onProcessingLOPage : 0);
+  },[LOs]);
 
-  const handleNextPage = () => {
-    setPage(page + 1);
-  };
-
-  const handlePrevPage = () => {
-    setPage(page - 1);
-  };
-
+  console.log(page);
   usePageView();
 
   return (
     <>
       <Head>
         <title>
-          Dashboard: Overview | Devias Kit PRO
+          LearningPath: LOs list 
         </title>
       </Head>
       <Box
@@ -77,7 +88,7 @@ const Page = () => {
               >
                 <div>
                   <Typography variant="h4">
-                    Your Learning Path
+                    Lộ trình học của bạn
                   </Typography>
                 </div>
                 <div>
@@ -88,54 +99,54 @@ const Page = () => {
                     <Button
                       startIcon={(
                         <SvgIcon>
-                          <PlusIcon />
+                          <Shuffle01Icon />
                         </SvgIcon>
                       )}
                       variant="contained"
                     >
-                      New Dashboard
+                      Thay đổi mục tiêu
                     </Button>
                   </Stack>
                 </div>
               </Stack>
             </Grid>
-            <Grid
-              xs={12}
-              md={4}
-            >
-              <OverviewDoneTasks amount={31} />
-            </Grid>
-            <Grid
-              xs={12}
-              md={4}
-            >
-              <OverviewPendingIssues amount={12} />
-            </Grid>
-            <Grid
-              xs={12}
-              md={4}
-            >
-              <OverviewOpenTickets amount={5} />
-            </Grid>
-            {/* Render Learning Path Lisi */}
-            <Learning_Path_List page={page} />
-            {/* Pagination controls */}
+            {LOs
+            .slice(page*consts.LOS_PER_PAGE, page*consts.LOS_PER_PAGE + consts.LOS_PER_PAGE)
+            .map((LO, index) => {
+              const LearningPathLOs = LO.finished >= consts.PERCENTAGE_TO_PASS_LO ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].finished >= consts.PERCENTAGE_TO_PASS_LO) ? LearningPathProcessLOs : LearningPathLockedLOs;
+              console.log(consts.PERCENTAGE_TO_PASS_LO)
+              return (
+                <Grid
+                  xs={12}
+                  md={4}
+                  key={LO.id}
+                >
+                  <LearningPathLOs id={LO.id} topic={LO.topic} learningObject={LO.learningObject} finished={LO.finished} />
+                </Grid>
+              )
+            })}
             <Grid xs={12}>
               <Box mt={4}
                 display="flex"
                 justifyContent="center"
               >
                 <Button
-                  disabled={page === 0}
-                  onClick={handlePrevPage}
+                  disabled={page == 0}
+                  onClick={() => {
+                    setPage(page - 1);
+                    window.scrollTo(0, 0);
+                  }}
                 >
-                  Previous Page
+                  Trước
                 </Button>
                 <Button
-                  disabled={page * tasksPerPage >= 100}
-                  onClick={handleNextPage}
+                  disabled={page == Math.floor(LOs.length / consts.LOS_PER_PAGE)}
+                  onClick={() => {
+                    setPage(page + 1);
+                    window.scrollTo(0, 0);
+                  }}
                 >
-                  Next Page
+                  Sau
                 </Button>
               </Box>
             </Grid>

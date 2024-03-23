@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
-import { subHours } from 'date-fns';
 import { useRouter } from 'next/router';
 import {
   Avatar,
@@ -41,8 +40,8 @@ const useComments = () => {
           return {
             ...r,
             replies: [], 
-            authorAvatar: userResponse.avatar,
-            authorName: userResponse.username,
+            authorAvatar: userResponse.data.avatar,
+            authorName: userResponse.data.username,
             authorRole: "",
             isLiked: true,
             likes: 12,
@@ -76,30 +75,7 @@ const useComments = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [router.isReady]);
 
-  return comments;
-
-  /*return [
-    {
-      id: 'd0ab3d02ef737fa6b007e35d',
-      authorAvatar: '/assets/avatars/avatar-alcides-antonio.png',
-      authorName: 'Alcides Antonio',
-      authorRole: 'Product Designer',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      createdAt: subHours(new Date(), 2).getTime(),
-      isLiked: true,
-      likes: 12
-    },
-    {
-      id: '3ac1e17289e38a84108efdf3',
-      authorAvatar: '/assets/avatars/avatar-jie-yan-song.png',
-      authorName: 'Jie Yan Song',
-      authorRole: 'Web Developer',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-      createdAt: subHours(new Date(), 8).getTime(),
-      isLiked: false,
-      likes: 8
-    }
-  ];*/
+  return {comments, setComments};
 };
 
 const useForumDetail = () => {
@@ -119,8 +95,8 @@ const useForumDetail = () => {
             ...response.data, 
             cover: '/assets/covers/minimal-1-4x4-large.png',
             author: {
-              avatar: userResponse.avatar,
-              name: userResponse.username
+              avatar: userResponse.data.avatar,
+              name: userResponse.data.username
             }
           });
         }
@@ -141,14 +117,14 @@ const useForumDetail = () => {
 
 const Page = () => {
   const forumDetail = useForumDetail();
-  const comments = useComments();
-
+  const { comments, setComments } = useComments();
+  
   usePageView();
 
   if (!forumDetail) {
     return null;
   }
-
+ 
   return (
     <>
       <Head>
@@ -261,11 +237,12 @@ const Page = () => {
             {comments.map((comment) => (
               <ForumComment
                 key={comment.id}
-                {...comment} />
+                {...comment} 
+              />
             ))}
           </Stack>
           <Divider sx={{ my: 3 }} />
-          <ForumCommentAdd />
+          <ForumCommentAdd forumId={forumDetail.id} statementId={null} setComments={setComments}/>
         </Container>
       </Box>
     </>

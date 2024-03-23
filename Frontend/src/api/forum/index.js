@@ -1,5 +1,3 @@
-import { deepCopy } from '../../utils/deep-copy';
-import { forumDetail, forums } from './data';
 import axios from 'axios';
 
 const apiUrl = 'http://localhost:8080/forum';
@@ -25,6 +23,10 @@ class ForumApi {
 
   getComments(id) {
     return axios.get(`${apiUrl}/${id}/comment`);
+  }
+
+  postComment(request) {
+    return axios.post(`${apiUrl}/comment`, request)
   }
 }
 
