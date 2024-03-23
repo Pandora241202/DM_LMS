@@ -16,6 +16,16 @@ export class TopicController {
   }
 
   @Get()
+  async list() {
+    return await this.topicService.list();
+  }
+
+  @Delete(':id/topic-links')
+  async disactiveLink(@Param('id', ParseIntPipe) id: number, @Body() body: TopicLinkDeleteREQ) {
+    await this.topicService.disactiveLink(id, body);
+  }
+
+  @Get(':id')
   async detail(@Param('id', ParseIntPipe) id: number) {
     await this.topicService.detail(id);
   }
@@ -23,10 +33,5 @@ export class TopicController {
   @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() body: TopicUpdateREQ) {
     await this.topicService.update(id, body);
-  }
-
-  @Delete(':id/topic-links')
-  async disactiveLink(@Param('id', ParseIntPipe) id: number, @Body() body: TopicLinkDeleteREQ) {
-    await this.topicService.disactiveLink(id, body);
   }
 }

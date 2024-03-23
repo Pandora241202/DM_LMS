@@ -1,70 +1,70 @@
 [
   {
-    "learnerID": "l4",
-    "lmID": "Document A",
+    "learnerID": 4,
+    "lmID": 1,
     "score": 10.0,
     "time": 20.0,
     "attempt": 2
   },
   {
-    "learnerID": "l3",
-    "lmID": "Document B",
+    "learnerID": 3,
+    "lmID": 2,
     "score": 8.0,
     "time": 10.0,
     "attempt": 2
   },
   {
-    "learnerID": "l0",
-    "lmID": "Video B",
+    "learnerID": 0,
+    "lmID": 4,
     "score": 8.0,
     "time": 10.0,
     "attempt": 1
   },
   {
-    "learnerID": "l0",
-    "lmID": "Video A",
+    "learnerID": 0,
+    "lmID": 3,
     "score": 8.0,
     "time": 40.0,
     "attempt": 3
   },
   {
-    "learnerID": "l4",
-    "lmID": "Video B",
+    "learnerID": 4,
+    "lmID": 4,
     "score": 9.0,
     "time": 50.0,
     "attempt": 7
   },
   {
-    "learnerID": "l2",
-    "lmID": "Document B",
+    "learnerID": 2,
+    "lmID": 2,
     "score": 8.0,
     "time": 20.0,
     "attempt": 4
   },
   {
-    "learnerID": "l3",
-    "lmID": "Document C",
+    "learnerID": 3,
+    "lmID": 6,
     "score": 8.0,
     "time": 20.0,
     "attempt": 4
   },
   {
-    "learnerID": "l2",
-    "lmID": "Code B",
+    "learnerID": 2,
+    "lmID": 7,
     "score": 8.0,
     "time": 20.0,
     "attempt": 4
   },
   {
-    "learnerID": "l0",
-    "lmID": "Code C",
+    "learnerID": 0,
+    "lmID": 11,
     "score": 8.0,
     "time": 20.0,
     "attempt": 4
   },
   {
-    "learnerID": "l1",
-    "lmID": "Document D",
+    "learnerID": 1,
+    "lmID": 12,
     "score": 8.0,
     "time": 20.0,
     "attempt": 4

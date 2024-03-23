@@ -7,13 +7,13 @@ import { LearningPathCreateREQ } from './request/learning-path-create.request';
 export class LearningPathService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(userID: number, body: LearningPathCreateREQ) {
-    await this.prismaService.learningPath.create({ data: LearningPathCreateREQ.toCreateInput(userID, body) });
+  async create(userID: number, body: LearningPathCreateREQ[]) {
+    body.map(async path => await this.prismaService.learningPath.create({ data: LearningPathCreateREQ.toCreateInput(userID, path) }))
   }
 
-  async detail(id: number) {
+  async detail(userId: number) {
     const learningPath = await this.prismaService.learningPath.findMany({
-      where: { id },
+      where: { learnerId : userId },
     });
 
     return learningPath

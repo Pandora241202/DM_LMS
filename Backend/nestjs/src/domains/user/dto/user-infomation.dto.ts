@@ -4,7 +4,6 @@ import { parseEponch } from 'src/shared/date.helper';
 export class UserInfoDTO {
   id: number;
   email: string;
-  name: string;
   birth: bigint;
   gender: GenderType;
   language: string;
@@ -17,7 +16,6 @@ export class UserInfoDTO {
       id: true,
       avatar: true,
       email: true,
-      name: true,
       birth: true,
       gender: true,
       language: true,
@@ -32,7 +30,6 @@ export class UserInfoDTO {
       id: e.id,
       avatar: e.avatar,
       email: e.email,
-      name: e.name,
       birth: parseEponch(Date.now()).year - parseEponch(e.birth).year,
       gender: e.gender,
       language: e.language,

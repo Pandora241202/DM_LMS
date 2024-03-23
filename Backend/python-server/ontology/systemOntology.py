@@ -1,6 +1,19 @@
 import json
 
 class SystemOntology:
+    def __init__(self):
+        self.header = """<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/thuha/ontologies/system-ontology/"
+     xml:base="http://www.semanticweb.org/thuha/ontologies/system-ontology/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:system-ontology="http://www.semanticweb.org/thuha/ontologies/system-ontology#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology"/>\n\n\n"""
+        self.footer = "</rdf:RDF>"
+
     def addLearner(self, newLearners):
         learners = ""
         
@@ -35,6 +48,7 @@ class SystemOntology:
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>{newLog["learnerID"]}</system-ontology:learnerID>
             <system-ontology:lmID>{newLog["lmID"]}</system-ontology:lmID>
+            <system-ontology:lmID>{newLog["name"]}</system-ontology:lmID>
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog["score"]}</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog["time"]}</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog["attempt"]}</system-ontology:attempt>
@@ -70,30 +84,19 @@ class SystemOntology:
         return learning_materials
 
     def addOnto(self, learners, logs, lms):
-        rdf_file = 'rdf/system-onto.rdf'
-        with open(rdf_file, 'r') as file:
-            ontology = file.read()
-
-        index = len(ontology) - len("<!-- // index to add // -->") - len('</rdf:RDF>') - 1
-        newOntology = ontology[:index] + self.addLM(lms) + self.addLog(logs) + self.addLearner(learners) + ontology[index:]
+        learner_file = 'json/learners.json'
+        log_file = 'json/logs.json'
+        lm_file = 'json/lms.json'
+        with open(learner_file, 'r') as json_file:
+            learners = json.load(json_file)
+        
+        with open(log_file, 'r') as json_file:
+            logs = json.load(json_file)
             
+        with open(lm_file, 'r') as json_file:
+            lms = json.load(json_file)
+        
+        rdf_file = 'rdf/system-onto.rdf'
+        newOntology = self.header + self.addLM(lms) + self.addLog(logs) + self.addLearner(learners) + self.footer     
         with open(rdf_file, 'w') as file:
-            file.write(newOntology)
-
-if __name__ == "__main__":
-    system_onto = 'json/system-onto.json'
-    learner_file = 'json/learners.json'
-    log_file = 'json/logs.json'
-    lm_file = 'json/lms.json'
-    
-    
-    with open(learner_file, 'r') as json_file:
-        newLearners = json.load(json_file)
-    
-    with open(log_file, 'r') as json_file:
-        newLogs = json.load(json_file)
-        
-    with open(lm_file, 'r') as json_file:
-        newLMs = json.load(json_file)
-        
-    ontology = SystemOntology().addOnto(newLearners, newLogs, newLMs)
+            file.write(newOntology)    

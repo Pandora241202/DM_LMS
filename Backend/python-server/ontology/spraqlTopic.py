@@ -10,8 +10,9 @@ class SpraqlTopic:
         self.endID = endID
         
     def DFS(self, stack, path, paths):
+        print(stack, path, paths)
         if not stack:
-            self.DFS([self.startID] + stack, self.endID, path + [self.startID], paths)
+            self.DFS([self.startID] + stack, path + [self.startID], paths)
         else:
             if path != [] and path[-1] == self.endID:
                 paths += [path]
@@ -34,7 +35,7 @@ class SpraqlTopic:
                 }}
             """
             
-            qres = g.query(sparql_query)
+            qres = self.g.query(sparql_query)
             for row in qres:
                 self.DFS([row["topicID"].value] + stack, path + [row["topicID"].value], paths)
 
@@ -43,5 +44,5 @@ class SpraqlTopic:
         self.DFS([], [], paths)
         with open(os.getcwd() + '/ontology/json/paths.json', 'w') as json_file:
             json.dump(paths, json_file, indent=2)
-            
+        print(paths)    
         return paths

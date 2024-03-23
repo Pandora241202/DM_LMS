@@ -125,11 +125,12 @@ class SpraqlLM:
                 topics[topic] = topics[topic][0:end]
                 topics[topic].sort(key=lambda x: x[1]) # sort by similarity
                 
-                recommendTopicMaterial += [{
-                    "topic": topic,
-                    "learning_material": topics[topic][0][2]
-                }]
-            
-            result += [recommendTopicMaterial]
+                # recommendTopicMaterial += [{
+                #     "topic": topic,
+                #     "learning_material": topics[topic][0][1]
+                # }]
+                
+            # result += [recommendTopicMaterial]
+            print(topics)
 
         return result

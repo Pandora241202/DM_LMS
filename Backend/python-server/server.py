@@ -37,12 +37,14 @@ class RequestHandler(BaseHTTPRequestHandler):
                 
         elif '/spraql-lm' in self.path:
             query = parse_qs(urlparse(self.path).query)
-            SpraqlTopic(query["start"][0], query["end"][0] )
+            SpraqlTopic(query["start"][0], query["end"][0] ).spraqlTopic()
             learningSytle = LearningStyle(query)
             paths = SpraqlLM().spraql_lm(learningSytle)
             self.send_reponse(200, 'application/json', json.dumps(paths).encode('utf-8'))
             
-        elif self.path == '/feature-test':
+        elif '/feature-test' in self.path:
+            query = parse_qs(urlparse(self.path).query)
+            SpraqlTopic(query["start"][0], query["end"][0] ).spraqlTopic()
             self.send_reponse(200, 'text/html', b'Feature test')
             
         else:
@@ -54,14 +56,13 @@ class RequestHandler(BaseHTTPRequestHandler):
             content_len = int(self.headers.get('Content-Length'))
             post_body = self.rfile.read(content_len).decode('utf-8')
             forums = ForumService.findSimilarForums(post_body)
-            self.send_reponse(200, 'application/json', json.dumps(forums).encode('utf-8'))
+            self.send_reponse(200, 'application/json', json.dumps(forums).encode('utf-8'))    
 
 def main():
     PORT = 8181
     server  = HTTPServer(("", PORT), RequestHandler)
     print("Ontology server is listening on port:", PORT)
-    server.serve_forever()
-    
+    server.serve_forever()  
     
 if __name__ == "__main__":
     main()

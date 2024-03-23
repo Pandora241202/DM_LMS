@@ -9,52 +9,131 @@
      xmlns:topic-onto="http://www.semanticweb.org/thuha/topic-onto#">
     <owl:Ontology rdf:about="http://www.semanticweb.org/thuha/topic-onto"/>
 
-    
 
 
-    
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic0">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link1">
         <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
-        <topic-onto:topicID>Matrices and linear algebra fundamentals</topic-onto:topicID>
-		<topic-onto:link>K-Means Clustering</topic-onto:link>
-		<topic-onto:link>Data mining</topic-onto:link>
-	</owl:NamedIndividual>
+        <topic-onto:topicID>1</topic-onto:topicID>
+        <topic-onto:link>2</topic-onto:link>
+    </owl:NamedIndividual>
 
 
-    
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic1">
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link2">
         <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
-        <topic-onto:topicID>Data mining</topic-onto:topicID>
-		<topic-onto:link>Machine Learning</topic-onto:link>
-	</owl:NamedIndividual>
+        <topic-onto:topicID>1</topic-onto:topicID>
+        <topic-onto:link>3</topic-onto:link>
+    </owl:NamedIndividual>
 
-    
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic2">
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link3">
         <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
-        <topic-onto:topicID>K-Means Clustering</topic-onto:topicID>
-		<topic-onto:link>DBSCAN</topic-onto:link>
-	</owl:NamedIndividual>
+        <topic-onto:topicID>2</topic-onto:topicID>
+        <topic-onto:link>4</topic-onto:link>
+    </owl:NamedIndividual>
 
-    
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic3">
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link4">
         <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
-        <topic-onto:topicID>DBSCAN</topic-onto:topicID>
-		<topic-onto:link>HDBSCAN</topic-onto:link>
-	</owl:NamedIndividual>
+        <topic-onto:topicID>2</topic-onto:topicID>
+        <topic-onto:link>5</topic-onto:link>
+    </owl:NamedIndividual>
 
-    
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic4">
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link5">
         <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
-        <topic-onto:topicID>HDBSCAN</topic-onto:topicID>
-		<topic-onto:link>Machine Learning</topic-onto:link>
-	</owl:NamedIndividual>
+        <topic-onto:topicID>2</topic-onto:topicID>
+        <topic-onto:link>6</topic-onto:link>
+    </owl:NamedIndividual>
 
 
-    
-    <!-- index of adding -->
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link6">
+        <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
+        <topic-onto:topicID>3</topic-onto:topicID>
+        <topic-onto:link>7</topic-onto:link>
+    </owl:NamedIndividual>
+
+
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link7">
+        <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
+        <topic-onto:topicID>4</topic-onto:topicID>
+        <topic-onto:link>8</topic-onto:link>
+    </owl:NamedIndividual>
+
+
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link8">
+        <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
+        <topic-onto:topicID>4</topic-onto:topicID>
+        <topic-onto:link>9</topic-onto:link>
+    </owl:NamedIndividual>
+
+
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link9">
+        <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
+        <topic-onto:topicID>5</topic-onto:topicID>
+        <topic-onto:link>6</topic-onto:link>
+    </owl:NamedIndividual>
+
+
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link10">
+        <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
+        <topic-onto:topicID>5</topic-onto:topicID>
+        <topic-onto:link>9</topic-onto:link>
+    </owl:NamedIndividual>
+
+
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link11">
+        <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
+        <topic-onto:topicID>6</topic-onto:topicID>
+        <topic-onto:link>10</topic-onto:link>
+    </owl:NamedIndividual>
+
+
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link12">
+        <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
+        <topic-onto:topicID>7</topic-onto:topicID>
+        <topic-onto:link>10</topic-onto:link>
+    </owl:NamedIndividual>
+
+
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link13">
+        <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
+        <topic-onto:topicID>7</topic-onto:topicID>
+        <topic-onto:link>11</topic-onto:link>
+    </owl:NamedIndividual>
+
+
+
+        
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link14">
+        <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
+        <topic-onto:topicID>8</topic-onto:topicID>
+        <topic-onto:link>9</topic-onto:link>
+    </owl:NamedIndividual>
+
+
+
 </rdf:RDF>
-
-

@@ -1,5 +1,8 @@
 # dotenv environment variable files
 .env
 
+#
+*.pyc
+
 # Test sql statements
 testSql.txt
