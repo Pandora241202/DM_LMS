@@ -179,6 +179,15 @@ export const TopicCreateForm = (props) => {
                     type="number"
                     value={formik.values.difficulty}
                   />
+                  <TextField
+                    error={!!(formik.touched.belong_to_topic && formik.errors.belong_to_topic)}
+                    fullWidth
+                    label="Chủ đề liên quan"
+                    name="belong_to_topic"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.belong_to_topic}
+                  />
                   <div>
                     <Typography
                       color="text.secondary"

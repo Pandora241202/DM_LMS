@@ -20,8 +20,9 @@ import {
 import { FileDropzoneVn } from '../../../components/file-dropzone-vn';
 import { QuillEditor } from '../../../components/quill-editor';
 import { paths } from '../../../paths';
+import { lm_manageApi } from '../../../api/LM-Manage';
 
-const categoryOptions = [
+const typeOptions = [
   {
     label: 'Video',
     value: 'video'
@@ -45,26 +46,28 @@ const categoryOptions = [
 ];
 
 const initialValues = {
-  id: '',
-  category: '',
-  description: '',
-  images: [],
+  // id: '',
+  type: '',
+  // description: '',
+  // images: [],
   name: '',
-  duration : 0,
+  time : 0,
   difficulty: 0,
   // newPrice: 0,
   // oldPrice: 0,
+  topicIds: '',
   submit: null
 };
 
 const validationSchema = Yup.object({
-  id: Yup.number().min(0),
-  category: Yup.string().max(255),
-  description: Yup.string().max(5000),
-  images: Yup.array(),
+  // id: Yup.number().min(0),
+  type: Yup.string().max(255),
+  // description: Yup.string().max(5000),
+  // images: Yup.array(),
   name: Yup.string().max(255).required(),
-  duration : Yup.number().min(0).required(),
+  time : Yup.number().min(0).required(),
   difficulty: Yup.number().min(0).required(),
+  topicIds: Yup.string().max(255).required(),
   // newPrice: Yup.number().min(0).required(),
   // oldPrice: Yup.number().min(0),
 });
@@ -78,6 +81,7 @@ export const LMCreateForm = (props) => {
     onSubmit: async (values, helpers) => {
       try {
         // NOTE: Make API request
+        await lm_manageApi.createLM(values)
         toast.success('Tài liệu học tập đã được tạo');
         router.push(paths.dashboard.LM_Manage);
       } catch (err) {
@@ -141,16 +145,16 @@ export const LMCreateForm = (props) => {
                     value={formik.values.name}
                   />
                   <TextField
-                    error={!!(formik.touched.category && formik.errors.category)}
+                    error={!!(formik.touched.type && formik.errors.type)}
                     fullWidth
                     label="Phân loại"
-                    name="category"
+                    name="type"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     select
-                    value={formik.values.category}
+                    value={formik.values.type}
                   >
-                    {categoryOptions.map((option) => (
+                    {typeOptions.map((option) => (
                       <MenuItem
                         key={option.value}
                         value={option.value}
@@ -160,14 +164,14 @@ export const LMCreateForm = (props) => {
                     ))}
                   </TextField>
                   <TextField
-                    error={!!(formik.touched.duration && formik.errors.duration)}
+                    error={!!(formik.touched.time && formik.errors.time)}
                     fullWidth
                     label="Thời lượng"
-                    name="duration"
+                    name="time"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     type="number"
-                    value={formik.values.duration}
+                    value={formik.values.time}
                   />
                   <TextField
                     error={!!(formik.touched.difficulty && formik.errors.difficulty)}
@@ -179,7 +183,16 @@ export const LMCreateForm = (props) => {
                     type="number"
                     value={formik.values.difficulty}
                   />
-                  <div>
+                  <TextField
+                    error={!!(formik.touched.topicIds && formik.errors.topicIds)}
+                    fullWidth
+                    label="Chủ đề học liên quan"
+                    name="topicIds"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.topicIds}
+                  />
+                  {/* <div>
                     <Typography
                       color="text.secondary"
                       sx={{ mb: 2 }}
@@ -202,7 +215,7 @@ export const LMCreateForm = (props) => {
                         </FormHelperText>
                       </Box>
                     )}
-                  </div>
+                  </div> */}
                 </Stack>
               </Grid>
             </Grid>
