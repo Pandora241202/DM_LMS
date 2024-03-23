@@ -24,6 +24,10 @@ class ForumApi {
   getComments(id) {
     return axios.get(`${apiUrl}/${id}/comment`);
   }
+
+  postComment(request) {
+    return axios.post(`${apiUrl}/comment`, request)
+  }
 }
 
 export const forumApi = new ForumApi();
