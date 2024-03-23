@@ -1,6 +1,7 @@
 import { BackgroundKnowledgeType, GenderType, Prisma, QualificationType } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { parseEponch } from 'src/shared/date.helper';
+import { Injectable } from '@nestjs/common';
 class Learner {
   id: number;
   activeReflective: number;
@@ -28,11 +29,12 @@ class Learner {
     };
   }
 }
+@Injectable()
 export class OntologyService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async getLearners() {
-    return await this.prismaService.learner.findMany({
+    const learners = await this.prismaService.learner.findMany({
       select: {
         id: true,
         activeReflective: true,
@@ -48,6 +50,39 @@ export class OntologyService {
             gender: true,
           },
         },
+      },
+    });
+
+    return learners.map((learner) => Learner.fromEntity(learner as any));
+  }
+
+  async getLMs() {
+    return await this.prismaService.learningMaterial.findMany({
+      select: {
+        name: true,
+        difficulty: true,
+        type: true,
+        rating: true,
+        score: true,
+        time: true,
+        Topic: {
+          select: {
+            id: true,
+            title: true,
+          },
+        },
+      },
+    });
+  }
+
+  async getLogs() {
+    return await this.prismaService.learnerLog.findMany({
+      select: {
+        learnerId: true,
+        learningMaterialId: true,
+        score: true,
+        time: true,
+        attempts: true,
       },
     });
   }

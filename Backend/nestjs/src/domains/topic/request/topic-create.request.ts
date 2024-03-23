@@ -7,6 +7,10 @@ export class TopicCreateREQ {
   @IsString()
   title: string;
 
+  @IsOptional()
+  @IsNumber({}, { each: true })
+  postTopicIds: number[];
+
   static toCreateInput(body: TopicCreateREQ): Prisma.TopicCreateInput {
     return {
       title: body.title,

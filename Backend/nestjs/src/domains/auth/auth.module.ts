@@ -19,5 +19,6 @@ export const jwtConstants = {
   ],
   controllers: [AuthController],
   providers: [AuthService],
+  exports: [AuthService],
 })
 export class AuthModule {}
