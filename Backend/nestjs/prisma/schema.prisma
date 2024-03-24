@@ -39,9 +39,9 @@ model AuthenticatedUser {
 model Learner {
   id                  Int                     @id @default(autoincrement())
   activeReflective    Int?                    @map("active_reflective")
-  sensitiveIntuitive  Int?                    @map("sensitive_intuitive")
   visualVerbal        Int?                    @map("visual_verbal")
   globalSequential    Int?                    @map("global_sequential")
+  sensitiveIntuitive  Int?                    @map("sensitive_intuitive")
   backgroundKnowledge BackgroundKnowledgeType @map("background_knowledge")
   qualification       QualificationType
 
