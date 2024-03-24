@@ -1,22 +1,18 @@
 import { Prisma } from '@prisma/client';
 import { IsBoolean, IsNotEmpty, IsNumber } from 'class-validator';
-import { connectRelation } from 'src/shared/prisma.helper';
+import { connectManyRelation, connectRelation } from 'src/shared/prisma.helper';
 
 export class LearningPathCreateREQ {
   @IsNotEmpty()
-  @IsNumber()
-  learningMaterialOrder: number;
+  @IsNumber({}, { each: true })
+  lmIds: number[];
 
-  @IsNotEmpty()
-  @IsNumber()
-  learningMaterialId: number;
-
-  static toCreateInput(userID: number, body: LearningPathCreateREQ): Prisma.LearningPathCreateInput {
+  static toCreateInput(learnerId: number, lmId: number, learningMaterialOrder: number): Prisma.LearningPathCreateInput {
     return {
-      learningMaterialOrder: body.learningMaterialOrder,
+      learningMaterialOrder: learningMaterialOrder,
       learned: false,
-      learner: connectRelation(userID),
-      learningMaterial: connectRelation(body.learningMaterialId),
+      learner: connectRelation(learnerId),
+      learningMaterial: connectRelation(lmId),
     };
   }
 }

@@ -1,5 +1,5 @@
 import { AccountType, GenderType, Prisma } from '@prisma/client';
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsEnum, IsOptional, IsString } from 'class-validator';
 import { timeEponch } from 'src/shared/date.helper';
 
 export class UserUpdateREQ {
@@ -31,6 +31,10 @@ export class UserUpdateREQ {
   @IsString()
   password: string;
 
+  @IsOptional()
+  @IsArray()
+  learningStyleQA: string[] = null;
+
   static toUpdateInput(body: UserUpdateREQ): Prisma.AuthenticatedUserUpdateInput {
     return {
       email: body.email,
@@ -41,5 +45,9 @@ export class UserUpdateREQ {
       username: body.username,
       password: body.password,
     };
+  }
+
+  static toUpdateLearningStyle(body: UserUpdateREQ): Prisma.LearnerUpdateInput {
+    return {};
   }
 }

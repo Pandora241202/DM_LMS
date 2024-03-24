@@ -87,6 +87,7 @@ class SystemOntology:
         learner_file = 'json/learners.json'
         log_file = 'json/logs.json'
         lm_file = 'json/lms.json'
+        
         with open(learner_file, 'r') as json_file:
             learners = json.load(json_file)
         

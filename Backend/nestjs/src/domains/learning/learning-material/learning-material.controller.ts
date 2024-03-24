@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { LearningMaterialService } from './learning-material.service';
 import { LearningMaterialCreateREQ } from './request/learning-material.create';
 
@@ -11,8 +11,8 @@ export class LearningMaterialController {
     await this.learningMaterialService.create(body);
   }
 
-  @Get()
-  async detail(id: number) {
+  @Get(':id')
+  async detail(@Param('id', ParseIntPipe) id: number) {
     await this.learningMaterialService.detail(id);
   }
 
@@ -20,5 +20,4 @@ export class LearningMaterialController {
   async createMany(@Body() body: LearningMaterialCreateREQ[]) {
     await this.learningMaterialService.createMany(body);
   }
-
 }

@@ -10,6 +10,11 @@ export class LearnerLogController {
 
   @Post()
   async create(@Req() req: any, @Body() body: LearnerLogCreateREQ) {
-    return this.learnerLogService.create(req.user.id, body);
+    await this.learnerLogService.create(req.user.id, body);
+  }
+
+  @Post('batch')
+  async createBatch(@Req() req: any, @Body() body: LearnerLogCreateREQ[]) {
+    await this.learnerLogService.createBatch(req.user.id, body);
   }
 }

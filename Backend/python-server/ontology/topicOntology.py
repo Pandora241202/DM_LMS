@@ -12,7 +12,7 @@ class TopicOntology():
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:topic-onto="http://www.semanticweb.org/thuha/topic-onto#">
-    <owl:Ontology rdf:about="http://www.semanticweb.org/thuha/topic-onto"/>"""
+    <owl:Ontology rdf:about="http://www.semanticweb.org/thuha/topic-onto"/>\n\n\n"""
         self.footer = "\n\n\n</rdf:RDF>"
         
     def addOnto(self):

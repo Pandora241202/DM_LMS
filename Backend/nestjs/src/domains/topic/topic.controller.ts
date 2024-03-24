@@ -5,7 +5,7 @@ import { TopicUpdateREQ } from './request/topic-update.request';
 import { TopicLinkDeleteREQ } from './request/topic-link-delete.request';
 import { AuthGuard } from '../auth/auth.guard';
 
-// @UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
 @Controller('topics')
 export class TopicController {
   constructor(public readonly topicService: TopicService) {}
@@ -20,15 +20,15 @@ export class TopicController {
     return await this.topicService.list();
   }
 
+  @Get(':id')
+  async detail(@Param('id', ParseIntPipe) id: number) {
+    return await this.topicService.detail(id);
+  }
+
   @Delete(':id/topic-links')
   async disactiveLink(@Param('id', ParseIntPipe) id: number, @Body() body: TopicLinkDeleteREQ) {
     await this.topicService.disactiveLink(id, body);
-  }
-
-  @Get(':id')
-  async detail(@Param('id', ParseIntPipe) id: number) {
-    await this.topicService.detail(id);
-  }
+  } 
 
   @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() body: TopicUpdateREQ) {

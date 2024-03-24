@@ -46,7 +46,7 @@ class Log:
 class connectDatabase:
     def __init__(self):
         load_dotenv()
-        print(os.getenv("HOST"))
+        print("Connect to database successfully")
         self.connection = psycopg2.connect(host=os.getenv("HOST"), database=os.getenv("DB"), user=os.getenv("DB_USERNAME"), password=os.getenv("DB_PASSWORD"))
         self.cursor = self.connection.cursor()
         

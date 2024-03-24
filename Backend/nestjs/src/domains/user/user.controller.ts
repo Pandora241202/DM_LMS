@@ -1,24 +1,19 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserCreateREQ } from './request/user-create.request';
 import { PaginationREQ } from 'src/shared/pagination.request';
 import { UserUpdateREQ } from './request/user-update.request';
-//import { AuthGuard } from '../auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
+import { SubjectType } from '@prisma/client';
 
-//@UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
   async create(@Body() body: UserCreateREQ) {
-    try {
-      const result = await this.userService.create(body);;
-      return result;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    await this.userService.create(body);
   }
 
   @Get()
@@ -27,13 +22,18 @@ export class UserController {
   }
 
   @Get('generate-paths')
-  async generatePaths(@Req() req: any, @Query() query: {start: number, end: number}) {
-    return await this.userService.generatePaths(req.user.id, query.start, query.end);
+  async generatePaths(@Req() req: any, @Query() goal: SubjectType) {
+    return await this.userService.generatePaths(req.user.learnerId, goal);
   }
 
   @Get('profile')
   async profile(@Req() req: any) {
     return req.user;
+  }
+
+  @Put('learning-style')
+  async updateStyle(@Req() req: any, @Body() body: { learningStyleQA: string[] }) {
+    return await this.userService.updateStyle(req.user.id, body.learningStyleQA);
   }
 
   @Get(':id')

@@ -5,6 +5,10 @@ import { connectRelation } from 'src/shared/prisma.helper';
 export class LearnerLogCreateREQ {
   @IsNotEmpty()
   @IsNumber()
+  learningMaterialVisittedTime: bigint;
+
+  @IsNotEmpty()
+  @IsNumber()
   learningMaterialId: number;
 
   @IsOptional()

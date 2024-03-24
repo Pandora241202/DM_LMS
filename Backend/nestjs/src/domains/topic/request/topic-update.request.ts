@@ -20,7 +20,7 @@ export class TopicUpdateREQ {
   postIds: number[];
 
   static toCreateLink(topicId: number, body: TopicUpdateREQ): Prisma.TopicLinkCreateManyInput[] {
-    return body.postIds.map((id) => ({ startId: topicId, endId: id }));
+    return body.postIds.map((id) => ({ startId: topicId, endId: id,  }));
   }
 
   static toUpdateInput(body: TopicUpdateREQ): Prisma.TopicUpdateInput {

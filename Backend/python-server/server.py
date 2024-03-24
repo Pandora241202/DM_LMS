@@ -41,6 +41,10 @@ class RequestHandler(BaseHTTPRequestHandler):
             learningSytle = LearningStyle(query)
             paths = SpraqlLM().spraql_lm(learningSytle)
             self.send_reponse(200, 'application/json', json.dumps(paths).encode('utf-8'))
+        
+        elif '/topic-ontology' in self.path:
+            TopicOntology().addOnto()
+            self.send_reponse(200, 'text/html', b'Regenerate topic-ontology successfully')
             
         elif '/feature-test' in self.path:
             query = parse_qs(urlparse(self.path).query)
@@ -57,6 +61,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             post_body = self.rfile.read(content_len).decode('utf-8')
             forums = ForumService.findSimilarForums(post_body)
             self.send_reponse(200, 'application/json', json.dumps(forums).encode('utf-8'))    
+ 
 
 def main():
     PORT = 8181

@@ -50,10 +50,9 @@ export class UserCreateREQ {
 
   @IsOptional()
   @IsEnum(QualificationType)
-  qualification: QualificationType = QualificationType.HIGH_SCHOOL;
+  qualification: QualificationType = QualificationType.HIGHSCHOOL;
 
   static toCreateInput(body: UserCreateREQ): Prisma.AuthenticatedUserCreateInput {
-    if (body.learningStyleQA) body.priorTest = true;
     return {
       email: body.email,
       name: body.name,

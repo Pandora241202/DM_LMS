@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { AuthLoginRESP } from './response/auth-login.response';
 import { AuthDTO } from './dto/auth.dto';
+import { AccountType } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -15,17 +16,17 @@ export class AuthService {
 
   async login(body: AuthLoginREQ) {
     const user = await this.prismaService.authenticatedUser.findFirst({
-      where: { username: body.username },
-      select: { id: true, password: true, username: true, accountType: true },
+      where: { username: body.username }
     });
-
     if (!user) {
-      throw new UnauthorizedException("Sai tên đăng nhập hoặc mật khẩu");
+      throw new UnauthorizedException('Username or password incorrect');
     }
-    const isMatch = await bcrypt.compare(body.password, user.password);
-    if (!isMatch) throw new UnauthorizedException("Sai tên đăng nhập hoặc mật khẩu");
+    const learner = await this.prismaService.learner.findFirst({ where: { userId: user.id }});
 
-    const jwtToken = await this.jwtService.signAsync({ user: AuthDTO.fromEntity(user as any) });
-    return AuthLoginRESP.fromEntity(user as any, jwtToken);
+    const isMatch = await bcrypt.compare(body.password, user.password);
+    if (!isMatch) throw new UnauthorizedException('Username or password incorrect');
+
+    const jwtToken = await this.jwtService.signAsync({ user: AuthDTO.fromEntity(user as any, learner ? learner.id : null ) });
+    return AuthLoginRESP.fromEntity(user as any, jwtToken, learner ? learner.id : null);
   }
 }

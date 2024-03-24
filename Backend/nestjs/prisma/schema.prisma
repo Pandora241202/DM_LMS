@@ -38,10 +38,10 @@ model AuthenticatedUser {
 
 model Learner {
   id                  Int                     @id @default(autoincrement())
-  activeReflective    Int                     @map("active_reflective")
-  sensitiveIntuitive  Int                     @map("sensitive_intuitive")
-  visualVerbal        Int                     @map("visual_verbal")
-  globalSequential    Int                     @map("global_sequential")
+  activeReflective    Int?                    @map("active_reflective")
+  sensitiveIntuitive  Int?                    @map("sensitive_intuitive")
+  visualVerbal        Int?                    @map("visual_verbal")
+  globalSequential    Int?                    @map("global_sequential")
   backgroundKnowledge BackgroundKnowledgeType @map("background_knowledge")
   qualification       QualificationType
 
@@ -53,6 +53,7 @@ model Learner {
   log          LearnerLog[]
   LearningPath LearningPath[]
 
+  @@unique([userId])
   @@map("learners")
 }
 
@@ -100,8 +101,9 @@ model Lesson {
 }
 
 model Topic {
-  id    Int    @id @default(autoincrement())
-  title String
+  id      Int         @id @default(autoincrement())
+  title   String
+  subject SubjectType
 
   Lesson           Lesson[]
   LearningMaterial LearningMaterial[]
@@ -118,8 +120,8 @@ model TopicLink {
 
   start   Topic @relation("start_link", fields: [startId], references: [id])
   startId Int   @map("start_id")
-  end     Topic @relation("end_link", fields: [endId], references: [id])
-  endId   Int   @map("end_id")
+  end     Topic? @relation("end_link", fields: [endId], references: [id])
+  endId   Int?   @map("end_id")
 
   @@map("topic_link")
 }
@@ -331,12 +333,21 @@ enum GenderType {
 
 enum BackgroundKnowledgeType {
   BASIC
-  INTERMEDIA
+  INTERMEDIATE
   EXPERT
 }
 
 enum QualificationType {
-  HIGH_SCHOOL
+  HIGHSCHOOL
   GRADUATE
-  POST_GRADUATE
+  UNDERGRADUATE
+}
+
+enum SubjectType {
+  FUNDAMENTAL
+  DATA_SCIENTIST
+  MACHINE_LEARNING
+  DEEP_LEARNING
+  DATA_ENGINEER
+  BIG_DATA_ENGINEER
 }

@@ -10,8 +10,10 @@ export class LearningMaterialService {
     await this.prismaService.learningMaterial.create({ data: LearningMaterialCreateREQ.toCreateInput(body) });
   }
 
-  async createMany(body: LearningMaterialCreateREQ[]){
-    await this.prismaService.learningMaterial.createMany({ data: body.map(lm => LearningMaterialCreateREQ.toCreateInput(lm)) });
+  async createMany(body: LearningMaterialCreateREQ[]) {
+    body.map(
+      async (data) => await this.prismaService.learningMaterial.create({ data: LearningMaterialCreateREQ.toCreateInput(data) }),
+    );
   }
 
   async detail(id: number) {

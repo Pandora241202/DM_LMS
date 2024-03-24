@@ -13,7 +13,7 @@ export class UserLearnerDTO {
     let a = 0,
       b = 0;
     while (st <= 44) {
-      if (answer[st] === 'A') a++;
+      if (answer[st] === 'A' || answer[st] === 'a') a++;
       else b++;
       st += 4;
     }
@@ -54,11 +54,11 @@ export class UserLearnerDTO {
     userId: number,
     learningStyleQA: string[] = null,
     backgroundKnowledge: BackgroundKnowledgeType = BackgroundKnowledgeType.BASIC,
-    qualification: QualificationType = QualificationType.HIGH_SCHOOL,
+    qualification: QualificationType = QualificationType.HIGHSCHOOL,
   ): Prisma.LearnerCreateInput {
     const style = learningStyleQA
       ? this.learningStyle(learningStyleQA)
-      : { activeReflective: 0, sensitiveIntuitive: 0, visualVerbal: 0, globalSequential: 0 };
+      : { activeReflective: null, sensitiveIntuitive: null, visualVerbal: null, globalSequential: null };
 
     return {
       activeReflective: style.activeReflective,

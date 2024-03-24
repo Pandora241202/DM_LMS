@@ -3,120 +3,120 @@
     "lmID": 1,
     "name": "Document A",
     "difficulty": 0.4,
-    "learning_resouce_type": "pdf",
-    "material_ratings": 3,
+    "type": "pdf",
+    "rating": 3,
     "score": 10.0,
     "time": 30.0,
-    "topic": "K-Means Clustering"
+    "topic": [2]
   },
   {
     "lmID": 2,
     "name": "Document B",
     "difficulty": 0.5,
-    "learning_resouce_type": "pdf",
-    "material_ratings": 4,
+    "type": "pdf",
+    "rating": 4,
     "score": 10.0,
     "time": 30.0,
-    "topic": "K-Means Clustering"
+    "topic": [2]
   },
   {
     "lmID": 3,
     "name": "Video A",
     "difficulty": 0.6,
-    "learning_resouce_type": "video",
-    "material_ratings": 5,
+    "type": "video",
+    "rating": 5,
     "score": 10.0,
     "time": 30.0,
-    "topic": "DBSCAN"
+    "topic": [3]
   },
   {
     "lmID": 4,
     "name": "Video B",
     "difficulty": 0.6,
-    "learning_resouce_type": "video",
-    "material_ratings": 3,
+    "type": "video",
+    "rating": 3,
     "score": 10.0,
     "time": 30.0,
-    "topic": "DBSCAN"
+    "topic": [3]
   },
   {
     "lmID": 5,
     "name": "Code A",
     "difficulty": 0.3,
-    "learning_resouce_type": "code",
-    "material_ratings": 2,
+    "type": "code",
+    "rating": 2,
     "score": 10.0,
     "time": 30.0,
-    "topic": "DBSCAN"
+    "topic": [3]
   },
   {
     "lmID": 6,
     "name": "Document C",
     "difficulty": 0.3,
-    "learning_resouce_type": "word",
-    "material_ratings": 4,
+    "type": "word",
+    "rating": 4,
     "score": 10.0,
     "time": 30.0,
-    "topic": "Matrices and linear algebra fundamentals"
+    "topic": [1]
   },
   {
     "lmID": 7,
     "name": "Code B",
     "difficulty": 0.3,
-    "learning_resouce_type": "code",
-    "material_ratings": 2,
+    "type": "code",
+    "rating": 2,
     "score": 10.0,
     "time": 30.0,
-    "topic": "Matrices and linear algebra fundamentals"
+    "topic": [1]
   },
   {
     "lmID": 8,
     "name": "Document D",
     "difficulty": 0.3,
-    "learning_resouce_type": "word",
-    "material_ratings": 4,
+    "type": "word",
+    "rating": 4,
     "score": 10.0,
     "time": 30.0,
-    "topic": "Data mining"
+    "topic": [5]
   },
   {
     "lmID": 9,
     "name": "Document F",
     "difficulty": 0.3,
-    "learning_resouce_type": "word",
-    "material_ratings": 5,
+    "type": "word",
+    "rating": 5,
     "score": 10.0,
     "time": 30.0,
-    "topic": "Data mining"
+    "topic": [5]
   },
   {
     "lmID": 10,
     "name": "Video C",
     "difficulty": 0.3,
-    "learning_resouce_type": "video",
-    "material_ratings": 2,
+    "type": "video",
+    "rating": 2,
     "score": 10.0,
     "time": 30.0,
-    "topic": "HDBSCAN"
+    "topic": [4]
   },
   {
     "lmID": 11,
     "name": "Code C",
     "difficulty": 0.3,
-    "learning_resouce_type": "code",
-    "material_ratings": 2,
+    "type": "code",
+    "rating": 2,
     "score": 10.0,
     "time": 30.0,
-    "topic": "Machine Learning"
+    "topic": [6]
   },
   {
     "lmID": 12,
     "name": "Video D",
     "difficulty": 0.3,
-    "learning_resouce_type": "video",
-    "material_ratings": 2,
+    "type": "video",
+    "rating": 2,
     "score": 10.0,
     "time": 30.0,
-    "topic": "Machine Learning"
+    "topic": [6]
   }
 ]
