@@ -102,13 +102,10 @@ export const TopicManageListTable = (props) => {
           <TableHead>
             <TableRow>
               <TableCell width="25%">
-                Tiêu đề
-              </TableCell>
-              <TableCell>
-                Mô tả
+                ID
               </TableCell>
               <TableCell width="25%">
-                Ngày cập nhật
+                Tên chủ đề 
               </TableCell>
               <TableCell align="right">
               </TableCell>
@@ -130,7 +127,7 @@ export const TopicManageListTable = (props) => {
                     key={Topic.id}
                   >
                     <TableCell width="25%">
-                      <Box
+                      {/* <Box
                         sx={{
                           alignItems: 'center',
                           display: 'flex'
@@ -178,7 +175,7 @@ export const TopicManageListTable = (props) => {
                           }}
                         >
                           <Typography variant="subtitle2">
-                            {Topic.name}
+                            {Topic.title}
                           </Typography>
                           <Typography
                             color="text.secondary"
@@ -187,38 +184,8 @@ export const TopicManageListTable = (props) => {
                             in {Topic.category}
                           </Typography>
                         </Box>
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      {/* <LinearProgress
-                        value={Topic.quantity}
-                        variant="determinate"
-                        color={quantityColor}
-                        sx={{
-                          height: 8,
-                          width: 36
-                        }}
-                      />
-                      <Typography
-                        color="text.secondary"
-                        variant="body2"
-                      >
-                        {Topic.quantity}
-                        {' '}
-                        in stock
-                        {hasManyVariants && ` in ${Topic.variants} variants`}
-                      </Typography> */}
-                      <Stack space={3}>
-                        <Typography variant="subtitle2">
-                          Loại hình: {Topic.category} 
-                        </Typography>
-                        <Typography variant="subtitle2">
-                          Thời gian: {Topic.duration}
-                        </Typography>
-                        <Typography variant="subtitle2">
-                          Topic
-                        </Typography>
-                      </Stack>
+                      </Box> */}
+                      {Topic.id}
                     </TableCell>
                     <TableCell>
                       {/* <SeverityPill color={statusColor}>
@@ -229,7 +196,8 @@ export const TopicManageListTable = (props) => {
                         color="textSecondary"
                         variant="body2"
                       >
-                        {Topic.updatedAt ? new Date(Topic.updatedAt).toLocaleDateString('en-GB') : 'N/A'}
+                        {/* {Topic.updatedAt ? new Date(Topic.updatedAt).toLocaleDateString('en-GB') : 'N/A'} */}
+                        {Topic.title}
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
@@ -282,10 +250,10 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={Topic.name}
+                                    defaultValue={Topic.title}
                                     fullWidth
-                                    label="Product name"
-                                    name="name"
+                                    label="Product title"
+                                    name="title"
                                   />
                                 </Grid>
                                 <Grid

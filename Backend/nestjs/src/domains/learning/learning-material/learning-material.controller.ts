@@ -1,4 +1,4 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { LearningMaterialService } from './learning-material.service';
 import { LearningMaterialCreateREQ } from './request/learning-material.create';
 
@@ -7,7 +7,7 @@ export class LearningMaterialController {
   constructor(private readonly learningMaterialService: LearningMaterialService) {}
 
   @Post()
-  async create(body: LearningMaterialCreateREQ) {
+  async create(@Body()body: LearningMaterialCreateREQ) {
     await this.learningMaterialService.create(body);
   }
 }

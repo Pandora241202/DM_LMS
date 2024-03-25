@@ -13,7 +13,6 @@ import {
   SvgIcon,
   Typography
 } from '@mui/material';
-import { lm_manageApi } from '../../../api/LM-Manage';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
@@ -21,6 +20,7 @@ import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
 import { TopicManageListSearch } from '../../../sections/dashboard/Topic-Manage/topic-manage-list-search';
 import { TopicManageListTable } from '../../../sections/dashboard/Topic-Manage/topic-manage-list-table';
+import { topic_manageApi } from '../../../api/Topic-Manage';
 
 const useSearch = () => {
   const [search, setSearch] = useState({
@@ -79,7 +79,7 @@ const useTopics = (search) => {
 
   const getTopics = useCallback(async () => {
     try {
-      const response = await lm_manageApi.getLMs(search);
+      const response = await topic_manageApi.getListTopic();
 
       if (isMounted()) {
         setState({

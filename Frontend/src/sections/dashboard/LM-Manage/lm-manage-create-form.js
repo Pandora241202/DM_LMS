@@ -3,9 +3,11 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import Autocomplete, { createFilterOptions }from '@mui/material/Autocomplete';
 import {
   Box,
   Button,
+  Chip,
   Card,
   CardContent,
   FormControlLabel,
@@ -22,22 +24,33 @@ import { QuillEditor } from '../../../components/quill-editor';
 import { paths } from '../../../paths';
 import { lm_manageApi } from '../../../api/LM-Manage';
 
+const topicOptions = [
+  { label: "1",
+    value: 1
+  },
+  { label: "2",
+    value: 2
+  },
+  { label: "3",
+    value: 3
+  }
+];
 const typeOptions = [
   {
-    label: 'Video',
-    value: 'video'
+    label: 'VIDEO',
+    value: 'VIDEO'
   },
   {
     label: 'PDF',
-    value: 'pdf'
+    value: 'PDF'
   },
   {
-    label: 'Quiz',
-    value: 'quiz'
+    label: 'QUIZ',
+    value: 'QUIZ'
   },
   {
-    label: 'Podcast',
-    value: 'podcast'
+    label: 'PODCAST',
+    value: 'PODCAST'
   },
   {
     label: 'Khác',
@@ -55,8 +68,9 @@ const initialValues = {
   difficulty: 0,
   // newPrice: 0,
   // oldPrice: 0,
-  topicIds: '',
-  submit: null
+  score: 0,
+  // topicIds: [],
+  // submit: null
 };
 
 const validationSchema = Yup.object({
@@ -67,28 +81,39 @@ const validationSchema = Yup.object({
   name: Yup.string().max(255).required(),
   time : Yup.number().min(0).required(),
   difficulty: Yup.number().min(0).required(),
-  topicIds: Yup.string().max(255).required(),
+  // topicIds: Yup.number().required(),
   // newPrice: Yup.number().min(0).required(),
   // oldPrice: Yup.number().min(0),
 });
 
 export const LMCreateForm = (props) => {
   const router = useRouter();
+  const [topicIds, setTopicIds] = useState([])
+  const [newTopicId, setNewTopicId] = useState('');
   const [files, setFiles] = useState([]);
+  const filter = createFilterOptions();
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values, helpers) => {
       try {
         // NOTE: Make API request
-        await lm_manageApi.createLM(values)
+        await lm_manageApi.createLM({
+          name: values.name,
+          difficulty: values.difficulty,
+          type: values.type,
+          score: values.score,
+          time: values.time,
+          topicIds: topicIds.map((topicIds) => topicIds.value)
+      })
+        // await lm_manageApi.createLM(values);
         toast.success('Tài liệu học tập đã được tạo');
         router.push(paths.dashboard.LM_Manage);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');
         helpers.setStatus({ success: false });
-        helpers.setErrors({ submit: err.message });
+        // helpers.setErrors({ submit: err.message });
         helpers.setSubmitting(false);
       }
     }
@@ -151,13 +176,14 @@ export const LMCreateForm = (props) => {
                     name="type"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    select
                     value={formik.values.type}
+                    select
                   >
                     {typeOptions.map((option) => (
                       <MenuItem
                         key={option.value}
                         value={option.value}
+                        selected
                       >
                         {option.label}
                       </MenuItem>
@@ -166,7 +192,7 @@ export const LMCreateForm = (props) => {
                   <TextField
                     error={!!(formik.touched.time && formik.errors.time)}
                     fullWidth
-                    label="Thời lượng"
+                    label="Thời lượng (phút)"
                     name="time"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
@@ -183,15 +209,83 @@ export const LMCreateForm = (props) => {
                     type="number"
                     value={formik.values.difficulty}
                   />
-                  <TextField
-                    error={!!(formik.touched.topicIds && formik.errors.topicIds)}
+                  <Autocomplete
+                    value={newTopicId}
+                    onChange={(event, newValue) => {
+                      if (typeof newValue === 'string') {
+                        setNewTopicId({
+                          title: newValue,
+                        });
+                      } else if (newValue && newValue.inputValue) {
+                        // Create a new value from the user input
+                        setNewTopicId({
+                          title: newValue.inputValue,
+                        });
+                      } else {
+                        setNewTopicId(newValue);
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        if (newTopicId !== '') {
+                          setTopicIds([...topicIds,newTopicId]);
+                        }
+                        setNewTopicId('');
+                        e.preventDefault();
+                      }}
+                    }
+                    filterOptions={(options, params) => {
+                      const filtered = filter(options, params);
+                      const { inputValue } = params;
+                      // Suggest the creation of a new value
+                      const isExisting = options.some((option) => inputValue === option.label);
+                      if (inputValue !== '' && !isExisting) {
+                        filtered.push({
+                          inputValue,
+                          label: `Add "${inputValue}"`,
+                        });
+                      }
+
+                      return filtered;
+                    }}
+                    selectOnFocus
+                    clearOnBlur
+                    handleHomeEndKeys
+                    id="topicIds"
+                    options={topicOptions}
+                    getOptionLabel={(option) => {
+                      // Value selected with enter, right from the input
+                      if (typeof option === 'string') {
+                        return option;
+                      }
+                      // Add "xxx" option created dynamically
+                      if (option.inputValue) {
+                        return option.inputValue;
+                      }
+                      // Regular option
+                      return option.label;
+                    }}
+                    renderOption={(props, option) => <li {...props}>{option.label}</li>}
                     fullWidth
-                    label="Chủ đề học liên quan"
-                    name="topicIds"
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    value={formik.values.topicIds}
+                    freeSolo
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        fullWidth
+                        label="Chủ đề học liên quan" />
+                    )}
                   />
+                  <Box >
+                    {topicIds.map((topicId,index) => 
+                      <Chip 
+                        key={index} 
+                        label={topicId.value}  
+                        onDelete={e => setTopicIds(topicIds.filter(l => l !== topicId))}
+                        sx={{mr: 1, mb: 1}} 
+                      />
+                    )}
+                  </Box>
+
                   {/* <div>
                     <Typography
                       color="text.secondary"

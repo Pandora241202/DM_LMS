@@ -44,27 +44,43 @@ const categoryOptions = [
   },
 ];
 
+const topicOptions = [
+  { label: "Stack",
+    value: 1
+  },
+  { label: "Pop",
+    value: 2
+  },
+  { label: "Push",
+    value: 3
+  }
+];
+
 const initialValues = {
-  id: '',
-  category: '',
-  description: '',
-  images: [],
-  name: '',
-  duration : 0,
-  difficulty: 0,
+  // id: '',
+  // category: '',
+  // description: '',
+  // images: [],
+  preTopic: 0,
+  postTopic: 0, 
+  name: ''
+  // duration : 0,
+  // difficulty: 0,
   // newPrice: 0,
   // oldPrice: 0,
-  submit: null
+  // submit: null
 };
 
 const validationSchema = Yup.object({
-  id: Yup.number().min(0),
-  category: Yup.string().max(255),
-  description: Yup.string().max(5000),
-  images: Yup.array(),
+  // id: Yup.number().min(0),
+  // category: Yup.string().max(255),
+  // description: Yup.string().max(5000),
+  // images: Yup.array(),
   name: Yup.string().max(255).required(),
-  duration : Yup.number().min(0).required(),
-  difficulty: Yup.number().min(0).required(),
+  preTopic: Yup.number().min(0),
+  postTopic: Yup.number().min(0)
+  // duration : Yup.number().min(0).required(),
+  // difficulty: Yup.number().min(0).required(),
   // newPrice: Yup.number().min(0).required(),
   // oldPrice: Yup.number().min(0),
 });
@@ -78,7 +94,8 @@ export const TopicCreateForm = (props) => {
     onSubmit: async (values, helpers) => {
       try {
         // NOTE: Make API request
-        toast.success('Tài liệu học tập đã được tạo');
+        console.log(formik.values);
+        toast.success('Chủ đề học tập đã được tạo');
         router.push(paths.dashboard.Topic_Manage);
       } catch (err) {
         console.error(err);
@@ -134,13 +151,53 @@ export const TopicCreateForm = (props) => {
                     error={!!(formik.touched.name && formik.errors.name)}
                     fullWidth
                     helperText={formik.touched.name && formik.errors.name}
-                    label="Tên tài liệu học tập"
+                    label="Tên chủ đề"
                     name="name"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     value={formik.values.name}
                   />
                   <TextField
+                    error={!!(formik.touched.preTopic && formik.errors.preTopic)}
+                    fullWidth
+                    label="Chủ đề liền trước"
+                    name="preTopic"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.preTopic}
+                    select
+                  >
+                    {topicOptions.map((option) => (
+                      <MenuItem
+                        key={option.value}
+                        value={option.value}
+                        selected
+                      >
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <TextField
+                    error={!!(formik.touched.postTopic && formik.errors.postTopic)}
+                    fullWidth
+                    label="Chủ đề liền sau"
+                    name="postTopic"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.postTopic}
+                    select
+                  >
+                    {topicOptions.map((option) => (
+                      <MenuItem
+                        key={option.value}
+                        value={option.value}
+                        selected
+                      >
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  {/* <TextField
                     error={!!(formik.touched.category && formik.errors.category)}
                     fullWidth
                     label="Phân loại"
@@ -211,13 +268,13 @@ export const TopicCreateForm = (props) => {
                         </FormHelperText>
                       </Box>
                     )}
-                  </div>
+                  </div> */}
                 </Stack>
               </Grid>
             </Grid>
           </CardContent>
         </Card>
-        <Card>
+        {/* <Card>
           <CardContent>
             <Grid
               container
@@ -244,7 +301,7 @@ export const TopicCreateForm = (props) => {
                 md={8}
               >
                 <FileDropzoneVn
-                  accept={{ '*/*': [] }}
+                  accept={{ '*//*': [] }}
                   caption="(PDF, SVG, JPG, PNG, or gif maximum 900x400, ...)"
                   files={files}
                   onDrop={handleFilesDrop}
@@ -254,7 +311,7 @@ export const TopicCreateForm = (props) => {
               </Grid>
             </Grid>
           </CardContent>
-        </Card>
+        </Card> */}
         {/* <Card>
           <CardContent>
             <Grid
