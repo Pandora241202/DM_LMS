@@ -41,16 +41,15 @@ const useSimilarForums = (forumDetail) => {
   return similarForums;
 };
 
-
 export const CheckDuplicateDialog = (props) => {
   const { onClose, open = false, forumDetail, ...other } = props;
   const similarForums = useSimilarForums(forumDetail)
   const router = useRouter();
 
-  const handleSubmitButton = useCallback(() => {
-    forumApi.postForum(forumDetail)
+  const handleSubmitButton = useCallback(async () => {
+    await forumApi.postForum(forumDetail)
       .then((response) => {
-        router.push(paths.dashboard.forum.forumDetails.replace(':forumId', response.data.id));
+        router.push(paths.dashboard.forum.details.replace(':forumId', response.data.id));
       })
       .catch(error => {
         console.error('Error posting data:', error);
@@ -169,7 +168,7 @@ export const CheckDuplicateDialog = (props) => {
             <Stack flexDirection="row" key={forum.id} >
               <Typography variant='subtitle2' color="text.primary">•{'\u00A0'}</Typography>
               <Link 
-                href={paths.dashboard.forum.forumDetails.replace(':forumId', forum.id)} 
+                href={paths.dashboard.forum.details.replace(':forumId', forum.id)} 
                 underline="hover"
                 fontSize={13}
                 fontWeight={500}

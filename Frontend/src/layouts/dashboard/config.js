@@ -44,7 +44,7 @@ export const getSections = (t) => [
       },
       {
         title: t(tokens.nav.learningPath),
-        path: paths.dashboard.learningPaths,
+        path: paths.dashboard.learningPaths.index,
         icon: (
           <SvgIcon fontSize="small">
             <RouteIcon />
@@ -172,13 +172,9 @@ export const getSections = (t) => [
             title: t(tokens.nav.forumList),
             path: paths.dashboard.forum.index
           },
-          /*{
-            title: t(tokens.nav.forumDetails),
-            path: paths.dashboard.forum.forumDetails
-          },*/
           {
             title: t(tokens.nav.forumCreate),
-            path: paths.dashboard.forum.forumCreate
+            path: paths.dashboard.forum.create
           }
         ]
       },
