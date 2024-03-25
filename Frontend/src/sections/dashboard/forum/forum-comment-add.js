@@ -25,10 +25,10 @@ export const ForumCommentAdd = (props) => {
   const { user } = useAuth();
   const [content, setContent] = useState('');
 
-  const handleSubmitButton = useCallback(() => {
+  const handleSubmitButton = useCallback(async () => {
     console.log(content);
     if (content != '') {
-      forumApi.postComment({
+      await forumApi.postComment({
         "statementId": statementId,
         "content": content,
         "forumId": forumId,

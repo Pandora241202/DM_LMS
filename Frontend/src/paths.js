@@ -83,8 +83,8 @@ export const paths = {
     },
     forum: {
       index: '/dashboard/forum',
-      forumDetails: '/dashboard/forum/:forumId',
-      forumCreate: '/dashboard/forum/create'
+      details: '/dashboard/forum/:forumId',
+      create: '/dashboard/forum/create'
     },
     calendar: '/dashboard/calendar',
     chat: '/dashboard/chat',
@@ -111,7 +111,10 @@ export const paths = {
       }
     },
     kanban: '/dashboard/kanban',
-    learningPaths: '/dashboard/learning-path',
+    learningPaths: {
+      index: '/dashboard/learning-path',
+      create: '/dashboard/learning-path/create'
+    },
     logistics: {
       index: '/dashboard/logistics',
       fleet: '/dashboard/logistics/fleet'
