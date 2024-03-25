@@ -41,7 +41,6 @@ class SpraqlTopic:
             """
             
             qres = self.g.query(sparql_query)
-            print(len(qres))
             for row in qres:
                 self.DFS([row["topicID"].value] + stack, path + [row["topicID"].value], paths)
 
