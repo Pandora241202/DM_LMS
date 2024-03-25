@@ -16,17 +16,17 @@ export class AuthService {
 
   async login(body: AuthLoginREQ) {
     const user = await this.prismaService.authenticatedUser.findFirst({
-      where: { username: body.username }
+      where: { username: body.username },
     });
     if (!user) {
       throw new UnauthorizedException('Username or password incorrect');
     }
-    const learner = await this.prismaService.learner.findFirst({ where: { userId: user.id }});
+    const learner = await this.prismaService.learner.findFirst({ where: { userId: user.id } });
 
     const isMatch = await bcrypt.compare(body.password, user.password);
     if (!isMatch) throw new UnauthorizedException('Username or password incorrect');
 
-    const jwtToken = await this.jwtService.signAsync({ user: AuthDTO.fromEntity(user as any, learner ? learner.id : null ) });
+    const jwtToken = await this.jwtService.signAsync({ user: AuthDTO.fromEntity(user as any, learner ? learner.id : null) });
     return AuthLoginRESP.fromEntity(user as any, jwtToken, learner ? learner.id : null);
   }
 }

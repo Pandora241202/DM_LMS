@@ -9,13 +9,94 @@
      xmlns:system-ontology="http://www.semanticweb.org/thuha/ontologies/system-ontology#">
     <owl:Ontology rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology"/>
 
-    
-    
-    
-    <!-- // index to add // -->
-</rdf:RDF>
+
+
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-10">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:topic>1</system-ontology:topic>
+            <system-ontology:lmID>10</system-ontology:lmID>
+            <system-ontology:name>Code B</system-ontology:name>
+            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
+            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
+            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
+            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+        </owl:NamedIndividual>
+
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-11">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:topic>2</system-ontology:topic>
+            <system-ontology:lmID>11</system-ontology:lmID>
+            <system-ontology:name>Code B</system-ontology:name>
+            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
+            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
+            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
+            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+        </owl:NamedIndividual>
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-12">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:topic>3</system-ontology:topic>
+            <system-ontology:lmID>12</system-ontology:lmID>
+            <system-ontology:name>Code B</system-ontology:name>
+            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
+            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
+            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
+            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+        </owl:NamedIndividual>
+
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-13">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:topic>4</system-ontology:topic>
+            <system-ontology:lmID>13</system-ontology:lmID>
+            <system-ontology:name>Code B</system-ontology:name>
+            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
+            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
+            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
+            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+        </owl:NamedIndividual>
+
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-14">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:topic>10</system-ontology:topic>
+            <system-ontology:lmID>14</system-ontology:lmID>
+            <system-ontology:name>Code B</system-ontology:name>
+            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
+            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
+            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
+            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+        </owl:NamedIndividual>
 
 
 
-<!-- Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi -->
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-71">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
+            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
+            <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-1">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>1</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
+            <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
+            <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
 
+
+
+
+        </rdf:RDF>

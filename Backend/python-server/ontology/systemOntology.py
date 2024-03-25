@@ -1,4 +1,5 @@
 import json
+import os
 from database import *
 
 class SystemOntology:
@@ -20,7 +21,7 @@ class SystemOntology:
         
         for newLearner in newLearners:
             learner = f"""
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner{'-' + newLearner[0]}">
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner{'-' + str(newLearner[0])}">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
             <system-ontology:learnerID>{newLearner[0]}</system-ontology:learnerID>
             <system-ontology:qualification>{newLearner[1]}</system-ontology:qualification>
@@ -37,19 +38,18 @@ class SystemOntology:
             learners += learner
         
         return learners
-
+    
     def addLog(self, newLogs):
         learner_logs = ""
         for newLog in newLogs:
             learner_log = f"""
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log{'-' + newLog["learnerID"] + '-' + newLog["lmID"].replace(' ', "_")}">
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log{'-' + str(newLog[0])}">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
-            <system-ontology:learnerID>{newLog["learnerID"]}</system-ontology:learnerID>
-            <system-ontology:lmID>{newLog["lmID"]}</system-ontology:lmID>
-            <system-ontology:lmID>{newLog["name"]}</system-ontology:lmID>
-            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog["score"]}</system-ontology:score>
-            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog["time"]}</system-ontology:time>
-            <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog["attempt"]}</system-ontology:attempt>
+            <system-ontology:learnerID>{newLog[7]}</system-ontology:learnerID>
+            <system-ontology:lmID>{newLog[6]}</system-ontology:lmID>
+            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog[3]}</system-ontology:score>
+            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog[4]}</system-ontology:time>
+            <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog[5]}</system-ontology:attempt>
         </owl:NamedIndividual>
         
         
@@ -59,19 +59,21 @@ class SystemOntology:
         
         return learner_logs
 
+
     def addLM(self, newLMs):
         learning_materials = ""
         for lm in newLMs:        
             learning_material = f"""
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material{'-' + lm[0]}">
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material{'-' + str(lm[0])}">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>{lm[0]}</system-ontology:lmID>
-            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[1]}</system-ontology:difficulty>
-            <system-ontology:learning_resouce_type>{lm[2]}</system-ontology:learning_resouce_type>
-            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[3]}</system-ontology:material_ratings>
-            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[4]}</system-ontology:score>
-            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[5]}</system-ontology:time>
-            <system-ontology:topic>{lm[6]}</system-ontology:topic>
+            <system-ontology:name>{lm[1]}</system-ontology:name>
+            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[2]}</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>{lm[3]}</system-ontology:learning_resouce_type>
+            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[4]}</system-ontology:material_ratings>
+            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[5]}</system-ontology:score>
+            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[6]}</system-ontology:time>
+            <system-ontology:topic>{lm[7]}</system-ontology:topic>
         </owl:NamedIndividual>
         
         
@@ -82,32 +84,18 @@ class SystemOntology:
         return learning_materials
 
     def addOnto(self):
-        # learner_file = 'json/learners.json'
-        # log_file = 'json/logs.json'
-        # lm_file = 'json/lms.json'
-        
-        # with open(learner_file, 'r') as json_file:
-        #     learners = json.load(json_file)
-        
-        # with open(log_file, 'r') as json_file:
-        #     logs = json.load(json_file)
-            
-        # with open(lm_file, 'r') as json_file:
-        #     lms = json.load(json_file)
-            
         conn = connectDatabase()
         
-        conn.cursor.execute("SELECT id, qualification, background_knowledge, active_reflective, visual_verbal, global_sequential, sensitive_intuitive FROM leaners")
+        conn.cursor.execute("SELECT id, qualification, background_knowledge, active_reflective, visual_verbal, global_sequential, sensitive_intuitive FROM learners")
         learners = conn.cursor.fetchall()
         
-        conn.cursor.execute("SELECT  FROM learning_materials")
+        conn.cursor.execute("SELECT id, name, difficulty, type, rating, score, time, topic_id FROM learning_materials")
         lms = conn.cursor.fetchall()
         
-        conn.cursor.execute("SELECT id, qualification, background_knowledge, active_reflective, visual_verbal, global_sequential, sensitive_intuitive FROM learning_materials")
+        conn.cursor.execute("SELECT id, learning_material_visitted_time, learning_material_rating, score, time, attempts, learning_material_id, learner_id FROM learner_logs")
         logs = conn.cursor.fetchall()
         
-        
-        rdf_file = 'rdf/system-onto.rdf'
+        rdf_file = os.getcwd() + "/ontology/rdf/system-onto.rdf" 
         newOntology = self.header + self.addLM(lms) + self.addLog(logs) + self.addLearner(learners) + self.footer     
         with open(rdf_file, 'w') as file:
             file.write(newOntology)    

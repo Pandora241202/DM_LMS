@@ -7,7 +7,7 @@
     "rating": 3,
     "score": 10.0,
     "time": 30.0,
-    "topic": [2]
+    "topic":2
   },
   {
     "lmID": 2,
@@ -17,7 +17,7 @@
     "rating": 4,
     "score": 10.0,
     "time": 30.0,
-    "topic": [2]
+    "topic":2
   },
   {
     "lmID": 3,
@@ -27,7 +27,7 @@
     "rating": 5,
     "score": 10.0,
     "time": 30.0,
-    "topic": [3]
+    "topic":3
   },
   {
     "lmID": 4,
@@ -37,7 +37,7 @@
     "rating": 3,
     "score": 10.0,
     "time": 30.0,
-    "topic": [3]
+    "topic":3
   },
   {
     "lmID": 5,
@@ -47,7 +47,7 @@
     "rating": 2,
     "score": 10.0,
     "time": 30.0,
-    "topic": [3]
+    "topic":3
   },
   {
     "lmID": 6,
@@ -57,7 +57,7 @@
     "rating": 4,
     "score": 10.0,
     "time": 30.0,
-    "topic": [1]
+    "topic":1
   },
   {
     "lmID": 7,
@@ -67,7 +67,7 @@
     "rating": 2,
     "score": 10.0,
     "time": 30.0,
-    "topic": [1]
+    "topic":1
   },
   {
     "lmID": 8,
@@ -77,7 +77,7 @@
     "rating": 4,
     "score": 10.0,
     "time": 30.0,
-    "topic": [5]
+    "topic":5
   },
   {
     "lmID": 9,
@@ -87,7 +87,7 @@
     "rating": 5,
     "score": 10.0,
     "time": 30.0,
-    "topic": [5]
+    "topic":5
   },
   {
     "lmID": 10,
@@ -97,7 +97,7 @@
     "rating": 2,
     "score": 10.0,
     "time": 30.0,
-    "topic": [4]
+    "topic":4
   },
   {
     "lmID": 11,
@@ -107,7 +107,7 @@
     "rating": 2,
     "score": 10.0,
     "time": 30.0,
-    "topic": [6]
+    "topic":6
   },
   {
     "lmID": 12,
@@ -117,6 +117,6 @@
     "rating": 2,
     "score": 10.0,
     "time": 30.0,
-    "topic": [6]
+    "topic":6
   }
 ]

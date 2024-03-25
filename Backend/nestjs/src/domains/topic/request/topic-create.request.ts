@@ -6,12 +6,11 @@ export class TopicCreateREQ {
   title: string;
 
   @IsEnum(SubjectType)
-  subject: SubjectType
+  subject: SubjectType;
 
   @IsOptional()
   @IsNumber({}, { each: true })
   postTopicIds: number[];
-
 
   static toCreateInput(body: TopicCreateREQ): Prisma.TopicCreateInput {
     return {

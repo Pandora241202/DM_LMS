@@ -5,7 +5,7 @@ export class UserLearnerDTO {
   activeReflective: number;
   sensitiveIntuitive: number;
   visualVerbal: number;
-  globalSequential: number;
+  sequentialGlobal: number;
   backgroundKnowledge: BackgroundKnowledgeType;
   qualification: QualificationType;
 
@@ -28,13 +28,13 @@ export class UserLearnerDTO {
     const activeReflective = this.convertScore(1, answer),
       sensitiveIntuitive = this.convertScore(2, answer),
       visualVerbal = this.convertScore(3, answer),
-      globalSequential = this.convertScore(4, answer);
+      sequentialGlobal = this.convertScore(4, answer);
 
     return {
       activeReflective,
       sensitiveIntuitive,
       visualVerbal,
-      globalSequential,
+      sequentialGlobal,
     };
   }
 
@@ -46,7 +46,7 @@ export class UserLearnerDTO {
       activeReflective: true,
       sensitiveIntuitive: true,
       visualVerbal: true,
-      globalSequential: true,
+      sequentialGlobal: true,
     };
   }
 
@@ -58,13 +58,13 @@ export class UserLearnerDTO {
   ): Prisma.LearnerCreateInput {
     const style = learningStyleQA
       ? this.learningStyle(learningStyleQA)
-      : { activeReflective: null, sensitiveIntuitive: null, visualVerbal: null, globalSequential: null };
+      : { activeReflective: null, sensitiveIntuitive: null, visualVerbal: null, sequentialGlobal: null };
 
     return {
       activeReflective: style.activeReflective,
       sensitiveIntuitive: style.sensitiveIntuitive,
       visualVerbal: style.visualVerbal,
-      globalSequential: style.globalSequential,
+      sequentialGlobal: style.sequentialGlobal,
       backgroundKnowledge: backgroundKnowledge,
       qualification: qualification,
       user: connectRelation(userId),

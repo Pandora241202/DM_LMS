@@ -11,7 +11,7 @@ export class AuthLoginRESP {
       id: e.id,
       username: e.username,
       accessToken: jwtToken,
-      learnerId: learnerId
+      learnerId: learnerId,
     };
   }
 }

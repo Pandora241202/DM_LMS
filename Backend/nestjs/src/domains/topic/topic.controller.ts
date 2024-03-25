@@ -28,7 +28,7 @@ export class TopicController {
   @Delete(':id/topic-links')
   async disactiveLink(@Param('id', ParseIntPipe) id: number, @Body() body: TopicLinkDeleteREQ) {
     await this.topicService.disactiveLink(id, body);
-  } 
+  }
 
   @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() body: TopicUpdateREQ) {

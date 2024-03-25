@@ -10,7 +10,7 @@ export class LearnerLogService {
     await this.prismaService.learnerLog.create({ data: LearnerLogCreateREQ.toCreateInput(userID, body) });
   }
 
-  async createBatch(userID: number, body: LearnerLogCreateREQ[]){
-    body.map(async data => await this.create(userID, data))
+  async createBatch(userID: number, body: LearnerLogCreateREQ[]) {
+    body.map(async (data) => await this.create(userID, data));
   }
 }

@@ -16,14 +16,19 @@ export class UserController {
     await this.userService.create(body);
   }
 
+  @Post('batch')
+  async createBatch(@Body() body: UserCreateREQ[]) {
+    await this.userService.createBatch(body);
+  }
+
   @Get()
   async findAll(@Query() query: PaginationREQ) {
     return await this.userService.findAll(query);
   }
 
-  @Get('generate-paths')
-  async generatePaths(@Req() req: any, @Query() goal: SubjectType) {
-    return await this.userService.generatePaths(req.user.learnerId, goal);
+  @Get('base-information')
+  async getBaseInfo(@Req() req: any) {
+    return await this.userService.getBaseInfo(req.user.learnerId);
   }
 
   @Get('profile')

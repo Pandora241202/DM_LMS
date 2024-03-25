@@ -1,12 +1,11 @@
 import rdflib
-import json
 import os
-
+import json
 class SpraqlLM:
-    def __init__(self):
+    def __init__(self, path):
         self.g = rdflib.Graph()
-        self.g.parse(os.getcwd() + "/ontology/rdf/system-onto.rdf")
-    
+        self.g.parse(path)
+
     def getLMtopic(self, topicID):
         sparql_query = f"""
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -28,17 +27,13 @@ class SpraqlLM:
             }}
         """
         qres = self.g.query(sparql_query)
-        
         lms = []
         for row in qres:
             lms += [(int(row["rating"].value), 0, row["lmID"].value)]
-            
         return lms
 
     def spraql_lm(self, learningStyle):
         result = []
-        index = 0
-
         sparql_query = f"""
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -75,12 +70,12 @@ class SpraqlLM:
         with open(os.getcwd() + '/ontology/json/paths.json', 'r') as json_file:
             paths = json.load(json_file)
 
-        for path in paths:
+        for path in paths: 
             lms = {}
             topics = {}
             for topic in path:
                 topics[topic] = []
-
+            
             for row in qres:
                 if row["topicID"].value not in topics:
                     continue
@@ -106,7 +101,7 @@ class SpraqlLM:
                     lms[lmID]["time"] += float(row["time"].value)
                     lms[lmID]["attempt"] += int(row["attempt"].value)
                     lms[lmID]["repeat"] += 1
-
+            
             for lm in lms:
                 aScore = lms[lm]["score"]/lms[lm]["repeat"]
                 aTime = lms[lm]["time"]/lms[lm]["repeat"]
@@ -117,20 +112,20 @@ class SpraqlLM:
 
             recommendTopicMaterial = []
             for topic in topics:
+                
                 if topics[topic] == []:
-                    topics[topic] = SpraqlLM().getLMtopic(topic)
+                    topics[topic] = self.getLMtopic(topic)
                     
                 topics[topic].sort(key=lambda x: x[0], reverse=True)
                 end = round(len(topics[topic])*0.2 + 0.5)
                 topics[topic] = topics[topic][0:end]
                 topics[topic].sort(key=lambda x: x[1]) # sort by similarity
                 
-                # recommendTopicMaterial += [{
-                #     "topic": topic,
-                #     "learning_material": topics[topic][0][1]
-                # }]
+                recommendTopicMaterial += [{
+                    "topic": topic,
+                    "learning_material": int(topics[topic][0][2])
+                }]
                 
-            # result += [recommendTopicMaterial]
-            print(topics)
+            result += [recommendTopicMaterial]
 
         return result

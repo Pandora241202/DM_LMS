@@ -1,6 +1,6 @@
 import { LearningMaterialType, Prisma } from '@prisma/client';
 import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
-import { connectManyRelation } from 'src/shared/prisma.helper';
+import { connectManyRelation, connectRelation } from 'src/shared/prisma.helper';
 
 export class LearningMaterialCreateREQ {
   @IsNotEmpty()
@@ -30,8 +30,8 @@ export class LearningMaterialCreateREQ {
   time: number; // calculate by seconds
 
   @IsNotEmpty()
-  @IsNumber({}, { each: true })
-  topicIds: number[];
+  @IsNumber()
+  topicId: number;
 
   static toCreateInput(body: LearningMaterialCreateREQ): Prisma.LearningMaterialCreateInput {
     return {
@@ -41,7 +41,7 @@ export class LearningMaterialCreateREQ {
       rating: body.rating ? body.rating : 5.0,
       score: body.score,
       time: body.time,
-      Topic: connectManyRelation(body.topicIds),
+      topic: connectRelation(body.topicId),
     };
   }
 }

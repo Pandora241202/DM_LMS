@@ -8,12 +8,12 @@ export class LearningMaterialRESP {
   rating: number;
   score: number;
   time: number;
-  topics: {
+  topic: {
     id: number;
     title: string;
-  }[];
+  };
 
-  static fromEntity(e: Prisma.LearningMaterialGetPayload<{ include: { Topic: true } }>): LearningMaterialRESP {
+  static fromEntity(e: Prisma.LearningMaterialGetPayload<{ include: { topic: true } }>): LearningMaterialRESP {
     return {
       id: e.id,
       name: e.name,
@@ -22,7 +22,10 @@ export class LearningMaterialRESP {
       rating: e.rating,
       score: e.score,
       time: e.time,
-      topics: e.Topic,
+      topic: {
+        id: e.topic.id,
+        title: e.topic.title,
+      },
     };
   }
 }

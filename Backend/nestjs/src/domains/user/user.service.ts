@@ -9,19 +9,16 @@ import { UserUpdateREQ } from './request/user-update.request';
 import * as bcrypt from 'bcrypt';
 import { HttpService } from '@nestjs/axios';
 import { catchError, map } from 'rxjs';
-import { BIG_DATA_ENGINEER, DATA_ENGINEER, DATA_SCIENTIST, DEEP_LEARNING, FUNDAMENTAL, MACHINE_LEARNING, getStartEnd } from 'src/shared/contants.helper';
+import { getStartEnd } from 'src/shared/contants.helper';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private readonly prismaService: PrismaService,
-    private readonly httpService: HttpService,
-  ) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   async create(body: UserCreateREQ) {
     body.password = await bcrypt.hash(body.password, 10);
-    const existUser = await this.prismaService.authenticatedUser.findFirst({where: {username: body.username}})
-    if (existUser) throw new ConflictException("User already exists", {cause: HttpStatus.CONFLICT})
+    const existUser = await this.prismaService.authenticatedUser.findFirst({ where: { username: body.username } });
+    if (existUser) throw new ConflictException('User already exists', { cause: HttpStatus.CONFLICT });
 
     this.prismaService.$transaction(async (tx) => {
       const user = await tx.authenticatedUser.create({
@@ -38,27 +35,8 @@ export class UserService {
     });
   }
 
-  async generatePaths(learnerId: number, goal: SubjectType) {
-    const {start, end} = getStartEnd(goal)
-    const learner = await this.prismaService.learner.findFirstOrThrow({
-      where: { id: learnerId },
-      select: UserLearnerDTO.selectLearner(),
-    }); 
-
-    if (!learner.activeReflective) throw new NotFoundException( 'No base information to recommend learning path', {cause: HttpStatus.NOT_FOUND});
-
-    const paths = this.httpService
-      .get(
-        `http://127.0.0.1:8181/spraql-lm?qualification=${learner.qualification}&background_knowledge=${learner.backgroundKnowledge}&active_reflective=${learner.activeReflective}&visual_verbal=${learner.visualVerbal}&global_sequential=${learner.globalSequential}&sensitive_intuitive=${learner.sensitiveIntuitive}&start=${start}&end=${end}`,
-      )
-      .pipe(map((res) => res.data))
-      .pipe(
-        catchError(() => {
-          throw new ForbiddenException('API not available');
-        }),
-      );
-
-    return paths;
+  async createBatch(body: UserCreateREQ[]) {
+    body.map(async (user) => this.create(user));
   }
 
   async detail(id: number) {
@@ -91,8 +69,28 @@ export class UserService {
         activeReflective: style.activeReflective,
         sensitiveIntuitive: style.sensitiveIntuitive,
         visualVerbal: style.visualVerbal,
-        globalSequential: style.globalSequential,
+        sequentialGlobal: style.sequentialGlobal,
       },
     });
+  }
+
+  async getBaseInfo(learnerId: number) {
+    const learner = await this.prismaService.learner.findFirstOrThrow({
+      where: { id: learnerId },
+      select: {
+        activeReflective: true,
+        sensitiveIntuitive: true,
+        visualVerbal: true,
+        sequentialGlobal: true,
+        backgroundKnowledge: true,
+        qualification: true,
+      },
+    });
+
+    return {
+      learningStyle: [learner.activeReflective, learner.visualVerbal, learner.sequentialGlobal, learner.sensitiveIntuitive],
+      backgroundKnowledge: learner.backgroundKnowledge,
+      qualification: learner.qualification
+    }
   }
 }

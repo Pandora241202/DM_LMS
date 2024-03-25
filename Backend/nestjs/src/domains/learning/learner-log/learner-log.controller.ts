@@ -5,7 +5,7 @@ import { LearnerLogCreateREQ } from './request/learner-log-create.request';
 import { response } from 'express';
 
 @UseGuards(AuthGuard)
-@Controller('learner-log')
+@Controller('learner-logs')
 export class LearnerLogController {
   constructor(private readonly learnerLogService: LearnerLogService) {}
 

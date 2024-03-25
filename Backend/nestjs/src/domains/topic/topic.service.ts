@@ -16,12 +16,12 @@ export class TopicService {
         data: TopicCreateREQ.toCreateInput(body),
         select: { id: true },
       });
-  
+
       if (body.postTopicIds)
         await tx.topicLink.createMany({
           data: body.postTopicIds.map((postId) => ({ startId: topic.id, endId: postId })),
         });
-    })
+    });
   }
 
   async detail(id: number) {
@@ -48,10 +48,10 @@ export class TopicService {
   }
 
   async updateLink(id: number, body: TopicLinkUpdateREQ) {
-    const link = await this.prismaService.topicLink.findFirst({where: {id}, select: {state: true}});
+    const link = await this.prismaService.topicLink.findFirst({ where: { id }, select: { state: true } });
 
     if (!body.state) body.state = link.state;
-    await this.prismaService.topicLink.update({where: {id}, data: TopicLinkUpdateREQ.toUpdateInput(body)})
+    await this.prismaService.topicLink.update({ where: { id }, data: TopicLinkUpdateREQ.toUpdateInput(body) });
   }
 
   async disactiveLink(id: number, body: TopicLinkDeleteREQ) {

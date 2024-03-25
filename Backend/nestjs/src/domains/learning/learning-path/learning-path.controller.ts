@@ -4,13 +4,13 @@ import { LearningPathCreateREQ } from './request/learning-path-create.request';
 import { AuthGuard } from 'src/domains/auth/auth.guard';
 
 @UseGuards(AuthGuard)
-@Controller('learning-paths')
+@Controller('learning-path')
 export class LearningPathConttroller {
   constructor(private readonly learningPathService: LearningPathService) {}
 
   @Post()
   async create(@Req() req: any, @Body() body: LearningPathCreateREQ) {
-    await this.learningPathService.create(req.user.id, body);
+    return await this.learningPathService.create(req.user.id, body);
   }
 
   @Get()

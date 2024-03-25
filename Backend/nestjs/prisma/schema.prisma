@@ -40,7 +40,7 @@ model Learner {
   id                  Int                     @id @default(autoincrement())
   activeReflective    Int?                    @map("active_reflective")
   visualVerbal        Int?                    @map("visual_verbal")
-  globalSequential    Int?                    @map("global_sequential")
+  sequentialGlobal    Int?                    @map("sequential_global")
   sensitiveIntuitive  Int?                    @map("sensitive_intuitive")
   backgroundKnowledge BackgroundKnowledgeType @map("background_knowledge")
   qualification       QualificationType
@@ -69,7 +69,8 @@ model LearningMaterial {
 
   LearnerLog   LearnerLog[]
   LearningPath LearningPath[]
-  Topic        Topic[]
+  topic        Topic          @relation(fields: [topicId], references: [id])
+  topicId      Int            @map("topic_id")
   Exercise     Exercise[]
   Other        Other[]
 
@@ -118,8 +119,8 @@ model TopicLink {
   id    Int     @id @default(autoincrement())
   state Boolean @default(true)
 
-  start   Topic @relation("start_link", fields: [startId], references: [id])
-  startId Int   @map("start_id")
+  start   Topic  @relation("start_link", fields: [startId], references: [id])
+  startId Int    @map("start_id")
   end     Topic? @relation("end_link", fields: [endId], references: [id])
   endId   Int?   @map("end_id")
 
@@ -344,7 +345,7 @@ enum QualificationType {
 }
 
 enum SubjectType {
-  FUNDAMENTAL
+  FUNDAMENTALS
   DATA_SCIENTIST
   MACHINE_LEARNING
   DEEP_LEARNING

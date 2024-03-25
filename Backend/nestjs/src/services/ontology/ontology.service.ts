@@ -8,7 +8,7 @@ class Learner {
   activeReflective: number;
   sensitiveIntuitive: number;
   visualVerbal: number;
-  globalSequential: number;
+  sequentialGlobal: number;
   backgroundKnowledge: BackgroundKnowledgeType;
   qualification: QualificationType;
   name: string;
@@ -21,7 +21,7 @@ class Learner {
       activeReflective: e.activeReflective,
       sensitiveIntuitive: e.sensitiveIntuitive,
       visualVerbal: e.visualVerbal,
-      globalSequential: e.globalSequential,
+      sequentialGlobal: e.sequentialGlobal,
       backgroundKnowledge: e.backgroundKnowledge,
       qualification: e.qualification,
       name: e.user.name,
@@ -44,7 +44,7 @@ export class OntologyService {
         activeReflective: true,
         sensitiveIntuitive: true,
         visualVerbal: true,
-        globalSequential: true,
+        sequentialGlobal: true,
         backgroundKnowledge: true,
         qualification: true,
         user: {
@@ -69,12 +69,7 @@ export class OntologyService {
         rating: true,
         score: true,
         time: true,
-        Topic: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
+        topic: true,
       },
     });
   }

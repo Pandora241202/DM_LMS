@@ -3,19 +3,24 @@ import json
 import os
 
 class SpraqlTopic:
-    def __init__(self, startID, endID):
+    def __init__(self, startID, endID, path):
         self.g = rdflib.Graph()
-        self.g.parse(os.getcwd() + "/ontology/rdf/topic-onto.rdf")
+        self.g.parse(path)
         self.startID = startID
         self.endID = endID
+    
+    def covertInt(self, path):
+        for i in range(0, len(path)):
+            path[i] = int(path[i])
+        
+        return path
         
     def DFS(self, stack, path, paths):
-        print(stack, path, paths)
         if not stack:
             self.DFS([self.startID] + stack, path + [self.startID], paths)
         else:
             if path != [] and path[-1] == self.endID:
-                paths += [path]
+                paths += [self.covertInt(path)]
                 return
             
             sparql_query = f"""
@@ -36,6 +41,7 @@ class SpraqlTopic:
             """
             
             qres = self.g.query(sparql_query)
+            print(len(qres))
             for row in qres:
                 self.DFS([row["topicID"].value] + stack, path + [row["topicID"].value], paths)
 
@@ -43,6 +49,5 @@ class SpraqlTopic:
         paths = []
         self.DFS([], [], paths)
         with open(os.getcwd() + '/ontology/json/paths.json', 'w') as json_file:
-            json.dump(paths, json_file, indent=2)
-        print(paths)    
+            json.dump(paths, json_file, indent=2)   
         return paths
