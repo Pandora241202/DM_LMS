@@ -14,7 +14,7 @@ import { usePageView } from '../../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../../layouts/dashboard';
 import { paths } from '../../../../paths';
 import { CourseSummary } from '../../../../sections/dashboard/academy/course-summary';
-import { CourseChapter } from '../../../../sections/dashboard/academy/course-chapter';
+import { CourseRating } from '../../../../sections/dashboard/academy/course-rating';
 
 const useCourse = () => {
   return {
@@ -26,8 +26,8 @@ const useCourse = () => {
         lesson: ''
       },
       {
-        title: 'Installing required packages',
-        description: 'Introducing the library and how it works',
+        title: 'Chúc mừng bạn đã hoàn thành bài học',
+        description: 'Giúp chúng tôi đánh giá để cải thiện hệ thống nhé',
         lesson: `
 Alias animi labque, deserunt distinctio eum excepturi fuga iure labore magni molestias mollitia natus, officia pofro quis sunt 
 temporibus veritatis voluptatem, voluptatum. Aut blanditiis esse et illum maxim, obcaecati possimus voluptate! Accusamus adipisci 
@@ -132,7 +132,7 @@ const Page = () => {
               xs={12}
               md={8}
             >
-              {chapter && <CourseChapter chapter={chapter} />}
+              {chapter && <CourseRating chapter={chapter} value = {3} />}
             </Grid>
           </Grid>
         </Container>

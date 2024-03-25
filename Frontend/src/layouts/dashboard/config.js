@@ -44,7 +44,7 @@ export const getSections = (t) => [
       },
       {
         title: t(tokens.nav.learningPath),
-        path: paths.dashboard.learningPaths,
+        path: paths.dashboard.learningPaths.index,
         icon: (
           <SvgIcon fontSize="small">
             <RouteIcon />
@@ -52,13 +52,23 @@ export const getSections = (t) => [
         )
       },
       {
-        title: t(tokens.nav.myCourses),
-        path: paths.dashboard.myCourses,
+        title: t(tokens.nav.academy),
+        path: paths.dashboard.academy.index,
         icon: (
           <SvgIcon fontSize="small">
-            <RouteIcon />
+            <GraduationHat01Icon />
           </SvgIcon>
-        )
+        ),
+        items: [
+          {
+            title: t(tokens.nav.dashboard),
+            path: paths.dashboard.academy.index
+          },
+          {
+            title: t(tokens.nav.course),
+            path: paths.dashboard.academy.courseDetails
+          }
+        ]
       },
       {
         title: t(tokens.nav.explore),
@@ -162,13 +172,9 @@ export const getSections = (t) => [
             title: t(tokens.nav.forumList),
             path: paths.dashboard.forum.index
           },
-          /*{
-            title: t(tokens.nav.forumDetails),
-            path: paths.dashboard.forum.forumDetails
-          },*/
           {
             title: t(tokens.nav.forumCreate),
-            path: paths.dashboard.forum.forumCreate
+            path: paths.dashboard.forum.create
           }
         ]
       },
@@ -346,25 +352,6 @@ export const getSections = (t) => [
           {
             title: t(tokens.nav.fleet),
             path: paths.dashboard.logistics.fleet
-          }
-        ]
-      },
-      {
-        title: t(tokens.nav.academy),
-        path: paths.dashboard.academy.index,
-        icon: (
-          <SvgIcon fontSize="small">
-            <GraduationHat01Icon />
-          </SvgIcon>
-        ),
-        items: [
-          {
-            title: t(tokens.nav.dashboard),
-            path: paths.dashboard.academy.index
-          },
-          {
-            title: t(tokens.nav.course),
-            path: paths.dashboard.academy.courseDetails
           }
         ]
       },
