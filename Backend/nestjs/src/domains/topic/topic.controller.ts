@@ -5,7 +5,7 @@ import { TopicUpdateREQ } from './request/topic-update.request';
 import { TopicLinkDeleteREQ } from './request/topic-link-delete.request';
 import { AuthGuard } from '../auth/auth.guard';
 
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 @Controller('topics')
 export class TopicController {
   constructor(public readonly topicService: TopicService) {}
@@ -13,6 +13,11 @@ export class TopicController {
   @Post()
   async create(@Body() body: TopicCreateREQ) {
     await this.topicService.create(body);
+  }
+
+  @Get()
+  async list() {
+    return await this.topicService.list();
   }
 
   @Get()

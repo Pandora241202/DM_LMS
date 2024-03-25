@@ -47,7 +47,8 @@ export const tokens = {
     management: 'nav.management',
     model: 'nav.model',
     models: 'nav.models',
-    myCourses: 'nav.myCourses',
+    
+    // myCourses: 'nav.myCourses',
     orderList: 'nav.orders',
     overview: 'nav.overview',
     pages: 'nav.pages',

@@ -58,4 +58,8 @@ export class TopicService {
       }),
     );
   }
+  async list(){
+    const topics = await this.prismaService.topic.findMany({select: {id: true, title: true}})
+    return topics
+  }
 }

@@ -26,8 +26,7 @@ import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
 import { ForumCard } from '../../../sections/dashboard/forum/forum-card';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
-
-const consts = require('../../../constants');
+import * as consts from '../../../constants';
 
 const useForums = () => {
   const isMounted = useMounted();

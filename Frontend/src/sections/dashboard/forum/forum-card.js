@@ -34,7 +34,7 @@ export const ForumCard = (props) => {
     <Card {...other}>
       <CardMedia
         component={NextLink}
-        href={paths.dashboard.forum.forumDetails.replace(':forumId', id)}
+        href={paths.dashboard.forum.details.replace(':forumId', id)}
         image={cover?cover:initialCover}
         sx={{ height: 280 }}
       />
@@ -45,7 +45,7 @@ export const ForumCard = (props) => {
         <Link
           color="text.primary"
           component={NextLink}
-          href={paths.dashboard.forum.forumDetails.replace(':forumId', id)}
+          href={paths.dashboard.forum.details.replace(':forumId', id)}
           variant="h5"
         >
           {title}

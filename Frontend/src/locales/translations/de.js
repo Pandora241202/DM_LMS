@@ -2,7 +2,7 @@ import { tokens } from '../tokens';
 
 export const de = {
   [tokens.common.languageChanged]: 'Sprache geändert',
-  [tokens.nav.academy]: 'Akademie',
+  // [tokens.nav.academy]: 'Akademie',
   [tokens.nav.account]: 'Konto',
   [tokens.nav.analytics]: 'Analytik',
   [tokens.nav.auth]: 'Authentifizierung',
@@ -44,7 +44,7 @@ export const de = {
   [tokens.nav.management]: 'Verwaltung',
   [tokens.nav.model]: 'Modell',
   [tokens.nav.models]: 'Modelle',
-  [tokens.nav.myCourses]: 'Mein Kurs',
+  [tokens.nav.academy]: 'Mein Kurs',
   [tokens.nav.orderList]: 'Aufträge',
   [tokens.nav.overview]: 'Überblick',
   [tokens.nav.pages]: 'Seiten',

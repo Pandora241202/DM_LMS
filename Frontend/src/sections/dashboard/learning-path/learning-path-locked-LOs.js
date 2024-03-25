@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Lock01Icon from '@untitled-ui/icons-react/build/esm/Lock01';
 import { Box, Button, Card, CardActions, Divider, Stack, SvgIcon, Typography } from '@mui/material';
 
-const consts = require('../../../constants')
+import * as consts from '../../../constants';
 
 export const LearningPathLockedLOs = (props) => {
   const { id, topic, learningObject, finished, ...other } = props;

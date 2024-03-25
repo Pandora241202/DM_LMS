@@ -38,12 +38,12 @@ model AuthenticatedUser {
 
 model Learner {
   id                  Int                     @id @default(autoincrement())
-  activeReflective    Int                     @map("active_reflective")
-  sensitiveIntuitive  Int                     @map("sensitive_intuitive")
-  visualVerbal        Int                     @map("visual_verbal")
-  globalSequential    Int                     @map("global_sequential")
-  backgroundKnowledge BackgroundKnowledgeType @map("background_knowledge")
-  qualification       QualificationType
+  activeReflective    Int?                     @map("active_reflective")
+  sensitiveIntuitive  Int?                     @map("sensitive_intuitive")
+  visualVerbal        Int?                     @map("visual_verbal")
+  globalSequential    Int?                     @map("global_sequential")
+  backgroundKnowledge BackgroundKnowledgeType? @map("background_knowledge")
+  qualification       QualificationType?
 
   user   AuthenticatedUser @relation(fields: [userId], references: [id])
   userId Int               @map("user_id")
@@ -327,12 +327,12 @@ enum GenderType {
 
 enum BackgroundKnowledgeType {
   BASIC
-  INTERMEDIA
+  INTERMEDIATE
   EXPERT
 }
 
 enum QualificationType {
-  HIGH_SCHOOL
+  HIGHSCHOOL
   GRADUATE
-  POST_GRADUATE
+  UNDERGRADUATE
 }
