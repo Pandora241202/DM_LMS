@@ -42,7 +42,7 @@ export class UserLearnerDTO {
     userId: number,
     learningStyleQA: string[] = null,
     backgroundKnowledge: BackgroundKnowledgeType = BackgroundKnowledgeType.BASIC,
-    qualification: QualificationType = QualificationType.HIGH_SCHOOL,
+    qualification: QualificationType = QualificationType.HIGHSCHOOL,
   ): Prisma.LearnerCreateInput {
     const style = learningStyleQA
       ? this.learningStyle(learningStyleQA)
