@@ -34,7 +34,7 @@ const Page = () => {
     setTimeout(async function (){
       await learningPathApi.createLearningPath({
         "goal": selectedGoals[-1],
-        learningStyleQA: [...baseInfoAnswer.slice(2)],
+        "learningStyleQA": [...baseInfoAnswer.slice(2)],
         "backgroundKnowledge": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[1],
         "qualification": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[0]
       })

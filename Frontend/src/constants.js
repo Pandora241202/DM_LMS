@@ -15,12 +15,76 @@ export const QUALIFICATION_GRADUATE = "GRADUATE";
 export const QUALIFICATION_UNDERGRADUATE = "UNDERGRADUATE";
 
 // Learner Goal
-export const LEARNER_GOAL_FUNDAMENTALS =  "FUNDAMENTALS";
-export const LEARNER_GOAL_DEEP_LEARNING = "DEEP_LEARNING";
-export const LEARNER_GOAL_MACHINE_LEARNING = "MACHINE_LEARNING";
-export const LEARNER_GOAL_DATA_SCIENCE = "DATA_SCIENCE";
-export const LEARNER_GOAL_DATA_ENGINEER = "DATA_ENGINEER";
-export const LEARNER_GOAL_BIG_DATA_ENGINEER = "BIG_DATA_ENGINEER";
+export const LEARNER_GOAL_FUNDAMENTALS = {
+    value: "FUNDAMENTALS",
+    label: "Kiến thức Căn bản (Fundamentals)",
+    pre: [],
+    helpInfo: "Cung cấp các nguyên lý và kỹ thuật cơ bản trong lĩnh vực Trí tuệ Nhân tạo và khoa học dữ liệu.",
+};
+
+export const LEARNER_GOAL_DATA_SCIENTIST = {
+    value: "DATA_SCIENTIST",
+    label: "Khoa học dữ liệu (Data Scientist)",
+    pre: [LEARNER_GOAL_FUNDAMENTALS],
+    helpInfo: "Chuyên gia trong việc phân tích dữ liệu để rút ra thông tin và đưa ra dự đoán từ dữ liệu. Cung cấp các kiến thức về kỹ thuật và công cụ để tạo ra giá trị từ dữ liệu.",
+};
+
+export const LEARNER_GOAL_DATA_ENGINEER = {
+    value: "DATA_ENGINEER",
+    label: "Kỹ thuật dữ liệu (Data Engineer)",
+    pre: [LEARNER_GOAL_FUNDAMENTALS],
+    helpInfo: "Chuyên gia trong việc xây dựng và quản lý cơ sở hạ tầng dữ liệu. Cung cấp kiến thức về thiết kế và triển khai hệ thống lưu trữ và xử lý dữ liệu để hỗ trợ việc phân tích và truy xuất dữ liệu hiệu quả.",
+};
+
+export const LEARNER_GOAL_BIG_DATA_ENGINEER = {
+    value: "BIG_DATA_ENGINEER",
+    label: "Kỹ thuật dữ liệu lớn (Big Data Engineer)",
+    pre: [LEARNER_GOAL_FUNDAMENTALS, LEARNER_GOAL_DATA_ENGINEER],
+    helpInfo: "Chuyên gia trong việc xử lý và quản lý dữ liệu lớn (big data). Cung cấp các kiến thức về Xây dựng và duy trì hệ thống xử lý dữ liệu với khối lượng lớn, tốc độ cao và đa dạng dạng dữ liệu.",
+};
+
+export const LEARNER_GOAL_MACHINE_LEARNING = {
+    value: "MACHINE_LEARNING",
+    label: "Học máy (Machine Learning)",
+    pre: [LEARNER_GOAL_FUNDAMENTALS, LEARNER_GOAL_DATA_SCIENTIST],
+    helpInfo: "Cung cấp kiến thức về phương pháp cho phép máy tính tự học từ dữ liệu và cải thiện hiệu suất qua thời gian. Ứng dụng trong xây dựng mô hình dự đoán và phân loại từ dữ liệu.",
+};
+
+export const LEARNER_GOAL_DEEP_LEARNING = {
+    value: "DEEP_LEARNING",
+    label: "Học sâu (Deep Learning)",
+    pre: [LEARNER_GOAL_FUNDAMENTALS, LEARNER_GOAL_DATA_SCIENTIST, LEARNER_GOAL_MACHINE_LEARNING],
+    helpInfo: "Một phân nhánh của Machine Learning dựa trên mô hình neural network với nhiều lớp ẩn. Ứng dụng trong giải quyết các bài toán phức tạp như nhận diện hình ảnh, xử lý ngôn ngữ tự nhiên, và dự đoán chuỗi thời gian.",
+};
+
+// Learning Styles
+export const ACT_REF = new Map();
+ACT_REF.set(-2, "Hoàn toàn thuộc kiểu Active");
+ACT_REF.set(-1, "Có xu hướng thiên về kiểu Active");
+ACT_REF.set(0, "Cân bằng giữa kiểu Active và kiểu Reflective");
+ACT_REF.set(1, "Có xu hướng thiên về kiểu Reflective");
+ACT_REF.set(2, "Hoàn toàn thuộc kiểu Reflective");
+
+export const SEN_INT = new Map();
+SEN_INT.set(-2, "Hoàn toàn thuộc kiểu Sensing");
+SEN_INT.set(-1, "Có xu hướng thiên về kiểu Sensing");
+SEN_INT.set(0, "Cân bằng giữa kiểu Sensing và kiểu Intuitive");
+SEN_INT.set(1, "Có xu hướng thiên về kiểu Intuitive");
+SEN_INT.set(2, "Hoàn toàn thuộc kiểu Intuitive");
+
+export const SEQ_GLO = new Map();
+SEQ_GLO.set(-2, "Hoàn toàn thuộc kiểu Sequential");
+SEQ_GLO.set(-1, "Có xu hướng thiên về kiểu Sequential");
+SEQ_GLO.set(0, "Cân bằng giữa kiểu Sequential và kiểu Global");
+SEQ_GLO.set(1, "Có xu hướng thiên về kiểu Global");
+SEQ_GLO.set(2, "Hoàn toàn thuộc kiểu Global");
+
+export const VIS_VRB = new Map();
+VIS_VRB.set(-2, "Hoàn toàn thuộc kiểu Visual");
+VIS_VRB.set(-1, "Có xu hướng thiên về kiểu Visual");
+VIS_VRB.set(0, "Cân bằng giữa kiểu Visual và kiểu Verbal");
+VIS_VRB.set(1, "Có xu hướng thiên về kiểu Verbal");
+VIS_VRB.set(2, "Hoàn toàn thuộc kiểu Verbal");
 
 // Base Info Test
 export const BASE_INFO_QUES = [
