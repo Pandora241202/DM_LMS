@@ -6,7 +6,7 @@ import { UserUpdateREQ } from './request/user-update.request';
 import { AuthGuard } from '../auth/auth.guard';
 import { SubjectType } from '@prisma/client';
 
-@UseGuards(AuthGuard)
+//@UseGuards(AuthGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
