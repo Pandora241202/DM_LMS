@@ -41,7 +41,8 @@ export class TopicService {
       }
 
       await Promise.all(createTopicLinkPromises);
-  })}
+    });
+  }
 
   async createBatch(body: TopicCreateREQ[]) {
     return;
@@ -93,17 +94,15 @@ export class TopicService {
     this.prismaService.$transaction(async (tx) => {
       if (body.addPreIds) await tx.topicLink.createMany({ data: TopicUpdateREQ.toCreatePreLink(id, body.addPreIds) });
       if (body.addPostIds) await tx.topicLink.createMany({ data: TopicUpdateREQ.toCreatePostLink(id, body.addPostIds) });
-  
-      if (body.deletePreIds) 
-        for(let i = 0; i < body.deletePreIds.length; i++)
-          await tx.topicLink.deleteMany({where: { startId: body.deletePreIds[i], endId: id }});
-      
 
-      if (body.deletePostIds) 
-        for(let i = 0; i < body.deletePostIds.length; i++)
-          await tx.topicLink.deleteMany({where: { startId: id, endId: body.deletePostIds[i] }});
-      
-    })
+      if (body.deletePreIds)
+        for (let i = 0; i < body.deletePreIds.length; i++)
+          await tx.topicLink.deleteMany({ where: { startId: body.deletePreIds[i], endId: id } });
+
+      if (body.deletePostIds)
+        for (let i = 0; i < body.deletePostIds.length; i++)
+          await tx.topicLink.deleteMany({ where: { startId: id, endId: body.deletePostIds[i] } });
+    });
   }
 
   async updateLink(id: number, body: TopicLinkUpdateREQ) {

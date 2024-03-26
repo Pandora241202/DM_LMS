@@ -45,7 +45,10 @@ export class LearningPathService {
       })
     ).map((log) => LearningLogDTO.fromEntity(log as any));
 
-    const topicLink = await this.prismaService.topicLink.findMany({where: {state:  true}, select: { startId: true, endId: true } });
+    const topicLink = await this.prismaService.topicLink.findMany({
+      where: { state: true },
+      select: { startId: true, endId: true },
+    });
     const paths = TopicDTO.getTopicPath(topicLink, start, end);
 
     for (let i = 0; i < paths.length; i++) {
