@@ -4,9 +4,6 @@ import { LearningPathCreateREQ } from './request/learning-path-create.request';
 import { LearningMaterialRESP } from '../learning-material/response/learning-material.response';
 import { getStartEnd } from 'src/shared/contants.helper';
 import { UserLearnerDTO } from 'src/domains/user/dto/user-learner.dto';
-import { HttpService } from '@nestjs/axios';
-import { TimeoutError, catchError, map, timeout } from 'rxjs';
-import { BackgroundKnowledgeType, QualificationType } from '@prisma/client';
 import { LearningLogDTO } from '../learner-log/dto/learning-log.dto';
 import { TopicDTO } from 'src/domains/topic/dto/topic.dto';
 
@@ -15,6 +12,8 @@ export class LearningPathService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(learnerId: number, body: LearningPathCreateREQ) {
+    await this.prismaService.learningPath.deleteMany({ where: { learnerId: learnerId } });
+
     const { start, end } = getStartEnd(body.goal);
     const style = UserLearnerDTO.learningStyle(body.learningStyleQA);
     let temp: {
@@ -55,8 +54,10 @@ export class LearningPathService {
       for (let j = 0; j < paths[i].length; j++) {
         const topicLogs = logs.filter((log) => log.topicId === paths[i][j]);
         let recommendLM = TopicDTO.getSimilarityLM(topicLogs);
+
         if (recommendLM.lmID === -1) {
           const lm = await this.prismaService.learningMaterial.findFirst({
+            where: { topicId: paths[i][j] },
             orderBy: { rating: 'desc' },
             select: { id: true, rating: true, name: true, score: true },
           });
@@ -100,6 +101,7 @@ export class LearningPathService {
 
     const lms = await this.prismaService.learningMaterial.findMany({
       where: { id: { in: lmIds } },
+      orderBy: { topicId: 'asc' },
       select: {
         id: true,
         name: true,
