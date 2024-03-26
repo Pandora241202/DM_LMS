@@ -1,11 +1,14 @@
-import { ForbiddenException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, GatewayTimeoutException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { LearningPathCreateREQ } from './request/learning-path-create.request';
 import { LearningMaterialRESP } from '../learning-material/response/learning-material.response';
 import { getStartEnd } from 'src/shared/contants.helper';
 import { UserLearnerDTO } from 'src/domains/user/dto/user-learner.dto';
 import { HttpService } from '@nestjs/axios';
-import { catchError, map } from 'rxjs';
+import { TimeoutError, catchError, map, timeout } from 'rxjs';
+import { BackgroundKnowledgeType, QualificationType } from '@prisma/client';
+import { LearningLogDTO } from '../learner-log/dto/learning-log.dto';
+import { TopicDTO } from 'src/domains/topic/dto/topic.dto';
 
 @Injectable()
 export class LearningPathService {
@@ -18,18 +21,30 @@ export class LearningPathService {
     const { start, end } = getStartEnd(body.goal);
     const style = UserLearnerDTO.learningStyle(body.learningStyleQA);
 
-    const path = this.httpService
-      .get(
-        `http://127.0.0.1:8181/spraql-lm?qualification=${body.qualification}&background_knowledge=${body.backgroundKnowledge}&active_reflective=${style.activeReflective}&visual_verbal=${style.visualVerbal}&global_sequential=${style.sequentialGlobal}&sensitive_intuitive=${style.sensitiveIntuitive}&start=${start}&end=${end}`,
-      )
-      .pipe(map((res) => res.data))
-      .pipe(
-        catchError(() => {
-          throw new ForbiddenException('API not available');
-        }),
-      );
+    const learnerIds = (
+      await this.prismaService.learner.findMany({
+        where: {
+          qualification: body.qualification,
+          backgroundKnowledge: body.backgroundKnowledge,
+          activeReflective: style.activeReflective,
+          visualVerbal: style.visualVerbal,
+          sequentialGlobal: style.sequentialGlobal,
+          sensitiveIntuitive: style.sequentialGlobal,
+        },
+        select: { id: true },
+      })
+    ).map((l) => l.id);
 
-    return path;
+    const logs = (
+      await this.prismaService.learnerLog.findMany({
+        where: { learnerId: { in: learnerIds } },
+        select: { learningMaterial: true, attempts: true, score: true, time: true },
+      })
+    ).map((log) => LearningLogDTO.fromEntity(log as any));
+
+    const topicLink = await this.prismaService.topicLink.findMany({ select: { startId: true, endId: true } });
+
+    return TopicDTO.getTopicPath(topicLink, start, end);
   }
 
   async detail(learnerId: number) {

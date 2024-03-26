@@ -36,16 +36,21 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_reponse(404, 'text/html', b'File not found')
                 
         elif '/spraql-lm' in self.path:
+            print("hello")
             query = parse_qs(urlparse(self.path).query)
             SpraqlTopic(query["start"][0], query["end"][0], systemOntology / 'rdf' /'topic-onto.rdf' ).spraqlTopic()
             learningSytle = LearningStyle(query)
             paths = SpraqlLM(systemOntology / 'rdf' / 'system-onto.rdf').spraql_lm(learningSytle)
+            print(paths)
             self.send_reponse(200, 'application/json', json.dumps(paths[0]).encode('utf-8'))
             
-        
         elif '/topic-ontology' in self.path:
             TopicOntology().addOnto()
             self.send_reponse(200, 'text/html', b'Regenerate topic-ontology successfully')
+            
+        elif '/system-ontology' in self.path:
+            SystemOntology().addOnto()
+            self.send_reponse(200, 'text/html', b'Regenerate system-ontology successfully')
             
         elif '/feature-test' in self.path:
             SystemOntology().addOnto()

@@ -10,7 +10,6 @@ class SystemOntology:
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:system-ontology="http://www.semanticweb.org/thuha/ontologies/system-ontology#">
     <owl:Ontology rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology"/>\n\n\n"""
@@ -26,10 +25,10 @@ class SystemOntology:
             <system-ontology:learnerID>{newLearner[0]}</system-ontology:learnerID>
             <system-ontology:qualification>{newLearner[1]}</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>{newLearner[2]}</system-ontology:backgroundKnowledge>
-            <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLearner[3]}</system-ontology:active_reflective>
-            <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLearner[4]}</system-ontology:visual_verbal>
-            <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLearner[5]}</system-ontology:global_sequential>
-            <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLearner[6]}</system-ontology:sensitive_intuitive>
+            <system-ontology:active_reflective>{newLearner[3]}</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>{newLearner[4]}</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>{newLearner[5]}</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>{newLearner[6]}</system-ontology:sensitive_intuitive>
         </owl:NamedIndividual>
 
 
@@ -47,9 +46,9 @@ class SystemOntology:
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>{newLog[7]}</system-ontology:learnerID>
             <system-ontology:lmID>{newLog[6]}</system-ontology:lmID>
-            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog[3]}</system-ontology:score>
-            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog[4]}</system-ontology:time>
-            <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{newLog[5]}</system-ontology:attempt>
+            <system-ontology:score>{newLog[3]}</system-ontology:score>
+            <system-ontology:time>{newLog[4]}</system-ontology:time>
+            <system-ontology:attempt>{newLog[5]}</system-ontology:attempt>
         </owl:NamedIndividual>
         
         
@@ -64,15 +63,16 @@ class SystemOntology:
         learning_materials = ""
         for lm in newLMs:        
             learning_material = f"""
+        
+        
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material{'-' + str(lm[0])}">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
-            <system-ontology:lmID>{lm[0]}</system-ontology:lmID>
-            <system-ontology:name>{lm[1]}</system-ontology:name>
-            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[2]}</system-ontology:difficulty>
+            <system-ontology:difficulty>{lm[2]}</system-ontology:difficulty>
             <system-ontology:learning_resouce_type>{lm[3]}</system-ontology:learning_resouce_type>
-            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[4]}</system-ontology:material_ratings>
-            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[5]}</system-ontology:score>
-            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{lm[6]}</system-ontology:time>
+            <system-ontology:lmID>{lm[0]}</system-ontology:lmID>
+            <system-ontology:material_ratings>{lm[4]}</system-ontology:material_ratings>
+            <system-ontology:score>{lm[5]}</system-ontology:score>
+            <system-ontology:time>{lm[6]}</system-ontology:time>
             <system-ontology:topic>{lm[7]}</system-ontology:topic>
         </owl:NamedIndividual>
         
@@ -86,7 +86,7 @@ class SystemOntology:
     def addOnto(self):
         conn = connectDatabase()
         
-        conn.cursor.execute("SELECT id, qualification, background_knowledge, active_reflective, visual_verbal, global_sequential, sensitive_intuitive FROM learners")
+        conn.cursor.execute("SELECT id, qualification, background_knowledge, active_reflective, visual_verbal, sequential_global, sensitive_intuitive FROM learners")
         learners = conn.cursor.fetchall()
         
         conn.cursor.execute("SELECT id, name, difficulty, type, rating, score, time, topic_id FROM learning_materials")

@@ -4,82 +4,1083 @@
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:system-ontology="http://www.semanticweb.org/thuha/ontologies/system-ontology#">
     <owl:Ontology rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology"/>
 
 
 
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-18">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>1.0</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>18</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>12.0</system-ontology:time>
+            <system-ontology:topic>13</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-10">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
-            <system-ontology:topic>1</system-ontology:topic>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
             <system-ontology:lmID>10</system-ontology:lmID>
-            <system-ontology:name>Code B</system-ontology:name>
-            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
-            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
-            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
-            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
-            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+            <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>1</system-ontology:topic>
         </owl:NamedIndividual>
-
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-11">
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-6">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
-            <system-ontology:topic>2</system-ontology:topic>
-            <system-ontology:lmID>11</system-ontology:lmID>
-            <system-ontology:name>Code B</system-ontology:name>
-            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
-            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
-            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
-            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
-            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>6</system-ontology:lmID>
+            <system-ontology:material_ratings>4.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>1</system-ontology:topic>
         </owl:NamedIndividual>
+        
+        
+        
+        
+        
         
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-12">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
-            <system-ontology:topic>3</system-ontology:topic>
+            <system-ontology:difficulty>0.4</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>PDF</system-ontology:learning_resouce_type>
             <system-ontology:lmID>12</system-ontology:lmID>
-            <system-ontology:name>Code B</system-ontology:name>
-            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
-            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
-            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
-            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
-            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+            <system-ontology:material_ratings>3.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>2</system-ontology:topic>
         </owl:NamedIndividual>
-
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-4">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.6</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>VIDEO</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>3</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-2">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>6</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-1">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.6</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>VIDEO</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:material_ratings>3.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>3</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-11">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>11</system-ontology:lmID>
+            <system-ontology:material_ratings>4.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>5</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-9">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>VIDEO</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>9</system-ontology:lmID>
+            <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>4</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-7">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.5</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>PDF</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>7</system-ontology:lmID>
+            <system-ontology:material_ratings>4.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>2</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-8">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>VIDEO</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>8</system-ontology:lmID>
+            <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>6</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-5">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>5</system-ontology:lmID>
+            <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>3</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-3">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>3</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>5</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-19">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.8</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>QUIZZ</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>19</system-ontology:lmID>
+            <system-ontology:material_ratings>1.0</system-ontology:material_ratings>
+            <system-ontology:score>1.0</system-ontology:score>
+            <system-ontology:time>58.0</system-ontology:time>
+            <system-ontology:topic>7</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-13">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
-            <system-ontology:topic>4</system-ontology:topic>
-            <system-ontology:lmID>13</system-ontology:lmID>
-            <system-ontology:name>Code B</system-ontology:name>
-            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
+            <system-ontology:difficulty>1.0</system-ontology:difficulty>
             <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
-            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
-            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
-            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+            <system-ontology:lmID>13</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>0.0</system-ontology:score>
+            <system-ontology:time>37.0</system-ontology:time>
+            <system-ontology:topic>17</system-ontology:topic>
         </owl:NamedIndividual>
-
+        
+        
+        
+        
+        
+        
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-14">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
-            <system-ontology:topic>10</system-ontology:topic>
+            <system-ontology:difficulty>0.6</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>VIDEO</system-ontology:learning_resouce_type>
             <system-ontology:lmID>14</system-ontology:lmID>
-            <system-ontology:name>Code B</system-ontology:name>
-            <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
-            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
-            <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
-            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
-            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>2.0</system-ontology:score>
+            <system-ontology:time>20.0</system-ontology:time>
+            <system-ontology:topic>30</system-ontology:topic>
         </owl:NamedIndividual>
-
-
-
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-16">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.2</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>16</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>43.0</system-ontology:time>
+            <system-ontology:topic>23</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-15">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.4</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>QUIZZ</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>15</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>6.0</system-ontology:score>
+            <system-ontology:time>22.0</system-ontology:time>
+            <system-ontology:topic>14</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-17">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.8</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>PDF</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>17</system-ontology:lmID>
+            <system-ontology:material_ratings>3.0</system-ontology:material_ratings>
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>41.0</system-ontology:time>
+            <system-ontology:topic>16</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-20">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>20</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>5.0</system-ontology:score>
+            <system-ontology:time>34.0</system-ontology:time>
+            <system-ontology:topic>33</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-1">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-2">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-3">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>7</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-4">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>3</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-5">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-6">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-7">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-9">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>6</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-11">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-12">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-13">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-14">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-15">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-16">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>3</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-17">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>6</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-18">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>7</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-21">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-22">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-23">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-24">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>11</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-25">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-26">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-27">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>6</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-29">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>3</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-30">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>7</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-32">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>6</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-33">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>3</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-34">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-35">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>7</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-36">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-37">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-38">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-39">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>11</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-40">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-41">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-42">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-43">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-44">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-46">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>6</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-47">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>11</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-48">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>7</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-49">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>3</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-50">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-51">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-52">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>3</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-53">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-54">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>11</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-55">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>6</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-56">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-57">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-58">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>7</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-60">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-61">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-62">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-64">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>6</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-65">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-66">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-67">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-68">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>3</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-70">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>7</system-ontology:lmID>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-71">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>1</system-ontology:lmID>
-            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
-            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
-            <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-72">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-82">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>3</system-ontology:lmID>
+            <system-ontology:score>0.0</system-ontology:score>
+            <system-ontology:time>94</system-ontology:time>
+            <system-ontology:attempt>5</system-ontology:attempt>
         </owl:NamedIndividual>
         
         
@@ -90,13 +1091,698 @@
             <system-ontology:learnerID>1</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
-            <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
-            <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
-            <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
-            <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:sensitive_intuitive>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
         </owl:NamedIndividual>
 
 
 
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-2">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>2</system-ontology:learnerID>
+            <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>None</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>None</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>None</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>None</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
 
-        </rdf:RDF>
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-8">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>8</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-3">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>3</system-ontology:learnerID>
+            <system-ontology:qualification>GRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>-2</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-2</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>-1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-2</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-6">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:qualification>GRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>-1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-4">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>4</system-ontology:learnerID>
+            <system-ontology:qualification>GRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-5">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>5</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-10">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>10</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>1</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-12">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>12</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-14">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>14</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-16">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>16</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-17">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>17</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>1</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>-1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-20">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>20</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-23">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>23</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-26">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>26</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-30">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>30</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-34">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>34</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-36">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>36</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-40">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>40</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-44">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>44</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-47">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>47</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-48">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>48</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-50">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>50</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-13">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>13</system-ontology:learnerID>
+            <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-11">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>11</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-38">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>38</system-ontology:learnerID>
+            <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-28">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>28</system-ontology:learnerID>
+            <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-19">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>19</system-ontology:learnerID>
+            <system-ontology:qualification>GRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-7">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>7</system-ontology:learnerID>
+            <system-ontology:qualification>GRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>2</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-18">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>18</system-ontology:learnerID>
+            <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-35">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>35</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>-1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-45">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>45</system-ontology:learnerID>
+            <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>1</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-21">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>21</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-32">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>32</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-39">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>39</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-9">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>9</system-ontology:learnerID>
+            <system-ontology:qualification>GRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>-1</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-42">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>42</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-15">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>15</system-ontology:learnerID>
+            <system-ontology:qualification>GRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-37">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>37</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>-1</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-46">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>46</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-43">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>43</system-ontology:learnerID>
+            <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-31">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>31</system-ontology:learnerID>
+            <system-ontology:qualification>GRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-27">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>27</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-24">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>24</system-ontology:learnerID>
+            <system-ontology:qualification>GRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-33">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>33</system-ontology:learnerID>
+            <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-29">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>29</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-41">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>41</system-ontology:learnerID>
+            <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-25">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>25</system-ontology:learnerID>
+            <system-ontology:qualification>GRADUATE</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-22">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>22</system-ontology:learnerID>
+            <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-49">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
+            <system-ontology:learnerID>49</system-ontology:learnerID>
+            <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
+            <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>2</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+        </owl:NamedIndividual>
+
+
+
+</rdf:RDF>

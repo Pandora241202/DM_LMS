@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common
 import { LearningMaterialService } from './learning-material.service';
 import { LearningMaterialCreateREQ } from './request/learning-material.create';
 
-@Controller('learning-material')
+@Controller('learning-materials')
 export class LearningMaterialController {
   constructor(private readonly learningMaterialService: LearningMaterialService) {}
 
@@ -11,9 +11,14 @@ export class LearningMaterialController {
     await this.learningMaterialService.create(body);
   }
 
+  @Get()
+  async list() {
+    return await this.learningMaterialService.list();
+  }
+
   @Get(':id')
   async detail(@Param('id', ParseIntPipe) id: number) {
-    await this.learningMaterialService.detail(id);
+    return await this.learningMaterialService.detail(id);
   }
 
   @Post('batch')

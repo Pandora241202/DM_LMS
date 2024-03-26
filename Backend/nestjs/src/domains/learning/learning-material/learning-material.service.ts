@@ -20,4 +20,12 @@ export class LearningMaterialService {
     const lm = await this.prismaService.learningMaterial.findUniqueOrThrow({ where: { id } });
     return lm;
   }
+
+  async list(){
+    const lms = await this.prismaService.learningMaterial.findMany({select: {
+      id: true, name: true, time: true, type: true, topicId: true
+    }})
+
+    return lms
+  }
 }

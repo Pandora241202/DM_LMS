@@ -41,7 +41,7 @@ model Learner {
   activeReflective    Int?                     @map("active_reflective")
   sensitiveIntuitive  Int?                     @map("sensitive_intuitive")
   visualVerbal        Int?                     @map("visual_verbal")
-  globalSequential    Int?                     @map("global_sequential")
+  sequentialGlobal    Int?                     @map("sequential_global")
   backgroundKnowledge BackgroundKnowledgeType? @map("background_knowledge")
   qualification       QualificationType?
 
@@ -189,7 +189,7 @@ model LearnerLog {
   learningMaterialRating       Int    @map("learning_material_rating")
 
   score    Float?
-  time     BigInt
+  time     Float?
   attempts Int
 
   learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
