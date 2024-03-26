@@ -10,7 +10,7 @@ for (let i = 1; i <= 50; i++) {
 }
 
 export const baseInfoLearningPath = {
-  "learningStyle": ["b", "a", "b", "b", "a", "a", "b", "b", "b", "b", "a", "b", "b", "b", "b", "a", "a", "b", "a", "b", "a", "b", "b", "a", "b", "a", "a", "a", "b", "a", "b", "b", "b", "a", "a", "a", "b", "b", "a", "b", "b", "b", "a", "a"],
+  "learningStyle": [-2,1,0,2],
   "backgroundKnowledge": "INTERMEDIATE",
   "qualification": "GRADUATE"
 }

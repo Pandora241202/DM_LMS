@@ -93,20 +93,30 @@ export const BaseInfoLearningPathDialog = (props) => {
       <DialogContent>
         <Typography variant="subtitle1" >Hệ thống đã ghi nhận kết quả lần khảo sát các thông tin căn bản của bạn lần trước như sau:</Typography>
           <Container maxWidth={settings.stretch ? false : 'xl'}>
-            <div style={{ marginTop: 10, marginBottom: 5}}>
-              <Typography color="text.primary" fontSize={15} fontWeight={700} component="span">Trình độ học vấn: </Typography>
-              <Typography color="text.primary" fontSize={15} my={1} fontWeight={500} component="span">{BaseInfoLearningPathDialog.qualification == consts.QUALIFICATION_HIGHSCHOOL ? "Phổ thông" : BaseInfoLearningPathDialog.qualification == consts.QUALIFICATION_GRADUATE ? "Đã tốt nghiệp đại học" : "Đang học đại học"}</Typography>
-            </div>
-            <div style={{ marginBottom: 5}}>
-              <Typography color="text.primary" fontSize={15} fontWeight={700} component="span">Kiến thức hiện tại:  </Typography>
-              <Typography color="text.primary" fontSize={15} fontWeight={500} component="span">{BaseInfoLearningPathDialog.backgroundKnowledge == consts.BACKGROUND_KNOWLEDGE_BASIC ? "Mới bắt đầu" : BaseInfoLearningPathDialog.backgroundKnowledge == consts.BACKGROUND_KNOWLEDGE_INTERMEDIATE ? "Trình độ trung cấp" : "Chuyên gia"}</Typography>
+            <div style={{ marginTop: 10, marginBottom: 10}}>
+              <Typography color="text.primary" fontSize={15} fontWeight={700} >Trình độ học vấn</Typography>
+              <div style={{ marginLeft: 10}}>
+                <Typography color="text.primary" fontSize={15} fontWeight={500} mt={1}>• {baseInfo.qualification == consts.QUALIFICATION_HIGHSCHOOL ? "Phổ thông" : baseInfo.qualification == consts.QUALIFICATION_GRADUATE ? "Đã tốt nghiệp đại học" : "Đang học đại học"}</Typography>
+              </div>
             </div>
             <div style={{ marginBottom: 10}}>
-              <Typography color="text.primary" fontSize={15} fontWeight={700} component="span">Phong cách học: </Typography>
-      
+              <Typography color="text.primary" fontSize={15} fontWeight={700} >Kiến thức hiện tại  </Typography>
+              <div style={{ marginLeft: 10}}>
+                <Typography color="text.primary" fontSize={15} fontWeight={500} mt={1}>• {baseInfo.backgroundKnowledge == consts.BACKGROUND_KNOWLEDGE_BASIC ? "Mới bắt đầu" : baseInfo.backgroundKnowledge == consts.BACKGROUND_KNOWLEDGE_INTERMEDIATE ? "Trình độ trung cấp" : "Chuyên gia"}</Typography>
+              </div>
+            </div>
+            <div style={{ marginBottom: 10}}>
+              <Typography color="text.primary" fontSize={15} fontWeight={700}>Phong cách học (theo mô hình Felder-Silverman)</Typography>
+              <div style={{ marginLeft: 10}}>
+                <Typography color="text.primary" fontSize={15} fontWeight={500} mt={1}>• {consts.ACT_REF.get(baseInfo.learningStyle[0])}</Typography>
+                <Typography color="text.primary" fontSize={15} fontWeight={500} mt={1}>• {consts.SEN_INT.get(baseInfo.learningStyle[1])}</Typography>
+                <Typography color="text.primary" fontSize={15} fontWeight={500} mt={1}>• {consts.VIS_VRB.get(baseInfo.learningStyle[2])}</Typography>
+                <Typography color="text.primary" fontSize={15} fontWeight={500} mt={1}>• {consts.SEQ_GLO.get(baseInfo.learningStyle[3])}</Typography>
+              </div>
+              
             </div>
           </Container>
-        <Typography color="text.primary" variant="subtitle1" mb={2}> Bạn có thể chọn lấy kết quả này để tạo lộ trình học lần này hoặc làm lại khảo sát để tiến hành cập nhật thông tin</Typography>
+        <Typography color="text.caution" fontWeight={500} mb={4}> Bạn có thể lấy kết quả này để tạo lộ trình học lần này hoặc làm lại khảo sát để tiến hành cập nhật thông tin</Typography>
         <Stack flexDirection="row" justifyContent="space-between">
           <Button
             variant="inherit"

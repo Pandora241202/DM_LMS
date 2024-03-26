@@ -14,7 +14,8 @@ import {
   Typography,
   Button,
   Grid,
-  Container
+  Container, 
+  Tooltip
 } from '@mui/material';
 
 import * as consts from '../../../constants';
@@ -63,20 +64,22 @@ export const ChooseGoalLearningPathDialog = (props) => {
           >
             <Grid item xs={12} mb={1}>
               <div style={{ display: "flex", justifyContent: "center"}}>
-                <Button
-                  variant="outlined"
-                  sx = {{
-                    borderColor: selectedGoals.includes(consts.LEARNER_GOAL_FUNDAMENTALS) ? "Highlight" : "lightgrey",
-                    borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_FUNDAMENTALS) ? 2 : 1,
-                    
-                    color: "text.primary",
-                  }}
-                  onClick={() => {
-                    setSelectedGoals([consts.LEARNER_GOAL_FUNDAMENTALS]);
-                  }}
-                >
-                  Kiến thức Căn bản (Fundamentals)
-                </Button> 
+                <Tooltip title={consts.LEARNER_GOAL_FUNDAMENTALS.helpInfo} placement="right">
+                  <Button
+                    variant="outlined"
+                    sx = {{
+                      borderColor: selectedGoals.includes(consts.LEARNER_GOAL_FUNDAMENTALS.value) ? "Highlight" : "lightgrey",
+                      borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_FUNDAMENTALS.value) ? 3 : 2,
+                      
+                      color: "text.primary",
+                    }}
+                    onClick={() => {
+                      setSelectedGoals([consts.LEARNER_GOAL_FUNDAMENTALS.value, ...consts.LEARNER_GOAL_FUNDAMENTALS.pre.map(g => g.value)]);
+                    }}
+                  >
+                    {consts.LEARNER_GOAL_FUNDAMENTALS.label}
+                  </Button> 
+                </Tooltip>
               </div>
             </Grid>  
             <Grid item xs={4} mb={1}>
@@ -96,37 +99,43 @@ export const ChooseGoalLearningPathDialog = (props) => {
             </Grid>      
             <Grid item xs={4} mb={1}>
               <div style={{ display: "flex", justifyContent: "flex-end"}}>
-                <Button
-                  variant="outlined"
-                  sx = {{
-                    borderColor: selectedGoals.includes(consts.LEARNER_GOAL_DATA_SCIENCE) ? "Highlight" : "lightgrey",
-                    borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_DATA_SCIENCE) ? 2 : 1,
-                    color: "text.primary",
-                  }}
-                  onClick={() => {
-                    setSelectedGoals([consts.LEARNER_GOAL_FUNDAMENTALS, consts.LEARNER_GOAL_DATA_SCIENCE]);
-                  }}
-                >
-                  Khoa học dữ liệu (Data Science)
-                </Button> 
+                <Tooltip title={consts.LEARNER_GOAL_DATA_SCIENTIST.helpInfo} placement="right">
+                  <Button
+                    variant="outlined"
+                    sx = {{
+                      borderColor: selectedGoals.includes(consts.LEARNER_GOAL_DATA_SCIENTIST.value) ? "Highlight" : "lightgrey",
+                      borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_DATA_SCIENTIST.value) ? 3 : 2,
+                      
+                      color: "text.primary",
+                    }}
+                    onClick={() => {
+                      setSelectedGoals([consts.LEARNER_GOAL_DATA_SCIENTIST.value, ...consts.LEARNER_GOAL_DATA_SCIENTIST.pre.map(g => g.value)]);
+                    }}
+                  >
+                    {consts.LEARNER_GOAL_DATA_SCIENTIST.label}
+                  </Button> 
+                </Tooltip>
               </div>
             </Grid>  
             <Grid item xs={4}></Grid>
             <Grid item xs={4}>
               <div style={{ display: "flex", justifyContent: "flex-end"}}>
-                <Button
-                  variant="outlined"
-                  sx = {{
-                    borderColor: selectedGoals.includes(consts.LEARNER_GOAL_DATA_ENGINEER) ? "Highlight" : "lightgrey",
-                    borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_DATA_ENGINEER) ? 2 : 1,
-                    color: "text.primary",
-                  }}
-                  onClick={() => {
-                    setSelectedGoals([consts.LEARNER_GOAL_FUNDAMENTALS, consts.LEARNER_GOAL_DATA_ENGINEER]);
-                  }}
-                >
-                  Kỹ thuật dữ liệu (Data Engineer)
-                </Button> 
+                <Tooltip title={consts.LEARNER_GOAL_DATA_ENGINEER.helpInfo} placement="right">
+                  <Button
+                    variant="outlined"
+                    sx = {{
+                      borderColor: selectedGoals.includes(consts.LEARNER_GOAL_DATA_ENGINEER.value) ? "Highlight" : "lightgrey",
+                      borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_DATA_ENGINEER.value) ? 3 : 2,
+                      
+                      color: "text.primary",
+                    }}
+                    onClick={() => {
+                      setSelectedGoals([consts.LEARNER_GOAL_DATA_ENGINEER.value, ...consts.LEARNER_GOAL_DATA_ENGINEER.pre.map(g => g.value)]);
+                    }}
+                  >
+                    {consts.LEARNER_GOAL_DATA_ENGINEER.label}
+                  </Button> 
+                </Tooltip> 
               </div>
             </Grid>
             <Grid item xs={4} mb={1}>
@@ -146,37 +155,43 @@ export const ChooseGoalLearningPathDialog = (props) => {
             </Grid>   
             <Grid item xs={4} mb={1}>
               <div style={{ display: "flex", justifyContent: "flex-end"}}>
-                <Button
-                  variant="outlined"
-                  sx = {{
-                    borderColor: selectedGoals.includes(consts.LEARNER_GOAL_MACHINE_LEARNING) ? "Highlight" : "lightgrey",
-                    borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_MACHINE_LEARNING) ? 2 : 1,
-                    color: "text.primary",
-                  }}
-                  onClick={() => {
-                    setSelectedGoals([consts.LEARNER_GOAL_FUNDAMENTALS, consts.LEARNER_GOAL_DATA_SCIENCE, consts.LEARNER_GOAL_MACHINE_LEARNING]);
-                  }}
-                >
-                  Học máy (Machine Learning)
-                </Button> 
+                <Tooltip title={consts.LEARNER_GOAL_MACHINE_LEARNING.helpInfo} placement="right">
+                  <Button
+                    variant="outlined"
+                    sx = {{
+                      borderColor: selectedGoals.includes(consts.LEARNER_GOAL_MACHINE_LEARNING.value) ? "Highlight" : "lightgrey",
+                      borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_MACHINE_LEARNING.value) ? 3 : 2,
+                      
+                      color: "text.primary",
+                    }}
+                    onClick={() => {
+                      setSelectedGoals([consts.LEARNER_GOAL_MACHINE_LEARNING.value, ...consts.LEARNER_GOAL_MACHINE_LEARNING.pre.map(g => g.value)]);
+                    }}
+                  >
+                    {consts.LEARNER_GOAL_MACHINE_LEARNING.label}
+                  </Button> 
+                </Tooltip> 
               </div>
             </Grid>  
             <Grid item xs={4}></Grid>
             <Grid item xs={4}>
               <div style={{ display: "flex", justifyContent: "flex-end"}}>
-                <Button
-                  variant="outlined"
-                  sx = {{
-                    borderColor: selectedGoals.includes(consts.LEARNER_GOAL_BIG_DATA_ENGINEER) ? "Highlight" : "lightgrey",
-                    borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_BIG_DATA_ENGINEER) ? 2 : 1,
-                    color: "text.primary",
-                  }}
-                  onClick={() => {
-                    setSelectedGoals([consts.LEARNER_GOAL_FUNDAMENTALS, consts.LEARNER_GOAL_DATA_ENGINEER, consts.LEARNER_GOAL_BIG_DATA_ENGINEER])
-                  }}
-                >
-                  Kỹ thuật dữ liệu lớn (Big Data Engineer)
-                </Button> 
+                <Tooltip title={consts.LEARNER_GOAL_BIG_DATA_ENGINEER.helpInfo} placement="right">
+                  <Button
+                    variant="outlined"
+                    sx = {{
+                      borderColor: selectedGoals.includes(consts.LEARNER_GOAL_BIG_DATA_ENGINEER.value) ? "Highlight" : "lightgrey",
+                      borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_BIG_DATA_ENGINEER.value) ? 3 : 2,
+                      
+                      color: "text.primary",
+                    }}
+                    onClick={() => {
+                      setSelectedGoals([consts.LEARNER_GOAL_BIG_DATA_ENGINEER.value, ...consts.LEARNER_GOAL_BIG_DATA_ENGINEER.pre.map(g => g.value)]);
+                    }}
+                  >
+                    {consts.LEARNER_GOAL_BIG_DATA_ENGINEER.label}
+                  </Button> 
+                </Tooltip> 
               </div>
             </Grid>
             <Grid item xs={4} mb={1}>
@@ -190,19 +205,22 @@ export const ChooseGoalLearningPathDialog = (props) => {
             <Grid item xs={4}></Grid>  
             <Grid item xs={4} mb={1}>
               <div style={{ display: "flex", justifyContent: "flex-end"}}>
-                <Button
-                  variant="outlined"
-                  sx = {{
-                    borderColor: selectedGoals.includes(consts.LEARNER_GOAL_DEEP_LEARNING) ? "Highlight" : "lightgrey",
-                    borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_DEEP_LEARNING) ? 2 : 1,
-                    color: "text.primary",
-                  }}
-                  onClick={() => {
-                    setSelectedGoals([consts.LEARNER_GOAL_FUNDAMENTALS, consts.LEARNER_GOAL_DATA_SCIENCE, consts.LEARNER_GOAL_MACHINE_LEARNING, consts.LEARNER_GOAL_DEEP_LEARNING]);
-                  }}
-                >
-                  Học sâu (Deep Learning)
-                </Button> 
+                <Tooltip title={consts.LEARNER_GOAL_DEEP_LEARNING.helpInfo} placement="right">
+                  <Button
+                    variant="outlined"
+                    sx = {{
+                      borderColor: selectedGoals.includes(consts.LEARNER_GOAL_DEEP_LEARNING.value) ? "Highlight" : "lightgrey",
+                      borderWidth: selectedGoals.includes(consts.LEARNER_GOAL_DEEP_LEARNING.value) ? 3 : 2,
+                      
+                      color: "text.primary",
+                    }}
+                    onClick={() => {
+                      setSelectedGoals([consts.LEARNER_GOAL_DEEP_LEARNING.value, ...consts.LEARNER_GOAL_DEEP_LEARNING.pre.map(g => g.value)]);
+                    }}
+                  >
+                    {consts.LEARNER_GOAL_DEEP_LEARNING.label}
+                  </Button> 
+                </Tooltip> 
               </div>
             </Grid>  
             <Grid item xs={4}></Grid>
