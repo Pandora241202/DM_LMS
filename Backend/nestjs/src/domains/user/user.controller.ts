@@ -6,7 +6,7 @@ import { UserUpdateREQ } from './request/user-update.request';
 import { AuthGuard } from '../auth/auth.guard';
 import { SubjectType } from '@prisma/client';
 
-// @UseGuards(AuthGuard)
+//@UseGuards(AuthGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -26,9 +26,9 @@ export class UserController {
     return await this.userService.findAll(query);
   }
 
-  @Get('base-information')
-  async getBaseInfo(@Req() req: any) {
-    return await this.userService.getBaseInfo(req.user.id);
+  @Get('base-information/:learnerId')
+  async getBaseInfo(@Param('learnerId', ParseIntPipe) learnerId: number) {
+    return await this.userService.getBaseInfo(learnerId);
   }
 
   @Get('profile')
