@@ -15,7 +15,7 @@ export const DATA_SCIENTIST = {
 export const MACHINE_LEARNING = {
   type: SubjectType.MACHINE_LEARNING,
   start: 84,
-  end: 217,
+  end: 127,
 };
 
 export const DEEP_LEARNING = {

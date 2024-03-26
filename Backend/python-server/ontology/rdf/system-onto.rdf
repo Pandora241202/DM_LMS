@@ -4,13 +4,13 @@
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:system-ontology="http://www.semanticweb.org/thuha/ontologies/system-ontology#">
     <owl:Ontology rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology"/>
 
 
 
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-55">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>55</system-ontology:lmID>
@@ -21,11 +21,25 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18.0</system-ontology:time>
             <system-ontology:topic>94</system-ontology:topic>
+=======
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-18">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>1.0</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>18</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>12.0</system-ontology:time>
+            <system-ontology:topic>13</system-ontology:topic>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
         
         
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-56">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>56</system-ontology:lmID>
@@ -54,10 +68,13 @@
         </owl:NamedIndividual>
         
         
+=======
+>>>>>>> python-server
         
         
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-10">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+<<<<<<< HEAD
             <system-ontology:lmID>10</system-ontology:lmID>
             <system-ontology:name>Code B</system-ontology:name>
             <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
@@ -65,12 +82,21 @@
             <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+=======
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>10</system-ontology:lmID>
+            <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+>>>>>>> python-server
             <system-ontology:topic>1</system-ontology:topic>
         </owl:NamedIndividual>
         
         
         
         
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-58">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>58</system-ontology:lmID>
@@ -95,12 +121,25 @@
             <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4.0</system-ontology:material_ratings>
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+=======
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-6">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>6</system-ontology:lmID>
+            <system-ontology:material_ratings>4.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+>>>>>>> python-server
             <system-ontology:topic>1</system-ontology:topic>
         </owl:NamedIndividual>
         
         
         
         
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-59">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>59</system-ontology:lmID>
@@ -189,10 +228,13 @@
         </owl:NamedIndividual>
         
         
+=======
+>>>>>>> python-server
         
         
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-12">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+<<<<<<< HEAD
             <system-ontology:lmID>12</system-ontology:lmID>
             <system-ontology:name>Document A</system-ontology:name>
             <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.4</system-ontology:difficulty>
@@ -231,11 +273,21 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
             <system-ontology:topic>6</system-ontology:topic>
+=======
+            <system-ontology:difficulty>0.4</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>PDF</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>12</system-ontology:lmID>
+            <system-ontology:material_ratings>3.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>2</system-ontology:topic>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
         
         
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-1">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>1</system-ontology:lmID>
@@ -245,12 +297,25 @@
             <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.0</system-ontology:material_ratings>
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+=======
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-4">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.6</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>VIDEO</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>4</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+>>>>>>> python-server
             <system-ontology:topic>3</system-ontology:topic>
         </owl:NamedIndividual>
         
         
         
         
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-11">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>11</system-ontology:lmID>
@@ -305,12 +370,25 @@
             <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+=======
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-2">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>2</system-ontology:lmID>
+            <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+>>>>>>> python-server
             <system-ontology:topic>6</system-ontology:topic>
         </owl:NamedIndividual>
         
         
         
         
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-5">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>5</system-ontology:lmID>
@@ -320,12 +398,25 @@
             <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+=======
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-1">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.6</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>VIDEO</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:material_ratings>3.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+>>>>>>> python-server
             <system-ontology:topic>3</system-ontology:topic>
         </owl:NamedIndividual>
         
         
         
         
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-3">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>3</system-ontology:lmID>
@@ -335,12 +426,25 @@
             <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.0</system-ontology:material_ratings>
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
+=======
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-11">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>11</system-ontology:lmID>
+            <system-ontology:material_ratings>4.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+>>>>>>> python-server
             <system-ontology:topic>5</system-ontology:topic>
         </owl:NamedIndividual>
         
         
         
         
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-13">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>13</system-ontology:lmID>
@@ -351,11 +455,121 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">37.0</system-ontology:time>
             <system-ontology:topic>107</system-ontology:topic>
+=======
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-9">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>VIDEO</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>9</system-ontology:lmID>
+            <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>4</system-ontology:topic>
         </owl:NamedIndividual>
         
         
         
         
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-7">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.5</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>PDF</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>7</system-ontology:lmID>
+            <system-ontology:material_ratings>4.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>2</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-8">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>VIDEO</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>8</system-ontology:lmID>
+            <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>6</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-5">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>5</system-ontology:lmID>
+            <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>3</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-3">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>3</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>30.0</system-ontology:time>
+            <system-ontology:topic>5</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-19">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.8</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>QUIZZ</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>19</system-ontology:lmID>
+            <system-ontology:material_ratings>1.0</system-ontology:material_ratings>
+            <system-ontology:score>1.0</system-ontology:score>
+            <system-ontology:time>58.0</system-ontology:time>
+            <system-ontology:topic>7</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-13">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>1.0</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>13</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>0.0</system-ontology:score>
+            <system-ontology:time>37.0</system-ontology:time>
+            <system-ontology:topic>17</system-ontology:topic>
+>>>>>>> python-server
+        </owl:NamedIndividual>
+        
+        
+        
+        
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-14">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>14</system-ontology:lmID>
@@ -3441,11 +3655,25 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18.0</system-ontology:time>
             <system-ontology:topic>160</system-ontology:topic>
+=======
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-14">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.6</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>VIDEO</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>14</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>2.0</system-ontology:score>
+            <system-ontology:time>20.0</system-ontology:time>
+            <system-ontology:topic>30</system-ontology:topic>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
         
         
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-230">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>230</system-ontology:lmID>
@@ -3456,11 +3684,25 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">22.0</system-ontology:time>
             <system-ontology:topic>118</system-ontology:topic>
+=======
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-16">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.2</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>16</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>43.0</system-ontology:time>
+            <system-ontology:topic>23</system-ontology:topic>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
         
         
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-240">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>240</system-ontology:lmID>
@@ -3471,11 +3713,25 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18.0</system-ontology:time>
             <system-ontology:topic>196</system-ontology:topic>
+=======
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-15">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.4</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>QUIZZ</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>15</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>6.0</system-ontology:score>
+            <system-ontology:time>22.0</system-ontology:time>
+            <system-ontology:topic>14</system-ontology:topic>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
         
         
+<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-250">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>250</system-ontology:lmID>
@@ -4671,6 +4927,35 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">21.0</system-ontology:time>
             <system-ontology:topic>156</system-ontology:topic>
+=======
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-17">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.8</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>PDF</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>17</system-ontology:lmID>
+            <system-ontology:material_ratings>3.0</system-ontology:material_ratings>
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>41.0</system-ontology:time>
+            <system-ontology:topic>16</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-20">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>20</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
+            <system-ontology:score>5.0</system-ontology:score>
+            <system-ontology:time>34.0</system-ontology:time>
+            <system-ontology:topic>33</system-ontology:topic>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4680,9 +4965,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>1</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4692,9 +4983,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4704,9 +5001,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>7</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4716,9 +5019,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>3</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4728,9 +5037,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4740,9 +5055,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7</system-ontology:attempt>
+=======
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4752,6 +5073,7 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
@@ -4767,6 +5089,11 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4776,6 +5103,7 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>6</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
@@ -4791,6 +5119,11 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4800,9 +5133,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4812,9 +5151,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>1</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4824,9 +5169,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7</system-ontology:attempt>
+=======
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4836,9 +5187,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4848,9 +5205,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4860,9 +5223,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>3</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4872,9 +5241,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>6</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4884,6 +5259,7 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>7</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
@@ -4911,6 +5287,11 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4920,9 +5301,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4932,9 +5319,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>1</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4944,9 +5337,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4956,9 +5355,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>11</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4968,9 +5373,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4980,9 +5391,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7</system-ontology:attempt>
+=======
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -4992,6 +5409,7 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>6</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
@@ -5007,6 +5425,11 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5016,9 +5439,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>3</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5028,9 +5457,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>7</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5040,9 +5475,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>6</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5052,6 +5493,7 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>3</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3</system-ontology:attempt>
@@ -5067,6 +5509,11 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5076,9 +5523,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5088,9 +5541,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>7</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5100,9 +5559,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7</system-ontology:attempt>
+=======
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5112,9 +5577,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>1</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5124,9 +5595,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5136,9 +5613,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>11</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5148,9 +5631,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5160,9 +5649,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5172,9 +5667,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>1</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5184,9 +5685,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5196,6 +5703,7 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
@@ -5211,6 +5719,11 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5220,9 +5733,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>6</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5232,9 +5751,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>11</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5244,9 +5769,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>7</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5256,9 +5787,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>3</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5268,9 +5805,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7</system-ontology:attempt>
+=======
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5280,9 +5823,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5292,9 +5841,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>3</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5304,9 +5859,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5316,9 +5877,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>11</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5328,9 +5895,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>6</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5340,9 +5913,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>1</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5352,9 +5931,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5364,6 +5949,7 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>7</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
@@ -5379,6 +5965,11 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5388,9 +5979,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7</system-ontology:attempt>
+=======
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5400,9 +5997,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>1</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5412,6 +6015,7 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>1</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
@@ -5427,6 +6031,11 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5436,9 +6045,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>6</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5448,9 +6063,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>4</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7</system-ontology:attempt>
+=======
+            <system-ontology:score>9.0</system-ontology:score>
+            <system-ontology:time>50</system-ontology:time>
+            <system-ontology:attempt>7</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5460,9 +6081,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>10</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5472,9 +6099,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>2</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5484,6 +6117,7 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>3</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3</system-ontology:attempt>
@@ -5499,6 +6133,11 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>40</system-ontology:time>
+            <system-ontology:attempt>3</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5508,9 +6147,15 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>7</system-ontology:lmID>
+<<<<<<< HEAD
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
             <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</system-ontology:attempt>
+=======
+            <system-ontology:score>8.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>4</system-ontology:attempt>
+>>>>>>> python-server
         </owl:NamedIndividual>
         
         
@@ -5520,9 +6165,33 @@
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:lmID>1</system-ontology:lmID>
-            <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
-            <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</system-ontology:time>
-            <system-ontology:attempt rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:attempt>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-72">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>1</system-ontology:lmID>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>20</system-ontology:time>
+            <system-ontology:attempt>2</system-ontology:attempt>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-82">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
+            <system-ontology:learnerID>6</system-ontology:learnerID>
+            <system-ontology:lmID>3</system-ontology:lmID>
+            <system-ontology:score>0.0</system-ontology:score>
+            <system-ontology:time>94</system-ontology:time>
+            <system-ontology:attempt>5</system-ontology:attempt>
         </owl:NamedIndividual>
         
         
@@ -7669,10 +8338,10 @@
             <system-ontology:learnerID>1</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
-            <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
-            <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
-            <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
-            <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:sensitive_intuitive>
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
         </owl:NamedIndividual>
 
 
@@ -7683,10 +8352,17 @@
             <system-ontology:learnerID>2</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">None</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">None</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">None</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">None</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>None</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>None</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>None</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>None</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7697,10 +8373,17 @@
             <system-ontology:learnerID>8</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7711,10 +8394,17 @@
             <system-ontology:learnerID>3</system-ontology:learnerID>
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-2</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-2</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-2</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>-2</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-2</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>-1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-2</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7725,10 +8415,17 @@
             <system-ontology:learnerID>6</system-ontology:learnerID>
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>-1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7739,10 +8436,17 @@
             <system-ontology:learnerID>4</system-ontology:learnerID>
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7753,10 +8457,17 @@
             <system-ontology:learnerID>5</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7767,10 +8478,17 @@
             <system-ontology:learnerID>10</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>1</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7781,10 +8499,17 @@
             <system-ontology:learnerID>12</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7795,10 +8520,17 @@
             <system-ontology:learnerID>14</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7809,10 +8541,17 @@
             <system-ontology:learnerID>16</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7823,10 +8562,17 @@
             <system-ontology:learnerID>17</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>1</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>-1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7837,10 +8583,17 @@
             <system-ontology:learnerID>20</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7851,10 +8604,17 @@
             <system-ontology:learnerID>23</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7865,10 +8625,17 @@
             <system-ontology:learnerID>26</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7879,10 +8646,17 @@
             <system-ontology:learnerID>30</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7893,10 +8667,17 @@
             <system-ontology:learnerID>34</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7907,10 +8688,17 @@
             <system-ontology:learnerID>36</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7921,10 +8709,17 @@
             <system-ontology:learnerID>40</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7935,10 +8730,17 @@
             <system-ontology:learnerID>44</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7949,10 +8751,17 @@
             <system-ontology:learnerID>47</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7963,10 +8772,17 @@
             <system-ontology:learnerID>48</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7977,10 +8793,17 @@
             <system-ontology:learnerID>50</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -7991,10 +8814,17 @@
             <system-ontology:learnerID>13</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8005,10 +8835,17 @@
             <system-ontology:learnerID>11</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8019,10 +8856,17 @@
             <system-ontology:learnerID>38</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8033,10 +8877,17 @@
             <system-ontology:learnerID>28</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8047,10 +8898,17 @@
             <system-ontology:learnerID>19</system-ontology:learnerID>
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8061,10 +8919,17 @@
             <system-ontology:learnerID>7</system-ontology:learnerID>
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>2</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8075,10 +8940,17 @@
             <system-ontology:learnerID>18</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8089,10 +8961,17 @@
             <system-ontology:learnerID>35</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>-1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8103,10 +8982,17 @@
             <system-ontology:learnerID>45</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>1</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8117,10 +9003,17 @@
             <system-ontology:learnerID>21</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8131,10 +9024,17 @@
             <system-ontology:learnerID>32</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8145,10 +9045,17 @@
             <system-ontology:learnerID>39</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8159,10 +9066,17 @@
             <system-ontology:learnerID>9</system-ontology:learnerID>
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>-1</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8173,10 +9087,17 @@
             <system-ontology:learnerID>42</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8187,10 +9108,17 @@
             <system-ontology:learnerID>15</system-ontology:learnerID>
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8201,10 +9129,17 @@
             <system-ontology:learnerID>37</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>-1</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8215,10 +9150,17 @@
             <system-ontology:learnerID>46</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8229,10 +9171,17 @@
             <system-ontology:learnerID>43</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>1</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8243,10 +9192,17 @@
             <system-ontology:learnerID>31</system-ontology:learnerID>
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8257,10 +9213,17 @@
             <system-ontology:learnerID>27</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8271,10 +9234,17 @@
             <system-ontology:learnerID>24</system-ontology:learnerID>
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8285,10 +9255,17 @@
             <system-ontology:learnerID>33</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8299,10 +9276,17 @@
             <system-ontology:learnerID>29</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8313,10 +9297,17 @@
             <system-ontology:learnerID>41</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8327,10 +9318,17 @@
             <system-ontology:learnerID>25</system-ontology:learnerID>
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8341,10 +9339,17 @@
             <system-ontology:learnerID>22</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -8355,10 +9360,17 @@
             <system-ontology:learnerID>49</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
+<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:sensitive_intuitive>
+=======
+            <system-ontology:active_reflective>0</system-ontology:active_reflective>
+            <system-ontology:visual_verbal>2</system-ontology:visual_verbal>
+            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
+>>>>>>> python-server
         </owl:NamedIndividual>
 
 

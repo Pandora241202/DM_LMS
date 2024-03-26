@@ -88,14 +88,9 @@ export class UserService {
     });
 
     return {
-      learningStyle: [
-        learner.activeReflective, 
-        learner.sensitiveIntuitive,
-        learner.visualVerbal, 
-        learner.sequentialGlobal, 
-      ],
+      learningStyle: [learner.activeReflective, learner.sensitiveIntuitive, learner.visualVerbal, learner.sequentialGlobal],
       backgroundKnowledge: learner.backgroundKnowledge,
-      qualification: learner.qualification
-    }
+      qualification: learner.qualification,
+    };
   }
 }

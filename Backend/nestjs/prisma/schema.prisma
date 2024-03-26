@@ -189,7 +189,7 @@ model LearnerLog {
   learningMaterialRating       Int    @map("learning_material_rating")
 
   score    Float?
-  time     BigInt
+  time     Float?
   attempts Int
 
   learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
