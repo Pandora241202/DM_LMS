@@ -28,7 +28,7 @@ export class UserController {
 
   @Get('base-information')
   async getBaseInfo(@Req() req: any) {
-    return await this.userService.getBaseInfo(req.user.learnerId);
+    return await this.userService.getBaseInfo(req.user.id);
   }
 
   @Get('profile')

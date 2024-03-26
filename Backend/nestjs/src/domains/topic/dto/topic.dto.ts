@@ -56,10 +56,18 @@ function transformData(data: { startId: number; endId: number }[]): { start: num
 
 export class TopicDTO {
   static getSimilarityLM(logs: LearningLogDTO[]) {
-    let result: {rating: number, similarity: number, id: number} =  {rating: -1, similarity: -1, id: -1};
+    let result: { rating: number; similarity: number; lmID: number; name: string; score: number } = {
+      rating: -1,
+      similarity: -1,
+      lmID: -1,
+      name: '',
+      score: -1,
+    };
     let travel = [];
     let lms: {
       [key: number]: {
+        lmID: number;
+        name: string;
         score: number;
         time: number;
         attempt: number;
@@ -75,35 +83,38 @@ export class TopicDTO {
     for (let i = 0; i < logs.length; i++) {
       if (!lms[logs[i].lmID]) {
         lms[logs[i].lmID] = { ...logs[i], repeat: 1 };
-        console.log(lms[logs[i].lmID])
         travel.push(logs[i].lmID);
-      } else {
-
-        lms[logs[i].lmID].score += logs[i].score;
-        lms[logs[i].lmID].time += logs[i].time;
-        lms[logs[i].lmID].attempt += logs[i].attempt;
-        lms[logs[i].lmID].repeat += 1;
+        continue;
       }
+      lms[logs[i].lmID].score += logs[i].score;
+      lms[logs[i].lmID].time += logs[i].time;
+      lms[logs[i].lmID].attempt += logs[i].attempt;
+      lms[logs[i].lmID].repeat += 1;
     }
-    console.log('+++', lms)
-    
+
     for (const lmID in lms) {
-      console.log("----", lms[lmID])
-      // const aScore = lms[lmID].score / lms[lmID].repeat;
-      // const aTime = lms[lmID].time / lms[lmID].repeat;
-      // const aAttempt = lms[lmID].attempt / lms[lmID].repeat;
+      const aScore = lms[lmID].score / lms[lmID].repeat;
+      const aTime = lms[lmID].time / lms[lmID].repeat;
+      const aAttempt = lms[lmID].attempt / lms[lmID].repeat;
 
-      // const similarity = Math.abs(
-      //   0.4 * (aScore / lms[lmID].maxScore) +
-      //     0.3 * (1.0 - aTime / lms[lmID].maxTime) +
-      //     0.3 * (1.0 - aAttempt) -
-      //     lms[lmID].difficulty,
-      // );
+      const similarity = Math.abs(
+        0.4 * (aScore / lms[lmID].maxScore) +
+          0.3 * (1.0 - aTime / lms[lmID].maxTime) +
+          0.3 * (1.0 - aAttempt) -
+          lms[lmID].difficulty,
+      );
 
-      // if (similarity > result.similarity) result = {rating: lms[lmID].rating, similarity: similarity, id: Number(lmID)}
+      if (similarity > result.similarity)
+        result = {
+          rating: lms[lmID].rating,
+          similarity: similarity,
+          lmID: lms[lmID].lmID,
+          name: lms[lmID].name,
+          score: lms[lmID].score,
+        };
     }
-    
-    return result
+
+    return result;
   }
 
   static getTopicPath(topicLink: { startId: number; endId: number }[], start: number, end: number): number[][] {

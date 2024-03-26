@@ -15,6 +15,11 @@ export class TopicController {
     await this.topicService.create(body);
   }
 
+  @Post('batch')
+  async createBatch(@Body() body: TopicCreateREQ[]) {
+    await this.topicService.createBatch(body);
+  }
+
   @Get()
   async list() {
     return await this.topicService.list();

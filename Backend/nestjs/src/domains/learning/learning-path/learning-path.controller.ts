@@ -15,6 +15,6 @@ export class LearningPathConttroller {
 
   @Get()
   async detail(@Req() req: any) {
-    return await this.learningPathService.detail(req.user.learnerId);
+    return await this.learningPathService.detail(req.user.id);
   }
 }

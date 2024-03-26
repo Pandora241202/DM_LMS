@@ -37,7 +37,6 @@ model AuthenticatedUser {
 }
 
 model Learner {
-  id                  Int                      @id @default(autoincrement())
   activeReflective    Int?                     @map("active_reflective")
   sensitiveIntuitive  Int?                     @map("sensitive_intuitive")
   visualVerbal        Int?                     @map("visual_verbal")
@@ -45,15 +44,15 @@ model Learner {
   backgroundKnowledge BackgroundKnowledgeType? @map("background_knowledge")
   qualification       QualificationType?
 
-  user   AuthenticatedUser @relation(fields: [userId], references: [id])
-  userId Int               @map("user_id")
+  user AuthenticatedUser @relation(fields: [id], references: [id])
+  id   Int               @map("user_id")
 
   Practice Practice[]
 
   log          LearnerLog[]
   LearningPath LearningPath[]
 
-  @@unique([userId])
+  @@unique([id])
   @@map("learners")
 }
 
@@ -124,6 +123,7 @@ model TopicLink {
   end     Topic? @relation("end_link", fields: [endId], references: [id])
   endId   Int?   @map("end_id")
 
+  @@unique([startId, endId])
   @@map("topic_link")
 }
 
@@ -202,6 +202,7 @@ model LearnerLog {
 
 model LearningPath {
   id                    Int     @id @default(autoincrement())
+  isActive              Boolean @default(true) @map("is_active")
   learningMaterialOrder Int     @map("learning_material_order")
   learned               Boolean
 

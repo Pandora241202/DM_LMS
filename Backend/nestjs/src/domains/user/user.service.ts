@@ -36,7 +36,7 @@ export class UserService {
   }
 
   async createBatch(body: UserCreateREQ[]) {
-    body.map(async (user) => this.create(user));
+    body.map(async (user) => await this.create(user));
   }
 
   async detail(id: number) {
@@ -64,7 +64,7 @@ export class UserService {
     const style = UserLearnerDTO.learningStyle(learningStyleQA);
 
     await this.prismaService.learner.update({
-      where: { userId: id },
+      where: { id },
       data: {
         activeReflective: style.activeReflective,
         sensitiveIntuitive: style.sensitiveIntuitive,

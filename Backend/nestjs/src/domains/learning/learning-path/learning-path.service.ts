@@ -12,14 +12,17 @@ import { TopicDTO } from 'src/domains/topic/dto/topic.dto';
 
 @Injectable()
 export class LearningPathService {
-  constructor(
-    private readonly prismaService: PrismaService,
-    private readonly httpService: HttpService,
-  ) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   async create(learnerId: number, body: LearningPathCreateREQ) {
     const { start, end } = getStartEnd(body.goal);
     const style = UserLearnerDTO.learningStyle(body.learningStyleQA);
+    let temp: {
+      topicId: number;
+      rating: number;
+      similarity: number;
+      lmID: number;
+    }[] = [];
 
     const learnerIds = (
       await this.prismaService.learner.findMany({
@@ -34,7 +37,6 @@ export class LearningPathService {
         select: { id: true },
       })
     ).map((l) => l.id);
-    console.log(learnerIds);
 
     const logs = (
       await this.prismaService.learnerLog.findMany({
@@ -43,19 +45,44 @@ export class LearningPathService {
       })
     ).map((log) => LearningLogDTO.fromEntity(log as any));
 
-    const topicLink = await this.prismaService.topicLink.findMany({ select: { startId: true, endId: true } });
+    const topicLink = await this.prismaService.topicLink.findMany({where: {state:  true}, select: { startId: true, endId: true } });
     const paths = TopicDTO.getTopicPath(topicLink, start, end);
 
-    // for (let i = 0; i < paths.length; i++) {
-    //   console.log('------', paths[i]);
-    //   for (let j = 0; j < paths[i].length; j++) {
-    //     const topicLogs = logs.filter((log) => log.topicId === paths[i][j]);
-    //     console.log(paths[i][j], TopicDTO.getSimilarityLM(topicLogs))
-    //   }
-    // }
-    const topicLogs = logs.filter((log) => log.topicId === paths[0][1]);
-    console.log(paths[0][1], TopicDTO.getSimilarityLM(topicLogs))
-    return;
+    for (let i = 0; i < paths.length; i++) {
+      for (let j = 0; j < paths[i].length; j++) {
+        const topicLogs = logs.filter((log) => log.topicId === paths[i][j]);
+        let recommendLM = TopicDTO.getSimilarityLM(topicLogs);
+        if (recommendLM.lmID === -1) {
+          const lm = await this.prismaService.learningMaterial.findFirst({
+            orderBy: { rating: 'desc' },
+            select: { id: true, rating: true, name: true, score: true },
+          });
+          recommendLM = { rating: lm.rating, similarity: 0, lmID: lm.id, name: lm.name, score: lm.score };
+        }
+        temp.push({ topicId: paths[i][j], ...recommendLM });
+      }
+    }
+
+    const result = temp.reduce((unique, current) => {
+      const existingItem = unique.find((item) => item.lmID === current.lmID);
+      if (!existingItem) unique.push(current);
+      return unique;
+    }, []);
+
+    this.prismaService.$transaction(async (tx) => {
+      await Promise.all(
+        result.map(
+          async (item, index) =>
+            await tx.learningPath.create({
+              data: LearningPathCreateREQ.toCreateInput(learnerId, item.lmID, index),
+            }),
+        ),
+      ).catch((error) => {
+        throw new error();
+      });
+    });
+
+    return result;
   }
 
   async detail(learnerId: number) {
@@ -66,7 +93,6 @@ export class LearningPathService {
         learningMaterialId: true,
       },
     });
-    // if (paths.length === 0) throw new NotFoundException();
     const lmIds = paths.sort((a, b) => a.learningMaterialOrder - b.learningMaterialOrder).map((p) => p.learningMaterialId);
 
     const lms = await this.prismaService.learningMaterial.findMany({
