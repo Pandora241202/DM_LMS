@@ -8,6 +8,10 @@ class Topic_ManageApi {
     //return Promise.resolve(deepCopy(forums));
   }
 
+  createTopic(request) {
+    return axios.post(`${apiUrl}/topics`, request)
+  }
+
 //   getForumDetail(id) {
 //     return axios.get(`${apiUrl}/${id}`);
 //     //return Promise.resolve(deepCopy(forumDetail));

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
@@ -20,6 +20,9 @@ import {
 import { FileDropzoneVn } from '../../../components/file-dropzone-vn';
 import { QuillEditor } from '../../../components/quill-editor';
 import { paths } from '../../../paths';
+import { topic_manageApi } from '../../../api/Topic-Manage';
+import { useMounted } from '../../../hooks/use-mounted';
+
 
 const categoryOptions = [
   {
@@ -44,25 +47,11 @@ const categoryOptions = [
   },
 ];
 
-const topicOptions = [
-  { label: "Stack",
-    value: 1
-  },
-  { label: "Pop",
-    value: 2
-  },
-  { label: "Push",
-    value: 3
-  }
-];
-
 const initialValues = {
   // id: '',
   // category: '',
   // description: '',
   // images: [],
-  preTopic: 0,
-  postTopic: 0, 
   name: ''
   // duration : 0,
   // difficulty: 0,
@@ -77,8 +66,8 @@ const validationSchema = Yup.object({
   // description: Yup.string().max(5000),
   // images: Yup.array(),
   name: Yup.string().max(255).required(),
-  preTopic: Yup.number().min(0),
-  postTopic: Yup.number().min(0)
+  preTopicId: Yup.number().min(0),
+  postTopicId: Yup.number().min(0)
   // duration : Yup.number().min(0).required(),
   // difficulty: Yup.number().min(0).required(),
   // newPrice: Yup.number().min(0).required(),
@@ -86,15 +75,22 @@ const validationSchema = Yup.object({
 });
 
 export const TopicCreateForm = (props) => {
+  const isMounted = useMounted();
   const router = useRouter();
   const [files, setFiles] = useState([]);
+  const [topicOptions, setTopicOptions] = useState([]);
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values, helpers) => {
       try {
         // NOTE: Make API request
-        console.log(formik.values);
+        // console.log(formik.values);
+        await topic_manageApi.createTopic({
+          title: values.name,
+          preTopicId: values.preTopicId,
+          postTopicId: values.postTopicId,
+      })
         toast.success('Chủ đề học tập đã được tạo');
         router.push(paths.dashboard.Topic_Manage);
       } catch (err) {
@@ -106,6 +102,22 @@ export const TopicCreateForm = (props) => {
       }
     }
   });
+
+  const getTopics = useCallback(async () => {
+    try {
+      const response = await topic_manageApi.getListTopic();
+
+      if (isMounted()) {
+        setTopicOptions([...response.data]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [])
+
+  useEffect(() => {
+    getTopics();
+  },[]);
 
   const handleFilesDrop = useCallback((newFiles) => {
     setFiles((prevFiles) => {
@@ -158,42 +170,44 @@ export const TopicCreateForm = (props) => {
                     value={formik.values.name}
                   />
                   <TextField
-                    error={!!(formik.touched.preTopic && formik.errors.preTopic)}
+                    error={!!(formik.touched.preTopicId && formik.errors.preTopicId)}
                     fullWidth
                     label="Chủ đề liền trước"
-                    name="preTopic"
+                    name="preTopicId"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    value={formik.values.preTopic}
+                    value={formik.values.preTopicId}
                     select
                   >
                     {topicOptions.map((option) => (
                       <MenuItem
-                        key={option.value}
-                        value={option.value}
+                        key={option.id}
+                        value={option.id}
                         selected
                       >
-                        {option.label}
+                        {option.title}
                       </MenuItem>
                     ))}
+                    {console.log(topicOptions)}
+                    
                   </TextField>
                   <TextField
-                    error={!!(formik.touched.postTopic && formik.errors.postTopic)}
+                    error={!!(formik.touched.postTopicId && formik.errors.postTopicId)}
                     fullWidth
-                    label="Chủ đề liền sau"
-                    name="postTopic"
+                    label="Chủ đề học liên quan"
+                    name="postTopicId"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    value={formik.values.postTopic}
+                    value={formik.values.postTopicId}
                     select
                   >
                     {topicOptions.map((option) => (
                       <MenuItem
-                        key={option.value}
-                        value={option.value}
+                        key={option.id}
+                        value={option.id}
                         selected
                       >
-                        {option.label}
+                        {option.title}
                       </MenuItem>
                     ))}
                   </TextField>

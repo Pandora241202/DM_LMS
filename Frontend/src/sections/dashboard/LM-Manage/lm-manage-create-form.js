@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
@@ -22,19 +22,11 @@ import {
 import { FileDropzoneVn } from '../../../components/file-dropzone-vn';
 import { QuillEditor } from '../../../components/quill-editor';
 import { paths } from '../../../paths';
+import { topic_manageApi } from '../../../api/Topic-Manage';
 import { lm_manageApi } from '../../../api/LM-Manage';
+import { useMounted } from '../../../hooks/use-mounted';
 
-const topicOptions = [
-  { label: "1",
-    value: 1
-  },
-  { label: "2",
-    value: 2
-  },
-  { label: "3",
-    value: 3
-  }
-];
+
 const typeOptions = [
   {
     label: 'VIDEO',
@@ -45,17 +37,21 @@ const typeOptions = [
     value: 'PDF'
   },
   {
-    label: 'QUIZ',
-    value: 'QUIZ'
+    label: 'QUIZZ',
+    value: 'QUIZZ'
   },
   {
-    label: 'PODCAST',
-    value: 'PODCAST'
+    label: 'WORD',
+    value: 'WORD'
   },
   {
-    label: 'Khác',
-    value: 'somethingelse'
+    label: 'CODE',
+    value: 'CODE'
   },
+  {
+    label: 'PPT',
+    value: 'PPT'
+  }
 ];
 
 const initialValues = {
@@ -68,8 +64,9 @@ const initialValues = {
   difficulty: 0,
   // newPrice: 0,
   // oldPrice: 0,
-  score: 0,
-  // topicIds: [],
+  score: 10,
+  rating: 5,
+  topicId: 0,
   // submit: null
 };
 
@@ -81,17 +78,21 @@ const validationSchema = Yup.object({
   name: Yup.string().max(255).required(),
   time : Yup.number().min(0).required(),
   difficulty: Yup.number().min(0).required(),
-  // topicIds: Yup.number().required(),
+  rating: Yup.number().min(0).max(5),
+  score: Yup.number().min(0),
+  topicId: Yup.number().required(),
   // newPrice: Yup.number().min(0).required(),
   // oldPrice: Yup.number().min(0),
 });
 
 export const LMCreateForm = (props) => {
+  const isMounted = useMounted();
   const router = useRouter();
   const [topicIds, setTopicIds] = useState([])
   const [newTopicId, setNewTopicId] = useState('');
   const [files, setFiles] = useState([]);
   const filter = createFilterOptions();
+  const [topicOptions, setTopicOptions] = useState([]);
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -103,8 +104,10 @@ export const LMCreateForm = (props) => {
           difficulty: values.difficulty,
           type: values.type,
           score: values.score,
+          rating: values.rating,
           time: values.time,
-          topicIds: topicIds.map((topicIds) => topicIds.value)
+          // topicIds: topicIds.map((topicIds) => topicIds.id)
+          topicId: values.topicId
       })
         // await lm_manageApi.createLM(values);
         toast.success('Tài liệu học tập đã được tạo');
@@ -118,6 +121,22 @@ export const LMCreateForm = (props) => {
       }
     }
   });
+
+  const getTopics = useCallback(async () => {
+    try {
+      const response = await topic_manageApi.getListTopic();
+
+      if (isMounted()) {
+        setTopicOptions([...response.data]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [])
+
+  useEffect(() => {
+    getTopics();
+  },[]);
 
   const handleFilesDrop = useCallback((newFiles) => {
     setFiles((prevFiles) => {
@@ -209,7 +228,27 @@ export const LMCreateForm = (props) => {
                     type="number"
                     value={formik.values.difficulty}
                   />
-                  <Autocomplete
+                  <TextField
+                    error={!!(formik.touched.topicId && formik.errors.topicId)}
+                    fullWidth
+                    label="Chủ đề học liên quan"
+                    name="topicId"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.topicId}
+                    select
+                  >
+                    {topicOptions.map((option) => (
+                      <MenuItem
+                        key={option.id}
+                        value={option.id}
+                        selected
+                      >
+                        {option.title}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  {/* <Autocomplete
                     value={newTopicId}
                     onChange={(event, newValue) => {
                       if (typeof newValue === 'string') {
@@ -238,7 +277,7 @@ export const LMCreateForm = (props) => {
                       const filtered = filter(options, params);
                       const { inputValue } = params;
                       // Suggest the creation of a new value
-                      const isExisting = options.some((option) => inputValue === option.label);
+                      const isExisting = options.some((option) => inputValue === option.title);
                       if (inputValue !== '' && !isExisting) {
                         filtered.push({
                           inputValue,
@@ -263,9 +302,9 @@ export const LMCreateForm = (props) => {
                         return option.inputValue;
                       }
                       // Regular option
-                      return option.label;
+                      return option.title;
                     }}
-                    renderOption={(props, option) => <li {...props}>{option.label}</li>}
+                    renderOption={(props, option) => <li {...props}>{option.title}</li>}
                     fullWidth
                     freeSolo
                     renderInput={(params) => (
@@ -274,17 +313,17 @@ export const LMCreateForm = (props) => {
                         fullWidth
                         label="Chủ đề học liên quan" />
                     )}
-                  />
+                  /> 
                   <Box >
                     {topicIds.map((topicId,index) => 
                       <Chip 
                         key={index} 
-                        label={topicId.value}  
+                        label={topicId.title}  
                         onDelete={e => setTopicIds(topicIds.filter(l => l !== topicId))}
                         sx={{mr: 1, mb: 1}} 
                       />
                     )}
-                  </Box>
+                  </Box> */}
 
                   {/* <div>
                     <Typography

@@ -34,25 +34,29 @@ import { SeverityPill } from '../../../components/severity-pill';
 
 const categoryOptions = [
   {
-    label: 'Video',
-    value: 'video'
+    label: 'VIDEO',
+    value: 'VIDEO'
   },
   {
     label: 'PDF',
-    value: 'pdf'
+    value: 'PDF'
   },
   {
-    label: 'Quiz',
-    value: 'quiz'
+    label: 'QUIZZ',
+    value: 'QUIZZ'
   },
   {
-    label: 'Podcast',
-    value: 'podcast'
+    label: 'WORD',
+    value: 'WORD'
   },
   {
-    label: 'Khác',
-    value: 'somethingelse'
+    label: 'CODE',
+    value: 'CODE'
   },
+  {
+    label: 'PPT',
+    value: 'PPT'
+  }
 ];
 
 export const TopicManageListTable = (props) => {
@@ -112,7 +116,8 @@ export const TopicManageListTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Topics.map((Topic) => {
+            {Topics.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage)
+            .map((Topic) => {
               const isCurrent = Topic.id === currentProduct;
               // const price = numeral(Topic.price).format(`${Topic.currency}0,0.00`);
               // const quantityColor = Topic.quantity >= 10 ? 'success' : 'error';

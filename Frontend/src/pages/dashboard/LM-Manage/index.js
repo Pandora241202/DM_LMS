@@ -26,8 +26,8 @@ const useSearch = () => {
   const [search, setSearch] = useState({
     filters: {
       name: undefined,
-      category: [],
-      status: [],
+      type: [],
+      topicId: [],
       inStock: undefined
     },
     page: 0,
@@ -79,12 +79,13 @@ const useLMs = (search) => {
 
   const getLMs = useCallback(async () => {
     try {
-      const response = await lm_manageApi.getLMs(search);
+      // const response = await lm_manageApi.getLMs(search);
+      const response = await lm_manageApi.getLMs()
 
       if (isMounted()) {
         setState({
           LMs: response.data,
-          LMsCount: response.count
+          LMsCount: response.data.length
         });
       }
     } catch (err) {

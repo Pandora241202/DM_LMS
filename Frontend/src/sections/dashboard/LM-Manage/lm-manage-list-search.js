@@ -5,27 +5,31 @@ import { Box, Chip, Divider, Input, Stack, SvgIcon, Typography } from '@mui/mate
 import { MultiSelect } from '../../../components/multi-select';
 import { useUpdateEffect } from '../../../hooks/use-update-effect';
 
-const categoryOptions = [
+const typeOptions = [
   {
-    label: 'Video',
-    value: 'video'
+    label: 'VIDEO',
+    value: 'VIDEO'
   },
   {
     label: 'PDF',
-    value: 'pdf'
+    value: 'PDF'
   },
   {
-    label: 'Quiz',
-    value: 'quiz'
+    label: 'QUIZZ',
+    value: 'QUIZZ'
   },
   {
-    label: 'Podcast',
-    value: 'podcast'
+    label: 'WORD',
+    value: 'WORD'
   },
   {
-    label: 'Khác',
-    value: 'somethingelse'
+    label: 'CODE',
+    value: 'CODE'
   },
+  {
+    label: 'PPT',
+    value: 'PPT'
+  }
 ];
 
 const statusOptions = [
@@ -63,7 +67,7 @@ export const LMManageListSearch = (props) => {
   const handleChipsUpdate = useCallback(() => {
     const filters = {
       name: undefined,
-      category: [],
+      type: [],
       status: [],
       inStock: undefined
     };
@@ -75,8 +79,8 @@ export const LMManageListSearch = (props) => {
           // so we can set up it directly
           filters.name = chip.value;
           break;
-        case 'category':
-          filters.category.push(chip.value);
+        case 'type':
+          filters.type.push(chip.value);
           break;
         case 'status':
           filters.status.push(chip.value);
@@ -113,13 +117,13 @@ export const LMManageListSearch = (props) => {
     setQuery(queryRef.current?.value || '');
   }, []);
 
-  const handleCategoryChange = useCallback((values) => {
+  const handleTypeChange = useCallback((values) => {
     setChips((prevChips) => {
       const valuesFound = [];
 
       // First cleanup the previous chips
       const newChips = prevChips.filter((chip) => {
-        if (chip.field !== 'category') {
+        if (chip.field !== 'type') {
           return true;
         }
 
@@ -139,11 +143,11 @@ export const LMManageListSearch = (props) => {
 
       values.forEach((value) => {
         if (!valuesFound.includes(value)) {
-          const option = categoryOptions.find((option) => option.value === value);
+          const option = typeOptions.find((option) => option.value === value);
 
           newChips.push({
-            label: 'Category',
-            field: 'category',
+            label: 'Type',
+            field: 'type',
             value,
             displayValue: option.label
           });
@@ -232,8 +236,8 @@ export const LMManageListSearch = (props) => {
   }, []);
 
   // We memoize this part to prevent re-render issues
-  const categoryValues = useMemo(() => chips
-    .filter((chip) => chip.field === 'category')
+  const typeValues = useMemo(() => chips
+    .filter((chip) => chip.field === 'type')
     .map((chip) => chip.value), [chips]);
 
   const statusValues = useMemo(() => chips
@@ -336,11 +340,11 @@ export const LMManageListSearch = (props) => {
       >
         <MultiSelect
           label="Phân loại"
-          onChange={handleCategoryChange}
-          options={categoryOptions}
-          value={categoryValues}
+          onChange={handleTypeChange}
+          options={typeOptions}
+          value={typeValues}
         />
-        <MultiSelect
+        {/* <MultiSelect
           label="Status"
           onChange={handleStatusChange}
           options={statusOptions}
@@ -351,7 +355,7 @@ export const LMManageListSearch = (props) => {
           onChange={handleStockChange}
           options={stockOptions}
           value={stockValues}
-        />
+        /> */}
       </Stack>
     </div>
   );

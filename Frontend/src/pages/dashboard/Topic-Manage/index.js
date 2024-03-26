@@ -84,7 +84,7 @@ const useTopics = (search) => {
       if (isMounted()) {
         setState({
           Topics: response.data,
-          TopicsCount: response.count
+          TopicsCount: response.data.length
         });
       }
     } catch (err) {

@@ -34,25 +34,29 @@ import { SeverityPill } from '../../../components/severity-pill';
 
 const categoryOptions = [
   {
-    label: 'Video',
-    value: 'video'
+    label: 'VIDEO',
+    value: 'VIDEO'
   },
   {
     label: 'PDF',
-    value: 'pdf'
+    value: 'PDF'
   },
   {
-    label: 'Quiz',
-    value: 'quiz'
+    label: 'QUIZZ',
+    value: 'QUIZZ'
   },
   {
-    label: 'Podcast',
-    value: 'podcast'
+    label: 'WORD',
+    value: 'WORD'
   },
   {
-    label: 'Khác',
-    value: 'somethingelse'
+    label: 'CODE',
+    value: 'CODE'
   },
+  {
+    label: 'PPT',
+    value: 'PPT'
+  }
 ];
 
 export const LMManageListTable = (props) => {
@@ -65,30 +69,30 @@ export const LMManageListTable = (props) => {
     rowsPerPage,
     ...other
   } = props;
-  const [currentProduct, setCurrentProduct] = useState(null);
+  const [currentLM, setCurrentLM] = useState(null);
   const [state, setState] = useState(false);
 
-  const handleProductToggle = useCallback((productId) => {
-    setCurrentProduct((prevProductId) => {
-      if (prevProductId === productId) {
+  const handleLMToggle = useCallback((LmId) => {
+    setCurrentLM((prevLmId) => {
+      if (prevLmId === LmId) {
         return null;
       }
 
-      return productId;
+      return LmId;
     });
   }, []);
 
-  const handleProductClose = useCallback(() => {
-    setCurrentProduct(null);
+  const handleLMClose = useCallback(() => {
+    setCurrentLM(null);
   }, []);
 
-  const handleProductUpdate = useCallback(() => {
-    setCurrentProduct(null);
-    toast.success('Product updated');
+  const handleLMUpdate = useCallback(() => {
+    setCurrentLM(null);
+    toast.success('Tài liệu đã được cập nhật');
   }, []);
 
-  const handleProductDelete = useCallback(() => {
-    toast.error('Product cannot be deleted');
+  const handleLMDelete = useCallback(() => {
+    toast.error('Tài liệu không thể xoá');
   }, []);
 
   const handleToggle = ({target}) => {
@@ -115,8 +119,9 @@ export const LMManageListTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {LMs.map((LM) => {
-              const isCurrent = LM.id === currentProduct;
+            {LMs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((LM) => {
+              const isCurrent = LM.id === currentLM;
               // const price = numeral(LM.price).format(`${LM.currency}0,0.00`);
               // const quantityColor = LM.quantity >= 10 ? 'success' : 'error';
               const statusColor = LM.status === 'published' ? 'success' : 'info';
@@ -184,7 +189,7 @@ export const LMManageListTable = (props) => {
                             color="text.secondary"
                             variant="body2"
                           >
-                            in {LM.category}
+                            in {LM.type}
                           </Typography>
                         </Box>
                       </Box>
@@ -210,13 +215,13 @@ export const LMManageListTable = (props) => {
                       </Typography> */}
                       <Stack space={3}>
                         <Typography variant="subtitle2">
-                          Loại hình: {LM.category} 
+                          Loại hình: {LM.type} 
                         </Typography>
                         <Typography variant="subtitle2">
-                          Thời gian: {LM.duration}
+                          Thời gian: {LM.time}
                         </Typography>
                         <Typography variant="subtitle2">
-                          Topic
+                          Topic: {LM.topicId}
                         </Typography>
                       </Stack>
                     </TableCell>
@@ -233,7 +238,7 @@ export const LMManageListTable = (props) => {
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <IconButton onClick={() => handleProductToggle(LM.id)}   >
+                      <IconButton onClick={() => handleLMToggle(LM.id)}   >
                         <SvgIcon>
                           <DotsHorizontalIcon />
                         </SvgIcon>
@@ -421,7 +426,7 @@ export const LMManageListTable = (props) => {
                             spacing={2}
                           >
                             <Button
-                              onClick={handleProductUpdate}
+                              onClick={handleLMUpdate}
                               type="submit"
                               variant="contained"
                             >
@@ -429,14 +434,14 @@ export const LMManageListTable = (props) => {
                             </Button>
                             <Button
                               color="inherit"
-                              onClick={handleProductClose}
+                              onClick={handleLMClose}
                             >
                               Cancel
                             </Button>
                           </Stack>
                           <div>
                             <Button
-                              onClick={handleProductDelete}
+                              onClick={handleLMDelete}
                               color="error"
                             >
                               Delete LM

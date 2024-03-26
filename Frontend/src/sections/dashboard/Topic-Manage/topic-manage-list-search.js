@@ -340,7 +340,7 @@ export const TopicManageListSearch = (props) => {
           options={categoryOptions}
           value={categoryValues}
         />
-        <MultiSelect
+        {/* <MultiSelect
           label="Status"
           onChange={handleStatusChange}
           options={statusOptions}
@@ -351,7 +351,7 @@ export const TopicManageListSearch = (props) => {
           onChange={handleStockChange}
           options={stockOptions}
           value={stockValues}
-        />
+        /> */}
       </Stack>
     </div>
   );
