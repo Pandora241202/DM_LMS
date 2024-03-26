@@ -21,11 +21,17 @@ export class LearningMaterialService {
     return lm;
   }
 
-  async list(){
-    const lms = await this.prismaService.learningMaterial.findMany({select: {
-      id: true, name: true, time: true, type: true, topicId: true
-    }})
+  async list() {
+    const lms = await this.prismaService.learningMaterial.findMany({
+      select: {
+        id: true,
+        name: true,
+        time: true,
+        type: true,
+        topicId: true,
+      },
+    });
 
-    return lms
+    return lms;
   }
 }

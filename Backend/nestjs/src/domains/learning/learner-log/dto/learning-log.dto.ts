@@ -5,8 +5,9 @@ export class LearningLogDTO {
   attempt: number;
   score: number;
   time: number;
-  topicID: number;
+  topicId: number;
   rating: number;
+  maxScore: number;
   maxTime: number;
   difficulty: number;
 
@@ -16,8 +17,9 @@ export class LearningLogDTO {
       attempt: e.attempts,
       score: e.score,
       time: e.time,
-      topicID: e.learningMaterial.topicId,
+      topicId: e.learningMaterial.topicId,
       rating: e.learningMaterial.rating,
+      maxScore: e.learningMaterial.score,
       maxTime: e.learningMaterial.time,
       difficulty: e.learningMaterial.difficulty,
     };

@@ -25,17 +25,21 @@ export class TopicService {
   }
 
   async detail(id: number) {
-    const topic = await this.prismaService.topic.findFirst({where: { id}, select: {title: true}})
+    const topic = await this.prismaService.topic.findFirst({ where: { id }, select: { title: true } });
 
-    const preTopics = (await this.prismaService.topicLink.findMany({where: {endId : id}, select: {startId: true, start: true}})).map(t => t.start);
+    const preTopics = (
+      await this.prismaService.topicLink.findMany({ where: { endId: id }, select: { startId: true, start: true } })
+    ).map((t) => t.start);
 
-    const postTopics = (await this.prismaService.topicLink.findMany({where: {startId : id}, select: {endId: true, end: true}})).map(t => t.end);
+    const postTopics = (
+      await this.prismaService.topicLink.findMany({ where: { startId: id }, select: { endId: true, end: true } })
+    ).map((t) => t.end);
 
     return {
       title: topic.title,
       preTopics: preTopics,
       postTopics: postTopics,
-    }
+    };
   }
 
   async update(id: number, body: TopicUpdateREQ) {

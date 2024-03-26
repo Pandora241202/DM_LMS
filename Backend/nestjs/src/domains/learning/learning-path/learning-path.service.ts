@@ -34,6 +34,7 @@ export class LearningPathService {
         select: { id: true },
       })
     ).map((l) => l.id);
+    console.log(learnerIds);
 
     const logs = (
       await this.prismaService.learnerLog.findMany({
@@ -43,8 +44,18 @@ export class LearningPathService {
     ).map((log) => LearningLogDTO.fromEntity(log as any));
 
     const topicLink = await this.prismaService.topicLink.findMany({ select: { startId: true, endId: true } });
+    const paths = TopicDTO.getTopicPath(topicLink, start, end);
 
-    return TopicDTO.getTopicPath(topicLink, start, end);
+    // for (let i = 0; i < paths.length; i++) {
+    //   console.log('------', paths[i]);
+    //   for (let j = 0; j < paths[i].length; j++) {
+    //     const topicLogs = logs.filter((log) => log.topicId === paths[i][j]);
+    //     console.log(paths[i][j], TopicDTO.getSimilarityLM(topicLogs))
+    //   }
+    // }
+    const topicLogs = logs.filter((log) => log.topicId === paths[0][1]);
+    console.log(paths[0][1], TopicDTO.getSimilarityLM(topicLogs))
+    return;
   }
 
   async detail(learnerId: number) {
