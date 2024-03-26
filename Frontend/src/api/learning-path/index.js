@@ -19,6 +19,16 @@ class LearningPathApi {
     return Promise.resolve(deepCopy({data: LOs}));
   }
 
+  getRecommendedLearningPaths(request) {
+    /*return Promise.resolve(deepCopy({data: [
+      [1,2,3,3,3,2,4,6],
+    ]}));*/
+    return Promise.resolve(deepCopy({data: [
+      [1,2,3,3,3,2,4,6],
+      [1,2,3,3,3,2,4,6]
+    ]}));
+  }
+
   getBaseInfoLearningPath() {
     return Promise.resolve(deepCopy({data: baseInfoLearningPath}));
     return Promise.resolve(deepCopy({data: {

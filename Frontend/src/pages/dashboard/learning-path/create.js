@@ -27,12 +27,26 @@ const Page = () => {
   const [selectedGoals, setSelectedGoals] = useState([]);
   const [baseInfoAnswer, setBaseInfoAnswer] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [recommendedLearningPaths, setRecommendedLearningPaths] = useState([]);
+
+  const handleCreateLearningPath = useCallback( async (chosenLearningPath) => {
+    await learningPathApi.createLearningPath({
+      "learningPath": chosenLearningPath
+    })
+      .then(() => {
+        router.push(paths.dashboard.learningPaths.index);
+      })
+      .catch(error => {
+        setLoading(false);
+        console.error('Error posting data:', error);
+      })
+  })
 
   const handleConfirmButton = useCallback(async () => {
     setOpenBaseInfoDialog(false);
     setLoading(true);
     setTimeout(async function (){
-      await learningPathApi.createLearningPath({
+      await learningPathApi.getRecommendedLearningPaths({
         "goal": selectedGoals[-1],
         "learningStyleQA": [...baseInfoAnswer.slice(2)],
         "backgroundKnowledge": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[1],
@@ -40,7 +54,11 @@ const Page = () => {
       })
         .then((response) => {
           console.log(response);
-          router.push(paths.dashboard.learningPaths.index);
+          if (response.data.length == 1) {
+            handleCreateLearningPath(response.data[0]);
+          }
+          setLoading(false);
+          setRecommendedLearningPaths(response.data);
         })
         .catch(error => {
           setLoading(false);
@@ -98,7 +116,7 @@ const Page = () => {
                     Lộ trình học của bạn
                   </Typography>
                 </div>
-                {!loading && 
+                {!loading && recommendedLearningPaths.length == 0 &&
                 <Stack justifyContent="space-between" spacing={2}>
                   <div>
                     <Typography variant="body1">
@@ -122,6 +140,27 @@ const Page = () => {
                     </Typography>
                   </div>
                   <LinearProgress />
+                </Stack>}
+                {recommendedLearningPaths.length != 0 &&
+                <Stack justifyContent="space-between" spacing={2}>
+                  <div>
+                    <Typography variant="body1">
+                      Chúng tôi có các đề xuất lộ trình học cho bạn như sau
+                    </Typography>
+                  </div>
+                  {recommendedLearningPaths.map((p, idx) =>
+                  <div key={idx}> 
+                    <Button
+                      variant="outlined"
+                      sx = {{
+                        borderColor: "lightgrey",
+                        color: "text.primary",
+                      }}
+                      onClick={() => handleCreateLearningPath(p)}
+                    >
+                      Lộ trình {idx}
+                    </Button>  
+                  </div>)}
                 </Stack>}
               </Stack>
             </Grid>
