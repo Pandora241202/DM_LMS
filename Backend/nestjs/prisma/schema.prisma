@@ -123,7 +123,7 @@ model TopicLink {
   end     Topic? @relation("end_link", fields: [endId], references: [id])
   endId   Int?   @map("end_id")
 
-  @@unique([startId, endId])
+  @@unique([state, startId, endId])
   @@map("topic_link")
 }
 

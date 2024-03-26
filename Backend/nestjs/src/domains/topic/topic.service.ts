@@ -67,14 +67,14 @@ export class TopicService {
   }
 
   async detail(id: number) {
-    const topic = await this.prismaService.topic.findFirst({ where: { id }, select: { title: true } });
+    const topic = await this.prismaService.topic.findFirst({ where: { id: id }, select: { title: true } });
 
     const preTopics = (
-      await this.prismaService.topicLink.findMany({ where: { endId: id }, select: { startId: true, start: true } })
+      await this.prismaService.topicLink.findMany({ where: { state: true, endId: id }, select: { startId: true, start: true } })
     ).map((t) => t.start);
 
     const postTopics = (
-      await this.prismaService.topicLink.findMany({ where: { startId: id }, select: { endId: true, end: true } })
+      await this.prismaService.topicLink.findMany({ where: { state: true, startId: id }, select: { endId: true, end: true } })
     ).map((t) => t.end);
 
     return {
@@ -94,8 +94,15 @@ export class TopicService {
       if (body.addPreIds) await tx.topicLink.createMany({ data: TopicUpdateREQ.toCreatePreLink(id, body.addPreIds) });
       if (body.addPostIds) await tx.topicLink.createMany({ data: TopicUpdateREQ.toCreatePostLink(id, body.addPostIds) });
   
-      if (body.deletePreIds) await tx.topicLink.updateMany({ data: TopicUpdateREQ.toDeletePreLink(id, body.deletePreIds) });
-      if (body.deletePostIds) await tx.topicLink.updateMany({ data: TopicUpdateREQ.toDeletePostLink(id, body.deletePostIds) });
+      if (body.deletePreIds) 
+        for(let i = 0; i < body.deletePreIds.length; i++)
+          await tx.topicLink.deleteMany({where: { startId: body.deletePreIds[i], endId: id }});
+      
+
+      if (body.deletePostIds) 
+        for(let i = 0; i < body.deletePostIds.length; i++)
+          await tx.topicLink.deleteMany({where: { startId: id, endId: body.deletePostIds[i] }});
+      
     })
   }
 
