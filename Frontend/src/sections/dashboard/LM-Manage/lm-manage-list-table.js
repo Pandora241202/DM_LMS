@@ -31,6 +31,7 @@ import {
 } from '@mui/material';
 import { Scrollbar } from '../../../components/scrollbar';
 import { SeverityPill } from '../../../components/severity-pill';
+import { FileIcon } from '../../../components/file-icon';
 
 const categoryOptions = [
   {
@@ -111,9 +112,9 @@ export const LMManageListTable = (props) => {
               <TableCell>
                 Mô tả
               </TableCell>
-              <TableCell width="25%">
-                Ngày cập nhật
-              </TableCell>
+              {/* <TableCell width="25%">
+                Đánh giá
+              </TableCell> */}
               <TableCell align="right">
               </TableCell>
             </TableRow>
@@ -134,20 +135,20 @@ export const LMManageListTable = (props) => {
                     hover
                     key={LM.id}
                   >
-                    <TableCell width="25%">
+                    <TableCell width="40%">
                       <Box
                         sx={{
                           alignItems: 'center',
                           display: 'flex'
                         }}
                       >
-                        {LM.image
-                          ? (
-                            <Box
+                        {/* {LM.image
+                          ? ( */}
+                            {/* <Box
                               sx={{
                                 alignItems: 'center',
                                 backgroundColor: 'neutral.50',
-                                backgroundImage: `url(${LM.image})`,
+                                backgroundImage: `url(/assets/products/product-1.png)`,
                                 backgroundPosition: 'center',
                                 backgroundSize: 'cover',
                                 borderRadius: 1,
@@ -157,8 +158,9 @@ export const LMManageListTable = (props) => {
                                 overflow: 'hidden',
                                 width: 80
                               }}
-                            />
-                          )
+                            /> */}
+                              <FileIcon extension={LM.type} />
+                          {/* )
                           : (
                             <Box
                               sx={{
@@ -175,7 +177,7 @@ export const LMManageListTable = (props) => {
                                 <Image01Icon />
                               </SvgIcon>
                             </Box>
-                          )}
+                          )} */}
                         <Box
                           sx={{
                             cursor: 'pointer',
@@ -218,25 +220,25 @@ export const LMManageListTable = (props) => {
                           Loại hình: {LM.type} 
                         </Typography>
                         <Typography variant="subtitle2">
-                          Thời gian: {LM.time}
+                          Thời gian: {LM.time} phút
                         </Typography>
                         <Typography variant="subtitle2">
                           Topic: {LM.topicId}
                         </Typography>
                       </Stack>
                     </TableCell>
-                    <TableCell>
-                      {/* <SeverityPill color={statusColor}>
+                    {/* <TableCell>
+                      <SeverityPill color={statusColor}>
                         {LM.status}
                       </SeverityPill
-                      > */}
+                      >
                       <Typography
                         color="textSecondary"
                         variant="body2"
                       >
-                        {LM.updatedAt ? new Date(LM.updatedAt).toLocaleDateString('en-GB') : 'N/A'}
+                        {LM.rating}
                       </Typography>
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell align="right">
                       <IconButton onClick={() => handleLMToggle(LM.id)}   >
                         <SvgIcon>
