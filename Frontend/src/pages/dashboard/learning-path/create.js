@@ -17,10 +17,12 @@ import { BaseInfoLearningPathDialog } from '../../../sections/dashboard/learning
 import { learningPathApi } from '../../../api/learning-path';
 import { paths } from '../../../paths';
 import { useRouter } from 'next/router';
+import { useAuth } from '../../../hooks/use-auth';
 
 const Page = () => {
   const settings = useSettings();
   const router = useRouter();
+  const { user } = useAuth();
 
   const [openSelectGoalDialog, setOpenSelectGoalDialog] = useState(false);
   const [openBaseInfoDialog, setOpenBaseInfoDialog] = useState(false);
@@ -30,7 +32,7 @@ const Page = () => {
   const [recommendedLearningPaths, setRecommendedLearningPaths] = useState([]);
 
   const handleCreateLearningPath = useCallback( async (chosenLearningPath) => {
-    await learningPathApi.createLearningPath({
+    await learningPathApi.createLearningPath(user.id, {
       "learningPath": chosenLearningPath
     })
       .then(() => {
@@ -46,7 +48,7 @@ const Page = () => {
     setOpenBaseInfoDialog(false);
     setLoading(true);
     
-    await learningPathApi.getRecommendedLearningPaths({
+    await learningPathApi.getRecommendedLearningPaths(user.id, {
       "goal": selectedGoals[-1],
       "learningStyleQA": [...baseInfoAnswer.slice(2)],
       "backgroundKnowledge": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[1],

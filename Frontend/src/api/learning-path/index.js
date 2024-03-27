@@ -3,7 +3,7 @@ import axios from 'axios';
 const apiUrl = 'http://localhost:8080/learning-path';
 
 class LearningPathApi {
-  getLearningPath() {
+  getLearningPath(learnerId) {
     return axios.get(`${apiUrl}/${learnerId}`);
   }
 
@@ -11,7 +11,7 @@ class LearningPathApi {
     return axios.post(`${apiUrl}/${learnerId}`, request);
   }
 
-  getRecommendedLearningPaths(request) {
+  getRecommendedLearningPaths(learnerId, request) {
     return axios.post(`${apiUrl}/recommended/${learnerId}`, request);
   }
 }
