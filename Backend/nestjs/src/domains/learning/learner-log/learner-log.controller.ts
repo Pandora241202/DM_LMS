@@ -9,14 +9,14 @@ import { response } from 'express';
 export class LearnerLogController {
   constructor(private readonly learnerLogService: LearnerLogService) {}
 
+  @Post('batch')
+  async createBatch( @Body() body: LearnerLogCreateREQ[]) {
+    await this.learnerLogService.createBatch(body);
+  }
+
   @Post(':learnerId')
   async create(@Param('learnerId', ParseIntPipe) learnerId: number, @Body() body: LearnerLogCreateREQ) {
     await this.learnerLogService.create(learnerId, body);
-  }
-
-  @Post('batch')
-  async createBatch(@Req() req: any, @Body() body: LearnerLogCreateREQ[]) {
-    await this.learnerLogService.createBatch(req.user.id, body);
   }
 
   @Get(':learnerId')

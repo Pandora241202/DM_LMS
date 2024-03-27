@@ -51,6 +51,7 @@ export class LearningPathService {
     });
     const paths = TopicDTO.getTopicPath(topicLink, start, end);
 
+
     for (let i = 0; i < paths.length; i++) {
       temp.push([]);
       for (let j = 0; j < paths[i].length; j++) {

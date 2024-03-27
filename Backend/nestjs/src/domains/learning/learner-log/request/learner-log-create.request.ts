@@ -5,11 +5,15 @@ import { connectRelation } from 'src/shared/prisma.helper';
 export class LearnerLogCreateREQ {
   @IsNotEmpty()
   @IsNumber()
-  learningMaterialVisittedTime: bigint;
+  learningMaterialVisittedTime: number;
 
   @IsNotEmpty()
   @IsNumber()
   learningMaterialId: number;
+
+  @IsOptional()
+  @IsNumber()
+  learnerId: number;
 
   @IsOptional()
   @IsNumber()
@@ -38,6 +42,18 @@ export class LearnerLogCreateREQ {
       attempts: body.attempts,
       learningMaterial: connectRelation(body.learningMaterialId),
       learner: connectRelation(userID),
+    };
+  }
+
+  static toCreateBatchInput(body: LearnerLogCreateREQ): Prisma.LearnerLogCreateInput {
+    return {
+      learningMaterialVisittedTime: Date.now(),
+      learningMaterialRating: body.rating,
+      score: body.score,
+      time: body.time,
+      attempts: body.attempts,
+      learningMaterial: connectRelation(body.learningMaterialId),
+      learner: connectRelation(body.learnerId),
     };
   }
 }
