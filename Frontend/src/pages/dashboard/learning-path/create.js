@@ -45,40 +45,25 @@ const Page = () => {
   const handleConfirmButton = useCallback(async () => {
     setOpenBaseInfoDialog(false);
     setLoading(true);
-    setTimeout(async function (){
-      await learningPathApi.getRecommendedLearningPaths({
-        "goal": selectedGoals[-1],
-        "learningStyleQA": [...baseInfoAnswer.slice(2)],
-        "backgroundKnowledge": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[1],
-        "qualification": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[0]
+    
+    await learningPathApi.getRecommendedLearningPaths({
+      "goal": selectedGoals[-1],
+      "learningStyleQA": [...baseInfoAnswer.slice(2)],
+      "backgroundKnowledge": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[1],
+      "qualification": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[0]
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.data.length == 1) {
+          handleCreateLearningPath(response.data[0]);
+        }
+        setLoading(false);
+        setRecommendedLearningPaths(response.data);
       })
-        .then((response) => {
-          console.log(response);
-          if (response.data.length == 1) {
-            handleCreateLearningPath(response.data[0]);
-          }
-          setLoading(false);
-          setRecommendedLearningPaths(response.data);
-        })
-        .catch(error => {
-          setLoading(false);
-          console.error('Error posting data:', error);
-        })
-    }, 2000);
-    // await learningPathApi.createLearningPath({
-    //   "goal": selectedGoals[-1],
-    //   learningStyleQA: [...baseInfoAnswer.slice(2)],
-    //   "backgroundKnowledge": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[1],
-    //   "qualification": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[0]
-    // })
-    //   .then((response) => {
-    //     console.log(response);
-    //     router.push(paths.dashboard.learningPaths.index);
-    //   })
-    //   .catch(error => {
-    //     setLoading(false);
-    //     console.error('Error posting data:', error);
-    //   })
+      .catch(error => {
+        setLoading(false);
+        console.error('Error posting data:', error);
+      })
   }, [selectedGoals, baseInfoAnswer])
 
   usePageView();

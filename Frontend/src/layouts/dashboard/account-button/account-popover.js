@@ -63,6 +63,8 @@ export const AccountPopover = (props) => {
     }
   }, [auth, router, onClose]);
 
+  if (!auth.user) return null;
+
   return (
     <Popover
       anchorEl={anchorEl}
