@@ -21,7 +21,6 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Username or password incorrect');
     }
-    const learner = await this.prismaService.learner.findFirst({ where: { id: user.id } });
 
     const isMatch = await bcrypt.compare(body.password, user.password);
     if (!isMatch) throw new UnauthorizedException('Username or password incorrect');

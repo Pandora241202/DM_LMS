@@ -1,8 +1,8 @@
 import { BackgroundKnowledgeType, Prisma, QualificationType, SubjectType } from '@prisma/client';
-import { IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { ArrayNotEmpty, IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { connectManyRelation, connectRelation } from 'src/shared/prisma.helper';
 
-export class LearningPathCreateREQ {
+export class GetRecommendedLearningPathREQ {
   @IsEnum(SubjectType)
   goal: SubjectType;
 
@@ -17,6 +17,12 @@ export class LearningPathCreateREQ {
   @IsOptional()
   @IsEnum(QualificationType)
   qualification: QualificationType = QualificationType.HIGHSCHOOL;
+}
+
+export class LearningPathCreateREQ {
+  @IsArray()
+  @ArrayNotEmpty()
+  LOs: number[];
 
   static toCreateInput(learnerId: number, lmId: number, learningMaterialOrder: number): Prisma.LearningPathCreateInput {
     return {
