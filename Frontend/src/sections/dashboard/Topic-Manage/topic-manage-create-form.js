@@ -199,7 +199,7 @@ export const TopicCreateForm = (props) => {
                   <TextField
                     error={!!(formik.touched.subject && formik.errors.subject)}
                     fullWidth
-                    label="Subject"
+                    label="Phân loại mục tiêu"
                     name="subject"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
