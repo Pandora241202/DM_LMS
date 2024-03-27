@@ -20,6 +20,7 @@ import { useMounted } from '../../../hooks/use-mounted';
 import { learningPathApi } from '../../../api/learning-path';
 import { useRouter } from 'next/router';
 import { paths } from '../../../paths';
+import { useAuth } from '../../../hooks/use-auth';
 
 import * as consts from '../../../constants';
 
@@ -27,10 +28,11 @@ const useLOs = () => {
   const isMounted = useMounted();
   const [LOs, setLOs] = useState([]);
   const router = useRouter();
+  const { user } = useAuth();
 
   const getLearningPath = useCallback(async () => {
     try {
-      const response = await learningPathApi.getLearningPath();
+      const response = await learningPathApi.getLearningPath(user.id);
 
       if (isMounted()) {
         if (response.data.length == 0) {
@@ -58,7 +60,7 @@ const Page = () => {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    const onProcessingLOPage = LOs ? Math.floor((LOs.map(LO => LO.finished == 0).indexOf(true) - 1) / consts.LOS_PER_PAGE) : 0;
+    const onProcessingLOPage = LOs ? Math.floor((LOs.map(LO => LO.score == 0).indexOf(true) - 1) / consts.LOS_PER_PAGE) : 0;
     setPage(onProcessingLOPage >= 0 ? onProcessingLOPage : 0);
   },[LOs]);
 
@@ -120,14 +122,14 @@ const Page = () => {
             {LOs
             .slice(page*consts.LOS_PER_PAGE, page*consts.LOS_PER_PAGE + consts.LOS_PER_PAGE)
             .map((LO, index) => {
-              const LearningPathLOs = LO.finished >= consts.PERCENTAGE_TO_PASS_LO ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].finished >= consts.PERCENTAGE_TO_PASS_LO) ? LearningPathProcessLOs : LearningPathLockedLOs;
+              const LearningPathLOs = LO.score*10 >= consts.PERCENTAGE_TO_PASS_LO ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score*10 >= consts.PERCENTAGE_TO_PASS_LO) ? LearningPathProcessLOs : LearningPathLockedLOs;
               return (
                 <Grid
                   xs={12}
                   md={4}
                   key={LO.id}
                 >
-                  <LearningPathLOs id={LO.id} topic={LO.topic} learningObject={LO.learningObject} finished={LO.finished} />
+                  <LearningPathLOs id={LO.id} topic={LO.topic.title} learningObject={LO.name} finished={LO.score * 10} />
                 </Grid>
               )
             })}
