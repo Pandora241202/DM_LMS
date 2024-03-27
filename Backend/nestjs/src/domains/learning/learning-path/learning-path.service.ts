@@ -129,6 +129,27 @@ export class LearningPathService {
       },
     });
 
-    return lms.map((lm) => LearningMaterialRESP.fromEntity(lm as any));
+    let result = []
+    for (let i = 0; i < lmIds.length; i++){
+      const log = await this.prismaService.learnerLog.findFirst({where: { id: lmIds[i], learnerId: learnerId}, select: {
+        learningMaterial: {include: {topic: true}},
+        score: true,
+        attempts: true,
+        time: true
+      } })
+
+      if (!log) result.push({...lms[i], score: 0, attempts: 0, time: 0})
+      else result.push({
+        id: log.learningMaterial.id,
+        name: log.learningMaterial.name,
+        difficulty: log.learningMaterial.difficulty,
+        topic: log.learningMaterial.topic,
+        score: log.score,
+        attempts: log.attempts,
+        time: log.time
+      })
+    }
+
+    return result;
   }
 }
