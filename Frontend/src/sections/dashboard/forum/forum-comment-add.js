@@ -53,6 +53,8 @@ export const ForumCommentAdd = (props) => {
     }
   }, [content]);
 
+  if (!user) return null;
+
   return (
     <div {...other}>
       <Stack

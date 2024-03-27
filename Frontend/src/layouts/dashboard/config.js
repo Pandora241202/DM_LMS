@@ -43,15 +43,6 @@ export const getSections = (t) => [
         )
       },
       {
-        title: t(tokens.nav.learningPath),
-        path: paths.dashboard.learningPaths.index,
-        icon: (
-          <SvgIcon fontSize="small">
-            <RouteIcon />
-          </SvgIcon>
-        )
-      },
-      {
         title: t(tokens.nav.academy),
         path: paths.dashboard.academy.index,
         icon: (
@@ -195,6 +186,15 @@ export const getSections = (t) => [
       {
         title: t(tokens.nav.personal_info),
         path: paths.dashboard.personal_info,
+        icon: (
+          <SvgIcon fontSize="small">
+            <RouteIcon />
+          </SvgIcon>
+        )
+      },
+      {
+        title: t(tokens.nav.learningPath),
+        path: paths.dashboard.learningPaths.index,
         icon: (
           <SvgIcon fontSize="small">
             <RouteIcon />

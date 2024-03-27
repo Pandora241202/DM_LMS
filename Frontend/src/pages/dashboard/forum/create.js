@@ -61,6 +61,8 @@ const Page = () => {
     }
   }, [title, cover, labels, shortDescription, content]);
 
+  if (!user) return null;
+
   return (
     <>
       <Head>

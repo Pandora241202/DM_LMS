@@ -20,16 +20,18 @@ import {
   FormControlLabel
 } from '@mui/material';
 import { useMounted } from '../../../hooks/use-mounted';
-import { learningPathApi } from '../../../api/learning-path';
+import { userApi } from '../../../api/user';
 import * as consts from '../../../constants';
+import { useAuth } from '../../../hooks/use-auth';
 
 const useBaseInfo = () => {
+  const { user } = useAuth();
   const isMounted = useMounted();
   const [baseInfo, setBaseInfo] = useState(null);
 
   const getBaseInfo = useCallback(async () => {
     try {
-      const response = await learningPathApi.getBaseInfoLearningPath();
+      const response = await userApi.getBaseInfo(user.id);
 
       if (isMounted()) {
         setBaseInfo(response.data);

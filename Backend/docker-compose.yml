@@ -6,6 +6,8 @@ services:
     restart: always
     volumes: 
       - pgdata:/var/lib/postgresql/data
+      - $TOPICS_CSV:/tmp/topics.scv
+      - $TOPIC_LINK_CSV:/tmp/topic_link.scv
     environment:
       - POSTGRES_PASSWORD=$DB_PASSWORD
       - POSTGRES_USER=$DB_USERNAME
