@@ -21,12 +21,12 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Username or password incorrect');
     }
-    const learner = await this.prismaService.learner.findFirst({ where: { userId: user.id } });
+    const learner = await this.prismaService.learner.findFirst({ where: { id: user.id } });
 
     const isMatch = await bcrypt.compare(body.password, user.password);
     if (!isMatch) throw new UnauthorizedException('Username or password incorrect');
 
-    const jwtToken = await this.jwtService.signAsync({ user: AuthDTO.fromEntity(user as any, learner ? learner.id : null) });
-    return AuthLoginRESP.fromEntity(user as any, jwtToken, learner ? learner.id : null);
+    const jwtToken = await this.jwtService.signAsync({ user: AuthDTO.fromEntity(user as any) });
+    return AuthLoginRESP.fromEntity(user as any, jwtToken);
   }
 }

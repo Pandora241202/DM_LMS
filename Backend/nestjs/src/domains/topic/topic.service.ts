@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { TopicCreateREQ } from './request/topic-create.request';
 import { TopicUpdateREQ } from './request/topic-update.request';
 import { TopicLinkDeleteREQ } from './request/topic-link-delete.request';
 import { TopicDetailRESP } from './response/topic-detail.response';
 import { TopicLinkUpdateREQ } from './request/topic-link-update.request';
+import { connectRelation } from 'src/shared/prisma.helper';
 
 @Injectable()
 export class TopicService {
@@ -17,25 +18,71 @@ export class TopicService {
         select: { id: true },
       });
 
-      if (body.postTopicIds)
-        await tx.topicLink.createMany({
-          data: body.postTopicIds.map((postId) => ({ startId: topic.id, endId: postId })),
-        });
+      const createTopicLinkPromises = [];
+
+      if (body.postTopicIds) {
+        createTopicLinkPromises.push(
+          ...body.postTopicIds.map((postTopicId) =>
+            tx.topicLink.create({
+              data: { start: connectRelation(topic.id), end: connectRelation(postTopicId) },
+            }),
+          ),
+        );
+      }
+
+      if (body.preTopicIds) {
+        createTopicLinkPromises.push(
+          ...body.preTopicIds.map((preTopicId) =>
+            tx.topicLink.create({
+              data: { start: connectRelation(preTopicId), end: connectRelation(topic.id) },
+            }),
+          ),
+        );
+      }
+
+      await Promise.all(createTopicLinkPromises);
     });
   }
 
+  async createBatch(body: TopicCreateREQ[]) {
+    return;
+    // await this.prismaService.$transaction(async (tx) => {
+    //   // let topicIds = [];
+    //   // for (let i = 0; i < body.length; i++) {
+    //   //   const topic = await tx.topic.create({ data: TopicCreateREQ.toCreateInput(body[i]), select: { id: true } });
+    //   //   topicIds.push(topic.id);
+    //   // }
+
+    //   // for (let i = 0; i < body.length; i++) {
+    //   //   if (body[i].postTopicIds)
+    //   //     await tx.topicLink.createMany({
+    //   //       data: body[i].postTopicIds.map((postId) => ({ startId: topicIds[i], endId: postId })),
+    //   //     });
+
+    //   //   if (body[i].preTopicIds)
+    //   //     await tx.topicLink.createMany({
+    //   //       data: body[i].postTopicIds.map((preId) => ({ startId: preId, endId: topicIds[i] })),
+    //   //     });
+    //   // }
+    // });
+  }
+
   async detail(id: number) {
-    const topic = await this.prismaService.topic.findFirst({where: { id}, select: {title: true}})
+    const topic = await this.prismaService.topic.findFirst({ where: { id: id }, select: { title: true } });
 
-    const preTopics = (await this.prismaService.topicLink.findMany({where: {endId : id}, select: {startId: true, start: true}})).map(t => t.start);
+    const preTopics = (
+      await this.prismaService.topicLink.findMany({ where: { state: true, endId: id }, select: { startId: true, start: true } })
+    ).map((t) => t.start);
 
-    const postTopics = (await this.prismaService.topicLink.findMany({where: {startId : id}, select: {endId: true, end: true}})).map(t => t.end);
+    const postTopics = (
+      await this.prismaService.topicLink.findMany({ where: { state: true, startId: id }, select: { endId: true, end: true } })
+    ).map((t) => t.end);
 
     return {
       title: topic.title,
       preTopics: preTopics,
       postTopics: postTopics,
-    }
+    };
   }
 
   async update(id: number, body: TopicUpdateREQ) {
@@ -44,7 +91,18 @@ export class TopicService {
       data: TopicUpdateREQ.toUpdateInput(body),
     });
 
-    if (body.postIds) await this.prismaService.topicLink.createMany({ data: TopicUpdateREQ.toCreateLink(id, body) });
+    this.prismaService.$transaction(async (tx) => {
+      if (body.addPreIds) await tx.topicLink.createMany({ data: TopicUpdateREQ.toCreatePreLink(id, body.addPreIds) });
+      if (body.addPostIds) await tx.topicLink.createMany({ data: TopicUpdateREQ.toCreatePostLink(id, body.addPostIds) });
+
+      if (body.deletePreIds)
+        for (let i = 0; i < body.deletePreIds.length; i++)
+          await tx.topicLink.deleteMany({ where: { startId: body.deletePreIds[i], endId: id } });
+
+      if (body.deletePostIds)
+        for (let i = 0; i < body.deletePostIds.length; i++)
+          await tx.topicLink.deleteMany({ where: { startId: id, endId: body.deletePostIds[i] } });
+    });
   }
 
   async updateLink(id: number, body: TopicLinkUpdateREQ) {

@@ -10,7 +10,6 @@
 
 
 
-<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-55">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>55</system-ontology:lmID>
@@ -21,25 +20,11 @@
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18.0</system-ontology:time>
             <system-ontology:topic>94</system-ontology:topic>
-=======
-        
-        
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-18">
-            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
-            <system-ontology:difficulty>1.0</system-ontology:difficulty>
-            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
-            <system-ontology:lmID>18</system-ontology:lmID>
-            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
-            <system-ontology:score>8.0</system-ontology:score>
-            <system-ontology:time>12.0</system-ontology:time>
-            <system-ontology:topic>13</system-ontology:topic>
->>>>>>> python-server
         </owl:NamedIndividual>
         
         
         
         
-<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-56">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>56</system-ontology:lmID>
@@ -68,13 +53,10 @@
         </owl:NamedIndividual>
         
         
-=======
->>>>>>> python-server
         
         
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-10">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
-<<<<<<< HEAD
             <system-ontology:lmID>10</system-ontology:lmID>
             <system-ontology:name>Code B</system-ontology:name>
             <system-ontology:difficulty rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.3</system-ontology:difficulty>
@@ -82,21 +64,12 @@
             <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</system-ontology:material_ratings>
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
-=======
-            <system-ontology:difficulty>0.3</system-ontology:difficulty>
-            <system-ontology:learning_resouce_type>CODE</system-ontology:learning_resouce_type>
-            <system-ontology:lmID>10</system-ontology:lmID>
-            <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
-            <system-ontology:score>10.0</system-ontology:score>
-            <system-ontology:time>30.0</system-ontology:time>
->>>>>>> python-server
             <system-ontology:topic>1</system-ontology:topic>
         </owl:NamedIndividual>
         
         
         
         
-<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-58">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>58</system-ontology:lmID>
@@ -121,25 +94,12 @@
             <system-ontology:material_ratings rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4.0</system-ontology:material_ratings>
             <system-ontology:score rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</system-ontology:score>
             <system-ontology:time rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</system-ontology:time>
-=======
-        
-        
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-6">
-            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
-            <system-ontology:difficulty>0.3</system-ontology:difficulty>
-            <system-ontology:learning_resouce_type>WORD</system-ontology:learning_resouce_type>
-            <system-ontology:lmID>6</system-ontology:lmID>
-            <system-ontology:material_ratings>4.0</system-ontology:material_ratings>
-            <system-ontology:score>10.0</system-ontology:score>
-            <system-ontology:time>30.0</system-ontology:time>
->>>>>>> python-server
             <system-ontology:topic>1</system-ontology:topic>
         </owl:NamedIndividual>
         
         
         
         
-<<<<<<< HEAD
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-59">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
             <system-ontology:lmID>59</system-ontology:lmID>
@@ -228,8 +188,6 @@
         </owl:NamedIndividual>
         
         
-=======
->>>>>>> python-server
         
         
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-12">
@@ -9318,17 +9276,10 @@
             <system-ontology:learnerID>25</system-ontology:learnerID>
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
-<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
-=======
-            <system-ontology:active_reflective>0</system-ontology:active_reflective>
-            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
-            <system-ontology:sequential_global>1</system-ontology:sequential_global>
-            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
->>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -9339,17 +9290,10 @@
             <system-ontology:learnerID>22</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
-<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:sensitive_intuitive>
-=======
-            <system-ontology:active_reflective>0</system-ontology:active_reflective>
-            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
-            <system-ontology:sequential_global>1</system-ontology:sequential_global>
-            <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
->>>>>>> python-server
         </owl:NamedIndividual>
 
 
@@ -9360,17 +9304,10 @@
             <system-ontology:learnerID>49</system-ontology:learnerID>
             <system-ontology:qualification>HIGHSCHOOL</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
-<<<<<<< HEAD
             <system-ontology:active_reflective rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:active_reflective>
             <system-ontology:visual_verbal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</system-ontology:visual_verbal>
             <system-ontology:global_sequential rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</system-ontology:global_sequential>
             <system-ontology:sensitive_intuitive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-1</system-ontology:sensitive_intuitive>
-=======
-            <system-ontology:active_reflective>0</system-ontology:active_reflective>
-            <system-ontology:visual_verbal>2</system-ontology:visual_verbal>
-            <system-ontology:sequential_global>0</system-ontology:sequential_global>
-            <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
->>>>>>> python-server
         </owl:NamedIndividual>
 
 
