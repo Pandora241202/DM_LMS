@@ -68,7 +68,7 @@ export const LMManageListSearch = (props) => {
     const filters = {
       name: undefined,
       type: [],
-      status: [],
+      topicId: [],
       inStock: undefined
     };
 
@@ -82,8 +82,8 @@ export const LMManageListSearch = (props) => {
         case 'type':
           filters.type.push(chip.value);
           break;
-        case 'status':
-          filters.status.push(chip.value);
+        case 'topicId':
+          filters.topicId.push(chip.value);
           break;
         case 'inStock':
           // The value can be "available" or "outOfStock" and we transform it to a boolean
@@ -164,7 +164,7 @@ export const LMManageListSearch = (props) => {
 
       // First cleanup the previous chips
       const newChips = prevChips.filter((chip) => {
-        if (chip.field !== 'status') {
+        if (chip.field !== 'topicId') {
           return true;
         }
 
@@ -187,8 +187,8 @@ export const LMManageListSearch = (props) => {
           const option = statusOptions.find((option) => option.value === value);
 
           newChips.push({
-            label: 'Status',
-            field: 'status',
+            label: 'TopicId',
+            field: 'topicId',
             value,
             displayValue: option.label
           });
@@ -241,7 +241,7 @@ export const LMManageListSearch = (props) => {
     .map((chip) => chip.value), [chips]);
 
   const statusValues = useMemo(() => chips
-    .filter((chip) => chip.field === 'status')
+    .filter((chip) => chip.field === 'topicId')
     .map((chip) => chip.value), [chips]);
 
   const stockValues = useMemo(() => {
@@ -345,7 +345,7 @@ export const LMManageListSearch = (props) => {
           value={typeValues}
         />
         {/* <MultiSelect
-          label="Status"
+          label="TopicId"
           onChange={handleStatusChange}
           options={statusOptions}
           value={statusValues}

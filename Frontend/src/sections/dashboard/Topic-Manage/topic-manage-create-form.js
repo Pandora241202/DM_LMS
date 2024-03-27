@@ -23,7 +23,32 @@ import { paths } from '../../../paths';
 import { topic_manageApi } from '../../../api/Topic-Manage';
 import { useMounted } from '../../../hooks/use-mounted';
 
-
+const subjectOptions = [
+  {
+    label: 'FUNDAMENTALS',
+    value: 'FUNDAMENTALS'
+  },
+  {
+    label: 'DATA SCIENTIST',
+    value: 'DATA_SCIENTIST'
+  },
+  {
+    label: 'MACHINE LEARNING',
+    value: 'MACHINE_LEARNING'
+  },
+  {
+    label: 'DEEP LEARNING',
+    value: 'DEEP_LEARNING'
+  },
+  {
+    label: 'DATA ENGINEER',
+    value: 'DATA_ENGINEER'
+  },
+  {
+    label: 'BIG DATA ENGINEER',
+    value: 'BIG_DATA_ENGINEER'
+  }
+];
 const categoryOptions = [
   {
     label: 'Video',
@@ -66,6 +91,7 @@ const validationSchema = Yup.object({
   // description: Yup.string().max(5000),
   // images: Yup.array(),
   name: Yup.string().max(255).required(),
+  subject: Yup.string().max(255).required(),
   preTopicId: Yup.number().min(0),
   postTopicId: Yup.number().min(0)
   // duration : Yup.number().min(0).required(),
@@ -88,8 +114,9 @@ export const TopicCreateForm = (props) => {
         // console.log(formik.values);
         await topic_manageApi.createTopic({
           title: values.name,
-          preTopicId: values.preTopicId,
-          postTopicId: values.postTopicId,
+          subject: values.subject,
+          preTopicId: [values.preTopicId],
+          postTopicId: [values.postTopicId],
       })
         toast.success('Chủ đề học tập đã được tạo');
         router.push(paths.dashboard.Topic_Manage);
@@ -169,6 +196,26 @@ export const TopicCreateForm = (props) => {
                     onChange={formik.handleChange}
                     value={formik.values.name}
                   />
+                  <TextField
+                    error={!!(formik.touched.subject && formik.errors.subject)}
+                    fullWidth
+                    label="Subject"
+                    name="subject"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.subject}
+                    select
+                  >
+                    {subjectOptions.map((option) => (
+                      <MenuItem
+                        key={option.value}
+                        value={option.value}
+                        selected
+                      >
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                   <TextField
                     error={!!(formik.touched.preTopicId && formik.errors.preTopicId)}
                     fullWidth

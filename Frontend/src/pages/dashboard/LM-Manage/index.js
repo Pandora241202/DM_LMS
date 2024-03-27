@@ -21,6 +21,7 @@ import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
 import { LMManageListSearch } from '../../../sections/dashboard/LM-Manage/lm-manage-list-search';
 import { LMManageListTable } from '../../../sections/dashboard/LM-Manage/lm-manage-list-table';
+import { applyPagination } from '../../../utils/apply-pagination';
 
 const useSearch = () => {
   const [search, setSearch] = useState({
@@ -80,12 +81,59 @@ const useLMs = (search) => {
   const getLMs = useCallback(async () => {
     try {
       // const response = await lm_manageApi.getLMs(search);
-      const response = await lm_manageApi.getLMs()
+      const response = await lm_manageApi.getLMs();
+      let data = response.data;
+      if (typeof search.filters !== 'undefined') {
+        data = data.filter((lm) => {
+          if (typeof search.filters.name !== 'undefined' && search.filters.name !== '') {
+            const nameMatched = lm.name.toLowerCase().includes(filters.name.toLowerCase());
+  
+            if (!nameMatched) {
+              return false;
+            }
+          }
+  
+          // It is possible to select multiple type options
+          if (typeof search.filters.type !== 'undefined' && search.filters.type.length > 0) {
+            const categoryMatched = search.filters.type.includes(lm.type);
+  
+            if (!categoryMatched) {
+              return false;
+            }
+          }
+  
+          // It is possible to select multiple topicId options
+          if (typeof search.filters.topicId !== 'undefined' && search.filters.topicId.length > 0) {
+            const statusMatched = search.filters.topicId.includes(lm.topicId);
+  
+            if (!statusMatched) {
+              return false;
+            }
+          }
+  
+          // Present only if filter required
+          if (typeof search.filters.inStock !== 'undefined') {
+            const stockMatched = lm.inStock === search.filters.inStock;
+  
+            if (!stockMatched) {
+              return false;
+            }
+          }
+  
+          return true;
+        });
+      }
+  
+      // if (typeof search.page !== 'undefined' && typeof search.rowsPerPage !== 'undefined') {
+      //   data = applyPagination(data, search.page, search.rowsPerPage);
+      // }
+      console.log(data);
+      console.log(search);
 
       if (isMounted()) {
         setState({
-          LMs: response.data,
-          LMsCount: response.data.length
+          LMs: data,
+          LMsCount: data.length
         });
       }
     } catch (err) {
