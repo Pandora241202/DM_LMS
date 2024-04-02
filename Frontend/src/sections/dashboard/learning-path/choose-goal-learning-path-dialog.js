@@ -23,7 +23,7 @@ import * as consts from '../../../constants';
 export const ChooseGoalLearningPathDialog = (props) => {
   const { onClose, onContinue, open = false, selectedGoals, setSelectedGoals, ...other } = props;
   const settings = useSettings();
-
+  console.log(selectedGoals)
   return (
     <Dialog
       fullWidth

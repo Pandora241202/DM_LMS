@@ -14,8 +14,8 @@ export class LearningPathConttroller {
   }
 
   @Post(':learnerId')
-  async create(@Param('learnerId', ParseIntPipe) learnerId: number, @Body() body: GetRecommendedLearningPathREQ) {
-    return await this.learningPathService.calculateRecommendedOnes(learnerId, body);
+  async create(@Param('learnerId', ParseIntPipe) learnerId: number, @Body() body: LearningPathCreateREQ) {
+    return await this.learningPathService.create(learnerId, body);
   }
 
   @Get(':learnerId')

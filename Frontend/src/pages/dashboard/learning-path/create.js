@@ -33,7 +33,7 @@ const Page = () => {
 
   const handleCreateLearningPath = useCallback( async (chosenLearningPath) => {
     await learningPathApi.createLearningPath(user.id, {
-      "learningPath": chosenLearningPath
+      "LOs": chosenLearningPath
     })
       .then(() => {
         router.push(paths.dashboard.learningPaths.index);
@@ -47,9 +47,9 @@ const Page = () => {
   const handleConfirmButton = useCallback(async () => {
     setOpenBaseInfoDialog(false);
     setLoading(true);
-    
+
     await learningPathApi.getRecommendedLearningPaths(user.id, {
-      "goal": selectedGoals[-1],
+      "goal": selectedGoals[0],
       "learningStyleQA": [...baseInfoAnswer.slice(2)],
       "backgroundKnowledge": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[1],
       "qualification": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[0]
@@ -69,7 +69,7 @@ const Page = () => {
   }, [selectedGoals, baseInfoAnswer])
 
   usePageView();
-
+  
   return (
     <>
       <Head>
