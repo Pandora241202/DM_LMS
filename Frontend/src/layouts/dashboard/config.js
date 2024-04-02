@@ -25,6 +25,10 @@ import Upload04Icon from '../../icons/untitled-ui/duocolor/upload-04';
 import Users03Icon from '../../icons/untitled-ui/duocolor/users-03';
 import XSquareIcon from '../../icons/untitled-ui/duocolor/x-square';
 import RouteIcon from '@mui/icons-material/Route';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import { tokens } from '../../locales/tokens';
 import { paths } from '../../paths';
 
@@ -188,7 +192,7 @@ export const getSections = (t) => [
         path: paths.dashboard.personal_info,
         icon: (
           <SvgIcon fontSize="small">
-            <RouteIcon />
+            <AccountBoxIcon />
           </SvgIcon>
         )
       },
@@ -229,7 +233,7 @@ export const getSections = (t) => [
         path: paths.dashboard.LM_Manage,
         icon: (
           <SvgIcon fontSize="small">
-            <RouteIcon />
+            <ArticleOutlinedIcon />
           </SvgIcon>
         )
       },
@@ -238,7 +242,7 @@ export const getSections = (t) => [
         path: paths.dashboard.Topic_Manage,
         icon: (
           <SvgIcon fontSize="small">
-            <RouteIcon />
+            <AccountTreeOutlinedIcon />
           </SvgIcon>
         )
       },
@@ -247,7 +251,7 @@ export const getSections = (t) => [
         path: paths.dashboard.Account_Manage,
         icon: (
           <SvgIcon fontSize="small">
-            <RouteIcon />
+            <ManageAccountsOutlinedIcon />
           </SvgIcon>
         )
       },

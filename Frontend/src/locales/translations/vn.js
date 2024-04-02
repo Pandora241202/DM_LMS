@@ -43,6 +43,7 @@ export const vn = {
   [tokens.nav.management]: 'Management',
   [tokens.nav.model]: 'Model',
   [tokens.nav.models]: 'Models',
+  [tokens.nav.note]: 'Ghi chú',
   [tokens.nav.orderList]: 'Orders',
   [tokens.nav.overview]: 'Overview',
   [tokens.nav.pages]: 'Pages',
