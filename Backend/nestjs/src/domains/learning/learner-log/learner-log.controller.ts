@@ -10,13 +10,13 @@ export class LearnerLogController {
   constructor(private readonly learnerLogService: LearnerLogService) {}
 
   @Post('batch')
-  async createBatch( @Body() body: LearnerLogCreateREQ[]) {
+  async createBatch(@Body() body: LearnerLogCreateREQ[]) {
     await this.learnerLogService.createBatch(body);
   }
 
   @Post(':learnerId')
   async create(@Param('learnerId', ParseIntPipe) learnerId: number, @Body() body: LearnerLogCreateREQ) {
-    console.log(body)
+    console.log(body);
     await this.learnerLogService.create(learnerId, body);
   }
 
