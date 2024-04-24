@@ -1,8 +1,7 @@
-import { Body, Controller, Get, HttpStatus, Param, ParseIntPipe, Post, Req, Response, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
 import { LearnerLogService } from './learner-log.service';
 import { AuthGuard } from 'src/domains/auth/auth.guard';
 import { LearnerLogCreateREQ } from './request/learner-log-create.request';
-import { response } from 'express';
 
 // @UseGuards(AuthGuard)
 @Controller('learner-logs')
