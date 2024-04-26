@@ -13,7 +13,7 @@ export class FileController {
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
-        destination: './uploads',
+        destination: './uploads/materialFiles',
         filename: (req: Request, file, cb) => {
           const uniqueId = nanoid();
           const fileName = `${uniqueId}--${file.originalname}`;

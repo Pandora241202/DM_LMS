@@ -1,4 +1,4 @@
-import { Answer, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { Quiz } from '../request/learning-material-create.request';
 
 export class CodeDTO {

@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Res, StreamableFile } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Res } from '@nestjs/common';
 import { LearningMaterialService } from './learning-material.service';
 import { LearningMaterialCreateREQ } from './request/learning-material-create.request';
-import { createReadStream, readFileSync } from 'fs';
+import { createReadStream} from 'fs';
 import { join } from 'path';
 import { Response } from 'express';
 
@@ -24,11 +24,11 @@ export class LearningMaterialController {
     const lm = await this.learningMaterialService.detail(id);
 
     if (lm.type === 'OTHER') {
-      console.log('hello');
-
-      const file = createReadStream(join('./uploads/', lm.DTO.fileName as string));
+      const file = createReadStream(join('./uploads/materialFiles/', lm.DTO.fileName as string));
       file.pipe(res);
-    } else return res.status(200).json(lm.DTO);
+    }
+    else return res.status(200).json(lm.DTO);
+  
   }
 
   @Get()
