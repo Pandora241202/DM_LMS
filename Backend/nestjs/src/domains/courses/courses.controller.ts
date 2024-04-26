@@ -5,15 +5,15 @@ import { CourseUpdateREQ } from './request/courses-update.request';
 
 @Controller('courses')
 export class CourseController {
-    constructor(public readonly courseService: CourseService){}
+  constructor(public readonly courseService: CourseService) {}
 
-    @Post('')
-    async create(@Body() body: CourseCreateREQ) {
-        await this.courseService.create(body);
-    }
+  @Post('')
+  async create(@Body() body: CourseCreateREQ) {
+    await this.courseService.create(body);
+  }
 
-    @Patch(':id')
-    async update(@Param('id', ParseIntPipe) id: number, @Body() body: CourseUpdateREQ) {
-        await this.courseService.update(id, body);
-    }
+  @Patch(':id')
+  async update(@Param('id', ParseIntPipe) id: number, @Body() body: CourseUpdateREQ) {
+    await this.courseService.update(id, body);
+  }
 }

@@ -8,31 +8,31 @@ datasource db {
 }
 
 model AuthenticatedUser {
-  id          Int         @id @default(autoincrement())
-  avatar      String?
-  email       String
-  name        String
-  birth       BigInt
-  gender      GenderType  @default(UNKNOWN)
-  language    String
-  password    String
-  username    String
-  refeshToken String?     @map("refesh_token")
-  state       Boolean     @default(true)
-  lastLogin   BigInt      @map("last_login")
-  lastLogout  BigInt      @map("last_logout")
-  accountType AccountType
+  id               Int                @id @default(autoincrement())
+  avatar           String?
+  email            String
+  name             String
+  birth            BigInt
+  gender           GenderType         @default(UNKNOWN)
+  language         String
+  password         String
+  username         String             @unique
+  refeshToken      String?            @map("refesh_token")
+  state            Boolean            @default(true)
+  lastLogin        BigInt             @map("last_login")
+  lastLogout       BigInt             @map("last_logout")
+  accountType      AccountType
+  Course           Course[]
+  Dataset          Dataset[]
+  Forum            Forum[]
+  Framework        Framework[]
+  Learner          Learner?
+  LearningMaterial LearningMaterial[]
+  Model            Model[]
+  Permission       Permission[]
+  Role             Role[]
+  Statement        Statement[]
 
-  Forum      Forum[]
-  Statement  Statement[]
-  Dataset    Dataset[]
-  Model      Model[]
-  Framework  Framework[]
-  Role       Role[]
-  Permission Permission[]
-  Learner    Learner[]
-
-  @@unique([username])
   @@map("authenticated_user")
 }
 
@@ -43,37 +43,35 @@ model Learner {
   sequentialGlobal    Int?                     @map("sequential_global")
   backgroundKnowledge BackgroundKnowledgeType? @map("background_knowledge")
   qualification       QualificationType?
+  id                  Int                      @unique @map("user_id")
+  log                 LearnerLog[]
+  user                AuthenticatedUser        @relation(fields: [id], references: [id])
+  LearningPath        LearningPath[]
+  Practice            Practice[]
 
-  user AuthenticatedUser @relation(fields: [id], references: [id])
-  id   Int               @map("user_id")
-
-  Practice Practice[]
-
-  log          LearnerLog[]
-  LearningPath LearningPath[]
-
-  @@unique([id])
   @@map("learners")
 }
 
 model LearningMaterial {
-  id Int @id @default(autoincrement())
-
-  name       String
-  difficulty Float
-  type       LearningMaterialType
-  rating     Float
-  score      Float
-  time       Float?
-
-  LearnerLog   LearnerLog[]
-  LearningPath LearningPath[]
-  topic        Topic          @relation(fields: [topicId], references: [id])
-  topicId      Int            @map("topic_id")
-  Exercise     Exercise[]
-  Other        Other[]
-  Lesson       Lesson?        @relation(fields: [lessonId], references: [id])
+  id           Int                  @id @default(autoincrement())
+  name         String?
+  difficulty   Float
+  type         LearningMaterialType
+  rating       Float
+  score        Float
+  time         Float?
+  topicId      Int                  @map("topic_id")
   lessonId     Int?
+  creatorId    Int?                 @map("creator_id")
+  exerciseId   Int?
+  otherId      Int?
+  LearnerLog   LearnerLog[]
+  Creator      AuthenticatedUser?   @relation(fields: [creatorId], references: [id])
+  Exercise     Exercise?            @relation(fields: [exerciseId], references: [id])
+  Lesson       Lesson?              @relation(fields: [lessonId], references: [id])
+  Other        Other?               @relation(fields: [otherId], references: [id])
+  Topic        Topic                @relation(fields: [topicId], references: [id])
+  LearningPath LearningPath[]
 
   @@map("learning_materials")
 }
@@ -83,245 +81,262 @@ model Course {
   idInstructor Int                     @map("id_instructor")
   name         String
   visibility   Boolean
-  level        BackgroundKnowledgeType
   description  String
   amountOfTime Int                     @map("amount_of_time")
-
-  Lesson Lesson[]
+  level        BackgroundKnowledgeType
+  Instructor   AuthenticatedUser       @relation(fields: [idInstructor], references: [id])
+  Lesson       Lesson[]                @relation("course_to_lesson")
 
   @@map("courses")
 }
 
 model Lesson {
-  id           Int     @id @default(autoincrement())
-  title        String
-  amountOfTime Int     @default(0) @map("amount_of_time")
-  visibility   Boolean @default(true)
-
-  Course           Course[]
+  id               Int                @id @default(autoincrement())
+  title            String
+  amountOfTime     Int                @default(0) @map("amount_of_time")
+  visibility       Boolean            @default(true)
   LearningMaterial LearningMaterial[]
+  Course           Course[]           @relation("course_to_lesson")
 
   @@map("lessons")
 }
 
 model Topic {
-  id      Int         @id @default(autoincrement())
-  title   String
-  subject SubjectType
-
+  id               Int                @id @default(autoincrement())
+  title            String
+  subject          SubjectType
   LearningMaterial LearningMaterial[]
-
-  StartLink TopicLink[] @relation("start_link")
-  EndLink   TopicLink[] @relation("end_link")
+  EndLink          TopicLink[]        @relation("end_link")
+  StartLink        TopicLink[]        @relation("start_link")
 
   @@map("topics")
 }
 
 model TopicLink {
-  id    Int     @id @default(autoincrement())
-  state Boolean @default(true)
-
-  start   Topic  @relation("start_link", fields: [startId], references: [id])
-  startId Int    @map("start_id")
-  end     Topic? @relation("end_link", fields: [endId], references: [id])
-  endId   Int?   @map("end_id")
+  id      Int     @id @default(autoincrement())
+  state   Boolean @default(true)
+  startId Int     @map("start_id")
+  endId   Int?    @map("end_id")
+  end     Topic?  @relation("end_link", fields: [endId], references: [id])
+  start   Topic   @relation("start_link", fields: [startId], references: [id])
 
   @@unique([startId, endId])
   @@map("topic_link")
 }
 
 model Exercise {
-  id Int @id @default(autoincrement())
-
-  learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
-  learningMaterialId Int              @map("learning_material_id")
-
-  Practice Practice[]
+  id               Int                @id @default(autoincrement())
+  codeId           Int?
+  quizId           Int?
+  code             Code?              @relation(fields: [codeId], references: [id])
+  quiz             Quiz?              @relation(fields: [quizId], references: [id])
+  LearningMaterial LearningMaterial[]
+  Practice         Practice[]
 
   @@map("exercises")
 }
 
 model Other {
-  id      Int                  @id @default(autoincrement())
-  type    LearningMaterialType
-  content String
-
-  learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
-  learningMaterialId Int              @map("learning_material_id")
+  id               Int                @id @default(autoincrement())
+  fileId           Int
+  LearningMaterial LearningMaterial[]
+  file             File               @relation(fields: [fileId], references: [id])
 
   @@map("others")
 }
 
 model Code {
-  id       Int    @id @default(autoincrement())
-  question String
-  answer   String
+  id           Int        @id @default(autoincrement())
+  question     String
+  inputFileId  Int
+  outputFileId Int
+  inputFile    File       @relation("input_file", fields: [inputFileId], references: [id])
+  outputFile   File       @relation("output_file", fields: [outputFileId], references: [id])
+  Exercise     Exercise[]
 
   @@map("codes")
 }
 
-model Quizz {
-  id               Int       @id @default(autoincrement())
-  question         String
-  choice           String[]
-  answer           Boolean[]
+model Quiz {
+  id               Int        @id @default(autoincrement())
   duration         BigInt
-  shuffleQuestions Boolean   @map("shuffle_question")
+  shuffleQuestions Boolean    @map("shuffle_question")
+  Exercise         Exercise[]
+  question         Question[]
 
-  @@map("quizzes")
+  @@map("quizes")
+}
+
+model Question {
+  id      Int      @id @default(autoincrement())
+  content String
+  quizId  Int?
+  choice  Answer[]
+  Quiz    Quiz?    @relation(fields: [quizId], references: [id])
+
+  @@map("questions")
+}
+
+model Answer {
+  id          Int       @id @default(autoincrement())
+  content     String
+  correctness Boolean
+  questionId  Int?
+  Question    Question? @relation(fields: [questionId], references: [id])
+
+  @@map("answers")
 }
 
 model Practice {
-  id       Int    @id @default(autoincrement())
-  attempt  Int
-  answer   String
-  language String
-
-  learner   Learner @relation(fields: [learnerId], references: [id])
-  learnerId Int     @map("learner_id")
-
-  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  id         Int      @id @default(autoincrement())
+  attempt    Int
+  answer     String
+  language   String
+  learnerId  Int      @map("learner_id")
   exerciseId Int      @map("exercise_id")
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  learner    Learner  @relation(fields: [learnerId], references: [id])
 
   @@map("practices")
 }
 
 model LearnerLog {
-  id                           Int    @id @default(autoincrement())
-  learningMaterialVisittedTime BigInt @map("learning_material_visitted_time")
-  learningMaterialRating       Int    @map("learning_material_rating")
-
-  score    Float?
-  time     Float?
-  attempts Int
-
-  learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
-  learningMaterialId Int              @map("learning_material_id")
-  learner            Learner?         @relation(fields: [learnerId], references: [id])
-  learnerId          Int?             @map("learner_id")
+  id                           Int              @id @default(autoincrement())
+  learningMaterialVisittedTime BigInt           @map("learning_material_visitted_time")
+  learningMaterialRating       Int              @map("learning_material_rating")
+  score                        Float?
+  time                         Float?
+  attempts                     Int
+  learningMaterialId           Int              @map("learning_material_id")
+  learnerId                    Int?             @map("learner_id")
+  state                        Boolean          @default(true)
+  learner                      Learner?         @relation(fields: [learnerId], references: [id])
+  learningMaterial             LearningMaterial @relation(fields: [learningMaterialId], references: [id])
 
   @@map("learner_logs")
 }
 
 model LearningPath {
-  id                    Int     @id @default(autoincrement())
-  isActive              Boolean @default(true) @map("is_active")
-  learningMaterialOrder Int     @map("learning_material_order")
+  id                    Int              @id @default(autoincrement())
+  isActive              Boolean          @default(true) @map("is_active")
+  learningMaterialOrder Int              @map("learning_material_order")
   learned               Boolean
-
-  learningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
-  learningMaterialId Int
-  learner            Learner?         @relation(fields: [learnerId], references: [id])
-  learnerId          Int?
+  learningMaterialId    Int
+  learnerId             Int?
+  learner               Learner?         @relation(fields: [learnerId], references: [id])
+  learningMaterial      LearningMaterial @relation(fields: [learningMaterialId], references: [id])
 
   @@map("learning_paths")
 }
 
 model Forum {
-  id               Int      @id @default(autoincrement())
-  title            String
-  label            String[]
-  shortDescription String
-  content          String
-  coverImage       String?
-  readTimes        Int      @default(0)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @default(now())
-
-  authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
+  id                Int               @id @default(autoincrement())
+  title             String
+  label             String[]
+  shortDescription  String
+  content           String
+  coverImage        String?
+  readTimes         Int               @default(0)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @default(now())
   userId            Int
-
-  Statement Statement[]
+  authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
+  Statement         Statement[]
 
   @@map("forums")
 }
 
 model Statement {
-  id        Int      @id @default(autoincrement())
-  content   String
-  updatedAt DateTime @default(now())
-
-  forum   Forum @relation(fields: [forumId], references: [id])
-  forumId Int
-
-  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
+  id                  Int               @id @default(autoincrement())
+  content             String
+  updatedAt           DateTime          @default(now())
+  forumId             Int
   authenticatedUserId Int
-
-  preStatement Statement?  @relation("pre_order", fields: [statementId], references: [id])
-  Statement    Statement[] @relation("pre_order")
-  statementId  Int?
+  statementId         Int?
+  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
+  forum               Forum             @relation(fields: [forumId], references: [id])
+  preStatement        Statement?        @relation("pre_order", fields: [statementId], references: [id])
+  Statement           Statement[]       @relation("pre_order")
 
   @@map("statements")
 }
 
 model Role {
-  id   Int    @id @default(autoincrement())
-  role String
-
-  AuthenticatedUser   AuthenticatedUser? @relation(fields: [authenticatedUserId], references: [id])
+  id                  Int                @id @default(autoincrement())
+  role                String
   authenticatedUserId Int?               @map("authenticated_user_id")
+  AuthenticatedUser   AuthenticatedUser? @relation(fields: [authenticatedUserId], references: [id])
 
   @@map("roles")
 }
 
 model Permission {
-  id         Int    @id @default(autoincrement())
-  permission String
-
-  AuthenticatedUser   AuthenticatedUser? @relation(fields: [authenticatedUserId], references: [id])
+  id                  Int                @id @default(autoincrement())
+  permission          String
   authenticatedUserId Int?               @map("authenticated_user_id")
+  AuthenticatedUser   AuthenticatedUser? @relation(fields: [authenticatedUserId], references: [id])
 
   @@map("permissions")
 }
 
 model Dataset {
-  id          Int     @id @default(autoincrement())
-  description String
-  content     String
-  status      Boolean
-
-  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
+  id                  Int               @id @default(autoincrement())
+  description         String
+  content             String
+  status              Boolean
   authenticatedUserId Int               @map("authenticated_user_id")
+  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
   Model               Model[]
 
   @@map("datasets")
 }
 
 model Model {
-  id             Int     @id @default(autoincrement())
-  modelAttribute String  @map("model_attribute")
-  content        String
-  status         Boolean
-
-  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
+  id                  Int               @id @default(autoincrement())
+  modelAttribute      String            @map("model_attribute")
+  content             String
+  status              Boolean
   authenticatedUserId Int               @map("authenticated_user_id")
-
-  dataset   Dataset @relation(fields: [datasetId], references: [id])
-  datasetId Int
+  datasetId           Int
+  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
+  dataset             Dataset           @relation(fields: [datasetId], references: [id])
 
   @@map("models")
 }
 
 model Framework {
-  id                  Int    @id @default(autoincrement())
+  id                  Int               @id @default(autoincrement())
   description         String
-  usedTimes           Int    @map("used_times")
-  programmingLanguage String @map("programming_language")
+  usedTimes           Int               @map("used_times")
+  programmingLanguage String            @map("programming_language")
   content             String
-
-  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
   authenticatedUserId Int               @map("authenticated_user_id")
+  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
 
   @@map("frameworks")
+}
+
+model File {
+  id         Int     @id @default(autoincrement())
+  name       String
+  prefix     String
+  state      Boolean @default(true)
+  type       String?
+  CodeInput  Code[]  @relation("input_file")
+  CodeOutput Code[]  @relation("output_file")
+  Other      Other[]
+
+  @@map("files")
 }
 
 enum LearningMaterialType {
   PDF
   VIDEO
-  QUIZZ
+  QUIZ
   WORD
   CODE
   PPT
+  QUIZZ
 }
 
 enum AccountType {
