@@ -72,18 +72,20 @@ model LearningMaterial {
   topicId      Int            @map("topic_id")
   Exercise     Exercise[]
   Other        Other[]
+  Lesson       Lesson?        @relation(fields: [lessonId], references: [id])
+  lessonId     Int?
 
   @@map("learning_materials")
 }
 
 model Course {
-  id           Int     @id @default(autoincrement())
-  idInstructor Int     @map("id_instructor")
+  id           Int                     @id @default(autoincrement())
+  idInstructor Int                     @map("id_instructor")
   name         String
   visibility   Boolean
-  level        String
+  level        BackgroundKnowledgeType
   description  String
-  amountOfTime Int     @map("amount_of_time")
+  amountOfTime Int                     @map("amount_of_time")
 
   Lesson Lesson[]
 
@@ -91,11 +93,13 @@ model Course {
 }
 
 model Lesson {
-  id    Int    @id @default(autoincrement())
-  title String
+  id           Int     @id @default(autoincrement())
+  title        String
+  amountOfTime Int     @default(0) @map("amount_of_time")
+  visibility   Boolean @default(true)
 
-  Course Course[]
-  Topic  Topic[]
+  Course           Course[]
+  LearningMaterial LearningMaterial[]
 
   @@map("lessons")
 }
@@ -105,7 +109,6 @@ model Topic {
   title   String
   subject SubjectType
 
-  Lesson           Lesson[]
   LearningMaterial LearningMaterial[]
 
   StartLink TopicLink[] @relation("start_link")
@@ -210,7 +213,7 @@ model LearningPath {
   learningMaterialId Int
   learner            Learner?         @relation(fields: [learnerId], references: [id])
   learnerId          Int?
-  
+
   @@map("learning_paths")
 }
 

@@ -16,12 +16,6 @@ export class LearningPathService {
 
     const { start, end } = getStartEnd(body.goal);
     const style = UserLearnerDTO.learningStyle(body.learningStyleQA);
-    /*let temp: {
-      topicId: number;
-      rating: number;
-      similarity: number;
-      lmID: number;
-    }[][] = [];*/
     let temp: number[][] = [];
 
     const learnerIds = (
@@ -51,7 +45,6 @@ export class LearningPathService {
     });
     const paths = TopicDTO.getTopicPath(topicLink, start, end);
 
-
     for (let i = 0; i < paths.length; i++) {
       temp.push([]);
       for (let j = 0; j < paths[i].length; j++) {
@@ -62,27 +55,21 @@ export class LearningPathService {
           const lm = await this.prismaService.learningMaterial.findFirst({
             where: { topicId: paths[i][j] },
             orderBy: { rating: 'desc' },
-            //select: { id: true, rating: true, name: true, score: true },
-            select: { id: true } 
+            select: { id: true },
           });
-          //recommendLM = { rating: lm.rating, similarity: 0, lmID: lm.id, name: lm.name, score: lm.score };
           recommendLM.lmID = lm.id;
         }
-        //temp[i].push({ topicId: paths[i][j], ...recommendLM });
         temp[i].push(recommendLM.lmID);
       }
     }
 
-    /*const result = temp.map(p => p.reduce((unique, current) => {
-      const existingItem = unique.find((item) => item.lmID === current.lmID);
-      if (!existingItem) unique.push(current);
-      return unique;
-    }, []));*/
-    const result = temp.map(p => p.reduce((unique, currentId) => {
-      const existingItem = unique.find(existId => existId === currentId);
-      if (!existingItem) unique.push(currentId);
-      return unique;
-    }, []));
+    const result = temp.map((p) =>
+      p.reduce((unique, currentId) => {
+        const existingItem = unique.find((existId) => existId === currentId);
+        if (!existingItem) unique.push(currentId);
+        return unique;
+      }, []),
+    );
 
     return result;
   }
@@ -129,25 +116,29 @@ export class LearningPathService {
       },
     });
 
-    let result = []
-    for (let i = 0; i < lmIds.length; i++){
-      const log = await this.prismaService.learnerLog.findFirst({where: { id: lmIds[i], learnerId: learnerId}, select: {
-        learningMaterial: {include: {topic: true}},
-        score: true,
-        attempts: true,
-        time: true
-      } })
+    let result = [];
+    for (let i = 0; i < lmIds.length; i++) {
+      const log = await this.prismaService.learnerLog.findFirst({
+        where: { id: lmIds[i], learnerId: learnerId },
+        select: {
+          learningMaterial: { include: { topic: true } },
+          score: true,
+          attempts: true,
+          time: true,
+        },
+      });
 
-      if (!log) result.push({...lms[i], score: 0, attempts: 0, time: 0})
-      else result.push({
-        id: log.learningMaterial.id,
-        name: log.learningMaterial.name,
-        difficulty: log.learningMaterial.difficulty,
-        topic: log.learningMaterial.topic,
-        score: log.score,
-        attempts: log.attempts,
-        time: log.time
-      })
+      if (!log) result.push({ ...lms[i], score: 0, attempts: 0, time: 0 });
+      else
+        result.push({
+          id: log.learningMaterial.id,
+          name: log.learningMaterial.name,
+          difficulty: log.learningMaterial.difficulty,
+          topic: log.learningMaterial.topic,
+          score: log.score,
+          attempts: log.attempts,
+          time: log.time,
+        });
     }
 
     return result;

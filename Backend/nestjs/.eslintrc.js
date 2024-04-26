@@ -38,6 +38,6 @@ module.exports = {
         "no-empty": "warn",
         "no-cond-assign": ["error", "always"],
         "for-direction": "off",
-        '@typescript-eslint/no-unused-vars': 'warn',
+        '@typescript-eslint/no-unused-vars': 'off',
     },
 }
