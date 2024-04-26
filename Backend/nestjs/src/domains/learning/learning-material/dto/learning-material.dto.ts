@@ -1,4 +1,4 @@
-import { Answer, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { Quiz } from '../request/learning-material-create.request';
 
 export class CodeDTO {
@@ -52,7 +52,7 @@ export class QuizDTO {
   static fromEntity(entity: Prisma.QuizGetPayload<{ include: { question: { include: { choice: true } } } }>): QuizDTO {
     const duration = Number(entity.duration);
     const choices = entity.question.map((q) => q.choice.map((c) => c.content));
-    const questions = entity.question.map((q) => q.content)
+    const questions = entity.question.map((q) => q.content);
     const correctAnswers = entity.question.map((q) => q.choice.findIndex((c) => c.correctness === true));
 
     return {

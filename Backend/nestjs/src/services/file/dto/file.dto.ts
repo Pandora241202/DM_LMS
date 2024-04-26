@@ -9,7 +9,7 @@ export class FileDTO {
     return {
       name: entity.name,
       fileName: entity.prefix + '--' + entity.name,
-      type: entity.type
+      type: entity.type,
     };
   }
 }

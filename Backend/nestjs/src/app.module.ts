@@ -14,12 +14,22 @@ import { FileModule } from './services/file/file.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 @Module({
-  imports: [PrismaModule, AuthModule, UserModule, LearningModule, TopicModule, OntologyModule, ForumModule, CourseModule,
+  imports: [
+    PrismaModule,
+    AuthModule,
+    UserModule,
+    LearningModule,
+    TopicModule,
+    OntologyModule,
+    ForumModule,
+    CourseModule,
     LessonModule,
-    FileModule, ServeStaticModule.forRoot({
-    rootPath: join(__dirname, '..', 'uploads', 'forumImages'),
-    serveRoot: '/forumImages',
-  })],
+    FileModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads', 'forumImages'),
+      serveRoot: '/forumImages',
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

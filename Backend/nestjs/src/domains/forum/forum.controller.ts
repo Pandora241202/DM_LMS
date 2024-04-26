@@ -1,4 +1,16 @@
-import { Body, Controller, Post, Get, Param, ParseIntPipe, NotFoundException, Put, UseGuards, UseInterceptors, UploadedFile } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Param,
+  ParseIntPipe,
+  NotFoundException,
+  Put,
+  UseGuards,
+  UseInterceptors,
+  UploadedFile,
+} from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ForumService } from './forum.service';
 import { StatementService } from './statement.service';
@@ -22,29 +34,34 @@ export class ForumController {
   ) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('coverImage', {
-    dest: 'uploads/forumImages',
-    fileFilter: (req, file, cb) => {
-      console.log(file);
-      if (
-        file.mimetype === 'image/png' ||
-        file.mimetype === 'image/jpeg' ||
-        file.mimetype === 'image/svg' ||
-        file.mimetype === 'image/gif'
-      ) {
-        cb(null, true);
-      } else {
-        cb(new Error('Only .png, .jpg, .svg, and .gif format allowed!'), false);
-      }
-    }
-  }))
+  @UseInterceptors(
+    FileInterceptor('coverImage', {
+      dest: 'uploads/forumImages',
+      fileFilter: (req, file, cb) => {
+        console.log(file);
+        if (
+          file.mimetype === 'image/png' ||
+          file.mimetype === 'image/jpeg' ||
+          file.mimetype === 'image/svg' ||
+          file.mimetype === 'image/gif'
+        ) {
+          cb(null, true);
+        } else {
+          cb(new Error('Only .png, .jpg, .svg, and .gif format allowed!'), false);
+        }
+      },
+    }),
+  )
   async create(@UploadedFile() file: Express.Multer.File, @Body() body: ForumDto.ForumCreateRequestDto) {
     console.log(file);
     try {
       if (typeof body.userId === 'string') {
         body.userId = +body.userId;
       }
-      const result = await this.forumService.create({...ForumDto.ForumCreateRequestDto.toCreateInput(body), coverImageType: file ? path.extname(file.originalname) : null});
+      const result = await this.forumService.create({
+        ...ForumDto.ForumCreateRequestDto.toCreateInput(body),
+        coverImageType: file ? path.extname(file.originalname) : null,
+      });
       if (file) {
         const newPath = `uploads/forumImages/${result.id}${path.extname(file.originalname)}`;
         renameSync(file.path, newPath);

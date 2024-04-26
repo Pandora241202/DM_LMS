@@ -31,7 +31,7 @@ export class LearningMaterialService {
         data: { Exercise: connectRelation(exercise.id) },
       });
     } else {
-      const other = await this.prismaService.other.create({data: {file: connectRelation(body.fileId)}, select: {id: true}})
+      const other = await this.prismaService.other.create({ data: { file: connectRelation(body.fileId) }, select: { id: true } });
 
       await this.prismaService.learningMaterial.update({
         where: { id: lm.id },
@@ -84,7 +84,8 @@ export class LearningMaterialService {
   }
 
   async detail(id: number) {
-    let type: string = "", DTO;
+    let type: string = '',
+      DTO;
 
     const lm = await this.prismaService.learningMaterial.findFirst({
       where: { id },
@@ -93,30 +94,35 @@ export class LearningMaterialService {
     if (!lm) throw new NotFoundException("Couldn't find learning material");
 
     if (lm.type === LearningMaterialType.CODE) {
-      const code = await this.prismaService.code.findFirst({ where: { id: lm.Exercise.codeId } });
+      const code = await this.prismaService.code.findFirst({ where: { id: lm.Exercise.codeId }, select: { inputFile: true, outputFile: true, question: true} });
       if (!code) throw new NotFoundException("Couldn't find learning material");
 
-      type = "CODE"
+      type = 'CODE';
       DTO = CodeDTO.fromEntity(code as any);
-    } else if (lm.type === LearningMaterialType.QUIZ) {
-      const quiz = await this.prismaService.quiz.findFirst({ where: { id: lm.Exercise.quizId }, select: {duration: true, question: {include: {choice: true}}} });
+    } 
+    else if (lm.type === LearningMaterialType.QUIZ) {
+      const quiz = await this.prismaService.quiz.findFirst({
+        where: { id: lm.Exercise.quizId },
+        select: { duration: true, question: { include: { choice: true } } },
+      });
 
       if (!quiz) throw new NotFoundException("Couldn't find learning material");
 
-      type = "QUIZ"
+      type = 'QUIZ';
       DTO = QuizDTO.fromEntity(quiz as any);
-    } else {
+    } 
+    else {
       const file = await this.prismaService.file.findFirst({ where: { id: lm.Other.fileId } });
       if (!file) throw new NotFoundException("Couldn't find learning material");
 
-      type = 'OTHER'
+      type = 'OTHER';
       DTO = FileDTO.fromEntity(file as any);
     }
 
     return {
       type,
-      DTO
-    }
+      DTO,
+    };
   }
 
   async list() {

@@ -7,7 +7,7 @@ import { join } from 'path';
 export class FileService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async upLoadFile(fileName: string, prefix: string, type: string){
+  async upLoadFile(fileName: string, prefix: string, type: string) {
     await this.prismaService.file.create({ data: { name: fileName, prefix: prefix, type: type } });
   }
 }
