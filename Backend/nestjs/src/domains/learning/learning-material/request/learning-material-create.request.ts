@@ -1,9 +1,30 @@
 import { LearningMaterialType, Prisma } from '@prisma/client';
+import { Type } from 'class-transformer';
 import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
-import { connectManyRelation, connectRelation } from 'src/shared/prisma.helper';
+import { connectRelation } from 'src/shared/prisma.helper';
+
+export class Quiz {
+  duration: number;
+  shuffle: boolean;
+  questionaires: {
+    question: string;
+    choices: string[];
+    correctAnswer: number;
+  }[];
+}
+
+export class Code {
+  question: string;
+  inputId: number;
+  outputId: number;
+}
 
 export class LearningMaterialCreateREQ {
   @IsNotEmpty()
+  @IsNumber()
+  creatorId: number;
+
+  @IsOptional()
   @IsString()
   name: string;
 
@@ -33,6 +54,18 @@ export class LearningMaterialCreateREQ {
   @IsNumber()
   topicId: number;
 
+  @IsOptional()
+  @IsNumber()
+  fileId: number;
+
+  @IsOptional()
+  @Type(() => Quiz)
+  quiz: Quiz;
+
+  @IsOptional()
+  @Type(() => Code)
+  code: Code;
+
   static toCreateInput(body: LearningMaterialCreateREQ): Prisma.LearningMaterialCreateInput {
     return {
       name: body.name,
@@ -40,8 +73,9 @@ export class LearningMaterialCreateREQ {
       type: body.type,
       rating: body.rating ? body.rating : 5.0,
       score: body.score,
-      time: body.time,
-      topic: connectRelation(body.topicId),
+      time: body.time ? body.time : 300,
+      Topic: connectRelation(body.topicId),
+      Creator: connectRelation(body.creatorId),
     };
   }
 }

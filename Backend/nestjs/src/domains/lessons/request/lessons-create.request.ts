@@ -10,7 +10,7 @@ export class LessonCreateREQ {
   idCourse: number;
 
   @IsNumber()
-  idLearningMaterial: number
+  idLearningMaterial: number;
 
   static toCreateInput(body: LessonCreateREQ): Prisma.LessonCreateInput {
     return {

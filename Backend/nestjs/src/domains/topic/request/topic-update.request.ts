@@ -50,7 +50,7 @@ export class TopicUpdateREQ {
   static toUpdateInput(body: TopicUpdateREQ): Prisma.TopicUpdateInput {
     return {
       title: body.title,
-      Lesson: connectManyRelation(body.lessonIds),
+      // Lesson: connectManyRelation(body.lessonIds),
       LearningMaterial: connectManyRelation(body.lmIds),
     };
   }

@@ -8,7 +8,13 @@ export class LearnerLogService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(userID: number, body: LearnerLogCreateREQ) {
+    await this.prismaService.learnerLog.updateMany({
+      where: { learnerId: userID, learningMaterialId: body.learningMaterialId, state: true },
+      data: { state: false },
+    });
+
     await this.prismaService.learnerLog.create({ data: LearnerLogCreateREQ.toCreateInput(userID, body) });
+
     await this.prismaService.learningPath.updateMany({
       data: { learned: true },
       where: { learningMaterialId: body.learningMaterialId, learnerId: userID },

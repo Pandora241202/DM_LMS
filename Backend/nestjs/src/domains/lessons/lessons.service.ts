@@ -12,9 +12,9 @@ export class LessonService {
   }
 
   async update(id: number, body: LessonUpdateREQ) {
-    const lesson = await this.prismaService.lesson.findFirst({where: {id}});
-    if (!lesson) throw new NotFoundException("Lesson not found")
-      
-    await this.prismaService.lesson.update({ where: {id}, data: LessonUpdateREQ.toUpdateInput(body) });
+    const lesson = await this.prismaService.lesson.findFirst({ where: { id } });
+    if (!lesson) throw new NotFoundException('Lesson not found');
+
+    await this.prismaService.lesson.update({ where: { id }, data: LessonUpdateREQ.toUpdateInput(body) });
   }
 }

@@ -1,6 +1,6 @@
 import { BackgroundKnowledgeType, Prisma } from '@prisma/client';
 import { IsBoolean, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
-import { leanObject } from 'src/shared/prisma.helper';
+import { connectRelation, leanObject } from 'src/shared/prisma.helper';
 
 export class CourseUpdateREQ {
   @IsOptional()
@@ -23,6 +23,10 @@ export class CourseUpdateREQ {
   @IsNumber()
   amountOfTime: number;
 
+  @IsOptional()
+  @IsNumber()
+  lessonId: number;
+
   static toUpdateInput(body: CourseUpdateREQ): Prisma.CourseUpdateInput {
     return leanObject({
       name: body.name,
@@ -30,6 +34,7 @@ export class CourseUpdateREQ {
       level: body.level,
       description: body.description,
       amountOfTime: body.amountOfTime,
+      Lesson: body.lessonId ? connectRelation(body.lessonId) : null,
     });
   }
 }

@@ -21,14 +21,11 @@ import { QuillEditor } from '../../../components/quill-editor';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
-import { fileToBase64 } from '../../../utils/file-to-base64';
 import { CheckDuplicateDialog } from '../../../sections/dashboard/forum/check-duplicate-dialog'
 import { useAuth } from '../../../hooks/use-auth';
 
-const initialCover = '/assets/covers/abstract-1-4x3-large.png';
-
 const Page = () => {
-  const [cover, setCover] = useState(initialCover);
+  const [cover, setCover] = useState(null);
   const [labels, setLabels] = useState([]);
   const [title, setTitle] = useState('');
   const [shortDescription, setShortDescription] = useState('');
@@ -43,8 +40,10 @@ const Page = () => {
   const labelsRef = useRef();
 
   const handleCoverDrop = useCallback(async ([file]) => {
-    const data = await fileToBase64(file);
-    setCover(data);
+    setCover({
+      preview: URL.createObjectURL(file),
+      raw: file,
+    });
   }, []);
 
   const handleCoverRemove = useCallback(() => {
@@ -172,7 +171,7 @@ const Page = () => {
                         ? (
                           <Box
                             sx={{
-                              backgroundImage: `url(${cover})`,
+                              backgroundImage: `url(${cover.preview})`,
                               backgroundPosition: 'center',
                               backgroundSize: 'cover',
                               borderRadius: 1,
@@ -369,7 +368,7 @@ const Page = () => {
           "label": labels,
           "shortDescription": shortDescription,
           "content": content,
-          "coverImage": cover,
+          "coverImage": cover.raw,
           "userId": user.id
         }}
       />}

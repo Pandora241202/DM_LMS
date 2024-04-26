@@ -188,7 +188,7 @@ const Page = () => {
                   authorAvatar={forum.author.avatar}
                   authorName={forum.author.name}
                   label={forum.label}
-                  cover={forum.cover}
+                  coverImageType={forum.coverImageType}
                   createdAt={forum.createdAt}
                   readTimes={forum.readTimes}
                   shortDescription={forum.shortDescription}
@@ -220,8 +220,10 @@ const Page = () => {
                 window.scrollTo(0,0);
               }}
             >
-              Mới hơn
             </Button>
+            <Typography variant="body1">
+              {page + 1} / {Math.ceil(forums.length / consts.FORUMS_PER_PAGE)}
+            </Typography>
             <Button
               disabled={page == Math.floor(forums.length / consts.FORUMS_PER_PAGE)}
               endIcon={(
@@ -234,7 +236,6 @@ const Page = () => {
                 window.scrollTo(0,0);
               }}
             >
-              Cũ hơn
             </Button>
           </Stack>
         </Container>

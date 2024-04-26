@@ -20,7 +20,7 @@ export const ForumCard = (props) => {
     authorAvatar,
     authorName,
     label,
-    cover,
+    coverImageType,
     createdAt,
     readTimes,
     shortDescription,
@@ -35,7 +35,7 @@ export const ForumCard = (props) => {
       <CardMedia
         component={NextLink}
         href={paths.dashboard.forum.details.replace(':forumId', id)}
-        image={cover?cover:initialCover}
+        image={coverImageType?`http://localhost:8080/forumImages/${id}${coverImageType}`:initialCover}
         sx={{ height: 280 }}
       />
       <CardContent>

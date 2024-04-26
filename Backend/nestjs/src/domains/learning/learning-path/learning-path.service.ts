@@ -1,7 +1,7 @@
 import { ForbiddenException, GatewayTimeoutException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { LearningPathCreateREQ, GetRecommendedLearningPathREQ } from './request/learning-path-create.request';
-import { LearningMaterialRESP } from '../learning-material/response/learning-material.response';
+import { LearningMaterialRESP } from '../learning-material/response/learning-material-detail.response';
 import { getStartEnd } from 'src/shared/contants.helper';
 import { UserLearnerDTO } from 'src/domains/user/dto/user-learner.dto';
 import { LearningLogDTO } from '../learner-log/dto/learning-log.dto';
@@ -112,7 +112,7 @@ export class LearningPathService {
         rating: true,
         score: true,
         time: true,
-        topic: true,
+        Topic: true,
       },
     });
 
@@ -121,7 +121,7 @@ export class LearningPathService {
       const log = await this.prismaService.learnerLog.findFirst({
         where: { id: lmIds[i], learnerId: learnerId },
         select: {
-          learningMaterial: { include: { topic: true } },
+          learningMaterial: { include: { Topic: true } },
           score: true,
           attempts: true,
           time: true,
@@ -134,7 +134,7 @@ export class LearningPathService {
           id: log.learningMaterial.id,
           name: log.learningMaterial.name,
           difficulty: log.learningMaterial.difficulty,
-          topic: log.learningMaterial.topic,
+          topic: log.learningMaterial.Topic,
           score: log.score,
           attempts: log.attempts,
           time: log.time,

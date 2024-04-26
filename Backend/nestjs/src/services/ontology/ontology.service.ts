@@ -69,7 +69,7 @@ export class OntologyService {
         rating: true,
         score: true,
         time: true,
-        topic: true,
+        Topic: true,
       },
     });
   }

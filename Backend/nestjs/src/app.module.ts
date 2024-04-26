@@ -8,8 +8,28 @@ import { LearningModule } from './domains/learning/learning.module';
 import { TopicModule } from './domains/topic/topic.module';
 import { ForumModule } from './domains/forum/forum.module';
 import { AuthModule } from './domains/auth/auth.module';
+import { CourseModule } from './domains/courses/courses.module';
+import { LessonModule } from './domains/lessons/lessons.module';
+import { FileModule } from './services/file/file.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 @Module({
-  imports: [PrismaModule, AuthModule, UserModule, LearningModule, TopicModule, OntologyModule, ForumModule],
+  imports: [
+    PrismaModule,
+    AuthModule,
+    UserModule,
+    LearningModule,
+    TopicModule,
+    OntologyModule,
+    ForumModule,
+    CourseModule,
+    LessonModule,
+    FileModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads', 'forumImages'),
+      serveRoot: '/forumImages',
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

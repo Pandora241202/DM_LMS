@@ -1,5 +1,4 @@
 import { LearningLogDTO } from 'src/domains/learning/learner-log/dto/learning-log.dto';
-import { learningMaterialDTO } from 'src/domains/learning/learning-material/dto/learning-material.dto';
 
 const DFS = (
   stack: number[],
