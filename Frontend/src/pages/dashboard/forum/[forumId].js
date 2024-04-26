@@ -93,7 +93,6 @@ const useForumDetail = () => {
         if (isMounted()) {
           setForumDetail({
             ...response.data, 
-            cover: '/assets/covers/minimal-1-4x4-large.png',
             author: {
               avatar: userResponse.data.avatar,
               name: userResponse.data.username
@@ -217,16 +216,16 @@ const Page = () => {
               </Typography>
             }
           </Stack>
-          <Box
+          {forumDetail.coverImageType && <Box
             sx={{
-              backgroundImage: `url(${forumDetail.cover})`,
+              backgroundImage: `url(http://localhost:8080/forumImages/${forumDetail.id}${forumDetail.coverImageType})`,
               backgroundPosition: 'center',
               backgroundSize: 'cover',
               borderRadius: 1,
               height: 380,
               mt: 3
             }}
-          />
+          />}
           {forumDetail.content && (
             <Container sx={{ py: 3 }}>
               <ForumContent content={forumDetail.content} />

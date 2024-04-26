@@ -18,8 +18,7 @@ class ForumCreateRequestDto {
   @IsString()
   content: string;
 
-  @IsString()
-  coverImage?: string;
+  coverImage?: File | Blob;
 
   @IsNotEmpty()
   @IsNumber()
@@ -28,7 +27,11 @@ class ForumCreateRequestDto {
   // Map from dto request to entity create input
   static toCreateInput(data: ForumCreateRequestDto): Prisma.ForumUncheckedCreateInput {
     return {
-      ...data,
+      title: data.title,
+      label: data.label,
+      shortDescription: data.shortDescription,
+      content: data.content,
+      userId: data.userId,
       readTimes: 0,
     };
   }
@@ -47,8 +50,7 @@ class ForumUpdateRequestDto {
   @IsString()
   content?: string;
 
-  @IsString()
-  coverImage?: string;
+  coverImage?: File;
 
   @IsNumber()
   readTimes?: number;
@@ -73,7 +75,7 @@ class ForumResponseDto {
   shortDescription: string;
   content: string;
   userId: number;
-  coverImage: string;
+  coverImageType: string | null;
   updatedAt: string;
   createdAt: string;
 

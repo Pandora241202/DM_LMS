@@ -10,6 +10,8 @@ import {
   Typography,
   Unstable_Grid2 as Grid
 } from '@mui/material';
+import ArrowLeftIcon from '@untitled-ui/icons-react/build/esm/ArrowLeft';
+import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
 import { usePageView } from '../../../hooks/use-page-view';
 import { useSettings } from '../../../hooks/use-settings';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
@@ -137,6 +139,7 @@ const Page = () => {
               <Box mt={4}
                 display="flex"
                 justifyContent="center"
+                alignItems="center"
               >
                 <Button
                   disabled={page == 0}
@@ -144,17 +147,28 @@ const Page = () => {
                     setPage(page - 1);
                     window.scrollTo(0, 0);
                   }}
+                  startIcon={(
+                    <SvgIcon>
+                      <ArrowLeftIcon />
+                    </SvgIcon>
+                  )}
                 >
-                  Trước
                 </Button>
+                <Typography variant="body1">
+                  {page + 1} / {Math.ceil(LOs.length / consts.LOS_PER_PAGE)}
+                </Typography>
                 <Button
                   disabled={page == Math.floor(LOs.length / consts.LOS_PER_PAGE)}
                   onClick={() => {
                     setPage(page + 1);
                     window.scrollTo(0, 0);
                   }}
+                  endIcon={(
+                    <SvgIcon>
+                      <ArrowRightIcon />
+                    </SvgIcon>
+                  )}
                 >
-                  Sau
                 </Button>
               </Box>
             </Grid>

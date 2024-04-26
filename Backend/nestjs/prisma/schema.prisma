@@ -219,8 +219,8 @@ model Forum {
   title            String
   label            String[]
   shortDescription String
+  coverImageType   String?
   content          String
-  coverImage       String?
   readTimes        Int      @default(0)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @default(now())
