@@ -47,7 +47,20 @@ export const CheckDuplicateDialog = (props) => {
   const router = useRouter();
 
   const handleSubmitButton = useCallback(async () => {
-    await forumApi.postForum(forumDetail)
+    const forumDetailFormData = new FormData();
+    for (const key in forumDetail) {
+      if (forumDetail.hasOwnProperty(key)) {
+        const value = forumDetail[key];
+        if (Array.isArray(value)) {
+          value.forEach(element => {
+            forumDetailFormData.append(`${key}[]`, element);
+          });
+        } else {
+          forumDetailFormData.append(key, value);
+        }
+      }
+    }
+    await forumApi.postForum(forumDetailFormData)
       .then((response) => {
         router.push(paths.dashboard.forum.details.replace(':forumId', response.data.id));
       })

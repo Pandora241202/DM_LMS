@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Param, ParseIntPipe, NotFoundException, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, ParseIntPipe, NotFoundException, Put, UseGuards, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ForumService } from './forum.service';
 import { StatementService } from './statement.service';
@@ -6,6 +6,10 @@ import * as ForumDto from './dto/forum.dto';
 import * as StatementDto from './dto/statement.dto';
 import { map } from 'rxjs/operators';
 import { lastValueFrom } from 'rxjs';
+import { FileInterceptor } from '@nestjs/platform-express';
+import * as path from 'path';
+import { renameSync } from 'fs';
+
 //import { AuthGuard } from '../auth/auth.guard';
 
 //@UseGuards(AuthGuard)
@@ -18,9 +22,33 @@ export class ForumController {
   ) {}
 
   @Post()
-  async create(@Body() body: ForumDto.ForumCreateRequestDto) {
+  @UseInterceptors(FileInterceptor('coverImage', {
+    dest: 'uploads/forumImages',
+    fileFilter: (req, file, cb) => {
+      console.log(file);
+      if (
+        file.mimetype === 'image/png' ||
+        file.mimetype === 'image/jpeg' ||
+        file.mimetype === 'image/svg' ||
+        file.mimetype === 'image/gif'
+      ) {
+        cb(null, true);
+      } else {
+        cb(new Error('Only .png, .jpg, .svg, and .gif format allowed!'), false);
+      }
+    }
+  }))
+  async create(@UploadedFile() file: Express.Multer.File, @Body() body: ForumDto.ForumCreateRequestDto) {
+    console.log(file);
     try {
-      const result = await this.forumService.create(ForumDto.ForumCreateRequestDto.toCreateInput(body));
+      if (typeof body.userId === 'string') {
+        body.userId = +body.userId;
+      }
+      const result = await this.forumService.create({...ForumDto.ForumCreateRequestDto.toCreateInput(body), coverImageType: file ? path.extname(file.originalname) : null});
+      if (file) {
+        const newPath = `uploads/forumImages/${result.id}${path.extname(file.originalname)}`;
+        renameSync(file.path, newPath);
+      }
       return JSON.stringify(ForumDto.ForumResponseDto.fromForum(result));
     } catch (error) {
       console.log(error);
