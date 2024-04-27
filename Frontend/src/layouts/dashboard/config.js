@@ -26,7 +26,7 @@ import Users03Icon from '../../icons/untitled-ui/duocolor/users-03';
 import XSquareIcon from '../../icons/untitled-ui/duocolor/x-square';
 import RouteIcon from '@mui/icons-material/Route';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import { tokens } from '../../locales/tokens';
@@ -192,7 +192,7 @@ export const getSections = (t) => [
         path: paths.dashboard.personal_info,
         icon: (
           <SvgIcon fontSize="small">
-            <AccountBoxIcon />
+            <AccountBoxOutlinedIcon />
           </SvgIcon>
         )
       },
