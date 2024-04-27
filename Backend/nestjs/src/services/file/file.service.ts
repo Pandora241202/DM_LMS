@@ -8,6 +8,7 @@ export class FileService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async upLoadFile(fileName: string, prefix: string, type: string) {
-    await this.prismaService.file.create({ data: { name: fileName, prefix: prefix, type: type } });
+    const file = await this.prismaService.file.create({ data: { name: fileName, prefix: prefix, type: type }, select: {id: true} });
+    return {id: file.id}
   }
 }
