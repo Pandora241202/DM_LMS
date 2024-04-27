@@ -13,7 +13,7 @@ export class LearnerLogService {
       data: { state: false },
     });
 
-    await this.prismaService.learnerLog.create({ data: LearnerLogCreateREQ.toCreateInput(userID, body) });
+    const log = await this.prismaService.learnerLog.create({ data: LearnerLogCreateREQ.toCreateInput(userID, body), select: {id: true} });
 
     await this.prismaService.learningPath.updateMany({
       data: { learned: true },
@@ -26,6 +26,8 @@ export class LearnerLogService {
     });
     const updateRating = (lm.rating + body.rating) / 2;
     await this.prismaService.learningMaterial.update({ where: { id: body.learningMaterialId }, data: { rating: updateRating } });
+
+    return {id: log.id}
   }
 
   async createBatch(body: LearnerLogCreateREQ[]) {

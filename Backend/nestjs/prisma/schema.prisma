@@ -48,6 +48,8 @@ model Learner {
   user                AuthenticatedUser        @relation(fields: [id], references: [id])
   LearningPath        LearningPath[]
   Practice            Practice[]
+  RegisterCourse      RegisterCourse[]
+  HistoryOfCourse     HistoryOfCourse[]
 
   @@map("learners")
 }
@@ -86,8 +88,12 @@ model Course {
   description  String
   amountOfTime Int                     @map("amount_of_time")
   level        BackgroundKnowledgeType
-  Instructor   AuthenticatedUser       @relation(fields: [idInstructor], references: [id])
-  Lesson       Lesson[]                @relation("course_to_lesson")
+
+  Instructor AuthenticatedUser @relation(fields: [idInstructor], references: [id])
+
+  Lesson          Lesson[]          @relation("course_to_lesson")
+  RegisterCourse  RegisterCourse[]
+  HistoryOfCourse HistoryOfCourse[]
 
   @@map("courses")
 }
@@ -99,6 +105,7 @@ model Lesson {
   visibility       Boolean            @default(true)
   LearningMaterial LearningMaterial[]
   Course           Course[]           @relation("course_to_lesson")
+  HistoryOfCourse  HistoryOfCourse[]
 
   @@map("lessons")
 }
@@ -330,6 +337,33 @@ model File {
   Other      Other[]
 
   @@map("files")
+}
+
+model RegisterCourse {
+  id        Int     @id @default(autoincrement())
+  learner   Learner @relation(fields: [learnerId], references: [id])
+  learnerId Int
+  course    Course  @relation(fields: [courseId], references: [id])
+  courseId  Int
+
+  @@unique([learnerId, courseId])
+  @@map("register_courses")
+}
+
+model HistoryOfCourse {
+  learnerId       Int  @map("learner_id")
+  courseId        Int  @map("course_id")
+  lastestLessonId Int? @map("lesson_id")
+
+  lastestLessonPercentComplete Float? @default(0) @map("lastest_lesson_percent_complete")
+  percentComplete              Float? @default(0) @map("percent_complete")
+
+  learner       Learner @relation(fields: [learnerId], references: [id])
+  course        Course  @relation(fields: [courseId], references: [id])
+  lastestLesson Lesson? @relation(fields: [lastestLessonId], references: [id])
+
+  @@unique([learnerId, courseId])
+  @@map("history_of_courses")
 }
 
 enum LearningMaterialType {

@@ -7,9 +7,9 @@ import { UserInfoDTO } from './dto/user-infomation.dto';
 import { PaginationREQ } from 'src/shared/pagination.request';
 import { UserUpdateREQ } from './request/user-update.request';
 import * as bcrypt from 'bcrypt';
-import { HttpService } from '@nestjs/axios';
-import { catchError, map } from 'rxjs';
-import { getStartEnd } from 'src/shared/contants.helper';
+import { UserRegisterCourseCreateREQ } from './request/user-register-course-create.request';
+import { LearnerHistoryCourseCreateREQ } from './request/learner-history-course-create.request';
+import { LearnerHistoryCourseUpdateREQ } from './request/learner-history-course-update.request';
 
 @Injectable()
 export class UserService {
@@ -92,5 +92,38 @@ export class UserService {
       backgroundKnowledge: learner.backgroundKnowledge,
       qualification: learner.qualification,
     };
+  }
+
+  async registerCourse(learnerId: number, courseId: number) {
+    const existRegister = await this.prismaService.registerCourse.findFirst({
+      where: { learnerId: learnerId, courseId: courseId },
+    });
+    if (existRegister) throw new ConflictException('You have already registered this course');
+
+    const register = await this.prismaService.registerCourse.create({
+      data: UserRegisterCourseCreateREQ.toCreateInput(learnerId, courseId),
+      select: { id: true },
+    });
+
+    await this.prismaService.historyOfCourse.create({
+      data: LearnerHistoryCourseCreateREQ.toCreateInput({ learnerId, courseId }),
+    });
+
+    return { id: register.id };
+  }
+
+  async updateHistoryOfCourse(learnerId: number, courseId: number, body: LearnerHistoryCourseUpdateREQ) {
+    const lessons = (await this.prismaService.course.findFirst({where: {id: courseId}, select: {Lesson: {select: {id: true}}}})).Lesson.map(l => l.id).sort();
+    if (!lessons.includes(body.lessonId)) throw new NotFoundException("Can not find a suitable lesson")
+      
+      const register = await this.prismaService.registerCourse.findFirst({where: {learnerId: learnerId, courseId: courseId}})
+      if (!register) throw new ConflictException("Learner doese not register this course")
+
+    const percentComplete = Math.round(((lessons.findIndex(id => id === body.lessonId)) * 100) / lessons.length);
+
+    await this.prismaService.historyOfCourse.update({
+      where: { learnerId_courseId: { learnerId, courseId } },
+      data: LearnerHistoryCourseUpdateREQ.toUpdateInput(body, percentComplete),
+    });
   }
 }

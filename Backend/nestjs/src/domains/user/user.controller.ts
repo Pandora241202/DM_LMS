@@ -4,12 +4,28 @@ import { UserCreateREQ } from './request/user-create.request';
 import { PaginationREQ } from 'src/shared/pagination.request';
 import { UserUpdateREQ } from './request/user-update.request';
 import { AuthGuard } from '../auth/auth.guard';
-import { SubjectType } from '@prisma/client';
+import { Learner, SubjectType } from '@prisma/client';
+import { UserRegisterCourseCreateREQ } from './request/user-register-course-create.request';
+import { LearnerHistoryCourseUpdateREQ } from './request/learner-history-course-update.request';
 
 // @UseGuards(AuthGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Post(':learnerId/courses')
+  async registerCourse(@Param('learnerId', ParseIntPipe) learnerId: number, @Body() body: UserRegisterCourseCreateREQ) {
+    return await this.userService.registerCourse(learnerId, body.courseId);
+  }
+
+  @Patch(':learnerId/courses/:courseId')
+  async updateHistoryOfCourse(
+    @Param('learnerId', ParseIntPipe) learnerId: number,
+    @Param('courseId', ParseIntPipe) courseId: number,
+    @Body() body: LearnerHistoryCourseUpdateREQ,
+  ) {
+    await this.userService.updateHistoryOfCourse(learnerId, courseId, body);
+  }
 
   @Post()
   async create(@Body() body: UserCreateREQ) {

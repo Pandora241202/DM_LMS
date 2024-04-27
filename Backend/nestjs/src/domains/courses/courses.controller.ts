@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs
 import { CourseService } from './courses.service';
 import { CourseCreateREQ } from './request/courses-create.request';
 import { CourseUpdateREQ } from './request/courses-update.request';
-import { CourseListREQ } from './request/course-list.request';
+import { CourseListREQ } from './request/courses-list.request';
 
 @Controller('courses')
 export class CourseController {
@@ -10,7 +10,7 @@ export class CourseController {
 
   @Post('')
   async create(@Body() body: CourseCreateREQ) {
-    await this.courseService.create(body);
+    return await this.courseService.create(body);
   }
 
   @Get(':id')

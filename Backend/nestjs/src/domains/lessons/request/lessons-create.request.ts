@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
-import { connectRelation } from 'src/shared/prisma.helper';
+import { connectManyRelation, connectRelation } from 'src/shared/prisma.helper';
 
 export class LessonCreateREQ {
   @IsString()
@@ -13,15 +13,15 @@ export class LessonCreateREQ {
   @IsNumber()
   idCourse: number;
 
-  @IsNumber()
-  idLearningMaterial: number;
+  @IsNumber({}, { each: true })
+  idLearningMaterial: number[];
 
   static toCreateInput(body: LessonCreateREQ): Prisma.LessonCreateInput {
     return {
       title: body.title,
       amountOfTime: 0,
       Course: connectRelation(body.idCourse),
-      LearningMaterial: connectRelation(body.idLearningMaterial),
+      LearningMaterial: connectManyRelation(body.idLearningMaterial),
     };
   }
 }

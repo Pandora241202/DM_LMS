@@ -22,7 +22,6 @@ export class FileController {
       }),
     }),
   )
-  
   async create(@UploadedFile() file: Express.Multer.File) {
     const parts = file.filename.split('--');
     return await this.fileService.upLoadFile(parts[1], parts[0], file.mimetype);

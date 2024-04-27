@@ -15,8 +15,7 @@ export class LearnerLogController {
 
   @Post(':learnerId')
   async create(@Param('learnerId', ParseIntPipe) learnerId: number, @Body() body: LearnerLogCreateREQ) {
-    console.log(body);
-    await this.learnerLogService.create(learnerId, body);
+    return await this.learnerLogService.create(learnerId, body);
   }
 
   @Get(':learnerId')
