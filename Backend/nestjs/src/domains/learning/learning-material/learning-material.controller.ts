@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Res } from '@nestjs/common';
 import { LearningMaterialService } from './learning-material.service';
-import { LearningMaterialCreateREQ } from './request/learning-material-create.request';
-import { createReadStream} from 'fs';
+import { createReadStream, readFileSync } from 'fs';
 import { join } from 'path';
 import { Response } from 'express';
+import { LearningMaterialCreateREQ } from './request/learning-material-create.request';
 
 @Controller('learning-materials')
 export class LearningMaterialController {

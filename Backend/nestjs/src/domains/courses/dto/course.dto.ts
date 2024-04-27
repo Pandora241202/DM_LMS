@@ -21,17 +21,17 @@ export class CourseDTO {
 
   static selectFields(): Prisma.CourseSelect {
     return {
-        id: true,
-        createdAt: true,
-        updatedAt: true,
-        name: true,
-        visibility: true,
-        description: true,
-        amountOfTime: true,
-        level: true,
-        Instructor: true,
-        Lesson: true
-    }
+      id: true,
+      createdAt: true,
+      updatedAt: true,
+      name: true,
+      visibility: true,
+      description: true,
+      amountOfTime: true,
+      level: true,
+      Instructor: true,
+      Lesson: true,
+    };
   }
 
   static fromEnTity(entity: Prisma.CourseGetPayload<{ include: { Instructor: true; Lesson: true } }>): CourseDTO {

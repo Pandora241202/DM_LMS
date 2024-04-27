@@ -8,11 +8,11 @@ export class LessonService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(body: LessonCreateREQ) {
-    const lesson = await this.prismaService.lesson.create({ data: LessonCreateREQ.toCreateInput(body), select: {id: true} });
+    const lesson = await this.prismaService.lesson.create({ data: LessonCreateREQ.toCreateInput(body), select: { id: true } });
     if (body.updateCourse) {
-      await this.prismaService.course.update({where: {id: body.idCourse}, data: {updatedAt: new Date()}})
+      await this.prismaService.course.update({ where: { id: body.idCourse }, data: { updatedAt: new Date() } });
     }
-    return {id: lesson.id}
+    return { id: lesson.id };
   }
 
   async update(id: number, body: LessonUpdateREQ) {

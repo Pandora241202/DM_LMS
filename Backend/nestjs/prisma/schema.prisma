@@ -232,17 +232,18 @@ model LearningPath {
 }
 
 model Forum {
-  id                Int               @id @default(autoincrement())
-  title             String
-  label             String[]
-  shortDescription  String
-  content           String
-  coverImage        String?
-  readTimes         Int               @default(0)
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @default(now())
-  userId            Int
+  id               Int      @id @default(autoincrement())
+  title            String
+  label            String[]
+  shortDescription String
+  coverImageType   String?
+  content          String
+  readTimes        Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now())
+
   authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
+  userId            Int
   Statement         Statement[]
 
   @@map("forums")
