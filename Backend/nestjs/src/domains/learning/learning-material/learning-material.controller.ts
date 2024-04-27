@@ -16,7 +16,7 @@ export class LearningMaterialController {
 
   @Post()
   async create(@Body() body: LearningMaterialCreateREQ) {
-    await this.learningMaterialService.create(body);
+    return await this.learningMaterialService.create(body);
   }
 
   @Get(':id')
@@ -26,9 +26,7 @@ export class LearningMaterialController {
     if (lm.type === 'OTHER') {
       const file = createReadStream(join('./uploads/materialFiles/', lm.DTO.fileName as string));
       file.pipe(res);
-    }
-    else return res.status(200).json(lm.DTO);
-  
+    } else return res.status(200).json(lm.DTO);
   }
 
   @Get()

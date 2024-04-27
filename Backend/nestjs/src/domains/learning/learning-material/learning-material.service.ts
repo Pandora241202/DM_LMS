@@ -38,6 +38,8 @@ export class LearningMaterialService {
         data: { Other: connectRelation(other.id) },
       });
     }
+
+    return {id: lm.id}
   }
 
   async createQuiz(quiz: Quiz, exerciseId: number) {
@@ -94,13 +96,15 @@ export class LearningMaterialService {
     if (!lm) throw new NotFoundException("Couldn't find learning material");
 
     if (lm.type === LearningMaterialType.CODE) {
-      const code = await this.prismaService.code.findFirst({ where: { id: lm.Exercise.codeId }, select: { inputFile: true, outputFile: true, question: true} });
+      const code = await this.prismaService.code.findFirst({
+        where: { id: lm.Exercise.codeId },
+        select: { inputFile: true, outputFile: true, question: true },
+      });
       if (!code) throw new NotFoundException("Couldn't find learning material");
 
       type = 'CODE';
       DTO = CodeDTO.fromEntity(code as any);
-    } 
-    else if (lm.type === LearningMaterialType.QUIZ) {
+    } else if (lm.type === LearningMaterialType.QUIZ) {
       const quiz = await this.prismaService.quiz.findFirst({
         where: { id: lm.Exercise.quizId },
         select: { duration: true, question: { include: { choice: true } } },
@@ -110,8 +114,7 @@ export class LearningMaterialService {
 
       type = 'QUIZ';
       DTO = QuizDTO.fromEntity(quiz as any);
-    } 
-    else {
+    } else {
       const file = await this.prismaService.file.findFirst({ where: { id: lm.Other.fileId } });
       if (!file) throw new NotFoundException("Couldn't find learning material");
 

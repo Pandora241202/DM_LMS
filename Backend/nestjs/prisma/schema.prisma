@@ -78,6 +78,8 @@ model LearningMaterial {
 
 model Course {
   id           Int                     @id @default(autoincrement())
+  createdAt    DateTime                @default(now()) @map("created_at")
+  updatedAt    DateTime                @default(now()) @map("updated_at")
   idInstructor Int                     @map("id_instructor")
   name         String
   visibility   Boolean
@@ -230,16 +232,15 @@ model LearningPath {
 }
 
 model Forum {
-  id               Int      @id @default(autoincrement())
-  title            String
-  label            String[]
-  shortDescription String
-  coverImageType   String?
-  content          String
-  readTimes        Int      @default(0)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @default(now())
-
+  id                Int               @id @default(autoincrement())
+  title             String
+  label             String[]
+  shortDescription  String
+  content           String
+  coverImage        String?
+  readTimes         Int               @default(0)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @default(now())
   userId            Int
   authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
   Statement         Statement[]

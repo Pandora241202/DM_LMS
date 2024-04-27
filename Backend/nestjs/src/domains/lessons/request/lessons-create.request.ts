@@ -1,10 +1,14 @@
 import { Prisma } from '@prisma/client';
-import { IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 import { connectRelation } from 'src/shared/prisma.helper';
 
 export class LessonCreateREQ {
   @IsString()
   title: string;
+
+  @IsOptional()
+  @IsBoolean()
+  updateCourse: boolean;
 
   @IsNumber()
   idCourse: number;

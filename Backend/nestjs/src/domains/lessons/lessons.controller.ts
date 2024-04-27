@@ -9,7 +9,7 @@ export class LessonController {
 
   @Post('')
   async create(@Body() body: LessonCreateREQ) {
-    await this.lessonService.create(body);
+    return await this.lessonService.create(body);
   }
 
   @Patch(':id')

@@ -30,6 +30,7 @@ export class CourseUpdateREQ {
   static toUpdateInput(body: CourseUpdateREQ): Prisma.CourseUpdateInput {
     return leanObject({
       name: body.name,
+      updatedAt: new Date(),
       visibility: body.visibility,
       level: body.level,
       description: body.description,

@@ -8,5 +8,6 @@ import { LessonModule } from '../lessons/lessons.module';
   imports: [PrismaModule, LessonModule],
   controllers: [CourseController],
   providers: [CourseService],
+  exports: [CourseService]
 })
 export class CourseModule {}

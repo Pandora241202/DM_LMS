@@ -75,7 +75,7 @@ export class LearningPathService {
   }
 
   async create(learnerId: number, body: LearningPathCreateREQ) {
-    const result = this.prismaService.$transaction(async (tx) => {
+    const result = await this.prismaService.$transaction(async (tx) => {
       await Promise.all(
         body.LOs.map(
           async (id, index) =>
