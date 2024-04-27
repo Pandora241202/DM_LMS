@@ -6,7 +6,13 @@ const icons = {
   mp4: '/assets/icons/icon-mp4.svg',
   pdf: '/assets/icons/icon-pdf.svg',
   png: '/assets/icons/icon-png.svg',
-  svg: '/assets/icons/icon-svg.svg'
+  svg: '/assets/icons/icon-svg.svg',
+  WORD: '/assets/icons/icon-word.svg',
+  QUIZZ: '/assets/icons/icon-quizz.svg',
+  CODE: '/assets/icons/icon-code.svg',
+  PPT: '/assets/icons/icon-ppt.svg',
+  VIDEO: '/assets/icons/icon-video.svg',
+  PDF: '/assets/icons/icon-another-pdf.svg',
 };
 
 export const FileIcon = (props) => {
