@@ -134,7 +134,7 @@ export class LearningPathService {
           id: log.learningMaterial.id,
           name: log.learningMaterial.name,
           difficulty: log.learningMaterial.difficulty,
-          topic: log.learningMaterial.Topic,
+          Topic: log.learningMaterial.Topic,
           score: log.score,
           attempts: log.attempts,
           time: log.time,
