@@ -148,6 +148,7 @@ model Exercise {
 model Other {
   id               Int                @id @default(autoincrement())
   fileId           Int
+  content          String?            @default("") @db.Text
   LearningMaterial LearningMaterial[]
   file             File               @relation(fields: [fileId], references: [id])
 

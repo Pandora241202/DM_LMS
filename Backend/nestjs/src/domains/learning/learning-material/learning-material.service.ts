@@ -31,7 +31,7 @@ export class LearningMaterialService {
         data: { Exercise: connectRelation(exercise.id) },
       });
     } else {
-      const other = await this.prismaService.other.create({ data: { file: connectRelation(body.fileId) }, select: { id: true } });
+      const other = await this.prismaService.other.create({ data: { file: connectRelation(body.fileId), content: body.content ? body.content : "" }, select: { id: true } });
 
       await this.prismaService.learningMaterial.update({
         where: { id: lm.id },
