@@ -4,6 +4,8 @@ export const LOS_PER_PAGE = 9;
 
 export const PERCENTAGE_TO_PASS_LO = 80;
 
+export const POTENTIAL_TO_PASS_LO = 80;
+
 // Background Knowledge
 export const BACKGROUND_KNOWLEDGE_BASIC = "BASIC";
 export const BACKGROUND_KNOWLEDGE_INTERMEDIATE = "INTERMEDIATE";
