@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import { addDays, subDays, subHours, subMinutes } from 'date-fns';
+import { useCallback, useState } from 'react';
+import NextLink from 'next/link';
 import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
 import {
   Box,
@@ -25,11 +27,14 @@ import { OverviewJobs } from '../../../sections/dashboard/overview/overview-jobs
 import { OverviewOpenTickets } from '../../../sections/dashboard/overview/overview-open-tickets';
 import { OverviewTips } from '../../../sections/dashboard/overview/overview-tips';
 import { LearningObject } from '../../../sections/dashboard/overview/learning-object';
+import { paths } from '../../../paths';
+// import { CreateCourseDialog } from '../../../sections/dashboard/explore/create-course-dialog';
 
 const now = new Date();
 
 const Page = () => {
   const settings = useSettings();
+  // const [openCreateCourseDialog, setOpenCreateCourseDialog] = useState(false)
 
   usePageView();
 
@@ -73,6 +78,9 @@ const Page = () => {
                     spacing={4}
                   >
                     <Button
+                      component={NextLink}
+                      href={`${paths.dashboard.explore}/create`}
+                      // onClick={() => setOpenCreateCourseDialog(true)}
                       startIcon={(
                         <SvgIcon>
                           <PlusIcon />
@@ -80,7 +88,7 @@ const Page = () => {
                       )}
                       variant="contained"
                     >
-                      New Dashboard
+                      Tạo khoá học mới
                     </Button>
                   </Stack>
                 </div>
@@ -133,6 +141,14 @@ const Page = () => {
               />
             </Grid>
           </Grid>
+          {/* {
+            openCreateCourseDialog && (
+              <CreateCourseDialog
+                openCreateCourseDialog={openCreateCourseDialog}
+                setOpenCreateCourseDialog={setOpenCreateCourseDialog}
+              />
+            )
+          } */}
         </Container>
       </Box>
     </>
