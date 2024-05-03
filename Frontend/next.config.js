@@ -36,5 +36,5 @@ const withTM = require('next-transpile-modules')([
 
 module.exports = {
   ...withTM(config), 
-  pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js']
+  // pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js']
 }
