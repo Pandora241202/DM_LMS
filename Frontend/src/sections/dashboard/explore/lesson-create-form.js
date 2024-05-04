@@ -23,6 +23,7 @@ import { paths } from '../../../paths';
 import { exploreApi } from '../../../api/explore';
 import { uploadFileApi } from '../../../api/file-upload';
 import { useMounted } from '../../../hooks/use-mounted';
+import axios from 'axios';
 
 const subjectOptions = [
   {
@@ -107,6 +108,7 @@ export const LessonCreateForm = (props) => {
   const isMounted = useMounted();
   const router = useRouter();
   const [files, setFiles] = useState([]);
+  const [idLMList, setIdLMList] = useState([]);
   const [topicOptions, setTopicOptions] = useState([]);
   const formik = useFormik({
     initialValues,
@@ -117,8 +119,8 @@ export const LessonCreateForm = (props) => {
         // console.log(formik.values);
         await exploreApi.createLesson({
           title: values.name,
-          idCourse: values.idCourse,
-          idLearningMaterial: [],
+          idCourse: 1,
+          idLearningMaterial: idLMList,
         //   preTopicId: [values.preTopicId],
         //   postTopicId: [values.postTopicId],
       })
@@ -168,25 +170,30 @@ export const LessonCreateForm = (props) => {
   }, []);
 
 // Chưa làm nè má ơi
-  const handleFilesUpload = useCallback(async (event) => {
+  const handleFilesUpload = async (event) => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append('file', files[0]);
     try {
         // NOTE: Make API request
         // console.log(formik.values);
-        console.log(files.map((_file) => _file.path))
-        await uploadFileApi.createFile({
-          file: files.map((_file) => _file.path)
-        //   preTopicId: [values.preTopicId],
-        //   postTopicId: [values.postTopicId],
-      })
+        // console.log(files.map((_file) => _file.path))
+        const response = await axios.post('http://localhost:8080/files',
+            formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+              },
+          });
+
+        setIdLMList([response.data["id"]])
         toast.success('File đã đăng tải thành công');
-        router.push(`${paths.dashboard.explore}/course`);
+        // router.push(`${paths.dashboard.explore}/course`);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');
         console.error('Error uploading file:', err);
       }
-  }, []);
+  };
 
 
   return (
