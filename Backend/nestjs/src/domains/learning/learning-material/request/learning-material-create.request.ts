@@ -66,6 +66,10 @@ export class LearningMaterialCreateREQ {
   @Type(() => Code)
   code: Code;
 
+  @IsOptional()
+  @IsString()
+  content: string;
+
   static toCreateInput(body: LearningMaterialCreateREQ): Prisma.LearningMaterialCreateInput {
     return {
       name: body.name,
