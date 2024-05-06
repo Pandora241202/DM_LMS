@@ -1,4 +1,4 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileService } from './file.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { nanoid } from 'nanoid';
@@ -25,5 +25,11 @@ export class FileController {
   async create(@UploadedFile() file: Express.Multer.File) {
     const parts = file.filename.split('--');
     return await this.fileService.upLoadFile(parts[1], parts[0], file.mimetype);
+  }
+
+  @Get('id')
+  async detail(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
+    const file = await this.fileService.detail(id)
+    
   }
 }
