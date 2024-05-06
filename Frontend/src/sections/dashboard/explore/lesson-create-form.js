@@ -105,11 +105,13 @@ const validationSchema = Yup.object({
 });
 
 export const LessonCreateForm = (props) => {
+  const { courseid } = props;
   const isMounted = useMounted();
   const router = useRouter();
   const [files, setFiles] = useState([]);
   const [idLMList, setIdLMList] = useState([]);
   const [topicOptions, setTopicOptions] = useState([]);
+  const [disabled, setDisabled] = useState(false);
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -119,13 +121,13 @@ export const LessonCreateForm = (props) => {
         // console.log(formik.values);
         await exploreApi.createLesson({
           title: values.name,
-          idCourse: 1,
+          idCourse: parseInt(courseid, 10),
           idLearningMaterial: idLMList,
         //   preTopicId: [values.preTopicId],
         //   postTopicId: [values.postTopicId],
       })
         toast.success('Bài học đã được tạo');
-        router.push(`${paths.dashboard.explore}/course`);
+        router.push(`${paths.dashboard.explore}/${courseid}`);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');
@@ -157,16 +159,19 @@ export const LessonCreateForm = (props) => {
     setFiles((prevFiles) => {
       return [...prevFiles, ...newFiles];
     });
+    setDisabled(false);
   }, []);
 
   const handleFileRemove = useCallback((file) => {
     setFiles((prevFiles) => {
       return prevFiles.filter((_file) => _file.path !== file.path);
     });
+    setDisabled(false);
   }, []);
 
   const handleFilesRemoveAll = useCallback(() => {
     setFiles([]);
+    setDisabled(false);
   }, []);
 
 // Chưa làm nè má ơi
@@ -186,6 +191,7 @@ export const LessonCreateForm = (props) => {
           });
 
         setIdLMList([response.data["id"]])
+        setDisabled(true);
         toast.success('File đã đăng tải thành công');
         // router.push(`${paths.dashboard.explore}/course`);
       } catch (err) {
@@ -399,6 +405,7 @@ export const LessonCreateForm = (props) => {
                   accept={{ '*//*': [] }}
                   caption="(PDF, SVG, JPG, PNG, or gif maximum 900x400, ...)"
                   files={files}
+                  disabled={disabled}
                   onDrop={handleFilesDrop}
                   onRemove={handleFileRemove}
                   onRemoveAll={handleFilesRemoveAll}

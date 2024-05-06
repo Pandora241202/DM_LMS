@@ -124,7 +124,7 @@ const useLMs = (search) => {
 
 
 
-const LMList = () => {
+const LessonList = () => {
   const { search, updateSearch } = useSearch();
   const { LMs, LMsCount } = useLMs(search);
   const courseUrl = window.location.href.split('/');
@@ -218,7 +218,7 @@ const LMList = () => {
                 <Button
                   component={NextLink}
                   // Thay đổi đường dẫn để lưu vào db
-                  href={`${paths.dashboard.explore}/lesson-create`}
+                  href={`${paths.dashboard.explore}/lesson/${courseId}`}
                   data = {10}
                   startIcon={(
                     <SvgIcon>
@@ -252,10 +252,10 @@ const LMList = () => {
   );
 };
 
-LMList.getLayout = (page) => (
+LessonList.getLayout = (page) => (
   <DashboardLayout>
     {page}
   </DashboardLayout>
 );
 
-export default LMList;
+export default LessonList;

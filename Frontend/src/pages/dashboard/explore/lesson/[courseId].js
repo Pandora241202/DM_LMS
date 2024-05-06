@@ -8,7 +8,9 @@ import { paths } from '../../../../paths';
 import { LessonCreateForm } from '../../../../sections/dashboard/explore/lesson-create-form';
 
 const LessonCreate = (props) => {
-    console.log(props)
+  console.log(props)
+  const courseUrl = window.location.href.split('/');
+  const courseId = (courseUrl[courseUrl.length - 1]);
   usePageView();
 
   return (
@@ -43,20 +45,22 @@ const LessonCreate = (props) => {
                 <Link
                   color="text.primary"
                   component={NextLink}
-                  href={paths.dashboard.Topic_Manage}
+                  href={`${paths.dashboard.explore}/${courseId}`}
                   variant="subtitle2"
                 >
-                  Quản lý chủ đề
+                  Khoá học
                 </Link>
                 <Typography
                   color="text.secondary"
                   variant="subtitle2"
                 >
-                  Tạo mới
+                  Tạo bài học mới
                 </Typography>
               </Breadcrumbs>
             </Stack>
-            <LessonCreateForm />
+            <LessonCreateForm 
+              courseid = {courseId}
+            />
           </Stack>
         </Container>
       </Box>

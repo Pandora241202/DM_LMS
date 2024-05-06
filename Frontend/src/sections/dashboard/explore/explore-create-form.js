@@ -90,7 +90,6 @@ export const CourseCreateForm = (props) => {
   const [files, setFiles] = useState([]);
   const [topicOptions, setTopicOptions] = useState([]);
   const [visibilityChecked, setVisibilityChecked] = useState(false);
-
   const handleVisibilityChange = () => {
     setVisibilityChecked(!visibilityChecked);
   };
@@ -103,7 +102,7 @@ export const CourseCreateForm = (props) => {
         console.log(formik.values);
         const response = await exploreApi.createCourse({
           name: values.name,
-          idInstructor: 2,
+          idInstructor: parseInt(localStorage.getItem("id"), 10),
           visibility: visibilityChecked,
           level: values.level,
           amountOfTime: values.amountOfTime ,
