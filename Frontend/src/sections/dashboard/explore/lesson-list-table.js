@@ -26,24 +26,24 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-function createData(name, price) {
-  return {
-    name,
-    price,
-    history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        type: "PDF",
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        type: "VIDEO"
-      },
-    ],
-  };
-}
+// function createData(name, price) {
+//   return {
+//     name,
+//     price,
+//     history: [
+//       {
+//         date: '2020-01-05',
+//         customerId: '11091700',
+//         type: "PDF",
+//       },
+//       {
+//         date: '2020-01-02',
+//         customerId: 'Anonymous',
+//         type: "VIDEO"
+//       },
+//     ],
+//   };
+// }
 
 function Row(props) {
   const { row } = props;
@@ -62,37 +62,13 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.name}
+          {row.title}
         </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              {/* <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table> */}
+            {/* <Box sx={{ margin: 1 }}>
                 {row.history.map((historyRow) => (
                 <Item
                     sx={{
@@ -107,7 +83,7 @@ function Row(props) {
                     </Stack>
                 </Item>
                 ))}
-            </Box>
+            </Box> */}
           </Collapse>
         </TableCell>
       </TableRow>
@@ -119,36 +95,35 @@ Row.propTypes = {
   row: PropTypes.shape({
     history: PropTypes.arrayOf(
       PropTypes.shape({
-        amount: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
         customerId: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
       }),
     ).isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired
   }).isRequired,
 };
 
-const rows = [
-  createData('Frozen yoghurt', 10),
-  createData('Ice cream sandwich', 20),
-  createData('Eclair', 30),
-  createData('Cupcake', 40),
-  createData('Gingerbread', 50),
-  createData('Frozen yoghurt', 10),
-  createData('Ice cream sandwich', 20),
-  createData('Eclair', 30),
-  createData('Cupcake', 40),
-  createData('Gingerbread', 50),
-  createData('Frozen yoghurt', 10),
-  createData('Ice cream sandwich', 20),
-  createData('Eclair', 30),
-  createData('Cupcake', 40),
-  createData('Gingerbread', 50),
-];
+// const rows = [
+//   createData('Frozen yoghurt', 10),
+//   createData('Ice cream sandwich', 20),
+//   createData('Eclair', 30),
+//   createData('Cupcake', 40),
+//   createData('Gingerbread', 50),
+//   createData('Frozen yoghurtu', 10),
+//   createData('Ice cream sandwichu', 20),
+//   createData('Eclairu', 30),
+//   createData('Cupcakeu', 40),
+//   createData('Gingerbreadu', 50),
+//   createData('Frozen yoghurtuu', 10),
+//   createData('Ice cream sandwichuu', 20),
+//   createData('Eclairuu', 30),
+//   createData('Cupcakeuu', 40),
+//   createData('Gingerbreaduu', 50),
+// ];
 
-export default function CollapsibleTable() {
+export default function CollapsibleTable({rows}) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -160,7 +135,7 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.name} row={row} />
+            <Row key={row.id} row={row} />
           ))}
         </TableBody>
       </Table>

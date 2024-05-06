@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
+
 import {
   Box,
   Breadcrumbs,
@@ -23,6 +24,7 @@ import { LMManageListSearch } from '../../../sections/dashboard/explore/explore-
 import { LMManageListTable } from '../../../sections/dashboard/explore/explore-list-table';
 import { applyPagination } from '../../../utils/apply-pagination';
 import CollapsibleTable from '../../../sections/dashboard/explore/lesson-list-table';
+import { exploreApi } from '../../../api/explore';
 
 const useSearch = () => {
   const [search, setSearch] = useState({
@@ -99,8 +101,6 @@ const useLMs = (search) => {
       // if (typeof search.page !== 'undefined' && typeof search.rowsPerPage !== 'undefined') {
       //   data = applyPagination(data, search.page, search.rowsPerPage);
       // }
-      console.log(data);
-      console.log(search);
 
       if (isMounted()) {
         setState({
@@ -122,9 +122,26 @@ const useLMs = (search) => {
   return state;
 };
 
+
+
 const LMList = () => {
   const { search, updateSearch } = useSearch();
   const { LMs, LMsCount } = useLMs(search);
+  const courseUrl = window.location.href.split('/');
+  const courseId = (courseUrl[courseUrl.length - 1]);
+  const [lessonList, setLessonList] = useState([]);
+  const [courseTitle, setCourseTitle] = useState("");
+
+  useEffect(() => {(async () => {
+    try {
+      const response = await exploreApi.detailCourse(courseId);
+      setLessonList(response.data.lessons)
+      setCourseTitle(response.data.name)
+
+    } catch (err) {
+      console.error(err);
+    }
+  })()}, []);
 
   usePageView();
 
@@ -172,7 +189,7 @@ const LMList = () => {
             >
               <Stack spacing={1}>
                 <Typography variant="h4">
-                  Thêm tên khoá học
+                  {courseTitle}
                 </Typography>
                 <Breadcrumbs separator={<BreadcrumbsSeparator />}>
                   <Link
@@ -224,7 +241,9 @@ const LMList = () => {
                 LMsCount={LMsCount}
                 rowsPerPage={search.rowsPerPage}
               /> */}
-              <CollapsibleTable />
+              <CollapsibleTable 
+                rows={lessonList}  
+              />
             </Card>
           </Stack>
         </Container>

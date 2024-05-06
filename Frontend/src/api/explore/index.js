@@ -15,6 +15,10 @@ class ExploreApi {
   createLesson(request) {
     return axios.post(`${apiUrl}/lessons`, request)
   }
+
+  detailCourse(id) {
+    return axios.get(`${apiUrl}/courses/${id}`);
+  }
 //   getForumDetail(id) {
 //     return axios.get(`${apiUrl}/${id}`);
 //     //return Promise.resolve(deepCopy(forumDetail));

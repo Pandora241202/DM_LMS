@@ -1,11 +1,11 @@
 import NextLink from 'next/link';
 import Head from 'next/head';
 import { Box, Breadcrumbs, Container, Link, Stack, Typography } from '@mui/material';
-import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
-import { usePageView } from '../../../hooks/use-page-view';
-import { Layout as DashboardLayout } from '../../../layouts/dashboard';
-import { paths } from '../../../paths';
-import { LessonCreateForm } from '../../../sections/dashboard/explore/lesson-create-form';
+import { BreadcrumbsSeparator } from '../../../../components/breadcrumbs-separator';
+import { usePageView } from '../../../../hooks/use-page-view';
+import { Layout as DashboardLayout } from '../../../../layouts/dashboard';
+import { paths } from '../../../../paths';
+import { LessonCreateForm } from '../../../../sections/dashboard/explore/lesson-create-form';
 
 const LessonCreate = (props) => {
     console.log(props)

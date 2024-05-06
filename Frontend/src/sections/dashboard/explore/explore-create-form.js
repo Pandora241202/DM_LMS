@@ -101,7 +101,7 @@ export const CourseCreateForm = (props) => {
       try {
         // NOTE: Make API request
         console.log(formik.values);
-        await exploreApi.createCourse({
+        const response = await exploreApi.createCourse({
           name: values.name,
           idInstructor: 2,
           visibility: visibilityChecked,
@@ -109,8 +109,9 @@ export const CourseCreateForm = (props) => {
           amountOfTime: values.amountOfTime ,
           description: values.description ,
       })
+        console.log(response.data.id)
         toast.success('Khoá học mới đã được tạo');
-        router.push(paths.dashboard.explore);
+        router.push(`${paths.dashboard.explore}/${response.data.id}`);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');
