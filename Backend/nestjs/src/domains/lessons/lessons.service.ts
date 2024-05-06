@@ -18,7 +18,7 @@ export class LessonService {
   }
 
   async detail(id: number) {
-    const lesson = await this.prismaService.lesson.findFirst({where: { id }})
+    const lesson = await this.prismaService.lesson.findFirst({where: { id }, include: {LearningMaterial: true}})
     if (!lesson) throw new NotFoundException (`Not found lesson ${id}`);
 
     return LessonDTO.fromEntity(lesson as any)

@@ -3,7 +3,9 @@ import { FileService } from './file.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { nanoid } from 'nanoid';
 import { diskStorage } from 'multer';
-import { Request } from 'express';
+import { Request, Response } from 'express';
+import { createReadStream } from 'fs';
+import { join } from 'path';
 
 @Controller('files')
 export class FileController {
@@ -27,9 +29,11 @@ export class FileController {
     return await this.fileService.upLoadFile(parts[1], parts[0], file.mimetype);
   }
 
-  @Get('id')
+  @Get(':id')
   async detail(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
-    const file = await this.fileService.detail(id)
+    const fileName = await this.fileService.detail(id)
     
+    const file = createReadStream(join(process.cwd(), `uploads/materialFiles/${fileName}`));
+    file.pipe(res);
   }
 }

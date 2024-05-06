@@ -18,6 +18,6 @@ export class FileService {
     const file = await this.prismaService.file.findFirst({where: { id }});
     if (!file) throw new NotFoundException("File not found")
 
-    return FileDTO.fromEntity(file as any)
+    return FileDTO.fromEntity(file as any).fileName
   }
 }
