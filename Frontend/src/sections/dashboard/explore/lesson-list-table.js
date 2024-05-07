@@ -17,6 +17,11 @@ import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import { FileIcon } from '../../../components/file-icon';
 import { styled } from '@mui/material/styles';
+import { useCallback, useState, useEffect } from 'react';
+import { useMounted } from '../../../hooks/use-mounted';
+import { exploreApi } from '../../../api/explore';
+
+
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -45,9 +50,34 @@ const Item = styled(Paper)(({ theme }) => ({
 //   };
 // }
 
+
+
 function Row(props) {
+  const isMounted = useMounted();
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  const [listLMAccordingToLesson, setListLMAccordingToLesson] = useState({
+    "title": "",
+    "learningMaterial": [
+        {
+            "id": 9,
+            "name": "Document21"
+        }
+    ],
+    "amountOfTime": 0,
+    "visibility": true
+});
+  const getLesson = useCallback(async (id) => {
+    try {
+      const response = await exploreApi.getLesson(id);
+
+      if (isMounted()) {
+        setListLMAccordingToLesson(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [open])
 
   return (
     <React.Fragment>
@@ -56,7 +86,9 @@ function Row(props) {
           <IconButton
             aria-label="expand row"
             size="small"
-            onClick={() => setOpen(!open)}
+            onClick={() => {setOpen(!open)
+                            getLesson(row.id)
+            }}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
@@ -68,8 +100,8 @@ function Row(props) {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            {/* <Box sx={{ margin: 1 }}>
-                {row.history.map((historyRow) => (
+            <Box sx={{ margin: 1 }}>
+                {listLMAccordingToLesson.learningMaterial.map((_lm) => (
                 <Item
                     sx={{
                     my: 1,
@@ -78,12 +110,13 @@ function Row(props) {
                     }}
                 >
                     <Stack spacing={2} direction="row" alignItems="center">
-                        <FileIcon extension={historyRow.type} />
-                        <Typography noWrap>{historyRow.date}</Typography>
+                        <FileIcon extension={_lm.type} />
+                        <Typography noWrap>{_lm.name}</Typography>
                     </Stack>
                 </Item>
                 ))}
-            </Box> */}
+            </Box>
+            {console.log(listLMAccordingToLesson["learningMaterial"])}
           </Collapse>
         </TableCell>
       </TableRow>

@@ -25,6 +25,7 @@ import { paths } from '../../../paths';
 import { topic_manageApi } from '../../../api/Topic-Manage';
 import { lm_manageApi } from '../../../api/LM-Manage';
 import { useMounted } from '../../../hooks/use-mounted';
+import axios from 'axios';
 
 
 const typeOptions = [
@@ -67,6 +68,7 @@ const initialValues = {
   score: 10,
   rating: 5,
   topicId: 0,
+  fileId: 0,
   // submit: null
 };
 
@@ -81,6 +83,7 @@ const validationSchema = Yup.object({
   rating: Yup.number().min(0).max(5),
   score: Yup.number().min(0),
   topicId: Yup.number().required(),
+  fileId: Yup.number(),
   // newPrice: Yup.number().min(0).required(),
   // oldPrice: Yup.number().min(0),
 });
@@ -93,6 +96,8 @@ export const LMCreateForm = (props) => {
   const [files, setFiles] = useState([]);
   const filter = createFilterOptions();
   const [topicOptions, setTopicOptions] = useState([]);
+  const [idLMList, setIdLMList] = useState([]);
+  const [disabled, setDisabled] = useState(false);
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -107,7 +112,8 @@ export const LMCreateForm = (props) => {
           rating: values.rating,
           time: values.time,
           // topicIds: topicIds.map((topicIds) => topicIds.id)
-          topicId: values.topicId
+          topicId: values.topicId,
+          fileId: idLMList[0]
       })
         // await lm_manageApi.createLM(values);
         toast.success('Tài liệu học tập đã được tạo');
@@ -142,17 +148,47 @@ export const LMCreateForm = (props) => {
     setFiles((prevFiles) => {
       return [...prevFiles, ...newFiles];
     });
+    setDisabled(false);
   }, []);
 
   const handleFileRemove = useCallback((file) => {
     setFiles((prevFiles) => {
       return prevFiles.filter((_file) => _file.path !== file.path);
     });
+    setDisabled(false);
   }, []);
 
   const handleFilesRemoveAll = useCallback(() => {
     setFiles([]);
+    setDisabled(false);
+
   }, []);
+
+  const handleFilesUpload = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('file', files[0]);
+    try {
+        // NOTE: Make API request
+        // console.log(formik.values);
+        // console.log(files.map((_file) => _file.path))
+        const response = await axios.post('http://localhost:8080/files',
+            formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+              },
+          });
+
+        setIdLMList([response.data["id"]])
+        setDisabled(true);
+        toast.success('File đã đăng tải thành công');
+        // router.push(`${paths.dashboard.explore}/course`);
+      } catch (err) {
+        console.error(err);
+        toast.error('Something went wrong!');
+        console.error('Error uploading file:', err);
+      }
+  };
 
   return (
     <form
@@ -384,9 +420,11 @@ export const LMCreateForm = (props) => {
                   accept={{ '*/*': [] }}
                   caption="(PDF, SVG, JPG, PNG, or gif maximum 900x400, ...)"
                   files={files}
+                  disabled={disabled}
                   onDrop={handleFilesDrop}
                   onRemove={handleFileRemove}
                   onRemoveAll={handleFilesRemoveAll}
+                  onUpload={handleFilesUpload}
                 />
               </Grid>
             </Grid>
