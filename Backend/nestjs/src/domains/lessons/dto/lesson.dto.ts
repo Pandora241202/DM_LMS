@@ -5,12 +5,13 @@ export class LessonDTO {
     learningMaterial: {
         id: number;
         name: string;
+        type: string;
     }[]
     amountOfTime: number;
     visibility: boolean;
 
     static fromEntity(entity: Prisma.LessonGetPayload<{include: {LearningMaterial: true}}>): LessonDTO{
-        const learningMaterial = entity.LearningMaterial.map(lm => ({id: lm.id, name: lm.name}))
+        const learningMaterial = entity.LearningMaterial.map(lm => ({id: lm.id, name: lm.name, type: lm.type}))
         return{
             title: entity.title,
             learningMaterial: learningMaterial,
