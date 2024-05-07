@@ -3,18 +3,20 @@ import { Quiz } from '../request/learning-material-create.request';
 
 export class CodeDTO {
   question: string;
-  inputName: string;
-  outputName: string;
+  inputFileId: number;
+  outputFileId: number;
 
   static fromEntity(entity: Prisma.CodeGetPayload<{ include: { inputFile: true; outputFile: true } }>): CodeDTO {
     const { question, inputFile, outputFile } = entity;
-    const inputName = `${inputFile.prefix}--${inputFile.name}`;
-    const outputName = `${outputFile.prefix}--${outputFile.name}`;
+    // const inputName = `${inputFile.prefix}--${inputFile.name}`;
+    // const outputName = `${outputFile.prefix}--${outputFile.name}`;
+    const inputFileId = entity.inputFileId;
+    const outputFileId = entity.outputFileId;
 
     return {
       question,
-      inputName,
-      outputName,
+      inputFileId,
+      outputFileId,
     };
   }
 }
