@@ -15,7 +15,7 @@ class StatementCreateRequestDto {
 
   @IsNotEmpty()
   @IsNumber()
-  authenticatedUserId: number;
+  userId: number;
 
   // Map from dto request to entity create input
   static toCreateInput(data: StatementCreateRequestDto): Prisma.StatementUncheckedCreateInput {
@@ -42,7 +42,7 @@ class StatementResponseDto {
   id: number;
   content: string;
   updatedAt: Date;
-  authenticatedUserId: number;
+  userId: number;
   statementId: number;
   forumId: number;
 

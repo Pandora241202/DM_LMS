@@ -1,4 +1,4 @@
-import { Prisma, Forum } from '@prisma/client';
+import { Prisma, Forum, Statement } from '@prisma/client';
 import { ArrayNotEmpty, IsNumber, IsNotEmpty, IsString } from 'class-validator';
 import { DatetimeService } from 'src/services/datetime/datetime.service';
 
@@ -78,9 +78,10 @@ class ForumResponseDto {
   coverImageType: string | null;
   updatedAt: string;
   createdAt: string;
+  statements?: Statement[]; 
 
   // Map from Forum entity to dto
-  static fromForum(data: Forum): ForumResponseDto {
+  static fromForum(data: Forum & {statements?: Statement[]}): ForumResponseDto {
     return {
       ...data,
       updatedAt: DatetimeService.formatVNTime(data.updatedAt),

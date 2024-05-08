@@ -123,7 +123,7 @@ export const CheckDuplicateDialog = (props) => {
         </Stack>
         <DialogContent>
           <Typography variant="subtitle1" sx={{fontWeight: 600, mb: 2}}>
-            Nội dung diễn đàn của bạn có vẻ không bị trùng lặp với các nội dung đã có. Xác nhận đăng bài!
+            Nội dung diễn đàn của bạn không bị trùng lặp với các nội dung đã có. Xác nhận đăng bài!
           </Typography>
           <Stack flexDirection="row" justifyContent="flex-end">
             <Button
@@ -169,13 +169,13 @@ export const CheckDuplicateDialog = (props) => {
       </Stack>
       <DialogContent>
         <Typography variant="subtitle1" sx={{fontWeight: 600}}>
-          Duyệt qua các diễn đàn đã có để đảm bảo nội dung bài đăng của bạn không bị trùng lặp
+          Phát hiện các diễn đàn có nội dung tương tự, xin hãy duyệt qua chúng để đảm bảo nội dung bài đăng của bạn không bị trùng lặp
         </Typography>
         <Typography variant="subtitle2" sx={{fontWeight: 300, fontSize: 12, fontStyle: "italic"}}>
           Nhấn vào các đường link diễn đàn dưới đây để bạn có thể duyệt qua chúng trong tab trình duyệt mới. Tiến trình của bạn sẽ được lưu trữ tại đây để bạn có thể quay lại và tiếp tục!
         </Typography>
         <Box
-          sx={{ my: 2, borderRadius: '10px', border: '1px solid', borderColor: "text.disabled", py: 1, px: 2 }}
+          sx={{ my: 2, borderRadius: '10px', border: '1px solid', borderColor: "action.disabledBackground", py: 1, px: 2 }}
         >
           {similarForums.map(forum => 
             <Stack flexDirection="row" key={forum.id} >

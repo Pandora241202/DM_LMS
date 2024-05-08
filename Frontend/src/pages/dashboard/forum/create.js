@@ -30,7 +30,6 @@ const Page = () => {
   const [title, setTitle] = useState('');
   const [shortDescription, setShortDescription] = useState('');
   const [content, setContent] = useState('');
-  const [contentQuil, setContentQuil] = useState('');
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const { user } = useAuth();
 
@@ -254,10 +253,9 @@ const Page = () => {
                     <QuillEditor
                       placeholder="Nội dung"
                       sx={{ height: 330 }}
-                      value={contentQuil}
+                      value={content}
                       onChange={(content, delta, source, editor) => {
-                        setContentQuil(content)
-                        setContent(editor.getText())
+                        setContent(content)
                       }}
                     />
                   </Grid>
@@ -306,7 +304,7 @@ const Page = () => {
                           <Chip 
                             key={index} 
                             label={label}  
-                            onDelete={e => setLabels(labels.filter(l => l !== label))}
+                            onDelete={e => setLabels([...labels.slice(0, index), ...labels.slice(index+1, labels.length)])}
                             sx={{mr: 1, mb: 1}} 
                           />
                         )}
@@ -331,7 +329,7 @@ const Page = () => {
             }}
           >
             <Typography sx={{ color: 'text.caution', fontSize: 17, fontWeight: '500' }}>
-              {(contentQuil == '' || contentQuil == '<p><br></p>') && "Thiếu nội dung !"}
+              {(content == '' || content == '<p><br></p>') && "Thiếu nội dung !"}
             </Typography>
             <Stack
               alignItems="center"
@@ -368,7 +366,7 @@ const Page = () => {
           "label": labels,
           "shortDescription": shortDescription,
           "content": content,
-          "coverImage": cover.raw,
+          "coverImage": cover?cover.raw:null,
           "userId": user.id
         }}
       />}

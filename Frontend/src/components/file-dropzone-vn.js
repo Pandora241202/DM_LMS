@@ -75,7 +75,7 @@ export const FileDropzoneVn = (props) => {
               }}
               variant="h6"
             >
-              <span>Click để chọn ảnh từ máy</span> hoặc kéo thả tệp
+              <span>Click để chọn tệp từ máy</span> hoặc kéo thả tệp
             </Typography>
             {caption && (
               <Typography

@@ -3,6 +3,7 @@ import { CourseCreateREQ } from './request/courses-create.request';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { CourseUpdateREQ } from './request/courses-update.request';
 import { CourseDTO, CourseListDTO } from './dto/course.dto';
+import { CourseListREQ, CourseOwnListREQ } from './request/courses-list.request';
 
 @Injectable()
 export class CourseService {
@@ -20,9 +21,20 @@ export class CourseService {
     return CourseDTO.fromEnTity(course as any);
   }
 
-  async getAll(idInstructor: number) {
+  async getAll(query: CourseListREQ) {
+    const condition = CourseListREQ.toCondition(query);
     const courses = await this.prismaService.course.findMany({
-      where: { idInstructor },
+      where: condition,
+      select: { id: true, name: true, createdAt: true, updatedAt: true, amountOfTime: true },
+    });
+
+    return courses.map((c) => CourseListDTO.fromEntity(c as any));
+  }
+
+  async ownCourse(query: CourseOwnListREQ) {
+    const condition = CourseOwnListREQ.toCondition(query);
+    const courses = await this.prismaService.course.findMany({
+      where: condition,
       select: { id: true, name: true, createdAt: true, updatedAt: true, amountOfTime: true },
     });
 

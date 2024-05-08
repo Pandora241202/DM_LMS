@@ -98,6 +98,19 @@ const QuillEditorRoot = styled('div')(({ theme }) => ({
   }
 }));
 
+const modules = {
+  toolbar: [
+    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    ['blockquote', 'code-block'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+    ['link', 'image', 'video'],
+    [{ 'color': [] }, { 'background': [] }],          
+    [{ 'align': [] }],
+    ['clean']
+  ]
+};
+
 export const QuillEditor = (props) => {
   const { sx, onChange, placeholder, value, ...other } = props;
   const ref = useRef(null);
@@ -112,6 +125,7 @@ export const QuillEditor = (props) => {
         placeholder={placeholder}
         value={value}
         bounds={ref.current || undefined}
+        modules={modules}
       />
     </QuillEditorRoot>
   );

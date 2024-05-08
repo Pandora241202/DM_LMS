@@ -123,7 +123,7 @@ const Page = () => {
               mt: 6,
             }}
           >
-            <SvgIcon fontSize="large" htmlColor="#848C97" >
+            <SvgIcon fontSize="medium" htmlColor="#848C97" >
               <SearchMdIcon />
             </SvgIcon>
             <Input placeholder="Tìm kiếm chủ đề trên diễn đàn..." disableUnderline fullWidth sx={{marginLeft: 2}} inputProps={{ style: { fontSize: '17px' } }}/>
@@ -148,7 +148,7 @@ const Page = () => {
             </Typography>
             <Button
               component={NextLink}
-              href={paths.dashboard.blog.postCreate}
+              href={paths.dashboard.forum.create}
               variant="contained"
             >
               Tạo ngay
