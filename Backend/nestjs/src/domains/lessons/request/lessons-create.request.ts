@@ -13,15 +13,11 @@ export class LessonCreateREQ {
   @IsNumber()
   idCourse: number;
 
-  @IsNumber({}, { each: true })
-  idLearningMaterial: number[];
-
   static toCreateInput(body: LessonCreateREQ): Prisma.LessonCreateInput {
     return {
       title: body.title,
       amountOfTime: 0,
       Course: connectRelation(body.idCourse),
-      LearningMaterial: connectManyRelation(body.idLearningMaterial),
     };
   }
 }

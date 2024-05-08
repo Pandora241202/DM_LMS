@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { CourseService } from './courses.service';
 import { CourseCreateREQ } from './request/courses-create.request';
 import { CourseUpdateREQ } from './request/courses-update.request';
@@ -19,8 +19,8 @@ export class CourseController {
   }
 
   @Get('')
-  async getAll(@Body() body: CourseListREQ) {
-    return await this.courseService.getAll(body.idInstructor);
+  async getAll(@Query('instructorId', ParseIntPipe) instructorId: number) {
+    return await this.courseService.getAll(instructorId);
   }
 
   @Patch(':id')
