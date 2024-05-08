@@ -29,6 +29,9 @@ import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlin
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
+import AttractionsOutlinedIcon from '@mui/icons-material/AttractionsOutlined';
 import { tokens } from '../../locales/tokens';
 import { paths } from '../../paths';
 
@@ -127,16 +130,26 @@ export const getSections = (t) => [
         path: paths.dashboard.model,
         icon: (
           <SvgIcon fontSize="small">
-            <RouteIcon />
+            <AttractionsOutlinedIcon />
           </SvgIcon>
-        )
+        ),
+        items: [
+          {
+            title: t(tokens.nav.modelList),
+            path: paths.dashboard.model.index
+          },
+          {
+            title: t(tokens.nav.modelCreate),
+            path: paths.dashboard.model.create
+          }
+        ]
       },
       {
         title: t(tokens.nav.code),
         path: paths.dashboard.code,
         icon: (
           <SvgIcon fontSize="small">
-            <RouteIcon />
+            <CodeOutlinedIcon />
           </SvgIcon>
         )
       },
@@ -145,9 +158,19 @@ export const getSections = (t) => [
         path: paths.dashboard.dataset,
         icon: (
           <SvgIcon fontSize="small">
-            <RouteIcon />
+            <TableChartOutlinedIcon />
           </SvgIcon>
-        )
+        ),
+        items: [
+          {
+            title: t(tokens.nav.datasetList),
+            path: paths.dashboard.dataset.index
+          },
+          {
+            title: t(tokens.nav.datasetCreate),
+            path: paths.dashboard.dataset.create
+          }
+        ]
       },
     ]
   },

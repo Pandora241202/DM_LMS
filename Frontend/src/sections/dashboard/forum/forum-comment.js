@@ -55,7 +55,7 @@ export const ForumComment = (props) => {
     isLiked: isLikedProp,
     likes: likesProp,
     forumId,
-    authenticatedUserId,
+    userId,
     statementId,  
     id,
     ...other
@@ -126,7 +126,7 @@ ForumComment.propTypes = {
   isLiked: PropTypes.bool.isRequired,
   likes: PropTypes.number.isRequired,
   forumId: PropTypes.number.isRequired,
-  authenticatedUserId: PropTypes.number.isRequired,
+  userId: PropTypes.number.isRequired,
   statementId: PropTypes.number,
   replies: PropTypes.arrayOf(any),
   id: PropTypes.number.isRequired,

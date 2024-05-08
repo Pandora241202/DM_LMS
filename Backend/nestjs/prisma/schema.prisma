@@ -32,6 +32,7 @@ model AuthenticatedUser {
   Permission       Permission[]
   Role             Role[]
   Statement        Statement[]
+  Notebook         Notebook[]
 
   @@map("authenticated_user")
 }
@@ -239,19 +240,18 @@ model LearningPath {
 }
 
 model Forum {
-  id               Int      @id @default(autoincrement())
+  id               Int                @id @default(autoincrement())
   title            String
   label            String[]
-  shortDescription String
-  coverImageType   String?
+  shortDescription String             @map("short_description")
+  coverImageType   String?            @map("cover_image_type")
   content          String
-  readTimes        Int      @default(0)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @default(now())
-
+  readTimes        Int                @default(0) @map("read_times")
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @default(now()) @map("updated_at") 
   authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
-  userId            Int
-  Statement         Statement[]
+  userId            Int               @map("user_id")
+  statements        Statement[]
 
   @@map("forums")
 }
@@ -259,11 +259,11 @@ model Forum {
 model Statement {
   id                  Int               @id @default(autoincrement())
   content             String
-  updatedAt           DateTime          @default(now())
-  forumId             Int
-  authenticatedUserId Int
-  statementId         Int?
-  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
+  updatedAt           DateTime          @default(now()) @map("updated_at") 
+  forumId             Int               @map("forum_id")
+  userId              Int               @map("user_id")    
+  statementId         Int?              @map("statement_id") 
+  authenticatedUser   AuthenticatedUser @relation(fields: [userId], references: [id])
   forum               Forum             @relation(fields: [forumId], references: [id])
   preStatement        Statement?        @relation("pre_order", fields: [statementId], references: [id])
   Statement           Statement[]       @relation("pre_order")
@@ -290,40 +290,91 @@ model Permission {
 }
 
 model Dataset {
-  id                  Int               @id @default(autoincrement())
-  description         String
-  content             String
-  status              Boolean
-  authenticatedUserId Int               @map("authenticated_user_id")
-  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
-  Model               Model[]
+  id                  Int                   @id @default(autoincrement())
+  title               String
+  description         String?
+  detail              String?
+  labels              String[]
+  isPublic            Boolean
+  filesType           String[]              @map("files_type")
+  userId              Int                   @map("authenticated_user_id")
+  authenticatedUser   AuthenticatedUser     @relation(fields: [userId], references: [id])
+  updatedAt           DateTime              @default(now()) @map("updated_at") 
+  notebooks           DatasetsOfNotebooks[]
+  votes               Int                   @default(0)
+  downloadCount       Int                   @default(0) @map("download_count")
 
   @@map("datasets")
 }
 
 model Model {
-  id                  Int               @id @default(autoincrement())
-  modelAttribute      String            @map("model_attribute")
-  content             String
-  status              Boolean
-  authenticatedUserId Int               @map("authenticated_user_id")
-  datasetId           Int
-  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
-  dataset             Dataset           @relation(fields: [datasetId], references: [id])
+  id                  Int                 @id @default(autoincrement())
+  title               String
+  description         String?
+  detail              String?
+  labels              String[]
+  isPublic            Boolean             @map("is_public")
+  userId              Int                 @map("user_id")
+  authenticatedUser   AuthenticatedUser   @relation(fields: [userId], references: [id])
+  modelVariations     ModelVariation[]
+  notebooks           ModelsOfNotebooks[]
+  updatedAt           DateTime            @default(now()) @map("updated_at") 
+  votes               Int                 @default(0)
+  downloadCount       Int                 @default(0) @map("download_count")
 
   @@map("models")
 }
 
-model Framework {
-  id                  Int               @id @default(autoincrement())
-  description         String
-  usedTimes           Int               @map("used_times")
-  programmingLanguage String            @map("programming_language")
-  content             String
-  authenticatedUserId Int               @map("authenticated_user_id")
-  authenticatedUser   AuthenticatedUser @relation(fields: [authenticatedUserId], references: [id])
+model ModelVariation {
+  id          Int       @id @default(autoincrement())
+  filesType   String[]  @map("files_type")
+  framework   Framework
+  slugName    String    @map("slug_name")
+  version     Int
+  description String?
+  modelId     Int       @map("model_id")
+  model       Model     @relation(fields: [modelId], references: [id])
+  exampleUse  String?   @map("example_use")
+  updatedAt   DateTime  @default(now()) @map("updated_at") 
 
-  @@map("frameworks")
+  @@map("model_variation")
+}
+
+model Notebook {
+  id                  Int                   @id @default(autoincrement())
+  title               String
+  labels              String[]
+  content             String
+  userId              Int                   @map("user_id")
+  isPublic            Boolean               @map("is_public")
+  datasets            DatasetsOfNotebooks[]
+  models              ModelsOfNotebooks[]
+  updatedAt           DateTime              @default(now()) @map("updated_at") 
+  votes               Int                   @default(0)
+  
+  authenticatedUser   AuthenticatedUser @relation(fields: [userId], references: [id])
+
+  @@map("notebook")
+}
+
+model DatasetsOfNotebooks { 
+  datasetId           Int               @map("dataset_id")
+  dataset             Dataset           @relation(fields: [datasetId], references: [id])
+  notebookId          Int               @map("notebook_id")
+  notebook            Notebook          @relation(fields: [notebookId], references: [id])
+
+  @@id([datasetId, notebookId])
+  @@map("datasets_of_notebooks")
+}
+
+model ModelsOfNotebooks { 
+  modelId             Int               @map("model_id")
+  model               Model             @relation(fields: [modelId], references: [id])
+  notebookId          Int               @map("notebook_id")
+  notebook            Notebook          @relation(fields: [notebookId], references: [id])
+
+  @@id([modelId, notebookId])
+  @@map("models_of_notebooks")
 }
 
 model File {
@@ -407,4 +458,27 @@ enum SubjectType {
   DEEP_LEARNING
   DATA_ENGINEER
   BIG_DATA_ENGINEER
+}
+
+enum Framework {
+  TENSORFLOW_2
+  KERAS
+  PYTORCH
+  TRANSFORMERS
+  GEMMA_CPLUSPLUS
+  TENSORRT_LLM
+  TENSORFLOW_LITE
+  MAXTEXT
+  PAX
+  FLAX
+  JAX
+  GGML
+  GGUF
+  TENSORFLOW_1
+  TENSORFLOWDOTJS
+  CORAL
+  SCIKIT_LEARN
+  MXNET
+  ONNX
+  OTHER
 }
