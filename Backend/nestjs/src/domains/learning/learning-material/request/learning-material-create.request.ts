@@ -66,6 +66,14 @@ export class LearningMaterialCreateREQ {
   @Type(() => Code)
   code: Code;
 
+  @IsOptional()
+  @IsString()
+  content: string;
+
+  @IsOptional()
+  @IsNumber()
+  lessonId: number;
+
   static toCreateInput(body: LearningMaterialCreateREQ): Prisma.LearningMaterialCreateInput {
     return {
       name: body.name,
@@ -74,6 +82,7 @@ export class LearningMaterialCreateREQ {
       rating: body.rating ? body.rating : 5.0,
       score: body.score,
       time: body.time ? body.time : 300,
+      Lesson: connectRelation(body.lessonId),
       Topic: connectRelation(body.topicId),
       Creator: connectRelation(body.creatorId),
     };
