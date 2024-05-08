@@ -219,7 +219,6 @@ const LessonList = () => {
                   component={NextLink}
                   // Thay đổi đường dẫn để lưu vào db
                   href={`${paths.dashboard.explore}/lesson/${courseId}`}
-                  data = {10}
                   startIcon={(
                     <SvgIcon>
                       <PlusIcon />

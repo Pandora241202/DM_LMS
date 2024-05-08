@@ -26,15 +26,30 @@ import { OverviewHelp } from '../../../sections/dashboard/overview/overview-help
 import { OverviewJobs } from '../../../sections/dashboard/overview/overview-jobs';
 import { OverviewOpenTickets } from '../../../sections/dashboard/overview/overview-open-tickets';
 import { OverviewTips } from '../../../sections/dashboard/overview/overview-tips';
-import { LearningObject } from '../../../sections/dashboard/overview/learning-object';
+import { Course } from '../../../sections/dashboard/overview/course';
 import { paths } from '../../../paths';
+import { exploreApi } from '../../../api/explore';
+
 // import { CreateCourseDialog } from '../../../sections/dashboard/explore/create-course-dialog';
 
 const now = new Date();
 
 const Page = () => {
   const settings = useSettings();
+  const [listCourses, setListCourses] = useState([]);
   // const [openCreateCourseDialog, setOpenCreateCourseDialog] = useState(false)
+
+  const getCourses = useCallback(async () => {
+    try {
+      const response = await exploreApi.getListCourse();
+
+      if (isMounted()) {
+        setListCourses([...response.data]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [])
 
   usePageView();
 
@@ -69,7 +84,7 @@ const Page = () => {
               >
                 <div>
                   <Typography variant="h4">
-                    Explore
+                    Các khoá học mới
                   </Typography>
                 </div>
                 <div>
@@ -94,13 +109,17 @@ const Page = () => {
                 </div>
               </Stack>
             </Grid>
-            <Grid
+            {listCourses.map((_course) => 
+            {<Grid
               xs={12}
               md={4}
             >
-              <LearningObject amount={31} />
+              <Course
+                title={_course.name}
+                amount={_course.amountOfTime} />  
             </Grid>
-            <Grid
+            })}
+            {/* <Grid
               xs={12}
               md={4}
             >
@@ -111,7 +130,7 @@ const Page = () => {
               md={4}
             >
               <OverviewOpenTickets amount={5} />
-            </Grid>
+            </Grid> */}
             <Grid
               xs={12}
               md={7}

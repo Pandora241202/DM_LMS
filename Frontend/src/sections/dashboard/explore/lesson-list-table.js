@@ -1,25 +1,34 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
+import DotsVerticalIcon from '@untitled-ui/icons-react/build/esm/DotsVertical';
+import {
+    Avatar,
+    AvatarGroup,
+    Box,
+    Card,
+    Divider,
+    IconButton,
+    Stack,
+    SvgIcon,
+    Tooltip,
+    Typography
+  } from '@mui/material';
 import { FileIcon } from '../../../components/file-icon';
 import { styled } from '@mui/material/styles';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import { useMounted } from '../../../hooks/use-mounted';
 import { exploreApi } from '../../../api/explore';
+import { ItemMenu } from './item-menu';
 
 
 
@@ -54,6 +63,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Row(props) {
   const isMounted = useMounted();
+  const menuRef = useRef(null);
+  const [openMenu, setOpenMenu] = useState(false);
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const [listLMAccordingToLesson, setListLMAccordingToLesson] = useState({
@@ -79,6 +90,14 @@ function Row(props) {
     }
   }, [open])
 
+  const handleMenuClose = useCallback(() => {
+    setOpenMenu(false);
+  }, []);
+
+  const handleMenuOpen = useCallback(() => {
+    setOpenMenu(true);
+  }, []);
+
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -95,6 +114,16 @@ function Row(props) {
         </TableCell>
         <TableCell component="th" scope="row">
           {row.title}
+        </TableCell>
+        <TableCell align="right">
+            <IconButton
+                onClick={handleMenuOpen}
+                ref={menuRef}
+            >
+              <SvgIcon fontSize="small">
+                  <DotsVerticalIcon />
+              </SvgIcon>
+            </IconButton>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -120,6 +149,12 @@ function Row(props) {
           </Collapse>
         </TableCell>
       </TableRow>
+      <ItemMenu
+        anchorEl={menuRef.current}
+        onClose={handleMenuClose}
+        open={openMenu}
+        idLesson={row.id}
+      />
     </React.Fragment>
   );
 }
@@ -164,6 +199,7 @@ export default function CollapsibleTable({rows}) {
           <TableRow>
             <TableCell />
             <TableCell>Danh sách bài học</TableCell>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>

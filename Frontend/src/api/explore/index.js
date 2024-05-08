@@ -23,6 +23,10 @@ class ExploreApi {
   getLesson(id) {
     return axios.get(`${apiUrl}/lessons/${id}`);
   }
+
+  getListCourse(){
+    return axios.get(`${apiUrl}/courses`);
+  }
 //   getForumDetail(id) {
 //     return axios.get(`${apiUrl}/${id}`);
 //     //return Promise.resolve(deepCopy(forumDetail));
