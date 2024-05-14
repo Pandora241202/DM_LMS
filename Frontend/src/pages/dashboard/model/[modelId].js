@@ -262,7 +262,7 @@ const Page = () => {
                     style={{ marginLeft: 'auto', maxWidth: 170, minWidth: 170}} 
                     startIcon={<AddOutlinedIcon />} 
                     variant="outlined"
-                    onClick={() => router.push(paths.dashboard.model.modelVariationCreate.replace(':modelId', modelDetail.id))}
+                    onClick={() => router.push(paths.dashboard.model.model_variation_create.replace(':modelId', modelDetail.id))}
                   >
                     Thêm biến thể
                   </Button>

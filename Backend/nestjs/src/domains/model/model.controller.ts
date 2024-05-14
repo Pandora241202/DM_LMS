@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   NotFoundException,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ModelService } from './model.service';
@@ -33,9 +34,18 @@ export class ModelController {
   }
 
   @Get()
-  async getAll() {
+  async getMany(@Query() queryParams) {
     try {
-      const result = await this.modelService.getMany({ isPublic: true });
+      if (queryParams.isPublic === 'true') {
+        queryParams.isPublic = true;
+      }
+      if (queryParams.isPublic === 'false') {
+        queryParams.isPublic = false;
+      }
+      if (queryParams.userId) {
+        queryParams.userId = +queryParams.userId;
+      }
+      const result = await this.modelService.getMany(queryParams);
       return JSON.stringify(result.map((f) => ModelDto.ModelResponseDto.fromModel({...f, detail: null})));
     } catch (error) {
       console.log(error);

@@ -19,7 +19,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from '@mui/material';
-import { datasetApi } from '../../../api/dataset';
+import { notebookApi } from '../../../api/notebook';
 import { userApi } from '../../../api/user';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import { useMounted } from '../../../hooks/use-mounted';
@@ -27,30 +27,53 @@ import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
 import { useAuth } from '../../../hooks/use-auth';
+import { ModelVariationsShow } from '../../../sections/dashboard/model/model-variations-show';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import KeyboardDoubleArrowUpOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowUpOutlined';
-import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
-const useDatasetDetail = () => {
+const useModelDetail = () => {
   const isMounted = useMounted();
-  const [datasetDetail, setDatasetDetail] = useState(null);
+  const [modelDetail, setModelDetail] = useState(null);
+  const [modelVariations, setModelVariations] = useState([]);
   const router = useRouter();
 
-  const getDatasetDetail = useCallback(async () => {
+  const getModelDetail = useCallback(async () => {
     try {
       if (router.isReady) {
-        const datasetId = router.query.datasetId;
-        const response = await datasetApi.getDatasetDetail(datasetId);
+        const modelId = router.query.modelId;
+        const response = await modelApi.getModelDetail(modelId);
         console.log(response);
         const userResponse = await userApi.getUser(response.data.userId);
         if (isMounted()) {
-          setDatasetDetail({
+          setModelDetail({
             ...response.data, 
             author: {
               avatar: userResponse.data.avatar,
               name: userResponse.data.username
             }
           });
+
+          const modelVariationsMap = new Map();
+          for (let i = 0; i < response.data.modelVariations.length; i++) {
+            const framework = response.data.modelVariations[i].framework;
+            const slugName = response.data.modelVariations[i].slugName;
+            if (!modelVariationsMap.has(framework)) {
+              modelVariationsMap.set(framework, new Map());
+            }
+            if (!modelVariationsMap.get(framework).has(slugName)) {
+              modelVariationsMap.get(framework).set(slugName, []);
+            }
+            modelVariationsMap.get(framework).get(slugName).push({
+              id: response.data.modelVariations[i].id,
+              version: response.data.modelVariations[i].version,
+              filesType: response.data.modelVariations[i].filesType,
+              description: response.data.modelVariations[i].description,
+              exampleUse: response.data.modelVariations[i].exampleUse
+            });
+          }
+
+          setModelVariations(modelVariationsMap);
         }
       }
     } catch (err) {
@@ -59,31 +82,31 @@ const useDatasetDetail = () => {
   }, [isMounted,router.isReady]);
 
   useEffect(() => {
-    getDatasetDetail();
+    getModelDetail();
   }, [router.isReady]);
 
-  return {datasetDetail, setDatasetDetail};
+  return {modelDetail, setModelDetail, modelVariations, setModelVariations};
 };
 
 const Page = () => {
   const router = useRouter();
-  const { datasetDetail, setDatasetDetail } = useDatasetDetail(); 
-  const [tabTitle, setTabTitle] = useState('dataset');
+  const { modelDetail, setModelDetail, modelVariations, setModelVariations } = useModelDetail(); 
+  const [tabTitle, setTabTitle] = useState('model');
   const { user } = useAuth();
   const [upVote, setUpVote] = useState([]);
 
-  const updateDataset = useCallback(async (data) => {
-    await datasetApi.putDataset(datasetDetail.id, data)
+  const updateModel = useCallback(async (data) => {
+    await modelApi.putModel(modelDetail.id, data)
       .then((response) => {console.log(response);})
       .catch(error => {
         console.error('Error putting data:', error);
       })
-    setDatasetDetail({...datasetDetail, ...data});
-  }, [datasetDetail])
+    setModelDetail({...modelDetail, ...data});
+  }, [modelDetail])
   
   usePageView();
 
-  if (!datasetDetail) {
+  if (!modelDetail) {
     return null;
   }
  
@@ -91,7 +114,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dataset: Dataset Detail
+          Model: Model Detail
         </title>
       </Head>
       <Box
@@ -104,7 +127,7 @@ const Page = () => {
         <Container maxWidth="xl">
           <Stack spacing={1} mb={4}>
             <Typography variant="h3">
-              Tập dữ liệu
+              Mô hình
             </Typography>
             <Breadcrumbs separator={<BreadcrumbsSeparator />}>
               <Link
@@ -118,32 +141,32 @@ const Page = () => {
               <Link
                 color="text.primary"
                 component={NextLink}
-                href={paths.dashboard.dataset.index}
+                href={paths.dashboard.model.index}
                 variant="subtitle2"
               >
-                Tập dữ liệu
+                Mô hình
               </Link>
               <Typography
                 color="text.secondary"
                 variant="subtitle2"
               >
-                {datasetDetail.title}
+                {modelDetail.title}
               </Typography>
             </Breadcrumbs>
           </Stack>
           <Stack direction='row'>
             <Stack spacing={1}>
               <Typography variant="h4">
-                {datasetDetail.title}
+                {modelDetail.title}
               </Typography>
               <Typography
                 color="text.secondary"
                 variant="subtitle1"
               >
-                {datasetDetail.description?datasetDetail.description:"Không có mô tả"}
+                {modelDetail.description?modelDetail.description:"Không có mô tả"}
               </Typography>
             </Stack>
-            {datasetDetail.userId == user.id && <Button style={{ marginLeft: 'auto', borderRadius: '100%', maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40 }}>
+            {modelDetail.userId == user.id && <Button style={{ marginLeft: 'auto', borderRadius: '100%', maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40 }}>
               <CreateOutlinedIcon />
             </Button>}     
           </Stack>
@@ -153,25 +176,25 @@ const Page = () => {
             spacing={2}
             sx={{ mt: 3, mb: 3 }}
           >
-            <Avatar src={datasetDetail.author.avatar}/>
+            <Avatar src={modelDetail.author.avatar}/>
             <Stack direction="row" alignItems="center" width="100%" justifyContent="space-between">
               <Typography variant="subtitle2">
-                {datasetDetail.author.name}
+                {modelDetail.author.name}
                 {' '}
                 •
                 {' '}
-                Cập nhật mới nhất {datasetDetail.updatedAt}
+                Cập nhật mới nhất {modelDetail.updatedAt}
                 {' '}
                 •
                 {' '}
-                {datasetDetail.isPublic ? "Công khai" : "Riêng tư"}
+                {modelDetail.isPublic ? "Công khai" : "Riêng tư"}
               </Typography>
               <Stack direction="row" alignItems="center">
-                <Typography color="text.primary" variant="h6" sx={{ mr: 1 }}>{datasetDetail.votes}</Typography>
+                <Typography color="text.primary" variant="h6" sx={{ mr: 1 }}>{modelDetail.votes}</Typography>
                 <ToggleButtonGroup
                   value={upVote}
                   onChange={(e, value) => {
-                    updateDataset({votes: value.length == 1 ? datasetDetail.votes+1 : datasetDetail.votes-1});
+                    updateModel({votes: value.length == 1 ? modelDetail.votes+1 : modelDetail.votes-1});
                     setUpVote(value);
                   }}
                 >
@@ -182,11 +205,11 @@ const Page = () => {
           </Stack>
           <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4}}>
             <Tabs value={tabTitle} onChange={(e, v) => setTabTitle(v)}>
-              <Tab label="Tập dữ liệu" value="dataset" sx={{fontSize: 17, mr: 3}}/>
+              <Tab label="Mô hình" value="model" sx={{fontSize: 17, mr: 3}}/>
               <Tab label="Ghi chú" value="notebooks" sx={{fontSize: 17, mr: 3}}/>
             </Tabs>
           </Box>
-          {tabTitle == "dataset" && 
+          {tabTitle == "model" && 
             <>
               <Grid
                 container
@@ -199,37 +222,15 @@ const Page = () => {
                   pr={2}
                 >
                   <Stack direction="row" mb={3}>
-                    <Typography variant='h5'>Thông tin tập dữ liệu</Typography>
-                    {datasetDetail.userId == user.id && <Button style={{ marginLeft: 'auto', borderRadius: '100%', maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40 }}>
+                    <Typography variant='h5'>Chi tiết mô hình</Typography>
+                    {modelDetail.userId == user.id && <Button style={{ marginLeft: 'auto', borderRadius: '100%', maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40 }}>
                       <CreateOutlinedIcon />
                     </Button>}
                   </Stack>
-                  {datasetDetail.detail 
-                  ? <Typography dangerouslySetInnerHTML={{__html: datasetDetail.detail}}></Typography> 
-                  : <Typography variant='body1'>Tập dữ liệu này chưa có mô tả chi tiết</Typography>}
+                  {modelDetail.detail 
+                  ? <Typography dangerouslySetInnerHTML={{__html: modelDetail.detail}}></Typography> 
+                  : <Typography variant='body1'>Mô hình này chưa có mô tả chi tiết</Typography>}
                   <Divider sx={{ mt: 5 }} />
-                  <Stack mb={3}>
-                    <Typography variant="h5">Các tệp</Typography>
-                  </Stack>
-                  <Stack>
-                    <Stack border="1px solid" borderColor="action.disabledBackground" px={3} pt={3} pb={2} borderRadius={2}>
-                      {datasetDetail.filesType.map((t, idx) => (
-                        <Link
-                          key={idx}
-                          href={`http://localhost:8080/uploads/datasets/${datasetDetail.id}_${idx}${t}`}
-                          color="text.primary"
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          mb={1}
-                        >
-                          <Stack direction="row" spacing={1}>
-                            <InsertDriveFileOutlinedIcon fontSize='small'/>
-                            <Typography variant="body2">{datasetDetail.id}_{idx}{t}</Typography>
-                          </Stack>
-                        </Link>  
-                      ))} 
-                    </Stack>
-                  </Stack>
                 </Grid>
                 <Grid
                   item
@@ -238,13 +239,13 @@ const Page = () => {
                 >
                   <Stack direction="row" alignItems="center">
                     <Typography variant='h6' mr={1}>Nhãn</Typography>
-                    {datasetDetail.userId == user.id && <Button style={{ borderRadius: '100%', maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40 }}>
+                    {modelDetail.userId == user.id && <Button style={{ borderRadius: '100%', maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40 }}>
                       <CreateOutlinedIcon fontSize='small'/>
                     </Button>}
                   </Stack>
-                  {datasetDetail.labels.length == 0 && <Typography variant='body2'>Không có nhãn</Typography>}
+                  {modelDetail.labels.length == 0 && <Typography variant='body2'>Không có nhãn</Typography>}
                   <Box >
-                    {datasetDetail.labels.map((label,index) => 
+                    {modelDetail.labels.map((label,index) => 
                       <Chip 
                         key={index} 
                         label={label}
@@ -254,6 +255,23 @@ const Page = () => {
                   </Box>
                 </Grid>
               </Grid>
+              <Stack direction="row" mb={4}>
+                <Typography variant='h5'>Các biến thể</Typography>
+                {modelDetail.userId == user.id && 
+                  <Button 
+                    style={{ marginLeft: 'auto', maxWidth: 170, minWidth: 170}} 
+                    startIcon={<AddOutlinedIcon />} 
+                    variant="outlined"
+                    onClick={() => router.push(paths.dashboard.model.model_variation_create.replace(':modelId', modelDetail.id))}
+                  >
+                    Thêm biến thể
+                  </Button>
+                }
+              </Stack>
+              {modelVariations.size == 0 
+                ? <Typography variant='body1'>Chưa có biến thể được tải lên</Typography>
+                : <ModelVariationsShow modelVariations={modelVariations} ownerId={modelDetail.userId}/>
+              }
             </>
           }
 

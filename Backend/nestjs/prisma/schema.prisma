@@ -310,50 +310,51 @@ model Dataset {
 }
 
 model Model {
-  id                Int                 @id @default(autoincrement())
-  description       String?
-  detail            String?
-  downloadCount     Int                 @default(0) @map("download_count")
-  isPublic          Boolean             @map("is_public")
-  labels            String[]
-  title             String
-  updatedAt         DateTime            @default(now()) @map("updated_at")
-  userId            Int                 @map("user_id")
-  votes             Int                 @default(0)
-  modelVariations   ModelVariation[]
-  authenticatedUser AuthenticatedUser   @relation(fields: [userId], references: [id])
-  notebooks         ModelsOfNotebooks[]
+  id                  Int                 @id @default(autoincrement())
+  title               String
+  description         String?
+  detail              String?
+  labels              String[]
+  isPublic            Boolean             @map("is_public")
+  userId              Int                 @map("user_id")
+  authenticatedUser   AuthenticatedUser   @relation(fields: [userId], references: [id])
+  modelVariations     ModelVariation[]
+  updatedAt           DateTime            @default(now()) @map("updated_at") 
+  votes               Int                 @default(0)
+  downloadCount       Int                 @default(0) @map("download_count")
 
   @@map("models")
 }
 
 model ModelVariation {
-  id          Int       @id @default(autoincrement())
-  filesType   String[]  @map("files_type")
+  id          Int                          @id @default(autoincrement())
+  filesType   String[]                     @map("files_type")
   framework   Framework
-  slugName    String    @map("slug_name")
+  slugName    String                       @map("slug_name")
   version     Int
   description String?
-  modelId     Int       @map("model_id")
-  exampleUse  String?   @map("example_use")
-  updatedAt   DateTime  @default(now()) @map("updated_at")
-  model       Model     @relation(fields: [modelId], references: [id])
+  modelId     Int                          @map("model_id")
+  model       Model                        @relation(fields: [modelId], references: [id])
+  notebooks   ModelVariationsOfNotebooks[]
+  exampleUse  String?                      @map("example_use")
+  updatedAt   DateTime                     @default(now()) @map("updated_at") 
 
   @@map("model_variation")
 }
 
 model Notebook {
-  id                Int                   @id @default(autoincrement())
-  title             String
-  labels            String[]
-  content           String
-  userId            Int                   @map("user_id")
-  isPublic          Boolean               @map("is_public")
-  updatedAt         DateTime              @default(now()) @map("updated_at")
-  votes             Int                   @default(0)
-  datasets          DatasetsOfNotebooks[]
-  models            ModelsOfNotebooks[]
-  authenticatedUser AuthenticatedUser     @relation(fields: [userId], references: [id])
+  id                  Int                          @id @default(autoincrement())
+  title               String
+  labels              String[]
+  content             String[]
+  userId              Int                          @map("user_id")
+  isPublic            Boolean                      @map("is_public")
+  datasets            DatasetsOfNotebooks[]
+  modelVariations     ModelVariationsOfNotebooks[]
+  updatedAt           DateTime                     @default(now()) @map("updated_at") 
+  votes               Int                          @default(0)
+  
+  authenticatedUser   AuthenticatedUser @relation(fields: [userId], references: [id])
 
   @@map("notebook")
 }
@@ -368,14 +369,14 @@ model DatasetsOfNotebooks {
   @@map("datasets_of_notebooks")
 }
 
-model ModelsOfNotebooks {
-  modelId    Int      @map("model_id")
-  notebookId Int      @map("notebook_id")
-  model      Model    @relation(fields: [modelId], references: [id])
-  notebook   Notebook @relation(fields: [notebookId], references: [id])
+model ModelVariationsOfNotebooks { 
+  modelVariationId    Int               @map("model_variation_id")
+  modelVariation      ModelVariation    @relation(fields: [modelVariationId], references: [id])
+  notebookId          Int               @map("notebook_id")
+  notebook            Notebook          @relation(fields: [notebookId], references: [id])
 
-  @@id([modelId, notebookId])
-  @@map("models_of_notebooks")
+  @@id([modelVariationId, notebookId])
+  @@map("model_variations_of_notebooks")
 }
 
 model File {

@@ -9,7 +9,7 @@ class NotebookCreateRequestDto {
 
   @IsNotEmpty()
   @IsString()
-  content: string;
+  content: string[];
 
   @IsNotEmpty()
   @IsBoolean()
@@ -25,7 +25,7 @@ class NotebookCreateRequestDto {
 
   @IsArray()
   @IsInt({ each: true })
-  modelIds: number[];
+  modelVariationIds: number[];
 
   @IsArray()
   @IsInt({ each: true })
@@ -33,7 +33,7 @@ class NotebookCreateRequestDto {
 
   // Map from dto request to entity create input
   static toCreateInput(data: NotebookCreateRequestDto): Prisma.NotebookUncheckedCreateInput {
-    const {modelIds, datasetIds, ...rest} = data;
+    const {modelVariationIds, datasetIds, ...rest} = data;
     return rest;
   }
 }
@@ -45,7 +45,7 @@ class NotebookUpdateRequestDto {
   title?: string;
 
   @IsString()
-  content?: string;
+  content?: string[];
 
   @IsBoolean()
   isPublic?: boolean
@@ -56,7 +56,7 @@ class NotebookUpdateRequestDto {
 
   @IsArray()
   @IsInt({ each: true })
-  modelIds?: number[];
+  modelVariationIds?: number[];
 
   @IsArray()
   @IsInt({ each: true })
@@ -67,7 +67,7 @@ class NotebookUpdateRequestDto {
 
   // Map from dto request to entity update input
   static toUpdateInput(data: NotebookUpdateRequestDto): Prisma.NotebookUncheckedUpdateInput {
-    const {modelIds, datasetIds, ...rest} = data;
+    const {modelVariationIds, datasetIds, ...rest} = data;
     return {
       ...rest,
       updatedAt: new Date(),
@@ -79,7 +79,7 @@ class NotebookResponseDto {
   id: number;
   title: string;
   labels: string[];
-  content?: string;
+  content?: string[];
   userId: number;
   isPublic: boolean;
   updatedAt: string;

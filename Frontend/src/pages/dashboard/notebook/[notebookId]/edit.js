@@ -204,6 +204,7 @@ const Page = () => {
                     vertical: 'top',
                     horizontal: 'left',
                   },
+                  getContentAnchorEl: null,
                 }}
               >
                 <MenuItem value="selecting">

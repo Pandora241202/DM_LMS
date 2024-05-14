@@ -2,6 +2,8 @@ export const FORUMS_PER_PAGE = 6;
 
 export const MODELS_PER_PAGE = 20;
 
+export const NOTEBOOKS_PER_PAGE = 20;
+
 export const DATASETS_PER_PAGE = 20;
 
 export const LOS_PER_PAGE = 9;

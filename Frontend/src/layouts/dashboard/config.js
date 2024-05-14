@@ -31,7 +31,7 @@ import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
-import AttractionsOutlinedIcon from '@mui/icons-material/AttractionsOutlined';
+import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined';
 import { tokens } from '../../locales/tokens';
 import { paths } from '../../paths';
 
@@ -130,7 +130,7 @@ export const getSections = (t) => [
         path: paths.dashboard.model,
         icon: (
           <SvgIcon fontSize="small">
-            <AttractionsOutlinedIcon />
+            <ModelTrainingOutlinedIcon />
           </SvgIcon>
         ),
         items: [
@@ -145,13 +145,23 @@ export const getSections = (t) => [
         ]
       },
       {
-        title: t(tokens.nav.code),
+        title: t(tokens.nav.notebook),
         path: paths.dashboard.code,
         icon: (
           <SvgIcon fontSize="small">
             <CodeOutlinedIcon />
           </SvgIcon>
-        )
+        ),
+        items: [
+          {
+            title: t(tokens.nav.notebookList),
+            path: paths.dashboard.notebook.index
+          },
+          {
+            title: t(tokens.nav.notebookCreate),
+            path: paths.dashboard.notebook.create
+          }
+        ]
       },
       {
         title: t(tokens.nav.dataset),
@@ -222,15 +232,6 @@ export const getSections = (t) => [
       {
         title: t(tokens.nav.learningPath),
         path: paths.dashboard.learningPaths.index,
-        icon: (
-          <SvgIcon fontSize="small">
-            <RouteIcon />
-          </SvgIcon>
-        )
-      },
-      {
-        title: t(tokens.nav.note),
-        path: paths.dashboard.note,
         icon: (
           <SvgIcon fontSize="small">
             <RouteIcon />

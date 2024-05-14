@@ -34,9 +34,9 @@ export class NotebookService {
     return await this.prismaService.notebook.findFirst({
       where: { id: id },
       include: {
-        models: {
+        modelVariations: {
           select: {
-            modelId: true,
+            modelVariationId: true,
           }
         },
         datasets: {
@@ -48,15 +48,15 @@ export class NotebookService {
     });
   }
 
-  async updateOne(id: number, data: Prisma.NotebookUncheckedUpdateInput, modelIds: number[], datasetIds: number[]) {
+  async updateOne(id: number, data: Prisma.NotebookUncheckedUpdateInput, modelVariationIds: number[], datasetIds: number[]) {
     let updateData: any = { ...data };
-    if (modelIds) {
+    if (modelVariationIds) {
       updateData = { 
         ...updateData, 
-        models: {
-          set: modelIds.map(modelId => ({
-            modelId_notebookId: {
-              modelId: modelId,
+        modelVariations: {
+          set: modelVariationIds.map(modelVariationId => ({
+            modelVariationId_notebookId: {
+              modelVariationId: modelVariationId,
               notebookId: id,
             }
           })),
