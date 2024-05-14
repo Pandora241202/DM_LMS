@@ -3,18 +3,13 @@ import { Quiz } from '../request/learning-material-create.request';
 
 export class CodeDTO {
   question: string;
-  inputFileId: number;
-  outputFileId: number;
+  exampleCode: string;
 
-  static fromEntity(entity: Prisma.CodeGetPayload<{ include: { inputFile: true; outputFile: true } }>): CodeDTO {
-    const { question, inputFile, outputFile } = entity;
-    const inputFileId = entity.inputFileId;
-    const outputFileId = entity.outputFileId;
-
+  static fromEntity(entity: Prisma.CodeGetPayload<unknown>): CodeDTO {
+    const { question, exampleCode } = entity;
     return {
       question,
-      inputFileId,
-      outputFileId,
+      exampleCode,
     };
   }
 }
@@ -26,31 +21,8 @@ export class QuizDTO {
   choices: string[][];
   correctAnswers: number[];
 
-  static formatting(quiz: Quiz): QuizDTO {
-    const duration: number = quiz.duration,
-      shuffle: boolean = quiz.shuffle;
-
-    let questions: string[] = [],
-      choices: string[][] = [],
-      correctAnswers: number[] = [];
-
-    for (let i = 0; i < quiz.questionaires.length; i++) {
-      questions.push(quiz.questionaires[i].question);
-      choices.push(quiz.questionaires[i].choices);
-      correctAnswers.push(quiz.questionaires[i].correctAnswer);
-    }
-
-    return {
-      duration,
-      shuffle,
-      questions,
-      choices,
-      correctAnswers,
-    };
-  }
-
   static fromEntity(entity: Prisma.QuizGetPayload<{ include: { question: { include: { choice: true } } } }>): QuizDTO {
-    const duration = Number(entity.duration);
+    const duration = entity.duration ? Number(entity.duration) : 0;
     const choices = entity.question.map((q) => q.choice.map((c) => c.content));
     const questions = entity.question.map((q) => q.content);
     const correctAnswers = entity.question.map((q) => q.choice.findIndex((c) => c.correctness === true));
@@ -60,7 +32,7 @@ export class QuizDTO {
       shuffle: entity.shuffleQuestions,
       questions: questions,
       choices: choices,
-      correctAnswers: correctAnswers,
+      correctAnswers,
     };
   }
 }

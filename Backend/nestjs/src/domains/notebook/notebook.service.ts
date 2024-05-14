@@ -26,7 +26,7 @@ export class NotebookService {
       },
       orderBy: {
         votes: 'desc',
-      }
+      },
     });
   }
 
@@ -37,48 +37,48 @@ export class NotebookService {
         modelVariations: {
           select: {
             modelVariationId: true,
-          }
+          },
         },
         datasets: {
           select: {
             datasetId: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
   }
 
   async updateOne(id: number, data: Prisma.NotebookUncheckedUpdateInput, modelVariationIds: number[], datasetIds: number[]) {
     let updateData: any = { ...data };
     if (modelVariationIds) {
-      updateData = { 
-        ...updateData, 
+      updateData = {
+        ...updateData,
         modelVariations: {
-          set: modelVariationIds.map(modelVariationId => ({
+          set: modelVariationIds.map((modelVariationId) => ({
             modelVariationId_notebookId: {
               modelVariationId: modelVariationId,
               notebookId: id,
-            }
+            },
           })),
-        }
+        },
       };
-    } 
+    }
     if (datasetIds) {
-      updateData = { 
-        ...updateData, 
+      updateData = {
+        ...updateData,
         datasets: {
-          set: datasetIds.map(datasetId => ({
+          set: datasetIds.map((datasetId) => ({
             datasetId_notebookId: {
               datasetId: datasetId,
               notebookId: id,
-            }
+            },
           })),
-        }
+        },
       };
     }
     return await this.prismaService.notebook.update({
       where: { id: id },
-      data: updateData
+      data: updateData,
     });
   }
 }

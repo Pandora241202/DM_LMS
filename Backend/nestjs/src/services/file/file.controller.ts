@@ -31,8 +31,8 @@ export class FileController {
 
   @Get(':id')
   async detail(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
-    const {name, fileName, type} = await this.fileService.detail(id)
-    
+    const { name, fileName, type } = await this.fileService.detail(id);
+
     const file = createReadStream(join(process.cwd(), `uploads/materialFiles/${fileName}`));
     res.set({
       'Content-Type': type,

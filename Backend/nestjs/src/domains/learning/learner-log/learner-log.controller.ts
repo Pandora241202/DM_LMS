@@ -21,7 +21,6 @@ export class LearnerLogController {
 
   @Get(':learnerId')
   async detail(@Param('learnerId', ParseIntPipe) learnerId: number) {
-    
     return await this.learnerLogService.detail(learnerId);
   }
 }

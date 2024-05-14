@@ -6,18 +6,14 @@ import { connectRelation } from 'src/shared/prisma.helper';
 export class Quiz {
   duration: number;
   shuffle: boolean;
-  questionaires: {
-    question: string;
-    choices: string[];
-    correctAnswer: number;
-  }[];
+  fileId: number;
 }
 
 export class Code {
   question: string;
+  truthCode: string;
   exampleCode: string;
-  inputId: number;
-  outputId: number;
+  inputIds: number[];
 }
 
 export class LearningMaterialCreateREQ {

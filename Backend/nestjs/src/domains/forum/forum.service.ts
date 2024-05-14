@@ -31,7 +31,7 @@ export class ForumService {
   async getOne(id: number) {
     return await this.prismaService.forum.findFirst({
       where: { id: id },
-      include: { statements: true }
+      include: { statements: true },
     });
   }
 

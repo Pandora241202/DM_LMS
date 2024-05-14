@@ -18,10 +18,10 @@ export class LessonService {
   }
 
   async detail(id: number) {
-    const lesson = await this.prismaService.lesson.findFirst({where: { id }, include: {LearningMaterial: true}})
-    if (!lesson) throw new NotFoundException (`Not found lesson ${id}`);
+    const lesson = await this.prismaService.lesson.findFirst({ where: { id }, include: { LearningMaterial: true } });
+    if (!lesson) throw new NotFoundException(`Not found lesson ${id}`);
 
-    return LessonDTO.fromEntity(lesson as any)
+    return LessonDTO.fromEntity(lesson as any);
   }
 
   async update(id: number, body: LessonUpdateREQ) {

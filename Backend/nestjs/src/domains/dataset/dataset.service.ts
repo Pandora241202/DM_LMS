@@ -29,7 +29,7 @@ export class DatasetService {
       },
       orderBy: {
         votes: 'desc',
-      }
+      },
     });
   }
 
@@ -40,9 +40,9 @@ export class DatasetService {
         notebooks: {
           select: {
             notebookId: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
   }
 
