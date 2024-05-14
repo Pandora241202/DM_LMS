@@ -15,6 +15,7 @@ export class Quiz {
 
 export class Code {
   question: string;
+  exampleCode: string;
   inputId: number;
   outputId: number;
 }
@@ -44,7 +45,7 @@ export class LearningMaterialCreateREQ {
   @IsOptional()
   @IsNumber()
   @Min(0)
-  score: number;
+  score: number = 10;
 
   @IsOptional()
   @IsNumber()

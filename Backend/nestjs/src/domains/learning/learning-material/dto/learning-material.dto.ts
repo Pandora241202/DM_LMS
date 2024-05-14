@@ -8,8 +8,6 @@ export class CodeDTO {
 
   static fromEntity(entity: Prisma.CodeGetPayload<{ include: { inputFile: true; outputFile: true } }>): CodeDTO {
     const { question, inputFile, outputFile } = entity;
-    // const inputName = `${inputFile.prefix}--${inputFile.name}`;
-    // const outputName = `${outputFile.prefix}--${outputFile.name}`;
     const inputFileId = entity.inputFileId;
     const outputFileId = entity.outputFileId;
 
