@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import { addDays, subDays, subHours, subMinutes } from 'date-fns';
+import { useCallback, useState, useEffect } from 'react';
+import NextLink from 'next/link';
 import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
 import {
   Box,
@@ -24,12 +26,36 @@ import { OverviewHelp } from '../../../sections/dashboard/overview/overview-help
 import { OverviewJobs } from '../../../sections/dashboard/overview/overview-jobs';
 import { OverviewOpenTickets } from '../../../sections/dashboard/overview/overview-open-tickets';
 import { OverviewTips } from '../../../sections/dashboard/overview/overview-tips';
-import { LearningObject } from '../../../sections/dashboard/overview/learning-object';
+import { Course } from '../../../sections/dashboard/overview/course';
+import { paths } from '../../../paths';
+import { useMounted } from '../../../hooks/use-mounted';
+import { exploreApi } from '../../../api/explore';
+
+// import { CreateCourseDialog } from '../../../sections/dashboard/explore/create-course-dialog';
 
 const now = new Date();
 
 const Page = () => {
+  const isMounted = useMounted();
   const settings = useSettings();
+  const [listCourses, setListCourses] = useState([]);
+  // const [openCreateCourseDialog, setOpenCreateCourseDialog] = useState(false)
+
+  const getCourses = useCallback(async () => {
+    try {
+      const response = await exploreApi.getListCourse();
+
+      if (isMounted()) {
+        setListCourses([...response.data]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [])
+
+  useEffect(() => {
+    getCourses();
+  },[]);
 
   usePageView();
 
@@ -64,7 +90,7 @@ const Page = () => {
               >
                 <div>
                   <Typography variant="h4">
-                    Explore
+                    Các khoá học mới
                   </Typography>
                 </div>
                 <div>
@@ -73,6 +99,9 @@ const Page = () => {
                     spacing={4}
                   >
                     <Button
+                      component={NextLink}
+                      href={`${paths.dashboard.explore}/create`}
+                      // onClick={() => setOpenCreateCourseDialog(true)}
                       startIcon={(
                         <SvgIcon>
                           <PlusIcon />
@@ -80,31 +109,37 @@ const Page = () => {
                       )}
                       variant="contained"
                     >
-                      New Dashboard
+                      Tạo khoá học mới
                     </Button>
                   </Stack>
                 </div>
               </Stack>
             </Grid>
-            <Grid
+            {listCourses.map((_course) => 
+            (<Grid
               xs={12}
-              md={4}
+              md={6}
             >
-              <LearningObject amount={31} />
+              <Course
+                title={_course.name}
+                amount={_course.amountOfTime}
+                id={_course.id} />  
             </Grid>
-            <Grid
+            ))}
+            {/* <Grid
               xs={12}
               md={4}
             >
               <OverviewPendingIssues amount={12} />
             </Grid>
+            
             <Grid
               xs={12}
               md={4}
             >
               <OverviewOpenTickets amount={5} />
-            </Grid>
-            <Grid
+            </Grid> */}
+            {/* <Grid
               xs={12}
               md={7}
             >
@@ -131,8 +166,16 @@ const Page = () => {
                   }
                 ]}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
+          {/* {
+            openCreateCourseDialog && (
+              <CreateCourseDialog
+                openCreateCourseDialog={openCreateCourseDialog}
+                setOpenCreateCourseDialog={setOpenCreateCourseDialog}
+              />
+            )
+          } */}
         </Container>
       </Box>
     </>
