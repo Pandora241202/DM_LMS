@@ -28,7 +28,9 @@ import { styled } from '@mui/material/styles';
 import { useCallback, useState, useEffect, useRef } from 'react';
 import { useMounted } from '../../../hooks/use-mounted';
 import { exploreApi } from '../../../api/explore';
+import { fileApi } from '../../../api/file';
 import { ItemMenu } from './item-menu';
+
 
 
 
@@ -62,6 +64,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 function Row(props) {
+  const courseUrl = window.location.href.split('/');
+  const courseId = (courseUrl[courseUrl.length - 1]);
   const isMounted = useMounted();
   const menuRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
@@ -78,12 +82,28 @@ function Row(props) {
     "amountOfTime": 0,
     "visibility": true
 });
+  const [fileGet, setFileGet] = useState("")
   const getLesson = useCallback(async (id) => {
     try {
       const response = await exploreApi.getLesson(id);
 
       if (isMounted()) {
         setListLMAccordingToLesson(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [open])
+
+  const getFile = useCallback(async (id) => {
+    try {
+      // const response = await fileApi.getFileFromGGDrive(id);
+
+      if (isMounted()) {
+        // console.log(response.data)
+        // setFileGet(response.data.url);
+        window.open(`http://localhost:8080/learning-materials/${id}`, '_blank');
+        // console.log(fileGet)
       }
     } catch (err) {
       console.error(err);
@@ -137,6 +157,7 @@ function Row(props) {
                     mx: 'auto',
                     p: 1,
                     }}
+                    onClick={() => getFile(_lm.id)}
                 >
                     <Stack spacing={2} direction="row" alignItems="center">
                         <FileIcon extension={_lm.type} />
@@ -154,42 +175,19 @@ function Row(props) {
         onClose={handleMenuClose}
         open={openMenu}
         idLesson={row.id}
+        idCourse={courseId}
       />
     </React.Fragment>
   );
 }
 
 Row.propTypes = {
+  key: PropTypes.number,
   row: PropTypes.shape({
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        type: PropTypes.string.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired
+    title: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
 };
-
-// const rows = [
-//   createData('Frozen yoghurt', 10),
-//   createData('Ice cream sandwich', 20),
-//   createData('Eclair', 30),
-//   createData('Cupcake', 40),
-//   createData('Gingerbread', 50),
-//   createData('Frozen yoghurtu', 10),
-//   createData('Ice cream sandwichu', 20),
-//   createData('Eclairu', 30),
-//   createData('Cupcakeu', 40),
-//   createData('Gingerbreadu', 50),
-//   createData('Frozen yoghurtuu', 10),
-//   createData('Ice cream sandwichuu', 20),
-//   createData('Eclairuu', 30),
-//   createData('Cupcakeuu', 40),
-//   createData('Gingerbreaduu', 50),
-// ];
 
 export default function CollapsibleTable({rows}) {
   return (

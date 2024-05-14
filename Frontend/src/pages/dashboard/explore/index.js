@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { addDays, subDays, subHours, subMinutes } from 'date-fns';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
 import {
@@ -28,6 +28,7 @@ import { OverviewOpenTickets } from '../../../sections/dashboard/overview/overvi
 import { OverviewTips } from '../../../sections/dashboard/overview/overview-tips';
 import { Course } from '../../../sections/dashboard/overview/course';
 import { paths } from '../../../paths';
+import { useMounted } from '../../../hooks/use-mounted';
 import { exploreApi } from '../../../api/explore';
 
 // import { CreateCourseDialog } from '../../../sections/dashboard/explore/create-course-dialog';
@@ -35,6 +36,7 @@ import { exploreApi } from '../../../api/explore';
 const now = new Date();
 
 const Page = () => {
+  const isMounted = useMounted();
   const settings = useSettings();
   const [listCourses, setListCourses] = useState([]);
   // const [openCreateCourseDialog, setOpenCreateCourseDialog] = useState(false)
@@ -50,6 +52,10 @@ const Page = () => {
       console.error(err);
     }
   }, [])
+
+  useEffect(() => {
+    getCourses();
+  },[]);
 
   usePageView();
 
@@ -110,28 +116,30 @@ const Page = () => {
               </Stack>
             </Grid>
             {listCourses.map((_course) => 
-            {<Grid
+            (<Grid
               xs={12}
-              md={4}
+              md={6}
             >
               <Course
                 title={_course.name}
-                amount={_course.amountOfTime} />  
+                amount={_course.amountOfTime}
+                id={_course.id} />  
             </Grid>
-            })}
+            ))}
             {/* <Grid
               xs={12}
               md={4}
             >
               <OverviewPendingIssues amount={12} />
             </Grid>
+            
             <Grid
               xs={12}
               md={4}
             >
               <OverviewOpenTickets amount={5} />
             </Grid> */}
-            <Grid
+            {/* <Grid
               xs={12}
               md={7}
             >
@@ -158,7 +166,7 @@ const Page = () => {
                   }
                 ]}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
           {/* {
             openCreateCourseDialog && (

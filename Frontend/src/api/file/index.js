@@ -2,9 +2,17 @@ import axios from 'axios';
 
 const apiUrl = 'http://localhost:8080';
 
-class UploadFileApi {
+class FileApi {
   createFile(request) {
     return axios.post(`${apiUrl}/files`, request)
+  }
+
+  getFile(id){
+    return axios.get(`${apiUrl}/files/${id}`);
+  }
+
+  getFileFromGGDrive(id){
+    return axios.get(`${apiUrl}/learning-materials/${id}`);
   }
 //   getForumDetail(id) {
 //     return axios.get(`${apiUrl}/${id}`);
@@ -28,4 +36,4 @@ class UploadFileApi {
 //   }
 }
 
-export const uploadFileApi = new UploadFileApi();
+export const fileApi = new FileApi();

@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
 import { Box, Button, Card, CardActions, Divider, Stack, SvgIcon, Typography } from '@mui/material';
+import NextLink from 'next/link';
+import { paths } from '../../../paths';
+
 
 export const Course = (props) => {
-  const { title, amount } = props;
+  const { title, amount, id } = props;
 
   return (
     <Card>
@@ -21,7 +24,7 @@ export const Course = (props) => {
       >
         <div>
           <img
-            src="/assets/iconly/iconly-glass-tick.svg"
+            src="/assets/iconly/iconly-glass-paper-purple.svg"
             width={48}
           />
         </div>
@@ -36,7 +39,7 @@ export const Course = (props) => {
             color="text.primary"
             variant="h4"
           >
-            {amount}
+            {amount} phút
           </Typography>
         </Box>
       </Stack>
@@ -50,8 +53,10 @@ export const Course = (props) => {
             </SvgIcon>
           )}
           size="small"
+          component={NextLink}
+          href={`${paths.dashboard.explore}/${id}`}
         >
-          See all tasks
+          Đi đến khoá học
         </Button>
       </CardActions>
     </Card>

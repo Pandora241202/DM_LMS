@@ -38,8 +38,8 @@ const typeOptions = [
     value: 'PDF'
   },
   {
-    label: 'QUIZZ',
-    value: 'QUIZZ'
+    label: 'QUIZ',
+    value: 'QUIZ'
   },
   {
     label: 'WORD',
@@ -89,6 +89,9 @@ const validationSchema = Yup.object({
 });
 
 export const LMCreateForm = (props) => {
+  const lmcreateformUrl = window.location.href.split('/');
+  const lessonId = (lmcreateformUrl[lmcreateformUrl.length - 1]);
+  // const courseId = (lmcreateformUrl[lmcreateformUrl.length - 2]);
   const isMounted = useMounted();
   const router = useRouter();
   const [topicIds, setTopicIds] = useState([])
@@ -113,11 +116,12 @@ export const LMCreateForm = (props) => {
           time: values.time,
           // topicIds: topicIds.map((topicIds) => topicIds.id)
           topicId: values.topicId,
-          fileId: idLMList[0]
+          fileId: idLMList[0],
+          lessonId: parseInt(lessonId,10)
       })
         // await lm_manageApi.createLM(values);
         toast.success('Tài liệu học tập đã được tạo');
-        router.push(paths.dashboard.LM_Manage);
+        // router.push(`${paths.dashboard.explore}/${courseId}`);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');

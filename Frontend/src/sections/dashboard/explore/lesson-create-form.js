@@ -21,7 +21,7 @@ import { FileDropzoneVn } from '../../../components/file-dropzone-vn';
 import { QuillEditor } from '../../../components/quill-editor';
 import { paths } from '../../../paths';
 import { exploreApi } from '../../../api/explore';
-import { uploadFileApi } from '../../../api/file-upload';
+import { FileApi } from '../../../api/file';
 import { useMounted } from '../../../hooks/use-mounted';
 import { LMCreateForm } from '../../../sections/dashboard/explore/LM-Manage/lm-manage-create-form';
 

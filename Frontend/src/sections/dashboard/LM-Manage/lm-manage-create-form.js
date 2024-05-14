@@ -38,8 +38,8 @@ const typeOptions = [
     value: 'PDF'
   },
   {
-    label: 'QUIZZ',
-    value: 'QUIZZ'
+    label: 'QUIZ',
+    value: 'QUIZ'
   },
   {
     label: 'WORD',

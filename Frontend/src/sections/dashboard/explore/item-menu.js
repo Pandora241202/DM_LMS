@@ -5,11 +5,13 @@ import Trash02Icon from '@untitled-ui/icons-react/build/esm/Trash02';
 import { Menu, MenuItem, menuItemClasses, SvgIcon } from '@mui/material';
 import { paths } from '../../../paths';
 import NextLink from 'next/link';
-
+import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
+import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
+import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 
 
 export const ItemMenu = (props) => {
-  const { anchorEl, onClose, onDelete, open = false, idLesson } = props;
+  const { anchorEl, onClose, onDelete, open = false, idCourse, idLesson } = props;
 
   return (
     <Menu
@@ -39,9 +41,29 @@ export const ItemMenu = (props) => {
         href={`${paths.dashboard.explore}/LM_Create/${idLesson}`}
         >
         <SvgIcon fontSize="small">
-          <PlusIcon />
+          <CreateNewFolderOutlinedIcon />
         </SvgIcon>
         Tạo tài liệu học mới
+      </MenuItem>
+      <MenuItem 
+        onClick={onClose}
+        component={NextLink}
+        href={`${paths.dashboard.explore}/LM_Question_Create/${idLesson}`}
+        >
+        <SvgIcon fontSize="small">
+          <QuestionMarkOutlinedIcon />
+        </SvgIcon>
+        Tạo tài liệu câu hỏi mới
+      </MenuItem>
+      <MenuItem 
+        onClick={onClose}
+        component={NextLink}
+        href={`${paths.dashboard.explore}/LM_Code_Create/${idLesson}`}
+        >
+        <SvgIcon fontSize="small">
+          <CodeOutlinedIcon />
+        </SvgIcon>
+        Tạo tài liệu code mới
       </MenuItem>
       {/* <MenuItem
         onClick={onDelete}
