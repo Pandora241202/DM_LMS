@@ -31,6 +31,7 @@ import {
 } from '@mui/material';
 import { Scrollbar } from '../../../components/scrollbar';
 import { SeverityPill } from '../../../components/severity-pill';
+import { FileIcon } from '../../../components/file-icon';
 
 const categoryOptions = [
   {
@@ -59,40 +60,40 @@ const categoryOptions = [
   }
 ];
 
-export const TopicManageListTable = (props) => {
+export const LMManageListTable = (props) => {
   const {
     onPageChange,
     onRowsPerPageChange,
     page,
-    Topics,
-    TopicsCount,
+    LMs,
+    LMsCount,
     rowsPerPage,
     ...other
   } = props;
-  const [currentProduct, setCurrentProduct] = useState(null);
+  const [currentLM, setCurrentLM] = useState(null);
   const [state, setState] = useState(false);
 
-  const handleProductToggle = useCallback((productId) => {
-    setCurrentProduct((prevProductId) => {
-      if (prevProductId === productId) {
+  const handleLMToggle = useCallback((LmId) => {
+    setCurrentLM((prevLmId) => {
+      if (prevLmId === LmId) {
         return null;
       }
 
-      return productId;
+      return LmId;
     });
   }, []);
 
-  const handleProductClose = useCallback(() => {
-    setCurrentProduct(null);
+  const handleLMClose = useCallback(() => {
+    setCurrentLM(null);
   }, []);
 
-  const handleProductUpdate = useCallback(() => {
-    setCurrentProduct(null);
-    toast.success('Product updated');
+  const handleLMUpdate = useCallback(() => {
+    setCurrentLM(null);
+    toast.success('Tài liệu đã được cập nhật');
   }, []);
 
-  const handleProductDelete = useCallback(() => {
-    toast.error('Product cannot be deleted');
+  const handleLMDelete = useCallback(() => {
+    toast.error('Tài liệu không thể xoá');
   }, []);
 
   const handleToggle = ({target}) => {
@@ -106,45 +107,48 @@ export const TopicManageListTable = (props) => {
           <TableHead>
             <TableRow>
               <TableCell width="25%">
-                ID
+                {/* Tiêu đề */}
               </TableCell>
-              <TableCell width="25%">
-                Tên chủ đề 
-              </TableCell>
+              {/* <TableCell> */}
+                {/* Mô tả */}
+              {/* </TableCell> */}
+              {/* <TableCell width="25%">
+                Đánh giá
+              </TableCell> */}
               <TableCell align="right">
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {Topics.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage)
-            .map((Topic) => {
-              const isCurrent = Topic.id === currentProduct;
-              // const price = numeral(Topic.price).format(`${Topic.currency}0,0.00`);
-              // const quantityColor = Topic.quantity >= 10 ? 'success' : 'error';
-              const statusColor = Topic.status === 'published' ? 'success' : 'info';
-              const hasManyVariants = Topic.variants > 1;
+            {LMs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((LM) => {
+              const isCurrent = LM.id === currentLM;
+              // const price = numeral(LM.price).format(`${LM.currency}0,0.00`);
+              // const quantityColor = LM.quantity >= 10 ? 'success' : 'error';
+              const statusColor = LM.status === 'published' ? 'success' : 'info';
+              const hasManyVariants = LM.variants > 1;
               // const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
               return (
-                <Fragment key={Topic.id}>
+                <Fragment key={LM.id}>
                   <TableRow
                     hover
-                    key={Topic.id}
+                    key={LM.id}
                   >
-                    <TableCell width="25%">
-                      {/* <Box
+                    <TableCell width="40%">
+                      <Box
                         sx={{
                           alignItems: 'center',
                           display: 'flex'
                         }}
                       >
-                        {Topic.image
-                          ? (
-                            <Box
+                        {/* {LM.image
+                          ? ( */}
+                            {/* <Box
                               sx={{
                                 alignItems: 'center',
                                 backgroundColor: 'neutral.50',
-                                backgroundImage: `url(${Topic.image})`,
+                                backgroundImage: `url(/assets/products/product-1.png)`,
                                 backgroundPosition: 'center',
                                 backgroundSize: 'cover',
                                 borderRadius: 1,
@@ -154,8 +158,9 @@ export const TopicManageListTable = (props) => {
                                 overflow: 'hidden',
                                 width: 80
                               }}
-                            />
-                          )
+                            /> */}
+                              <FileIcon extension={LM.type} />
+                          {/* )
                           : (
                             <Box
                               sx={{
@@ -172,7 +177,7 @@ export const TopicManageListTable = (props) => {
                                 <Image01Icon />
                               </SvgIcon>
                             </Box>
-                          )}
+                          )} */}
                         <Box
                           sx={{
                             cursor: 'pointer',
@@ -180,33 +185,62 @@ export const TopicManageListTable = (props) => {
                           }}
                         >
                           <Typography variant="subtitle2">
-                            {Topic.title}
+                            {LM.name}
                           </Typography>
                           <Typography
                             color="text.secondary"
                             variant="body2"
                           >
-                            in {Topic.category}
+                            in {LM.type}
                           </Typography>
                         </Box>
-                      </Box> */}
-                      {Topic.id}
+                      </Box>
                     </TableCell>
-                    <TableCell>
-                      {/* <SeverityPill color={statusColor}>
-                        {Topic.status}
+                    {/* <TableCell> */}
+                      {/* <LinearProgress
+                        value={LM.quantity}
+                        variant="determinate"
+                        color={quantityColor}
+                        sx={{
+                          height: 8,
+                          width: 36
+                        }}
+                      />
+                      <Typography
+                        color="text.secondary"
+                        variant="body2"
+                      >
+                        {LM.quantity}
+                        {' '}
+                        in stock
+                        {hasManyVariants && ` in ${LM.variants} variants`}
+                      </Typography> */}
+                      {/* <Stack space={3}>
+                        <Typography variant="subtitle2">
+                          Loại hình: {LM.type} 
+                        </Typography>
+                        <Typography variant="subtitle2">
+                          Thời gian: {LM.time} phút
+                        </Typography>
+                        <Typography variant="subtitle2">
+                          Topic: {LM.topicId}
+                        </Typography>
+                      </Stack>
+                    </TableCell> */}
+                    {/* <TableCell>
+                      <SeverityPill color={statusColor}>
+                        {LM.status}
                       </SeverityPill
-                      > */}
+                      >
                       <Typography
                         color="textSecondary"
                         variant="body2"
                       >
-                        {/* {Topic.updatedAt ? new Date(Topic.updatedAt).toLocaleDateString('en-GB') : 'N/A'} */}
-                        {Topic.title}
+                        {LM.rating}
                       </Typography>
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell align="right">
-                      <IconButton onClick={() => handleProductToggle(Topic.id)}   >
+                      <IconButton onClick={() => handleLMToggle(LM.id)}   >
                         <SvgIcon>
                           <DotsHorizontalIcon />
                         </SvgIcon>
@@ -255,10 +289,10 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={Topic.title}
+                                    defaultValue={LM.name}
                                     fullWidth
-                                    label="Product title"
-                                    name="title"
+                                    label="Product name"
+                                    name="name"
                                   />
                                 </Grid>
                                 <Grid
@@ -267,7 +301,7 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={Topic.sku}
+                                    defaultValue={LM.sku}
                                     disabled
                                     fullWidth
                                     label="SKU"
@@ -280,7 +314,7 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={Topic.category}
+                                    defaultValue={LM.category}
                                     fullWidth
                                     label="Category"
                                     select
@@ -301,7 +335,7 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={Topic.id}
+                                    defaultValue={LM.id}
                                     disabled
                                     fullWidth
                                     label="Barcode"
@@ -329,14 +363,14 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={Topic.price}
+                                    defaultValue={LM.price}
                                     fullWidth
                                     label="Old price"
                                     name="old-price"
                                     InputProps={{
                                       startAdornment: (
                                         <InputAdornment position="start">
-                                          {Topic.currency}
+                                          {LM.currency}
                                         </InputAdornment>
                                       )
                                     }}
@@ -349,7 +383,7 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={Topic.price}
+                                    defaultValue={LM.price}
                                     fullWidth
                                     label="New price"
                                     name="new-price"
@@ -394,7 +428,7 @@ export const TopicManageListTable = (props) => {
                             spacing={2}
                           >
                             <Button
-                              onClick={handleProductUpdate}
+                              onClick={handleLMUpdate}
                               type="submit"
                               variant="contained"
                             >
@@ -402,17 +436,17 @@ export const TopicManageListTable = (props) => {
                             </Button>
                             <Button
                               color="inherit"
-                              onClick={handleProductClose}
+                              onClick={handleLMClose}
                             >
                               Cancel
                             </Button>
                           </Stack>
                           <div>
                             <Button
-                              onClick={handleProductDelete}
+                              onClick={handleLMDelete}
                               color="error"
                             >
-                              Delete Topic
+                              Delete LM
                             </Button>
                           </div>
                         </Stack>
@@ -427,7 +461,7 @@ export const TopicManageListTable = (props) => {
       </Scrollbar>
       <TablePagination
         component="div"
-        count={TopicsCount}
+        count={LMsCount}
         onPageChange={onPageChange}
         onRowsPerPageChange={onRowsPerPageChange}
         page={page}
@@ -438,9 +472,9 @@ export const TopicManageListTable = (props) => {
   );
 };
 
-TopicManageListTable.propTypes = {
-  Topics: PropTypes.array.isRequired,
-  TopicsCount: PropTypes.number.isRequired,
+LMManageListTable.propTypes = {
+  LMs: PropTypes.array.isRequired,
+  LMsCount: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   onRowsPerPageChange: PropTypes.func,
   page: PropTypes.number.isRequired,

@@ -1,13 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import Autocomplete, { createFilterOptions }from '@mui/material/Autocomplete';
 import {
   Box,
   Button,
-  Chip,
   Card,
   CardContent,
   FormControlLabel,
@@ -22,81 +20,99 @@ import {
 import { FileDropzoneVn } from '../../../components/file-dropzone-vn';
 import { QuillEditor } from '../../../components/quill-editor';
 import { paths } from '../../../paths';
-import { topic_manageApi } from '../../../api/Topic-Manage';
-import { lm_manageApi } from '../../../api/LM-Manage';
+import { exploreApi } from '../../../api/explore';
+import { FileApi } from '../../../api/file';
 import { useMounted } from '../../../hooks/use-mounted';
+import { LMCreateForm } from '../../../sections/dashboard/explore/LM-Manage/lm-manage-create-form';
+
 import axios from 'axios';
 
-
-const typeOptions = [
+const subjectOptions = [
   {
-    label: 'VIDEO',
-    value: 'VIDEO'
+    label: 'FUNDAMENTALS',
+    value: 'FUNDAMENTALS'
+  },
+  {
+    label: 'DATA SCIENTIST',
+    value: 'DATA_SCIENTIST'
+  },
+  {
+    label: 'MACHINE LEARNING',
+    value: 'MACHINE_LEARNING'
+  },
+  {
+    label: 'DEEP LEARNING',
+    value: 'DEEP_LEARNING'
+  },
+  {
+    label: 'DATA ENGINEER',
+    value: 'DATA_ENGINEER'
+  },
+  {
+    label: 'BIG DATA ENGINEER',
+    value: 'BIG_DATA_ENGINEER'
+  }
+];
+const categoryOptions = [
+  {
+    label: 'Video',
+    value: 'video'
   },
   {
     label: 'PDF',
-    value: 'PDF'
+    value: 'pdf'
   },
   {
-    label: 'QUIZ',
-    value: 'QUIZ'
+    label: 'Quiz',
+    value: 'quiz'
   },
   {
-    label: 'WORD',
-    value: 'WORD'
+    label: 'Podcast',
+    value: 'podcast'
   },
   {
-    label: 'CODE',
-    value: 'CODE'
+    label: 'Khác',
+    value: 'somethingelse'
   },
-  {
-    label: 'PPT',
-    value: 'PPT'
-  }
 ];
 
 const initialValues = {
   // id: '',
-  type: '',
+  // category: '',
   // description: '',
   // images: [],
-  name: '',
-  time : 0,
-  difficulty: 0,
+  title: '',
+  idCourse: 0,
+  idLearningMaterial: [],
+  // duration : 0,
+  // difficulty: 0,
   // newPrice: 0,
   // oldPrice: 0,
-  score: 10,
-  rating: 5,
-  topicId: 0,
-  fileId: 0,
   // submit: null
 };
 
 const validationSchema = Yup.object({
   // id: Yup.number().min(0),
-  type: Yup.string().max(255),
+  // category: Yup.string().max(255),
   // description: Yup.string().max(5000),
   // images: Yup.array(),
   name: Yup.string().max(255).required(),
-  time : Yup.number().min(0).required(),
-  difficulty: Yup.number().min(0).required(),
-  rating: Yup.number().min(0).max(5),
-  score: Yup.number().min(0),
-  topicId: Yup.number().required(),
-  fileId: Yup.number(),
+  idCourse: Yup.string().max(255).required(),
+//   preTopicId: Yup.number().min(0),
+//   postTopicId: Yup.number().min(0)
+  // duration : Yup.number().min(0).required(),
+  // difficulty: Yup.number().min(0).required(),
   // newPrice: Yup.number().min(0).required(),
   // oldPrice: Yup.number().min(0),
 });
 
-export const LMCreateForm = (props) => {
+export const LessonCreateForm = (props) => {
+  const { courseid } = props;
   const isMounted = useMounted();
   const router = useRouter();
-  const [topicIds, setTopicIds] = useState([])
-  const [newTopicId, setNewTopicId] = useState('');
   const [files, setFiles] = useState([]);
-  const filter = createFilterOptions();
-  const [topicOptions, setTopicOptions] = useState([]);
   const [idLMList, setIdLMList] = useState([]);
+  const [topicOptions, setTopicOptions] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const formik = useFormik({
     initialValues,
@@ -104,25 +120,19 @@ export const LMCreateForm = (props) => {
     onSubmit: async (values, helpers) => {
       try {
         // NOTE: Make API request
-        await lm_manageApi.createLM({
-          name: values.name,
-          difficulty: values.difficulty,
-          type: values.type,
-          score: values.score,
-          rating: values.rating,
-          time: values.time,
-          // topicIds: topicIds.map((topicIds) => topicIds.id)
-          topicId: values.topicId,
-          fileId: idLMList[0]
+        // console.log(formik.values);
+        await exploreApi.createLesson({
+          title: values.name,
+          idCourse: parseInt(courseid, 10),
+          idLearningMaterial: idLMList,
       })
-        // await lm_manageApi.createLM(values);
-        toast.success('Tài liệu học tập đã được tạo');
-        router.push(paths.dashboard.LM_Manage);
+        toast.success('Bài học đã được tạo');
+        router.push(`${paths.dashboard.explore}/${courseid}`);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');
         helpers.setStatus({ success: false });
-        // helpers.setErrors({ submit: err.message });
+        helpers.setErrors({ submit: err.message });
         helpers.setSubmitting(false);
       }
     }
@@ -130,7 +140,7 @@ export const LMCreateForm = (props) => {
 
   const getTopics = useCallback(async () => {
     try {
-      const response = await topic_manageApi.getListTopic();
+      const response = await exploreApi.getListTopic();
 
       if (isMounted()) {
         setTopicOptions([...response.data]);
@@ -145,6 +155,7 @@ export const LMCreateForm = (props) => {
   },[]);
 
   const handleFilesDrop = useCallback((newFiles) => {
+    console.log(newFiles)
     setFiles((prevFiles) => {
       return [...prevFiles, ...newFiles];
     });
@@ -161,9 +172,9 @@ export const LMCreateForm = (props) => {
   const handleFilesRemoveAll = useCallback(() => {
     setFiles([]);
     setDisabled(false);
-
   }, []);
 
+// Chưa làm nè má ơi
   const handleFilesUpload = async (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -189,6 +200,7 @@ export const LMCreateForm = (props) => {
         console.error('Error uploading file:', err);
       }
   };
+
 
   return (
     <form
@@ -218,23 +230,23 @@ export const LMCreateForm = (props) => {
                     error={!!(formik.touched.name && formik.errors.name)}
                     fullWidth
                     helperText={formik.touched.name && formik.errors.name}
-                    label="Tên tài liệu học tập"
+                    label="Tên bài học"
                     name="name"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     value={formik.values.name}
                   />
-                  <TextField
-                    error={!!(formik.touched.type && formik.errors.type)}
+                  {/* <TextField
+                    error={!!(formik.touched.subject && formik.errors.subject)}
                     fullWidth
-                    label="Phân loại"
-                    name="type"
+                    label="Phân loại mục tiêu"
+                    name="subject"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    value={formik.values.type}
+                    value={formik.values.subject}
                     select
                   >
-                    {typeOptions.map((option) => (
+                    {subjectOptions.map((option) => (
                       <MenuItem
                         key={option.value}
                         value={option.value}
@@ -245,14 +257,75 @@ export const LMCreateForm = (props) => {
                     ))}
                   </TextField>
                   <TextField
-                    error={!!(formik.touched.time && formik.errors.time)}
+                    error={!!(formik.touched.preTopicId && formik.errors.preTopicId)}
                     fullWidth
-                    label="Thời lượng (phút)"
-                    name="time"
+                    label="Chủ đề liền trước"
+                    name="preTopicId"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.preTopicId}
+                    select
+                  >
+                    {topicOptions.map((option) => (
+                      <MenuItem
+                        key={option.id}
+                        value={option.id}
+                        selected
+                      >
+                        {option.title}
+                      </MenuItem>
+                    ))}
+                    {console.log(topicOptions)}
+                    
+                  </TextField> */}
+                  {/* <TextField
+                    error={!!(formik.touched.postTopicId && formik.errors.postTopicId)}
+                    fullWidth
+                    label="Tài liệu học liên quan"
+                    name="postTopicId"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.postTopicId}
+                    select
+                  >
+                    {topicOptions.map((option) => (
+                      <MenuItem
+                        key={option.id}
+                        value={option.id}
+                        selected
+                      >
+                        {option.title}
+                      </MenuItem>
+                    ))}
+                  </TextField> */}
+                  {/* <TextField
+                    error={!!(formik.touched.category && formik.errors.category)}
+                    fullWidth
+                    label="Phân loại"
+                    name="category"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    select
+                    value={formik.values.category}
+                  >
+                    {categoryOptions.map((option) => (
+                      <MenuItem
+                        key={option.value}
+                        value={option.value}
+                      >
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <TextField
+                    error={!!(formik.touched.duration && formik.errors.duration)}
+                    fullWidth
+                    label="Thời lượng"
+                    name="duration"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     type="number"
-                    value={formik.values.time}
+                    value={formik.values.duration}
                   />
                   <TextField
                     error={!!(formik.touched.difficulty && formik.errors.difficulty)}
@@ -265,103 +338,15 @@ export const LMCreateForm = (props) => {
                     value={formik.values.difficulty}
                   />
                   <TextField
-                    error={!!(formik.touched.topicId && formik.errors.topicId)}
+                    error={!!(formik.touched.belong_to_topic && formik.errors.belong_to_topic)}
                     fullWidth
-                    label="Chủ đề học liên quan"
-                    name="topicId"
+                    label="Chủ đề liên quan"
+                    name="belong_to_topic"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    value={formik.values.topicId}
-                    select
-                  >
-                    {topicOptions.map((option) => (
-                      <MenuItem
-                        key={option.id}
-                        value={option.id}
-                        selected
-                      >
-                        {option.title}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  {/* <Autocomplete
-                    value={newTopicId}
-                    onChange={(event, newValue) => {
-                      if (typeof newValue === 'string') {
-                        setNewTopicId({
-                          title: newValue,
-                        });
-                      } else if (newValue && newValue.inputValue) {
-                        // Create a new value from the user input
-                        setNewTopicId({
-                          title: newValue.inputValue,
-                        });
-                      } else {
-                        setNewTopicId(newValue);
-                      }
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        if (newTopicId !== '') {
-                          setTopicIds([...topicIds,newTopicId]);
-                        }
-                        setNewTopicId('');
-                        e.preventDefault();
-                      }}
-                    }
-                    filterOptions={(options, params) => {
-                      const filtered = filter(options, params);
-                      const { inputValue } = params;
-                      // Suggest the creation of a new value
-                      const isExisting = options.some((option) => inputValue === option.title);
-                      if (inputValue !== '' && !isExisting) {
-                        filtered.push({
-                          inputValue,
-                          label: `Add "${inputValue}"`,
-                        });
-                      }
-
-                      return filtered;
-                    }}
-                    selectOnFocus
-                    clearOnBlur
-                    handleHomeEndKeys
-                    id="topicIds"
-                    options={topicOptions}
-                    getOptionLabel={(option) => {
-                      // Value selected with enter, right from the input
-                      if (typeof option === 'string') {
-                        return option;
-                      }
-                      // Add "xxx" option created dynamically
-                      if (option.inputValue) {
-                        return option.inputValue;
-                      }
-                      // Regular option
-                      return option.title;
-                    }}
-                    renderOption={(props, option) => <li {...props}>{option.title}</li>}
-                    fullWidth
-                    freeSolo
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        fullWidth
-                        label="Chủ đề học liên quan" />
-                    )}
-                  /> 
-                  <Box >
-                    {topicIds.map((topicId,index) => 
-                      <Chip 
-                        key={index} 
-                        label={topicId.title}  
-                        onDelete={e => setTopicIds(topicIds.filter(l => l !== topicId))}
-                        sx={{mr: 1, mb: 1}} 
-                      />
-                    )}
-                  </Box> */}
-
-                  {/* <div>
+                    value={formik.values.belong_to_topic}
+                  />
+                  <div>
                     <Typography
                       color="text.secondary"
                       sx={{ mb: 2 }}
@@ -408,7 +393,7 @@ export const LMCreateForm = (props) => {
                     color="text.secondary"
                     variant="body2"
                   >
-                    Tài liệu học sẽ xuất hiện trên hệ thống.
+                    Chọn tài liệu học liên quan đến bài học để tải lên hệ thống.
                   </Typography>
                 </Stack>
               </Grid>
@@ -417,7 +402,7 @@ export const LMCreateForm = (props) => {
                 md={8}
               >
                 <FileDropzoneVn
-                  accept={{ '*/*': [] }}
+                  accept={{ '*//*': [] }}
                   caption="(PDF, SVG, JPG, PNG, or gif maximum 900x400, ...)"
                   files={files}
                   disabled={disabled}
@@ -430,6 +415,7 @@ export const LMCreateForm = (props) => {
             </Grid>
           </CardContent>
         </Card>
+        {/* <LMCreateForm /> */}
         {/* <Card>
           <CardContent>
             <Grid
