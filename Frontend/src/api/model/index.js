@@ -3,14 +3,12 @@ import axios from 'axios';
 const apiUrl = 'http://localhost:8080/model';
 
 class ModelApi {
-  getModels() {
-    return axios.get(apiUrl);
-    //return Promise.resolve(deepCopy(forums));
+  getModels(queryParams) {
+    return axios.get(apiUrl, { params: queryParams });
   }
 
   getModelDetail(id) {
     return axios.get(`${apiUrl}/${id}`);
-    //return Promise.resolve(deepCopy(forumDetail));
   }
 
   postModel(request) {

@@ -3,8 +3,8 @@ import axios from 'axios';
 const apiUrl = 'http://localhost:8080/dataset';
 
 class DatasetApi {
-  getDatasets() {
-    return axios.get(apiUrl);
+  getDatasets(queryParams) {
+    return axios.get(apiUrl, { params: queryParams });
   }
 
   getDatasetDetail(id) {

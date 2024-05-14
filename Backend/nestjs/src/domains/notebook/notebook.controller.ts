@@ -8,6 +8,7 @@ import {
   NotFoundException,
   Put,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { NotebookService } from './notebook.service';
 import * as NotebookDto from './dto/notebook.dto';
@@ -25,7 +26,7 @@ export class NotebookController {
   async create(@Body() body: NotebookDto.NotebookCreateRequestDto) {
     try {
       const notebook = await this.notebookService.create(NotebookDto.NotebookCreateRequestDto.toCreateInput(body));
-      const result = await this.notebookService.updateOne(notebook.id, {}, body.modelIds, body.datasetIds)
+      const result = await this.notebookService.updateOne(notebook.id, {}, body.modelVariationIds, body.datasetIds)
       return JSON.stringify(NotebookDto.NotebookResponseDto.fromNotebook(result));
     } catch (error) {
       console.log(error);
@@ -34,9 +35,18 @@ export class NotebookController {
   }
 
   @Get()
-  async getAll() {
+  async getMany(@Query() queryParams) {
     try {
-      const result = await this.notebookService.getMany({ isPublic: true });
+      if (queryParams.isPublic === 'true') {
+        queryParams.isPublic = true;
+      }
+      if (queryParams.isPublic === 'false') {
+        queryParams.isPublic = false;
+      }
+      if (queryParams.userId) {
+        queryParams.userId = +queryParams.userId;
+      }
+      const result = await this.notebookService.getMany(queryParams);
       return JSON.stringify(result.map((f) => NotebookDto.NotebookResponseDto.fromNotebook({...f, content: null})));
     } catch (error) {
       console.log(error);
@@ -72,7 +82,7 @@ export class NotebookController {
   @Put(':id')
   async updateOne(@Param('id', ParseIntPipe) id: number, @Body() body: NotebookDto.NotebookUpdateRequestDto) {
     try {
-      const result = await this.notebookService.updateOne(id, NotebookDto.NotebookUpdateRequestDto.toUpdateInput(body), body.modelIds, body.datasetIds);
+      const result = await this.notebookService.updateOne(id, NotebookDto.NotebookUpdateRequestDto.toUpdateInput(body), body.modelVariationIds, body.datasetIds);
       if (result == null) {
         throw new NotFoundException(`Not found`);
       }

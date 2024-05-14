@@ -37,7 +37,7 @@ const useModels = () => {
 
   const getModels = useCallback(async () => {
     try {
-      const response = await modelApi.getModels();
+      const response = await modelApi.getModels({ isPublic: true });
       const modelsInfo = await Promise.all(response.data.map(async r => {
         const userResponse = await userApi.getUser(r.userId);
         return {
@@ -67,6 +67,7 @@ const useModels = () => {
 const Page = () => {
   const models = useModels();
   const [page, setPage] = useState(0);
+  const [filters, setFilters] = useState([false, false]);
 
   usePageView();
 
@@ -141,15 +142,17 @@ const Page = () => {
             </Button>
             <Button 
               color="inherit" 
-              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1}}
+              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1, backgroundColor: filters[0]?"action.disabledBackground":"inherit"}}
               startIcon={<ListAltOutlinedIcon />}
+              onClick={() => setFilters([!filters[0], filters[1]])}
             >
               Tất cả
             </Button>
             <Button 
               color="inherit" 
-              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1}}
+              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1, backgroundColor: filters[1]?"action.disabledBackground":"inherit"}}
               startIcon={<SubdirectoryArrowRightOutlinedIcon />}
+              onClick={() => setFilters([filters[0], !filters[1]])}
             >
               Của bạn
             </Button>

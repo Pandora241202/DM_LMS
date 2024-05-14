@@ -16,6 +16,7 @@ import { ModelModule } from './domains/model/model.module';
 import { ModelVariationModule } from './domains/modelVariation/modelVariation.module';
 import { DatasetModule } from './domains/dataset/dataset.module';
 import { NotebookModule } from './domains/notebook/notebook.module';
+import { PythonRunnerModule } from './domains/pythonRunner/pythonRunner.module';
 import { join } from 'path';
 @Module({
   imports: [
@@ -33,17 +34,10 @@ import { join } from 'path';
     ModelVariationModule,
     DatasetModule,
     NotebookModule,
+    PythonRunnerModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads', 'forumImages'),
-      serveRoot: '/forumImages',
-    }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads', 'modelVariations'),
-      serveRoot: '/modelVariations',
-    }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads', 'datasets'),
-      serveRoot: '/datasets',
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
     }),
   ],
   controllers: [AppController],
