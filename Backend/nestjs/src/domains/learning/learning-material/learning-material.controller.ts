@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, ParseIntPipe, Post, Res } from '@nestjs/common';
 import { LearningMaterialService } from './learning-material.service';
-import { createReadStream, readFileSync } from 'fs';
+import { createReadStream, existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { Response } from 'express';
 import { LearningMaterialCreateREQ } from './request/learning-material-create.request';
+import { FileDTO } from 'src/services/file/dto/file.dto';
+import { CodeDTO } from './dto/learning-material.dto';
 
 @Controller('learning-materials')
 export class LearningMaterialController {
@@ -24,9 +26,11 @@ export class LearningMaterialController {
     const lm = await this.learningMaterialService.detail(id);
 
     if (lm.type === 'OTHER') {
-      const file = createReadStream(join('./uploads/materialFiles/', lm.DTO.fileName as string));
-      file.pipe(res);
-    } else return res.status(200).json(lm.DTO);
+      const filePath = `./uploads/materialFiles/${(lm.DTO as FileDTO).fileName}`;
+      if (!existsSync(filePath)) throw new NotFoundException("Can not find file");
+      createReadStream(filePath).pipe(res);
+    } 
+    else return res.status(200).json(lm.DTO);
   }
 
   @Get()

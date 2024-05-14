@@ -158,23 +158,6 @@ export class ForumController {
     }
   }
 
-  @Get(':forumId/comment')
-  async getCommentsOfForum(@Param('forumId', ParseIntPipe) forumId: number) {
-    try {
-      // Check if forum exists
-      const forum = await this.forumService.getOne(forumId);
-      if (forum == null) {
-        throw new NotFoundException(`Forum with id ${forumId} not found`);
-      }
-
-      const result = await this.statementService.getAllInForum(forumId);
-      return JSON.stringify(result.map((c) => StatementDto.StatementResponseDto.fromForum(c)));
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
-
   @Put('comment/:id')
   async updateComment(@Param('id', ParseIntPipe) id: number, @Body() body: StatementDto.StatementUpdateRequestDto) {
     try {

@@ -12,6 +12,11 @@ import { CourseModule } from './domains/courses/courses.module';
 import { LessonModule } from './domains/lessons/lessons.module';
 import { FileModule } from './services/file/file.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ModelModule } from './domains/model/model.module';
+import { ModelVariationModule } from './domains/modelVariation/modelVariation.module';
+import { DatasetModule } from './domains/dataset/dataset.module';
+import { NotebookModule } from './domains/notebook/notebook.module';
+import { PythonRunnerModule } from './domains/pythonRunner/pythonRunner.module';
 import { join } from 'path';
 @Module({
   imports: [
@@ -25,9 +30,14 @@ import { join } from 'path';
     CourseModule,
     LessonModule,
     FileModule,
+    ModelModule,
+    ModelVariationModule,
+    DatasetModule,
+    NotebookModule,
+    PythonRunnerModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads', 'forumImages'),
-      serveRoot: '/forumImages',
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
     }),
   ],
   controllers: [AppController],

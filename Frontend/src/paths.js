@@ -96,7 +96,6 @@ export const paths = {
       details: '/dashboard/customers/:customerId',
       edit: '/dashboard/customers/:customerId/edit'
     },
-    dataset: '/dashboard/dataset',
     ecommerce: '/dashboard/ecommerce',
     explore: '/dashboard/explore',
     fileManager: '/dashboard/file-manager',
@@ -122,7 +121,23 @@ export const paths = {
     },
     note: '/dashboard/note',
     mail: '/dashboard/mail',
-    model: '/dashboard/model',
+    model: {
+      index: '/dashboard/model',
+      details: '/dashboard/model/:modelId',
+      create: '/dashboard/model/create',
+      model_variation_create: '/dashboard/model/:modelId/model-variation-create'
+    },
+    dataset: {
+      index: '/dashboard/dataset',
+      details: '/dashboard/dataset/:datasetId',
+      create: '/dashboard/dataset/create',
+    },
+    notebook: {
+      index: '/dashboard/notebook',
+      details: '/dashboard/notebook/:notebookId',
+      create: '/dashboard/notebook/create',
+      edit: '/dashboard/notebook/:notebookId/edit',
+    },
     orders: {
       index: '/dashboard/orders',
       details: '/dashboard/orders/:orderId'

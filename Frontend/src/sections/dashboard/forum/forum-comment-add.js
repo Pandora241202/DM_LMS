@@ -32,7 +32,7 @@ export const ForumCommentAdd = (props) => {
         "statementId": statementId,
         "content": content,
         "forumId": forumId,
-        "authenticatedUserId": user.id
+        "userId": user.id
       })
         .then((response) => {
           console.log(response);
@@ -81,7 +81,6 @@ export const ForumCommentAdd = (props) => {
             rows={3}
             value={content}
             onChange={e => {
-              console.log(e.target.value)
               setContent(e.target.value);
             }}
             onKeyDown={e => {

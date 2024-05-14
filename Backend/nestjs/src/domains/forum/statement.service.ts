@@ -18,14 +18,6 @@ export class StatementService {
     });
   }
 
-  async getAllInForum(forumId: number) {
-    return await this.prismaService.statement.findMany({
-      where: {
-        forumId: forumId,
-      },
-    });
-  }
-
   async updateOne(id: number, data: Prisma.StatementUncheckedUpdateInput) {
     return await this.prismaService.statement.update({
       where: {

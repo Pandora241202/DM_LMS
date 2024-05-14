@@ -17,7 +17,7 @@ export class LearnerLogCreateREQ {
 
   @IsOptional()
   @IsNumber()
-  score: number;
+  learnerAnswer: string[] | number[];
 
   @IsNumber()
   @Min(1)
@@ -33,11 +33,11 @@ export class LearnerLogCreateREQ {
   @Min(1)
   attempts: number;
 
-  static toCreateInput(userID: number, body: LearnerLogCreateREQ): Prisma.LearnerLogCreateInput {
+  static toCreateInput(userID: number, body: LearnerLogCreateREQ, score: number): Prisma.LearnerLogCreateInput {
     return {
       learningMaterialVisittedTime: Date.now(),
       learningMaterialRating: body.rating,
-      score: body.score,
+      score: score,
       time: body.time,
       attempts: body.attempts,
       learningMaterial: connectRelation(body.learningMaterialId),
@@ -46,10 +46,11 @@ export class LearnerLogCreateREQ {
   }
 
   static toCreateBatchInput(body: LearnerLogCreateREQ): Prisma.LearnerLogCreateInput {
+    let score = 0;
     return {
       learningMaterialVisittedTime: Date.now(),
       learningMaterialRating: body.rating,
-      score: body.score,
+      score: score,
       time: body.time,
       attempts: body.attempts,
       learningMaterial: connectRelation(body.learningMaterialId),

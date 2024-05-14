@@ -22,33 +22,42 @@ import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
 import { ForumComment } from '../../../sections/dashboard/forum/forum-comment';
 import { ForumCommentAdd } from '../../../sections/dashboard/forum/forum-comment-add';
-import { ForumContent } from '../../../sections/dashboard/forum/forum-content';
 
-const useComments = () => {
+const useForumDetail = () => {
   const isMounted = useMounted();
+  const [forumDetail, setForumDetail] = useState(null);
   const [comments, setComments] = useState([]);
   const router = useRouter();
 
-  const getComments = useCallback(async () => {
+  const getForumDetail = useCallback(async () => {
     try {
       if (router.isReady) {
         const forumId = router.query.forumId;
-        const response = await forumApi.getComments(forumId);
+        const response = await forumApi.getForumDetail(forumId);
         console.log(response);
-        const commentsInfo = await Promise.all(response.data.map(async r => {
-          const userResponse = await userApi.getUser(r.authenticatedUserId);
-          return {
-            ...r,
-            replies: [], 
-            authorAvatar: userResponse.data.avatar,
-            authorName: userResponse.data.username,
-            authorRole: "",
-            isLiked: true,
-            likes: 12,
-          }
-        }));
-
+        const userResponse = await userApi.getUser(response.data.userId);
         if (isMounted()) {
+          setForumDetail({
+            ...response.data, 
+            author: {
+              avatar: userResponse.data.avatar,
+              name: userResponse.data.username
+            }
+          });
+
+          const commentsInfo = await Promise.all(response.data.statements.map(async r => {
+            const userResponse = await userApi.getUser(r.userId);
+            return {
+              ...r,
+              replies: [], 
+              authorAvatar: userResponse.data.avatar,
+              authorName: userResponse.data.username,
+              authorRole: "",
+              isLiked: true,
+              likes: 12,
+            }
+          }))
+
           let commentsWithRep = [];
           let map = new Map();
           commentsInfo.map(c => {
@@ -70,53 +79,16 @@ const useComments = () => {
   }, [isMounted,router.isReady]);
 
   useEffect(() => {
-      getComments();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [router.isReady]);
-
-  return {comments, setComments};
-};
-
-const useForumDetail = () => {
-  const isMounted = useMounted();
-  const [forumDetail, setForumDetail] = useState(null);
-  const router = useRouter();
-
-  const getForumDetail = useCallback(async () => {
-    try {
-      if (router.isReady) {
-        const forumId = router.query.forumId;
-        const response = await forumApi.getForumDetail(forumId);
-        console.log(response);
-        const userResponse = await userApi.getUser(response.data.userId);
-        if (isMounted()) {
-          setForumDetail({
-            ...response.data, 
-            author: {
-              avatar: userResponse.data.avatar,
-              name: userResponse.data.username
-            }
-          });
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isMounted,router.isReady]);
-
-  useEffect(() => {
       getForumDetail();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [router.isReady]);
 
-  return forumDetail;
+  return {forumDetail, comments, setComments};
 };
 
 const Page = () => {
-  const forumDetail = useForumDetail();
-  const { comments, setComments } = useComments();
+  const { forumDetail, comments, setComments } = useForumDetail();
   
   usePageView();
 
@@ -228,7 +200,7 @@ const Page = () => {
           />}
           {forumDetail.content && (
             <Container sx={{ py: 3 }}>
-              <ForumContent content={forumDetail.content} />
+              <Typography dangerouslySetInnerHTML={{__html: forumDetail.content}}></Typography>
             </Container>
           )}
           <Divider sx={{ my: 3 }} />

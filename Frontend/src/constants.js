@@ -1,5 +1,11 @@
 export const FORUMS_PER_PAGE = 6;
 
+export const MODELS_PER_PAGE = 20;
+
+export const NOTEBOOKS_PER_PAGE = 20;
+
+export const DATASETS_PER_PAGE = 20;
+
 export const LOS_PER_PAGE = 9;
 
 export const PERCENTAGE_TO_PASS_LO = 80;
@@ -697,3 +703,27 @@ export const BASE_INFO_QUES = [
         ]
     },
 ]
+
+// Framework
+export const FRAMEWORKS = new Map();
+FRAMEWORKS.set("TENSORFLOW_2", "TensorFlow 2");
+FRAMEWORKS.set("KERAS", "Keras");
+FRAMEWORKS.set("PYTORCH", "PyTorch");
+FRAMEWORKS.set("TRANSFORMERS", "Transformers");
+FRAMEWORKS.set("GEMMA_CPLUSPLUS", "Gemma C++");
+FRAMEWORKS.set("TENSORRT_LLM", "TensorRT-LLM");
+FRAMEWORKS.set("TENSORFLOW_LITE", "TensorFlow Lite");
+FRAMEWORKS.set("MAXTEXT", "MaxText");
+FRAMEWORKS.set("PAX", "Pax");
+FRAMEWORKS.set("FLAX", "Flax");
+FRAMEWORKS.set("JAX", "Jax");
+FRAMEWORKS.set("GGML", "GGML");
+FRAMEWORKS.set("GGUF", "GGUF");
+FRAMEWORKS.set("TENSORFLOW_1", "TensorFlow 1");
+FRAMEWORKS.set("TENSORFLOWDOTJS", "TensorFlow.js");
+FRAMEWORKS.set("CORAL", "Coral");
+FRAMEWORKS.set("SCIKIT_LEARN", "scikit-learn");
+FRAMEWORKS.set("MXNET", "MXNet");
+FRAMEWORKS.set("ONNX", "ONNX");
+FRAMEWORKS.set("OTHER", "Other");
+

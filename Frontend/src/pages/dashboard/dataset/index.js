@@ -1,35 +1,72 @@
+import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
-import { addDays, subDays, subHours, subMinutes } from 'date-fns';
-import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
+import NextLink from 'next/link';
+import SearchMdIcon from '@untitled-ui/icons-react/build/esm/SearchMd';
+import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
+import ArrowLeftIcon from '@untitled-ui/icons-react/build/esm/ArrowLeft';
+import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import SubdirectoryArrowRightOutlinedIcon from '@mui/icons-material/SubdirectoryArrowRightOutlined';
 import {
   Box,
+  Breadcrumbs,
   Button,
+  Card,
   Container,
+  Divider,
+  Link,
   Stack,
   SvgIcon,
   Typography,
-  Unstable_Grid2 as Grid
+  Unstable_Grid2 as Grid,
+  Input,
 } from '@mui/material';
+import { datasetApi } from '../../../api/dataset';
+import { userApi } from '../../../api/user';
+import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
-import { useSettings } from '../../../hooks/use-settings';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
-import { OverviewBanner } from '../../../sections/dashboard/overview/overview-banner';
-import { OverviewDoneTasks } from '../../../sections/dashboard/overview/overview-done-tasks';
-import { OverviewEvents } from '../../../sections/dashboard/overview/overview-events';
-import { OverviewInbox } from '../../../sections/dashboard/overview/overview-inbox';
-import { OverviewTransactions } from '../../../sections/dashboard/overview/overview-transactions';
-import { OverviewPendingIssues } from '../../../sections/dashboard/overview/overview-pending-issues';
-import { OverviewSubscriptionUsage } from '../../../sections/dashboard/overview/overview-subscription-usage';
-import { OverviewHelp } from '../../../sections/dashboard/overview/overview-help';
-import { OverviewJobs } from '../../../sections/dashboard/overview/overview-jobs';
-import { OverviewOpenTickets } from '../../../sections/dashboard/overview/overview-open-tickets';
-import { OverviewTips } from '../../../sections/dashboard/overview/overview-tips';
-import { LearningObject } from '../../../sections/dashboard/overview/learning-object';
+import { paths } from '../../../paths';
+import { DatasetCard } from '../../../sections/dashboard/dataset/dataset-card';
+import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
+import * as consts from '../../../constants';
 
-const now = new Date();
+const useDatasets = () => {
+  const isMounted = useMounted();
+  const [datasets, setDatasets] = useState([]);
+
+  const getDatasets = useCallback(async () => {
+    try {
+      const response = await datasetApi.getDatasets({ isPublic: true });
+      const datasetsInfo = await Promise.all(response.data.map(async r => {
+        const userResponse = await userApi.getUser(r.userId);
+        return {
+          ...r, 
+          author: {
+            avatar: userResponse.data.avatar,
+            name: userResponse.data.username
+          }
+        }
+      }));
+
+      if (isMounted()) {
+        setDatasets(datasetsInfo);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isMounted]);
+
+  useEffect(() => {
+    getDatasets();
+  },[]);
+
+  return datasets;
+};
 
 const Page = () => {
-  const settings = useSettings();
+  const datasets = useDatasets();
+  const [page, setPage] = useState(0);
 
   usePageView();
 
@@ -37,7 +74,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: Overview | Devias Kit PRO
+          Dataset: Dataset List
         </title>
       </Head>
       <Box
@@ -47,92 +84,185 @@ const Page = () => {
           py: 8
         }}
       >
-        <Container maxWidth={settings.stretch ? false : 'xl'}>
-          <Grid
-            container
-            disableEqualOverflow
-            spacing={{
-              xs: 3,
-              lg: 4
+        <Container maxWidth="xl">
+          <Stack spacing={1}>
+            <Typography variant="h3">
+              Tập dữ liệu
+            </Typography>
+            <Breadcrumbs separator={<BreadcrumbsSeparator />}>
+              <Link
+                color="text.primary"
+                component={NextLink}
+                href={paths.dashboard.index}
+                variant="subtitle2"
+              >
+                Dashboard
+              </Link>
+              <Link
+                color="text.primary"
+                component={NextLink}
+                href={paths.dashboard.dataset.index}
+                variant="subtitle2"
+              >
+                Tập dữ liệu
+              </Link>
+              <Typography
+                color="text.secondary"
+                variant="subtitle2"
+              >
+                Danh sách
+              </Typography>
+            </Breadcrumbs>
+          </Stack>
+          <Card
+            elevation={16}
+            sx={{
+              alignItems: 'center',
+              borderRadius: 1,
+              display: 'flex',
+              px: 3,
+              py: 2, 
+              mb: 2,
+              mt: 6,
             }}
           >
-            <Grid xs={12}>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                spacing={4}
+            <SvgIcon fontSize="medium" htmlColor="#848C97" >
+              <SearchMdIcon />
+            </SvgIcon>
+            <Input placeholder="Tìm kiếm tập dữ liệu..." disableUnderline fullWidth sx={{marginLeft: 2}} inputProps={{ style: { fontSize: '17px' } }}/>
+          </Card>
+          <Stack direction="row" justifyItems="flex-start" spacing={2} sx={{mb: 8}}>
+            <Button 
+              color="inherit" 
+              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1}}
+              startIcon={<FilterListOutlinedIcon />}
+            >
+              Bộ lọc
+            </Button>
+            <Button 
+              color="inherit" 
+              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1}}
+              startIcon={<ListAltOutlinedIcon />}
+            >
+              Tất cả
+            </Button>
+            <Button 
+              color="inherit" 
+              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1}}
+              startIcon={<SubdirectoryArrowRightOutlinedIcon />}
+            >
+              Của bạn
+            </Button>
+          </Stack>
+          <Card
+            elevation={16}
+            sx={{
+              alignItems: 'center',
+              borderRadius: 1,
+              display: 'flex',
+              justifyContent: 'space-between',
+              px: 3,
+              py: 2, 
+              position: 'fixed',
+              bottom: 30,
+              right : 100,
+              width: 500,
+            }}
+          >
+            <Typography variant="subtitle1">
+              Tạo và chia sẻ tập dữ liệu với cộng đồng!
+            </Typography>
+            <Button
+              component={NextLink}
+              href={paths.dashboard.dataset.create}
+              variant="contained"
+            >
+              Tạo ngay
+            </Button>
+          </Card>
+          <Typography variant="h4">
+            Các tập dữ liệu thịnh hành 
+          </Typography>
+          <Typography
+            color="text.secondary"
+            sx={{ mt: 2 }}
+            variant="body1"
+          >
+            Khám phá, phân tích và sử dụng các dữ liệu chất lượng, bao gồm các tập dữ liệu được yêu thích nhất chia sẻ bởi cộng đồng.
+          </Typography>
+          <Typography
+            color="text.secondary"
+            variant="body1"
+          >
+            Bạn cũng có thể tạo và chia sẻ tập dữ liệu của mình với cộng đồng.
+          </Typography>
+          <Divider sx={{ my: 4 }} />
+          <Grid
+            container
+            spacing={4}
+          >
+            {datasets
+            .slice(page*consts.DATASETS_PER_PAGE, page*consts.DATASETS_PER_PAGE + consts.DATASETS_PER_PAGE)
+            .map((dataset) => (
+              <Grid
+                key={dataset.id}
+                xs={12}
+                md={3}
               >
-                <div>
-                  <Typography variant="h4">
-                    Your Learning Path
-                  </Typography>
-                </div>
-                <div>
-                  <Stack
-                    direction="row"
-                    spacing={4}
-                  >
-                    <Button
-                      startIcon={(
-                        <SvgIcon>
-                          <PlusIcon />
-                        </SvgIcon>
-                      )}
-                      variant="contained"
-                    >
-                      New Dashboard
-                    </Button>
-                  </Stack>
-                </div>
-              </Stack>
-            </Grid>
-            <Grid
-              xs={12}
-              md={4}
-            >
-              <LearningObject amount={31} />
-            </Grid>
-            <Grid
-              xs={12}
-              md={4}
-            >
-              <OverviewPendingIssues amount={12} />
-            </Grid>
-            <Grid
-              xs={12}
-              md={4}
-            >
-              <OverviewOpenTickets amount={5} />
-            </Grid>
-            <Grid
-              xs={12}
-              md={7}
-            >
-              <OverviewBanner />
-            </Grid>
-            <Grid
-              xs={12}
-              md={5}
-            >
-              <OverviewTips
-                sx={{ height: '100%' }}
-                tips={[
-                  {
-                    title: 'New fresh design.',
-                    content: 'Your favorite template has a new trendy look, more customization options, screens & more.'
-                  },
-                  {
-                    title: 'Tip 2.',
-                    content: 'Tip content'
-                  },
-                  {
-                    title: 'Tip 3.',
-                    content: 'Tip content'
-                  }
-                ]}
-              />
-            </Grid>
+                <DatasetCard
+                  id={dataset.id} 
+                  authorAvatar={dataset.author.avatar}
+                  authorName={dataset.author.name}
+                  filesCount={dataset.filesType.length}
+                  votes={dataset.votes}
+                  description={dataset.description}
+                  title={dataset.title}
+                  updatedAt={dataset.updatedAt}
+                  sx={{ height: '100%' }}
+                />
+              </Grid>
+            ))}
           </Grid>
+          <Stack
+            alignItems="center"
+            direction="row"
+            justifyContent="center"
+            spacing={1}
+            sx={{
+              mt: 4,
+              mb: 8
+            }}
+          >
+            <Button
+              disabled={page == 0}
+              startIcon={(
+                <SvgIcon>
+                  <ArrowLeftIcon />
+                </SvgIcon>
+              )}
+              onClick={() => {
+                setPage(page - 1);
+                window.scrollTo(0,0);
+              }}
+            >
+            </Button>
+            <Typography variant="body1">
+              {page + 1} / {Math.ceil(datasets.length / consts.DATASETS_PER_PAGE)}
+            </Typography>
+            <Button
+              disabled={page == Math.floor(datasets.length / consts.DATASETS_PER_PAGE)}
+              endIcon={(
+                <SvgIcon>
+                  <ArrowRightIcon />
+                </SvgIcon>
+              )}
+              onClick={() => {
+                setPage(page + 1);
+                window.scrollTo(0,0);
+              }}
+            >
+            </Button>
+          </Stack>
         </Container>
       </Box>
     </>

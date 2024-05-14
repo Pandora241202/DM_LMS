@@ -9,7 +9,7 @@ export class CourseUpdateREQ {
 
   @IsOptional()
   @IsBoolean()
-  visibility: boolean = false;
+  visibility: boolean;
 
   @IsOptional()
   @IsEnum(BackgroundKnowledgeType)
