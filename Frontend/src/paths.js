@@ -125,12 +125,18 @@ export const paths = {
       index: '/dashboard/model',
       details: '/dashboard/model/:modelId',
       create: '/dashboard/model/create',
-      modelVariationCreate: '/dashboard/model/:modelId/modelVariationCreate'
+      model_variation_create: '/dashboard/model/:modelId/model-variation-create'
     },
     dataset: {
       index: '/dashboard/dataset',
       details: '/dashboard/dataset/:datasetId',
       create: '/dashboard/dataset/create',
+    },
+    notebook: {
+      index: '/dashboard/notebook',
+      details: '/dashboard/notebook/:notebookId',
+      create: '/dashboard/notebook/create',
+      edit: '/dashboard/notebook/:notebookId/edit',
     },
     orders: {
       index: '/dashboard/orders',

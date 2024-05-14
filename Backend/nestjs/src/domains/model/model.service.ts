@@ -25,10 +25,11 @@ export class ModelService {
         isPublic: true,
         votes: true,
         downloadCount: true,
-        modelVariations: true,
-        notebooks: {
-          select: { notebookId: true }
-        },
+        modelVariations: {
+          include: {
+            notebooks: true,
+          }
+        }
       },
       orderBy: {
         votes: 'desc',
@@ -40,12 +41,10 @@ export class ModelService {
     return await this.prismaService.model.findFirst({
       where: { id: id },
       include: {
-        notebooks: {
-          select: {
-            notebookId: true,
-          }
-        },
         modelVariations: {
+          include: {
+            notebooks: true
+          },
           orderBy: [
             {framework: 'asc'},
             {slugName: 'asc'},

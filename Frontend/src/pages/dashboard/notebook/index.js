@@ -21,24 +21,24 @@ import {
   Unstable_Grid2 as Grid,
   Input,
 } from '@mui/material';
-import { datasetApi } from '../../../api/dataset';
+import { notebookApi } from '../../../api/notebook';
 import { userApi } from '../../../api/user';
 import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
-import { DatasetCard } from '../../../sections/dashboard/dataset/dataset-card';
+import { ModelCard, NotebookCard } from '../../../sections/dashboard/notebook/notebook-card';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import * as consts from '../../../constants';
 
-const useDatasets = () => {
+const useNotebooks = () => {
   const isMounted = useMounted();
-  const [datasets, setDatasets] = useState([]);
+  const [notebooks, setNotebooks] = useState([]);
 
-  const getDatasets = useCallback(async () => {
+  const getNotebooks = useCallback(async () => {
     try {
-      const response = await datasetApi.getDatasets({ isPublic: true });
-      const datasetsInfo = await Promise.all(response.data.map(async r => {
+      const response = await notebookApi.getNotebooks({ isPublic: true });
+      const notebooksInfo = await Promise.all(response.data.map(async r => {
         const userResponse = await userApi.getUser(r.userId);
         return {
           ...r, 
@@ -50,7 +50,7 @@ const useDatasets = () => {
       }));
 
       if (isMounted()) {
-        setDatasets(datasetsInfo);
+        setNotebooks(notebooksInfo);
       }
     } catch (err) {
       console.error(err);
@@ -58,14 +58,14 @@ const useDatasets = () => {
   }, [isMounted]);
 
   useEffect(() => {
-    getDatasets();
+    getNotebooks();
   },[]);
 
-  return datasets;
+  return notebooks;
 };
 
 const Page = () => {
-  const datasets = useDatasets();
+  const notebooks = useNotebooks();
   const [page, setPage] = useState(0);
 
   usePageView();
@@ -74,7 +74,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dataset: Dataset List
+          Model: Model List
         </title>
       </Head>
       <Box
@@ -87,7 +87,7 @@ const Page = () => {
         <Container maxWidth="xl">
           <Stack spacing={1}>
             <Typography variant="h3">
-              Tập dữ liệu
+              Ghi chú
             </Typography>
             <Breadcrumbs separator={<BreadcrumbsSeparator />}>
               <Link
@@ -101,10 +101,10 @@ const Page = () => {
               <Link
                 color="text.primary"
                 component={NextLink}
-                href={paths.dashboard.dataset.index}
+                href={paths.dashboard.notebook.index}
                 variant="subtitle2"
               >
-                Tập dữ liệu
+                Ghi chú
               </Link>
               <Typography
                 color="text.secondary"
@@ -129,7 +129,7 @@ const Page = () => {
             <SvgIcon fontSize="medium" htmlColor="#848C97" >
               <SearchMdIcon />
             </SvgIcon>
-            <Input placeholder="Tìm kiếm tập dữ liệu..." disableUnderline fullWidth sx={{marginLeft: 2}} inputProps={{ style: { fontSize: '17px' } }}/>
+            <Input placeholder="Tìm kiếm mô hình..." disableUnderline fullWidth sx={{marginLeft: 2}} inputProps={{ style: { fontSize: '17px' } }}/>
           </Card>
           <Stack direction="row" justifyItems="flex-start" spacing={2} sx={{mb: 8}}>
             <Button 
@@ -170,54 +170,52 @@ const Page = () => {
             }}
           >
             <Typography variant="subtitle1">
-              Tạo và chia sẻ tập dữ liệu với cộng đồng!
+              Tạo và chia sẻ code với cộng đồng!
             </Typography>
             <Button
               component={NextLink}
-              href={paths.dashboard.dataset.create}
+              href={paths.dashboard.notebook.create}
               variant="contained"
             >
               Tạo ngay
             </Button>
           </Card>
           <Typography variant="h4">
-            Các tập dữ liệu thịnh hành 
+            Các ghi chú thịnh hành 
           </Typography>
           <Typography
             color="text.secondary"
             sx={{ mt: 2 }}
             variant="body1"
           >
-            Khám phá, phân tích và sử dụng các dữ liệu chất lượng, bao gồm các tập dữ liệu được yêu thích nhất chia sẻ bởi cộng đồng.
+            Khám phá và chạy thử các mã nguồn học máy với ghi chú, bao gồm các mã nguồn chất lượng với mô tả chi tiết từ cộng đồng.
           </Typography>
           <Typography
             color="text.secondary"
             variant="body1"
           >
-            Bạn cũng có thể tạo và chia sẻ tập dữ liệu của mình với cộng đồng.
+            Bạn cũng có thể tạo và chia sẻ mã nguồn của mình với cộng đồng.
           </Typography>
           <Divider sx={{ my: 4 }} />
           <Grid
             container
             spacing={4}
           >
-            {datasets
-            .slice(page*consts.DATASETS_PER_PAGE, page*consts.DATASETS_PER_PAGE + consts.DATASETS_PER_PAGE)
-            .map((dataset) => (
+            {notebooks
+            .slice(page*consts.NOTEBOOKS_PER_PAGE, page*consts.NOTEBOOKS_PER_PAGE + consts.NOTEBOOKS_PER_PAGE)
+            .map((notebook) => (
               <Grid
-                key={dataset.id}
+                key={notebook.id}
                 xs={12}
                 md={3}
               >
-                <DatasetCard
-                  id={dataset.id} 
-                  authorAvatar={dataset.author.avatar}
-                  authorName={dataset.author.name}
-                  filesCount={dataset.filesType.length}
-                  votes={dataset.votes}
-                  description={dataset.description}
-                  title={dataset.title}
-                  updatedAt={dataset.updatedAt}
+                <NotebookCard
+                  id={notebook.id} 
+                  authorAvatar={notebook.author.avatar}
+                  authorName={notebook.author.name}
+                  votes={notebook.votes}
+                  title={notebook.title}
+                  updatedAt={notebook.updatedAt}
                   sx={{ height: '100%' }}
                 />
               </Grid>
@@ -247,10 +245,10 @@ const Page = () => {
             >
             </Button>
             <Typography variant="body1">
-              {page + 1} / {Math.ceil(datasets.length / consts.DATASETS_PER_PAGE)}
+              {page + 1} / {Math.ceil(notebooks.length / consts.NOTEBOOKS_PER_PAGE)}
             </Typography>
             <Button
-              disabled={page == Math.floor(datasets.length / consts.DATASETS_PER_PAGE)}
+              disabled={page == Math.floor(notebooks.length / consts.NOTEBOOKS_PER_PAGE)}
               endIcon={(
                 <SvgIcon>
                   <ArrowRightIcon />

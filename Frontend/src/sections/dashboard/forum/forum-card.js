@@ -35,7 +35,7 @@ export const ForumCard = (props) => {
       <CardMedia
         component={NextLink}
         href={paths.dashboard.forum.details.replace(':forumId', id)}
-        image={coverImageType?`http://localhost:8080/forumImages/${id}${coverImageType}`:initialCover}
+        image={coverImageType?`http://localhost:8080/uploads/forumImages/${id}${coverImageType}`:initialCover}
         sx={{ height: 280 }}
       />
       <CardContent>

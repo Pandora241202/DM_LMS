@@ -10,6 +10,7 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFiles,
+  Query,
 } from '@nestjs/common';
 import { DatasetService } from './dataset.service';
 import * as DatasetDto from './dto/dataset.dto';
@@ -63,9 +64,18 @@ export class DatasetController {
   }
 
   @Get()
-  async getAll() {
+  async getMany(@Query() queryParams) {
     try {
-      const result = await this.datasetService.getMany({ isPublic: true });
+      if (queryParams.isPublic === 'true') {
+        queryParams.isPublic = true;
+      }
+      if (queryParams.isPublic === 'false') {
+        queryParams.isPublic = false;
+      }
+      if (queryParams.userId) {
+        queryParams.userId = +queryParams.userId;
+      }
+      const result = await this.datasetService.getMany(queryParams);
       return JSON.stringify(result.map((f) => DatasetDto.DatasetResponseDto.fromDataset({...f, detail: null})));
     } catch (error) {
       console.log(error);

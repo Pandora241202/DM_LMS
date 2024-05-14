@@ -46,7 +46,6 @@ export const ModelVariationsShow = (props) => {
                 vertical: 'top',
                 horizontal: 'left',
               },
-              getContentAnchorEl: null,
             }}
             sx={{width: 500}}
           >
@@ -78,7 +77,6 @@ export const ModelVariationsShow = (props) => {
                 vertical: 'top',
                 horizontal: 'left',
               },
-              getContentAnchorEl: null,
             }}
             sx={{width: 500}}
           >
@@ -106,7 +104,6 @@ export const ModelVariationsShow = (props) => {
                 vertical: 'top',
                 horizontal: 'left',
               },
-              getContentAnchorEl: null,
             }}
             sx={{width: 200}}
           >
@@ -155,7 +152,7 @@ export const ModelVariationsShow = (props) => {
           {variation.filesType.map((t, idx) => (
             <Link
               key={idx}
-              href={`http://localhost:8080/modelVariations/${variation.id}_${idx}${t}`}
+              href={`http://localhost:8080/uploads/modelVariations/${variation.id}_${idx}${t}`}
               color="text.primary"
               target="_blank" 
               rel="noopener noreferrer"

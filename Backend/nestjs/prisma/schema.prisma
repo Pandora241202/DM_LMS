@@ -318,7 +318,6 @@ model Model {
   userId              Int                 @map("user_id")
   authenticatedUser   AuthenticatedUser   @relation(fields: [userId], references: [id])
   modelVariations     ModelVariation[]
-  notebooks           ModelsOfNotebooks[]
   updatedAt           DateTime            @default(now()) @map("updated_at") 
   votes               Int                 @default(0)
   downloadCount       Int                 @default(0) @map("download_count")
@@ -327,31 +326,32 @@ model Model {
 }
 
 model ModelVariation {
-  id          Int       @id @default(autoincrement())
-  filesType   String[]  @map("files_type")
+  id          Int                          @id @default(autoincrement())
+  filesType   String[]                     @map("files_type")
   framework   Framework
-  slugName    String    @map("slug_name")
+  slugName    String                       @map("slug_name")
   version     Int
   description String?
-  modelId     Int       @map("model_id")
-  model       Model     @relation(fields: [modelId], references: [id])
-  exampleUse  String?   @map("example_use")
-  updatedAt   DateTime  @default(now()) @map("updated_at") 
+  modelId     Int                          @map("model_id")
+  model       Model                        @relation(fields: [modelId], references: [id])
+  notebooks   ModelVariationsOfNotebooks[]
+  exampleUse  String?                      @map("example_use")
+  updatedAt   DateTime                     @default(now()) @map("updated_at") 
 
   @@map("model_variation")
 }
 
 model Notebook {
-  id                  Int                   @id @default(autoincrement())
+  id                  Int                          @id @default(autoincrement())
   title               String
   labels              String[]
-  content             String
-  userId              Int                   @map("user_id")
-  isPublic            Boolean               @map("is_public")
+  content             String[]
+  userId              Int                          @map("user_id")
+  isPublic            Boolean                      @map("is_public")
   datasets            DatasetsOfNotebooks[]
-  models              ModelsOfNotebooks[]
-  updatedAt           DateTime              @default(now()) @map("updated_at") 
-  votes               Int                   @default(0)
+  modelVariations     ModelVariationsOfNotebooks[]
+  updatedAt           DateTime                     @default(now()) @map("updated_at") 
+  votes               Int                          @default(0)
   
   authenticatedUser   AuthenticatedUser @relation(fields: [userId], references: [id])
 
@@ -368,14 +368,14 @@ model DatasetsOfNotebooks {
   @@map("datasets_of_notebooks")
 }
 
-model ModelsOfNotebooks { 
-  modelId             Int               @map("model_id")
-  model               Model             @relation(fields: [modelId], references: [id])
+model ModelVariationsOfNotebooks { 
+  modelVariationId    Int               @map("model_variation_id")
+  modelVariation      ModelVariation    @relation(fields: [modelVariationId], references: [id])
   notebookId          Int               @map("notebook_id")
   notebook            Notebook          @relation(fields: [notebookId], references: [id])
 
-  @@id([modelId, notebookId])
-  @@map("models_of_notebooks")
+  @@id([modelVariationId, notebookId])
+  @@map("model_variations_of_notebooks")
 }
 
 model File {
