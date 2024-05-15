@@ -69,7 +69,7 @@ class RequestHandler(BaseHTTPRequestHandler):
  
 
 def main():
-    PORT = int(os.getenv("PORT"))
+    PORT = 8181
     server  = HTTPServer(("", PORT), RequestHandler)
     print("Ontology server is listening on port:", PORT)
     server.serve_forever()  
