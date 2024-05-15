@@ -25,8 +25,7 @@ export class NotebookController {
   @Post()
   async create(@Body() body: NotebookDto.NotebookCreateRequestDto) {
     try {
-      const notebook = await this.notebookService.create(NotebookDto.NotebookCreateRequestDto.toCreateInput(body));
-      const result = await this.notebookService.updateOne(notebook.id, {}, body.modelVariationIds, body.datasetIds)
+      const result = await this.notebookService.create(NotebookDto.NotebookCreateRequestDto.toCreateInput(body));
       return JSON.stringify(NotebookDto.NotebookResponseDto.fromNotebook(result));
     } catch (error) {
       console.log(error);
@@ -82,7 +81,7 @@ export class NotebookController {
   @Put(':id')
   async updateOne(@Param('id', ParseIntPipe) id: number, @Body() body: NotebookDto.NotebookUpdateRequestDto) {
     try {
-      const result = await this.notebookService.updateOne(id, NotebookDto.NotebookUpdateRequestDto.toUpdateInput(body), body.modelVariationIds, body.datasetIds);
+      const result = await this.notebookService.updateOne(id, NotebookDto.NotebookUpdateRequestDto.toUpdateInput(body));
       if (result == null) {
         throw new NotFoundException(`Not found`);
       }
