@@ -28,12 +28,12 @@ export class ModelService {
         modelVariations: {
           include: {
             notebooks: true,
-          }
-        }
+          },
+        },
       },
       orderBy: {
         votes: 'desc',
-      }
+      },
     });
   }
 
@@ -43,15 +43,11 @@ export class ModelService {
       include: {
         modelVariations: {
           include: {
-            notebooks: true
+            notebooks: true,
           },
-          orderBy: [
-            {framework: 'asc'},
-            {slugName: 'asc'},
-            {version: 'desc'},
-          ]
-        }
-      }
+          orderBy: [{ framework: 'asc' }, { slugName: 'asc' }, { version: 'desc' }],
+        },
+      },
     });
   }
 

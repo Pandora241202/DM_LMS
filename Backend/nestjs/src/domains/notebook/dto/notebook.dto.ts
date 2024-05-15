@@ -14,7 +14,7 @@ class NotebookCreateRequestDto {
 
   @IsNotEmpty()
   @IsBoolean()
-  isPublic: boolean
+  isPublic: boolean;
 
   @IsArray()
   @IsString({ each: true })
@@ -59,7 +59,7 @@ class NotebookUpdateRequestDto {
   content?: string[];
 
   @IsBoolean()
-  isPublic?: boolean
+  isPublic?: boolean;
 
   @IsArray()
   @IsString({ each: true })
@@ -74,11 +74,11 @@ class NotebookUpdateRequestDto {
   datasetIds?: number[];
 
   @IsNumber()
-  votes?: number
+  votes?: number;
 
   // Map from dto request to entity update input
   static toUpdateInput(data: NotebookUpdateRequestDto): Prisma.NotebookUncheckedUpdateInput {
-    const {modelVariationIds, datasetIds, ...rest} = data;
+    const { modelVariationIds, datasetIds, ...rest } = data;
     return {
       ...rest,
       ...(modelVariationIds ? {modelVariations: {
@@ -92,7 +92,7 @@ class NotebookUpdateRequestDto {
         }))
       }} : {}),
       updatedAt: new Date(),
-    }
+    };
   }
 }
 

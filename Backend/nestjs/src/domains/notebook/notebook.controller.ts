@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Post,
-  Get,
-  Param,
-  ParseIntPipe,
-  NotFoundException,
-  Put,
-  UseGuards,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, ParseIntPipe, NotFoundException, Put, UseGuards, Query } from '@nestjs/common';
 import { NotebookService } from './notebook.service';
 import * as NotebookDto from './dto/notebook.dto';
 
@@ -18,9 +7,7 @@ import * as NotebookDto from './dto/notebook.dto';
 //@UseGuards(AuthGuard)
 @Controller('notebook')
 export class NotebookController {
-  constructor(
-    private readonly notebookService: NotebookService,
-  ) {}
+  constructor(private readonly notebookService: NotebookService) {}
 
   @Post()
   async create(@Body() body: NotebookDto.NotebookCreateRequestDto) {
@@ -46,7 +33,7 @@ export class NotebookController {
         queryParams.userId = +queryParams.userId;
       }
       const result = await this.notebookService.getMany(queryParams);
-      return JSON.stringify(result.map((f) => NotebookDto.NotebookResponseDto.fromNotebook({...f, content: null})));
+      return JSON.stringify(result.map((f) => NotebookDto.NotebookResponseDto.fromNotebook({ ...f, content: null })));
     } catch (error) {
       console.log(error);
       throw error;
@@ -56,7 +43,7 @@ export class NotebookController {
   @Get('user/:userId')
   async getAllUserOwned(@Param('userId', ParseIntPipe) userId: number) {
     try {
-      const result = await this.notebookService.getMany({userId: userId});
+      const result = await this.notebookService.getMany({ userId: userId });
       return JSON.stringify(result.map((f) => NotebookDto.NotebookResponseDto.fromNotebook({ ...f, content: null })));
     } catch (error) {
       console.log(error);

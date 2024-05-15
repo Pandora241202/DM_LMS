@@ -1,33 +1,95 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { LearnerLogCreateREQ } from './request/learner-log-create.request';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { LearningLogDTO } from './dto/learning-log.dto';
+import { LearningMaterialType } from '@prisma/client';
+import { CodeDTO, QuizDTO } from '../learning-material/dto/learning-material.dto';
+import { FileDTO } from 'src/services/file/dto/file.dto';
+import * as fs from 'fs';
+import * as fspromises from 'fs/promises';
+import { exec } from 'child_process';
 
 @Injectable()
 export class LearnerLogService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(userID: number, body: LearnerLogCreateREQ) {
-    await this.prismaService.learnerLog.updateMany({
-      where: { learnerId: userID, learningMaterialId: body.learningMaterialId, state: true },
-      data: { state: false },
+  async getScoreOfCode(codeId: number, learnerAnswers: string) {
+    const inputFile = (
+      await this.prismaService.code.findFirst({ where: { id: codeId }, select: { inputFile: true } })
+    ).inputFile.map((i) => ({ prefix: i.prefix, name: i.name }));
+
+    await fspromises.writeFile('temp.py', learnerAnswers);
+    let score: number = 0;
+
+    for(let i = 0; i < inputFile.length; i++) {
+      const { stdout, stderr } = await new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
+        exec(`python temp.py ${'uploads/materialFiles/' + inputFile[i].prefix + '--' + inputFile[i].name}`, async (error, stdout, stderr) => {
+          await fspromises.unlink('temp.py');
+          if (error) {
+            reject(error);
+            throw new ConflictException(error, 'Code can not run');
+          }
+          resolve({ stdout, stderr });
+        });
+      });
+
+      let output: string = await fspromises.readFile(`uploads/materialFiles/${inputFile[i].prefix}--output.txt`, 'utf8');
+      if (output === stdout) score += 1;
+    };
+
+    return score;
+  }
+
+  async getScoreOfQuiz(quizId: number, learnerAnswers: string[]) {
+    const quiz = await this.prismaService.quiz.findFirst({
+      where: { id: quizId },
+      select: { question: { include: { choice: true } } },
     });
 
-    const log = await this.prismaService.learnerLog.create({ data: LearnerLogCreateREQ.toCreateInput(userID, body), select: {id: true} });
+    const correctAnswers = QuizDTO.fromEntity(quiz as any).correctAnswers;
+    let score: number = 0;
+
+    for (let i = 0; i < correctAnswers.length; i++) if (correctAnswers[i] === learnerAnswers[i].charCodeAt(0) - 65) score += 1;
+    return score;
+  }
+
+  async create(userID: number, body: LearnerLogCreateREQ) {
+    let log = await this.prismaService.learnerLog.findFirst({
+      where: { learnerId: userID, learningMaterialId: body.learningMaterialId },
+      select: { id: true, attempts: true },
+    });
+
+    const lm = await this.prismaService.learningMaterial.findFirst({
+      where: { id: body.learningMaterialId },
+      select: { rating: true, type: true, Exercise: true, Other: true },
+    });
+
+    let score: number = 10;
+    if (lm.type === LearningMaterialType.CODE)
+      score = await this.getScoreOfCode(lm.Exercise.codeId, body.learnerAnswer as string);
+    else if (lm.type === LearningMaterialType.QUIZ)
+      score = await this.getScoreOfQuiz(lm.Exercise.quizId, body.learnerAnswer as string[]);
+
+    if (!log)
+      log = await this.prismaService.learnerLog.create({
+        data: LearnerLogCreateREQ.toCreateInput(userID, body, score),
+        select: { id: true, attempts: true},
+      });
+    else
+      await this.prismaService.learnerLog.updateMany({
+        where: { learnerId: body.learnerId, learningMaterialId: body.learningMaterialId, state: true, attempts: log.attempts + 1 },
+        data: { score },
+      });
 
     await this.prismaService.learningPath.updateMany({
       data: { learned: true },
       where: { learningMaterialId: body.learningMaterialId, learnerId: userID },
     });
 
-    const lm = await this.prismaService.learningMaterial.findFirst({
-      where: { id: body.learningMaterialId },
-      select: { rating: true },
-    });
     const updateRating = (lm.rating + body.rating) / 2;
     await this.prismaService.learningMaterial.update({ where: { id: body.learningMaterialId }, data: { rating: updateRating } });
 
-    return {id: log.id}
+    return { id: log.id, score };
   }
 
   async createBatch(body: LearnerLogCreateREQ[]) {

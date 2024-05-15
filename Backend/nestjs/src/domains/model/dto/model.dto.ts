@@ -9,7 +9,7 @@ class ModelCreateRequestDto {
 
   @IsNotEmpty()
   @IsBoolean()
-  isPublic: boolean
+  isPublic: boolean;
 
   @IsNotEmpty()
   @IsNumber()
@@ -18,7 +18,7 @@ class ModelCreateRequestDto {
   // Map from dto request to entity create input
   static toCreateInput(data: ModelCreateRequestDto): Prisma.ModelUncheckedCreateInput {
     return {
-      ...data
+      ...data,
     };
   }
 }
@@ -41,17 +41,17 @@ class ModelUpdateRequestDto {
   isPublic?: boolean;
 
   @IsNumber()
-  votes?: number
+  votes?: number;
 
   @IsNumber()
-  downloadCount?: number
+  downloadCount?: number;
 
   // Map from dto request to entity update input
   static toUpdateInput(data: ModelUpdateRequestDto): Prisma.ModelUncheckedUpdateInput {
     return {
       ...data,
       updatedAt: new Date(),
-    }
+    };
   }
 }
 
@@ -65,9 +65,9 @@ class ModelResponseDto {
   isPublic: boolean;
   updatedAt: string;
   modelVariations?: ModelVariation[];
-  notebooks?: {notebookId: number}[];
+  notebooks?: { notebookId: number }[];
 
-  static fromModel(data: Model & {modelVariations?: ModelVariation[]; notebooks?: {notebookId: number}[]}): ModelResponseDto {
+  static fromModel(data: Model & { modelVariations?: ModelVariation[]; notebooks?: { notebookId: number }[] }): ModelResponseDto {
     return {
       ...data,
       updatedAt: DatetimeService.formatVNTime(data.updatedAt),

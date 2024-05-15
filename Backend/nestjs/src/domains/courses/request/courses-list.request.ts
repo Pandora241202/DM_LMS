@@ -9,17 +9,17 @@ export class CourseListREQ {
   @IsString()
   name: string;
 
-  static toCondition(query: CourseListREQ): Prisma.CourseFindManyArgs["where"] {
+  static toCondition(query: CourseListREQ): Prisma.CourseFindManyArgs['where'] {
     return leanObject({
       visibility: true,
       name: {
-        contains: query.name
-      }
-    })
+        contains: query.name,
+      },
+    });
   }
 }
 
-export class CourseOwnListREQ{
+export class CourseOwnListREQ {
   @IsOptional()
   @IsNumber()
   userId: number;
@@ -32,13 +32,13 @@ export class CourseOwnListREQ{
   @IsString()
   name: string;
 
-  static toCondition(query: CourseOwnListREQ): Prisma.CourseFindManyArgs["where"] {
+  static toCondition(query: CourseOwnListREQ): Prisma.CourseFindManyArgs['where'] {
     return leanObject({
       idInstructor: query.userId,
       visibility: query.visibility,
       name: {
-        contains: query.name
-      }
-    })
+        contains: query.name,
+      },
+    });
   }
 }

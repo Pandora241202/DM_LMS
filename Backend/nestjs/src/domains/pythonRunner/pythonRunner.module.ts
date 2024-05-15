@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import {  } from './pythonRunner.controller';
+import {} from './pythonRunner.controller';
 import { PrismaModule } from 'src/services/prisma/prisma.module';
 import { PythonRunnerController } from './pythonRunner.controller';
 

@@ -30,7 +30,7 @@ export class NotebookService {
       },
       orderBy: {
         votes: 'desc',
-      }
+      },
     });
   }
 
@@ -41,14 +41,14 @@ export class NotebookService {
         modelVariations: {
           select: {
             modelVariationId: true,
-          }
+          },
         },
         datasets: {
           select: {
             datasetId: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
   }
 
@@ -57,7 +57,7 @@ export class NotebookService {
     console.log(updateData);
     return await this.prismaService.notebook.update({
       where: { id: id },
-      data: updateData
+      data: updateData,
     });
   }
 }

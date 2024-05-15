@@ -69,6 +69,10 @@ class LM_ManageApi {
     return axios.get(apiUrl);
     //return Promise.resolve(deepCopy(forums));
   }
+
+  getLmQuiz(id) {
+    return axios.get(`${apiUrl}/${id}`)
+  }
 //   getForumDetail(id) {
 //     return axios.get(`${apiUrl}/${id}`);
 //     //return Promise.resolve(deepCopy(forumDetail));

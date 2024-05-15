@@ -15,7 +15,7 @@ export class LearnerHistoryCourseUpdateREQ {
     return {
       lastestLesson: connectRelation(body.lessonId),
       lastestLessonPercentComplete: body.lastestLessonPercentComplete ? body.lastestLessonPercentComplete : 0,
-      percentComplete: percentComplete
+      percentComplete: percentComplete,
     };
   }
 }
