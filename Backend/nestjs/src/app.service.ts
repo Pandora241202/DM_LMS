@@ -3,6 +3,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   connectServer(): string {
-    return '<h1> AI learning system </h1>';
+    return '<h1 style="text-align: center;">AI learning system</h1>';
   }
 }
