@@ -61,7 +61,7 @@ model LearningMaterial {
   difficulty   Float
   type         LearningMaterialType
   rating       Float
-  score        Float
+  score        Float                @default(10)
   time         Float?
   topicId      Int                  @map("topic_id")
   lessonId     Int?
@@ -85,7 +85,7 @@ model Course {
   name            String
   visibility      Boolean
   description     String
-  amountOfTime    Int                     @map("amount_of_time")
+  amountOfTime    Int                     @default(0) @map("amount_of_time")
   level           BackgroundKnowledgeType
   createdAt       DateTime                @default(now()) @map("created_at")
   updatedAt       DateTime                @default(now()) @map("updated_at")
