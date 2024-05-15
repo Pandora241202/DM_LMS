@@ -5,6 +5,7 @@ from ontology import *
 from database import *
 from forum import *
 import json
+import os
 
 pythonServer = Path(__file__).resolve().parent
 systemOntology = pythonServer / 'ontology'
@@ -68,7 +69,7 @@ class RequestHandler(BaseHTTPRequestHandler):
  
 
 def main():
-    PORT = 8181
+    PORT = os.getenv("PORT")
     server  = HTTPServer(("", PORT), RequestHandler)
     print("Ontology server is listening on port:", PORT)
     server.serve_forever()  
