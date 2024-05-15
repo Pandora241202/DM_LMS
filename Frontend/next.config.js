@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const config = {
   swcMinify: true,
   reactStrictMode: false,
@@ -33,4 +34,7 @@ const withTM = require('next-transpile-modules')([
   '@fullcalendar/timeline'
 ]);
 
-module.exports = withTM(config);
+module.exports = {
+  ...withTM(config), 
+  // pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js']
+}

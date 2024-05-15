@@ -1,11 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { LearningMaterialCreateREQ, Quiz, Code } from './request/learning-material-create.request';
 import { LearningMaterialType } from '@prisma/client';
 import { CodeDTO, QuizDTO } from './dto/learning-material.dto';
-import { connectRelation } from 'src/shared/prisma.helper';
+import { connectManyRelation, connectRelation } from 'src/shared/prisma.helper';
 import { FileService } from 'src/services/file/file.service';
 import { FileDTO } from 'src/services/file/dto/file.dto';
+import * as fs from 'fs/promises';
+import { exec } from 'child_process';
+import readXlsxFile from 'read-excel-file/node';
 
 @Injectable()
 export class LearningMaterialService {
@@ -20,18 +23,25 @@ export class LearningMaterialService {
       select: { id: true },
     });
 
+    let score: number = 10
     if (body.type === LearningMaterialType.CODE || body.type === LearningMaterialType.QUIZ) {
       const exercise = await this.prismaService.exercise.create({ data: {}, select: { id: true } });
-      if (body.type === LearningMaterialType.QUIZ) {
-        this.createQuiz(body.quiz, exercise.id);
-      } else this.createCode(body.code, exercise.id);
+      if (body.type === LearningMaterialType.QUIZ) 
+        score = await this.createQuiz(body.quiz, exercise.id);
+      else {
+        score = body.code.inputIds.length
+        await this.createCode(body.code, exercise.id);
+      }
 
       await this.prismaService.learningMaterial.update({
         where: { id: lm.id },
-        data: { Exercise: connectRelation(exercise.id) },
+        data: { score: score, Exercise: connectRelation(exercise.id) },
       });
     } else {
-      const other = await this.prismaService.other.create({ data: { file: connectRelation(body.fileId), content: body.content ? body.content : "" }, select: { id: true } });
+      const other = await this.prismaService.other.create({
+        data: { file: connectRelation(body.fileId), content: body.content ? body.content : '' },
+        select: { id: true },
+      });
 
       await this.prismaService.learningMaterial.update({
         where: { id: lm.id },
@@ -43,37 +53,74 @@ export class LearningMaterialService {
   }
 
   async createQuiz(quiz: Quiz, exerciseId: number) {
-    const { duration, shuffle, questions, choices, correctAnswers } = QuizDTO.formatting(quiz);
+    const { duration, shuffle, fileId } = quiz;
 
     const _quiz = await this.prismaService.quiz.create({
       data: { duration: duration, shuffleQuestions: shuffle, Exercise: connectRelation(exerciseId) },
       select: { id: true },
     });
 
-    for (let i = 0; i < questions.length; i++) {
-      const question = await this.prismaService.question.create({
-        data: { content: questions[i], Quiz: connectRelation(_quiz.id) },
-        select: { id: true },
-      });
+    const fileName = FileDTO.fromEntity(
+      (await this.prismaService.file.findFirst({ where: { id: fileId }, select: { name: true, prefix: true } })) as any,
+    ).fileName;
 
-      for (let j = 0; j < choices[i].length; j++) {
-        await this.prismaService.answer.create({
-          data: {
-            content: choices[i][j],
-            correctness: j == correctAnswers[i] ? true : false,
-            Question: connectRelation(question.id),
-          },
+    let score = 1
+    await readXlsxFile(`uploads/materialFiles/${fileName}`).then(async (rows) => {
+      for (let i = 1; i < rows.length; i++) {
+        const _question = await this.prismaService.question.create({
+          data: { content: rows[i][0].toString(), Quiz: connectRelation(_quiz.id) },
+          select: { id: true },
         });
+        const indexOfCorect = rows[i][1].toString().charCodeAt(0) - 63;
+
+        for (let j = 2; j < rows[i].length; j++) {
+          if (!rows[i][j]) break;
+          await this.prismaService.answer.create({
+            data: { content: rows[i][j].toString(), correctness: j === indexOfCorect, Question: connectRelation(_question.id) },
+          });
+        }
       }
-    }
+      score = rows.length - 1
+    });
+
+    return score
   }
 
   async createCode(code: Code, exerciseId: number) {
+    // Write the user's Python code to a temporary file
+    await fs.writeFile('temp.py', code.truthCode);
+
+    const inputFiles = await this.prismaService.file.findMany({
+      where: { id: { in: code.inputIds } },
+      select: { name: true, prefix: true },
+    });
+
+    for (let i = 0; i < inputFiles.length; i++) {
+      // Run code
+      const { stdout, stderr } = await new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
+        exec(
+          `python temp.py ${'uploads/materialFiles/' + inputFiles[i].prefix + '--' + inputFiles[i].name}`,
+          async (error, stdout, stderr) => {
+            // Delete the temporary file
+            await fs.unlink('temp.py');
+            if (error) {
+              reject(error);
+              throw new ConflictException(error, 'Code can not run');
+            }
+            resolve({ stdout, stderr });
+          },
+        );
+      });
+      await fs.writeFile(`uploads/materialFiles/${inputFiles[i].prefix + '--output.txt'}`, stdout);
+      await this.prismaService.file.create({ data: { name: 'output.txt', prefix: inputFiles[i].prefix, type: 'text/plain' } });
+    }
+
     await this.prismaService.code.create({
       data: {
         question: code.question,
-        inputFile: connectRelation(code.inputId),
-        outputFile: connectRelation(code.outputId),
+        exampleCode: code.exampleCode,
+        truthCode: code.truthCode,
+        inputFile: connectManyRelation(code.inputIds),
         Exercise: connectRelation(exerciseId),
       },
     });
@@ -86,7 +133,8 @@ export class LearningMaterialService {
   }
 
   async detail(id: number) {
-    let type: string = '', DTO: CodeDTO | QuizDTO | FileDTO;
+    let type: string = '',
+      DTO: CodeDTO | QuizDTO | FileDTO;
 
     const lm = await this.prismaService.learningMaterial.findFirst({
       where: { id },
@@ -97,26 +145,23 @@ export class LearningMaterialService {
     if (lm.type === LearningMaterialType.CODE) {
       const code = await this.prismaService.code.findFirst({
         where: { id: lm.Exercise.codeId },
-        // select: { inputFile: true, outputFile: true, question: true },
-        select: { question: true, inputFileId: true, outputFileId: true}
+        select: { question: true, exampleCode: true },
       });
       if (!code) throw new NotFoundException("Couldn't find learning material");
 
       type = 'CODE';
       DTO = CodeDTO.fromEntity(code as any);
-    } 
-    else if (lm.type === LearningMaterialType.QUIZ) {
+    } else if (lm.type === LearningMaterialType.QUIZ) {
       const quiz = await this.prismaService.quiz.findFirst({
         where: { id: lm.Exercise.quizId },
-        select: { duration: true, question: { include: { choice: true } } },
+        select: { duration: true, shuffleQuestions: true, question: { include: { choice: true } } },
       });
 
       if (!quiz) throw new NotFoundException("Couldn't find learning material");
 
       type = 'QUIZ';
       DTO = QuizDTO.fromEntity(quiz as any);
-    } 
-    else {
+    } else {
       const file = await this.prismaService.file.findFirst({ where: { id: lm.Other.fileId } });
       if (!file) throw new NotFoundException("Couldn't find learning material");
 

@@ -10,8 +10,8 @@ export class CourseService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(body: CourseCreateREQ) {
-    const course = await this.prismaService.course.create({ data: CourseCreateREQ.toCreateInput(body), select: {id: true} });
-    return {id: course.id}
+    const course = await this.prismaService.course.create({ data: CourseCreateREQ.toCreateInput(body), select: { id: true } });
+    return { id: course.id };
   }
 
   async detail(id: number) {

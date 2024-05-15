@@ -113,13 +113,15 @@ export class UserService {
   }
 
   async updateHistoryOfCourse(learnerId: number, courseId: number, body: LearnerHistoryCourseUpdateREQ) {
-    const lessons = (await this.prismaService.course.findFirst({where: {id: courseId}, select: {Lesson: {select: {id: true}}}})).Lesson.map(l => l.id).sort();
-    if (!lessons.includes(body.lessonId)) throw new NotFoundException("Can not find a suitable lesson")
-      
-      const register = await this.prismaService.registerCourse.findFirst({where: {learnerId: learnerId, courseId: courseId}})
-      if (!register) throw new ConflictException("Learner doese not register this course")
+    const lessons = (
+      await this.prismaService.course.findFirst({ where: { id: courseId }, select: { Lesson: { select: { id: true } } } })
+    ).Lesson.map((l) => l.id).sort();
+    if (!lessons.includes(body.lessonId)) throw new NotFoundException('Can not find a suitable lesson');
 
-    const percentComplete = Math.round(((lessons.findIndex(id => id === body.lessonId)) * 100) / lessons.length);
+    const register = await this.prismaService.registerCourse.findFirst({ where: { learnerId: learnerId, courseId: courseId } });
+    if (!register) throw new ConflictException('Learner doese not register this course');
+
+    const percentComplete = Math.round((lessons.findIndex((id) => id === body.lessonId) * 100) / lessons.length);
 
     await this.prismaService.historyOfCourse.update({
       where: { learnerId_courseId: { learnerId, courseId } },

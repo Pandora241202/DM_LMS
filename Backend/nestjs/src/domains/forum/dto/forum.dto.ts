@@ -78,10 +78,10 @@ class ForumResponseDto {
   coverImageType: string | null;
   updatedAt: string;
   createdAt: string;
-  statements?: Statement[]; 
+  statements?: Statement[];
 
   // Map from Forum entity to dto
-  static fromForum(data: Forum & {statements?: Statement[]}): ForumResponseDto {
+  static fromForum(data: Forum & { statements?: Statement[] }): ForumResponseDto {
     return {
       ...data,
       updatedAt: DatetimeService.formatVNTime(data.updatedAt),

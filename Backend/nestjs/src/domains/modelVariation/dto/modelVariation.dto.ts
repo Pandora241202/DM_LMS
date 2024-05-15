@@ -23,7 +23,7 @@ class ModelVariationCreateRequestDto {
 
   // Map from dto request to entity create input
   static toCreateInput(data: ModelVariationCreateRequestDto): Prisma.ModelVariationUncheckedCreateInput {
-    const {files, ...rest} = data;
+    const { files, ...rest } = data;
     return {
       ...rest,
       filesType: [],
@@ -43,7 +43,7 @@ class ModelVariationUpdateRequestDto {
     return {
       ...data,
       updatedAt: new Date(),
-    }
+    };
   }
 }
 

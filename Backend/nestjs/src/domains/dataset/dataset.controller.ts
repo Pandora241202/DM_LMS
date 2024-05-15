@@ -23,9 +23,7 @@ import { renameSync } from 'fs';
 //@UseGuards(AuthGuard)
 @Controller('dataset')
 export class DatasetController {
-  constructor(
-    private readonly datasetService: DatasetService,
-  ) {}
+  constructor(private readonly datasetService: DatasetService) {}
 
   @Post()
   @UseInterceptors(
@@ -44,18 +42,18 @@ export class DatasetController {
       }
       if (body.isPublic === 'true') {
         body.isPublic = true;
-      } 
+      }
       if (body.isPublic === 'false') {
         body.isPublic = false;
-      } 
+      }
       const result = await this.datasetService.create({
         ...DatasetDto.DatasetCreateRequestDto.toCreateInput(body),
-        filesType: files.map(file => path.extname(file.originalname)),
+        filesType: files.map((file) => path.extname(file.originalname)),
       });
       files.map((file, idx) => {
         const newPath = `uploads/datasets/${result.id}_${idx}${path.extname(file.originalname)}`;
         renameSync(file.path, newPath);
-      })
+      });
       return JSON.stringify(DatasetDto.DatasetResponseDto.fromDataset(result));
     } catch (error) {
       console.log(error);
@@ -76,7 +74,7 @@ export class DatasetController {
         queryParams.userId = +queryParams.userId;
       }
       const result = await this.datasetService.getMany(queryParams);
-      return JSON.stringify(result.map((f) => DatasetDto.DatasetResponseDto.fromDataset({...f, detail: null})));
+      return JSON.stringify(result.map((f) => DatasetDto.DatasetResponseDto.fromDataset({ ...f, detail: null })));
     } catch (error) {
       console.log(error);
       throw error;
@@ -86,7 +84,7 @@ export class DatasetController {
   @Get('user/:userId')
   async getAllUserOwned(@Param('userId', ParseIntPipe) userId: number) {
     try {
-      const result = await this.datasetService.getMany({userId: userId});
+      const result = await this.datasetService.getMany({ userId: userId });
       return JSON.stringify(result.map((f) => DatasetDto.DatasetResponseDto.fromDataset({ ...f, detail: null })));
     } catch (error) {
       console.log(error);

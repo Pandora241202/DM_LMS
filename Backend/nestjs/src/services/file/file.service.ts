@@ -14,10 +14,10 @@ export class FileService {
     return { id: file.id };
   }
 
-  async detail(id: number){
-    const file = await this.prismaService.file.findFirst({where: { id }});
-    if (!file) throw new NotFoundException("File not found")
+  async detail(id: number) {
+    const file = await this.prismaService.file.findFirst({ where: { id } });
+    if (!file) throw new NotFoundException('File not found');
 
-    return FileDTO.fromEntity(file as any).fileName
+    return FileDTO.fromEntity(file as any);
   }
 }

@@ -22,17 +22,17 @@ model AuthenticatedUser {
   lastLogin        BigInt             @map("last_login")
   lastLogout       BigInt             @map("last_logout")
   accountType      AccountType
+  Framework        Framework[]
   Course           Course[]
   Dataset          Dataset[]
   Forum            Forum[]
-  Framework        Framework[]
   Learner          Learner?
   LearningMaterial LearningMaterial[]
   Model            Model[]
+  Notebook         Notebook[]
   Permission       Permission[]
   Role             Role[]
   Statement        Statement[]
-  Notebook         Notebook[]
 
   @@map("authenticated_user")
 }
@@ -45,12 +45,12 @@ model Learner {
   backgroundKnowledge BackgroundKnowledgeType? @map("background_knowledge")
   qualification       QualificationType?
   id                  Int                      @unique @map("user_id")
+  HistoryOfCourse     HistoryOfCourse[]
   log                 LearnerLog[]
   user                AuthenticatedUser        @relation(fields: [id], references: [id])
   LearningPath        LearningPath[]
   Practice            Practice[]
   RegisterCourse      RegisterCourse[]
-  HistoryOfCourse     HistoryOfCourse[]
 
   @@map("learners")
 }
@@ -80,21 +80,19 @@ model LearningMaterial {
 }
 
 model Course {
-  id           Int                     @id @default(autoincrement())
-  createdAt    DateTime                @default(now()) @map("created_at")
-  updatedAt    DateTime                @default(now()) @map("updated_at")
-  idInstructor Int                     @map("id_instructor")
-  name         String
-  visibility   Boolean
-  description  String
-  amountOfTime Int                     @map("amount_of_time")
-  level        BackgroundKnowledgeType
-
-  Instructor AuthenticatedUser @relation(fields: [idInstructor], references: [id])
-
-  Lesson          Lesson[]          @relation("course_to_lesson")
-  RegisterCourse  RegisterCourse[]
+  id              Int                     @id @default(autoincrement())
+  idInstructor    Int                     @map("id_instructor")
+  name            String
+  visibility      Boolean
+  description     String
+  amountOfTime    Int                     @map("amount_of_time")
+  level           BackgroundKnowledgeType
+  createdAt       DateTime                @default(now()) @map("created_at")
+  updatedAt       DateTime                @default(now()) @map("updated_at")
+  Instructor      AuthenticatedUser       @relation(fields: [idInstructor], references: [id])
   HistoryOfCourse HistoryOfCourse[]
+  Lesson          Lesson[]
+  RegisterCourse  RegisterCourse[]
 
   @@map("courses")
 }
@@ -104,9 +102,10 @@ model Lesson {
   title            String
   amountOfTime     Int                @default(0) @map("amount_of_time")
   visibility       Boolean            @default(true)
-  LearningMaterial LearningMaterial[]
-  Course           Course[]           @relation("course_to_lesson")
+  courseId         Int
   HistoryOfCourse  HistoryOfCourse[]
+  LearningMaterial LearningMaterial[]
+  Course           Course             @relation(fields: [courseId], references: [id])
 
   @@map("lessons")
 }
@@ -149,7 +148,7 @@ model Exercise {
 model Other {
   id               Int                @id @default(autoincrement())
   fileId           Int
-  content          String?            @default("") @db.Text
+  content          String?            @default("")
   LearningMaterial LearningMaterial[]
   file             File               @relation(fields: [fileId], references: [id])
 
@@ -157,13 +156,13 @@ model Other {
 }
 
 model Code {
-  id           Int        @id @default(autoincrement())
-  question     String
-  inputFileId  Int
-  outputFileId Int
-  inputFile    File       @relation("input_file", fields: [inputFileId], references: [id])
-  outputFile   File       @relation("output_file", fields: [outputFileId], references: [id])
-  Exercise     Exercise[]
+  id          Int        @id @default(autoincrement())
+  question    String
+  exampleCode String     @default("") @map("example_code")
+  truthCode   String     @default("") @map("truth_code")
+  inputFile   File[]     @relation("input_file")
+  outputFile  File[]     @relation("output_file")
+  Exercise    Exercise[]
 
   @@map("codes")
 }
@@ -224,6 +223,7 @@ model LearnerLog {
   learner                      Learner?         @relation(fields: [learnerId], references: [id])
   learningMaterial             LearningMaterial @relation(fields: [learningMaterialId], references: [id])
 
+  @@unique([learningMaterialId, learnerId, state])
   @@map("learner_logs")
 }
 
@@ -241,33 +241,33 @@ model LearningPath {
 }
 
 model Forum {
-  id               Int                @id @default(autoincrement())
-  title            String
-  label            String[]
-  shortDescription String             @map("short_description")
-  coverImageType   String?            @map("cover_image_type")
-  content          String
-  readTimes        Int                @default(0) @map("read_times")
-  createdAt        DateTime           @default(now()) @map("created_at")
-  updatedAt        DateTime           @default(now()) @map("updated_at") 
-  authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
-  userId            Int               @map("user_id")
+  id                Int                @id @default(autoincrement())
+  title             String
+  label             String[]
+  content           String
+  coverImageType    String?            @map("cover_image_type")
+  createdAt         DateTime           @default(now()) @map("created_at")
+  readTimes         Int                @default(0) @map("read_times")
+  shortDescription  String?            @map("short_description")
+  updatedAt         DateTime           @default(now()) @map("updated_at")
+  userId            Int?               @map("user_id")
+  authenticatedUser AuthenticatedUser? @relation(fields: [userId], references: [id])
   statements        Statement[]
 
   @@map("forums")
 }
 
 model Statement {
-  id                  Int               @id @default(autoincrement())
-  content             String
-  updatedAt           DateTime          @default(now()) @map("updated_at") 
-  forumId             Int               @map("forum_id")
-  userId              Int               @map("user_id")    
-  statementId         Int?              @map("statement_id") 
-  authenticatedUser   AuthenticatedUser @relation(fields: [userId], references: [id])
-  forum               Forum             @relation(fields: [forumId], references: [id])
-  preStatement        Statement?        @relation("pre_order", fields: [statementId], references: [id])
-  Statement           Statement[]       @relation("pre_order")
+  id                Int               @id @default(autoincrement())
+  content           String
+  forumId           Int               @map("forum_id")
+  statementId       Int?              @map("statement_id")
+  updatedAt         DateTime          @default(now()) @map("updated_at")
+  userId            Int               @map("user_id")
+  forum             Forum             @relation(fields: [forumId], references: [id])
+  preStatement      Statement?        @relation("pre_order", fields: [statementId], references: [id])
+  Statement         Statement[]       @relation("pre_order")
+  authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
 
   @@map("statements")
 }
@@ -291,36 +291,36 @@ model Permission {
 }
 
 model Dataset {
-  id                  Int                   @id @default(autoincrement())
-  title               String
-  description         String?
-  detail              String?
-  labels              String[]
-  isPublic            Boolean
-  filesType           String[]              @map("files_type")
-  userId              Int                   @map("authenticated_user_id")
-  authenticatedUser   AuthenticatedUser     @relation(fields: [userId], references: [id])
-  updatedAt           DateTime              @default(now()) @map("updated_at") 
-  notebooks           DatasetsOfNotebooks[]
-  votes               Int                   @default(0)
-  downloadCount       Int                   @default(0) @map("download_count")
+  id                Int                   @id @default(autoincrement())
+  description       String?
+  userId            Int                   @map("authenticated_user_id")
+  detail            String?
+  downloadCount     Int                   @default(0) @map("download_count")
+  filesType         String[]              @map("files_type")
+  isPublic          Boolean
+  labels            String[]
+  title             String
+  updatedAt         DateTime              @default(now()) @map("updated_at")
+  votes             Int                   @default(0)
+  authenticatedUser AuthenticatedUser     @relation(fields: [userId], references: [id])
+  notebooks         DatasetsOfNotebooks[]
 
   @@map("datasets")
 }
 
 model Model {
-  id                  Int                 @id @default(autoincrement())
-  title               String
-  description         String?
-  detail              String?
-  labels              String[]
-  isPublic            Boolean             @map("is_public")
-  userId              Int                 @map("user_id")
-  authenticatedUser   AuthenticatedUser   @relation(fields: [userId], references: [id])
-  modelVariations     ModelVariation[]
-  updatedAt           DateTime            @default(now()) @map("updated_at") 
-  votes               Int                 @default(0)
-  downloadCount       Int                 @default(0) @map("download_count")
+  id                Int               @id @default(autoincrement())
+  title             String
+  description       String?
+  detail            String?
+  labels            String[]
+  isPublic          Boolean           @map("is_public")
+  userId            Int               @map("user_id")
+  authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
+  modelVariations   ModelVariation[]
+  updatedAt         DateTime          @default(now()) @map("updated_at")
+  votes             Int               @default(0)
+  downloadCount     Int               @default(0) @map("download_count")
 
   @@map("models")
 }
@@ -336,43 +336,43 @@ model ModelVariation {
   model       Model                        @relation(fields: [modelId], references: [id])
   notebooks   ModelVariationsOfNotebooks[]
   exampleUse  String?                      @map("example_use")
-  updatedAt   DateTime                     @default(now()) @map("updated_at") 
+  updatedAt   DateTime                     @default(now()) @map("updated_at")
 
   @@map("model_variation")
 }
 
 model Notebook {
-  id                  Int                          @id @default(autoincrement())
-  title               String
-  labels              String[]
-  content             String[]
-  userId              Int                          @map("user_id")
-  isPublic            Boolean                      @map("is_public")
-  datasets            DatasetsOfNotebooks[]
-  modelVariations     ModelVariationsOfNotebooks[]
-  updatedAt           DateTime                     @default(now()) @map("updated_at") 
-  votes               Int                          @default(0)
-  
-  authenticatedUser   AuthenticatedUser @relation(fields: [userId], references: [id])
+  id              Int                          @id @default(autoincrement())
+  title           String
+  labels          String[]
+  content         String[]
+  userId          Int                          @map("user_id")
+  isPublic        Boolean                      @map("is_public")
+  datasets        DatasetsOfNotebooks[]
+  modelVariations ModelVariationsOfNotebooks[]
+  updatedAt       DateTime                     @default(now()) @map("updated_at")
+  votes           Int                          @default(0)
+
+  authenticatedUser AuthenticatedUser @relation(fields: [userId], references: [id])
 
   @@map("notebook")
 }
 
-model DatasetsOfNotebooks { 
-  datasetId           Int               @map("dataset_id")
-  dataset             Dataset           @relation(fields: [datasetId], references: [id])
-  notebookId          Int               @map("notebook_id")
-  notebook            Notebook          @relation(fields: [notebookId], references: [id])
+model DatasetsOfNotebooks {
+  datasetId  Int      @map("dataset_id")
+  notebookId Int      @map("notebook_id")
+  dataset    Dataset  @relation(fields: [datasetId], references: [id])
+  notebook   Notebook @relation(fields: [notebookId], references: [id])
 
   @@id([datasetId, notebookId])
   @@map("datasets_of_notebooks")
 }
 
-model ModelVariationsOfNotebooks { 
-  modelVariationId    Int               @map("model_variation_id")
-  modelVariation      ModelVariation    @relation(fields: [modelVariationId], references: [id])
-  notebookId          Int               @map("notebook_id")
-  notebook            Notebook          @relation(fields: [notebookId], references: [id])
+model ModelVariationsOfNotebooks {
+  modelVariationId Int            @map("model_variation_id")
+  modelVariation   ModelVariation @relation(fields: [modelVariationId], references: [id])
+  notebookId       Int            @map("notebook_id")
+  notebook         Notebook       @relation(fields: [notebookId], references: [id])
 
   @@id([modelVariationId, notebookId])
   @@map("model_variations_of_notebooks")
@@ -393,26 +393,24 @@ model File {
 
 model RegisterCourse {
   id        Int     @id @default(autoincrement())
-  learner   Learner @relation(fields: [learnerId], references: [id])
   learnerId Int
-  course    Course  @relation(fields: [courseId], references: [id])
   courseId  Int
+  course    Course  @relation(fields: [courseId], references: [id])
+  learner   Learner @relation(fields: [learnerId], references: [id])
 
   @@unique([learnerId, courseId])
   @@map("register_courses")
 }
 
 model HistoryOfCourse {
-  learnerId       Int  @map("learner_id")
-  courseId        Int  @map("course_id")
-  lastestLessonId Int? @map("lesson_id")
-
-  lastestLessonPercentComplete Float? @default(0) @map("lastest_lesson_percent_complete")
-  percentComplete              Float? @default(0) @map("percent_complete")
-
-  learner       Learner @relation(fields: [learnerId], references: [id])
-  course        Course  @relation(fields: [courseId], references: [id])
-  lastestLesson Lesson? @relation(fields: [lastestLessonId], references: [id])
+  learnerId                    Int     @map("learner_id")
+  courseId                     Int     @map("course_id")
+  lastestLessonId              Int?    @map("lesson_id")
+  lastestLessonPercentComplete Float?  @default(0) @map("lastest_lesson_percent_complete")
+  percentComplete              Float?  @default(0) @map("percent_complete")
+  course                       Course  @relation(fields: [courseId], references: [id])
+  learner                      Learner @relation(fields: [learnerId], references: [id])
+  lastestLesson                Lesson? @relation(fields: [lastestLessonId], references: [id])
 
   @@unique([learnerId, courseId])
   @@map("history_of_courses")

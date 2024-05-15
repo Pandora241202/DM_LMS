@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Post,
-  Get,
-  Param,
-  ParseIntPipe,
-  NotFoundException,
-  Put,
-  Query,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, ParseIntPipe, NotFoundException, Put, Query, UseGuards } from '@nestjs/common';
 import { ModelService } from './model.service';
 import * as ModelDto from './dto/model.dto';
 
@@ -18,9 +7,7 @@ import * as ModelDto from './dto/model.dto';
 //@UseGuards(AuthGuard)
 @Controller('model')
 export class ModelController {
-  constructor(
-    private readonly modelService: ModelService,
-  ) {}
+  constructor(private readonly modelService: ModelService) {}
 
   @Post()
   async create(@Body() body: ModelDto.ModelCreateRequestDto) {
@@ -46,7 +33,7 @@ export class ModelController {
         queryParams.userId = +queryParams.userId;
       }
       const result = await this.modelService.getMany(queryParams);
-      return JSON.stringify(result.map((f) => ModelDto.ModelResponseDto.fromModel({...f, detail: null})));
+      return JSON.stringify(result.map((f) => ModelDto.ModelResponseDto.fromModel({ ...f, detail: null })));
     } catch (error) {
       console.log(error);
       throw error;
@@ -56,7 +43,7 @@ export class ModelController {
   @Get('user/:userId')
   async getAllUserOwned(@Param('userId', ParseIntPipe) userId: number) {
     try {
-      const result = await this.modelService.getMany({userId: userId});
+      const result = await this.modelService.getMany({ userId: userId });
       return JSON.stringify(result.map((f) => ModelDto.ModelResponseDto.fromModel({ ...f, detail: null })));
     } catch (error) {
       console.log(error);

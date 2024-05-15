@@ -1,10 +1,5 @@
-import {
-  Body,
-  Controller,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
-import * as fs from 'fs/promises'
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import * as fs from 'fs/promises';
 import { exec } from 'child_process';
 import { PythonRunnerRequestDto } from './dto/pythonRunner.dto';
 
@@ -18,25 +13,25 @@ export class PythonRunnerController {
   @Post()
   async runPython(@Body() body: PythonRunnerRequestDto) {
     try {
-    // Copy input files from upload
+      // Copy input files from upload
       if (body.inputModelFiles) {
-        body.inputModelFiles.forEach(async fileName => {
+        body.inputModelFiles.forEach(async (fileName) => {
           await fs.copyFile(`uploads/models/${fileName}`, `input/models/${fileName}`);
         });
       }
 
       if (body.inputDatasetFiles) {
-        body.inputDatasetFiles.forEach(async fileName => {
+        body.inputDatasetFiles.forEach(async (fileName) => {
           await fs.copyFile(`../../../uploads/datasets/${fileName}`, `input/models/${fileName}`);
         });
       }
 
       // Write the user's Python code to a temporary file
       await fs.writeFile('temp.py', body.code);
-  
+
       // Run code
       const { stdout, stderr } = await new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
-        exec(`python temp.py`, async (error, stdout, stderr) => {         
+        exec(`python temp.py`, async (error, stdout, stderr) => {
           // Delete the temporary file
           await fs.unlink('temp.py');
           if (error) {
@@ -47,7 +42,8 @@ export class PythonRunnerController {
         });
       });
 
-      const inputFolderExists = await fs.access('input')
+      const inputFolderExists = await fs
+        .access('input')
         .then(() => true)
         .catch(() => false);
       if (inputFolderExists) {
@@ -56,7 +52,6 @@ export class PythonRunnerController {
       }
 
       return JSON.stringify({ stdout: stdout, stderr: stderr });
-
     } catch (err) {
       throw new Error(err);
     }

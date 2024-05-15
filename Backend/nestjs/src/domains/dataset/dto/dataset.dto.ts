@@ -19,11 +19,11 @@ class DatasetCreateRequestDto {
 
   // Map from dto request to entity create input
   static toCreateInput(data: DatasetCreateRequestDto): Prisma.DatasetUncheckedCreateInput {
-    const {files, ...rest} = data;
+    const { files, ...rest } = data;
     return {
       ...rest,
       isPublic: data.isPublic === 'true' || data.isPublic === true ? true : false,
-      filesType: []
+      filesType: [],
     };
   }
 }
@@ -46,17 +46,17 @@ class DatasetUpdateRequestDto {
   isPublic?: boolean;
 
   @IsNumber()
-  votes?: number
+  votes?: number;
 
   @IsNumber()
-  downloadCount?: number
+  downloadCount?: number;
 
   // Map from dto request to entity update input
   static toUpdateInput(data: DatasetUpdateRequestDto): Prisma.DatasetUncheckedUpdateInput {
     return {
       ...data,
       updatedAt: new Date(),
-    }
+    };
   }
 }
 
@@ -69,9 +69,9 @@ class DatasetResponseDto {
   userId: number;
   isPublic: boolean;
   updatedAt: string;
-  notebooks?: {notebookId: number}[];
+  notebooks?: { notebookId: number }[];
 
-  static fromDataset(data: Dataset & {notebooks?: {notebookId: number}[]}): DatasetResponseDto {
+  static fromDataset(data: Dataset & { notebooks?: { notebookId: number }[] }): DatasetResponseDto {
     return {
       ...data,
       updatedAt: DatetimeService.formatVNTime(data.updatedAt),

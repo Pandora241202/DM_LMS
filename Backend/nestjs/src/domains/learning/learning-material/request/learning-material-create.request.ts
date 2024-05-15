@@ -6,17 +6,14 @@ import { connectRelation } from 'src/shared/prisma.helper';
 export class Quiz {
   duration: number;
   shuffle: boolean;
-  questionaires: {
-    question: string;
-    choices: string[];
-    correctAnswer: number;
-  }[];
+  fileId: number;
 }
 
 export class Code {
   question: string;
-  inputId: number;
-  outputId: number;
+  truthCode: string;
+  exampleCode: string;
+  inputIds: number[];
 }
 
 export class LearningMaterialCreateREQ {
@@ -44,7 +41,7 @@ export class LearningMaterialCreateREQ {
   @IsOptional()
   @IsNumber()
   @Min(0)
-  score: number;
+  score: number = 10;
 
   @IsOptional()
   @IsNumber()

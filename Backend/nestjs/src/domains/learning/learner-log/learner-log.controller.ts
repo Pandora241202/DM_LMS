@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, ParseIntPipe, Post, UseGuards } from '@ne
 import { LearnerLogService } from './learner-log.service';
 import { AuthGuard } from 'src/domains/auth/auth.guard';
 import { LearnerLogCreateREQ } from './request/learner-log-create.request';
+import * as fs from 'fs';
 
 // @UseGuards(AuthGuard)
 @Controller('learner-logs')

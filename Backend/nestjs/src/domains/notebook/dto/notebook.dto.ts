@@ -13,7 +13,7 @@ class NotebookCreateRequestDto {
 
   @IsNotEmpty()
   @IsBoolean()
-  isPublic: boolean
+  isPublic: boolean;
 
   @IsArray()
   @IsString({ each: true })
@@ -33,7 +33,7 @@ class NotebookCreateRequestDto {
 
   // Map from dto request to entity create input
   static toCreateInput(data: NotebookCreateRequestDto): Prisma.NotebookUncheckedCreateInput {
-    const {modelVariationIds, datasetIds, ...rest} = data;
+    const { modelVariationIds, datasetIds, ...rest } = data;
     return rest;
   }
 }
@@ -48,7 +48,7 @@ class NotebookUpdateRequestDto {
   content?: string[];
 
   @IsBoolean()
-  isPublic?: boolean
+  isPublic?: boolean;
 
   @IsArray()
   @IsString({ each: true })
@@ -63,15 +63,15 @@ class NotebookUpdateRequestDto {
   datasetIds?: number[];
 
   @IsNumber()
-  votes?: number
+  votes?: number;
 
   // Map from dto request to entity update input
   static toUpdateInput(data: NotebookUpdateRequestDto): Prisma.NotebookUncheckedUpdateInput {
-    const {modelVariationIds, datasetIds, ...rest} = data;
+    const { modelVariationIds, datasetIds, ...rest } = data;
     return {
       ...rest,
       updatedAt: new Date(),
-    }
+    };
   }
 }
 
@@ -83,10 +83,12 @@ class NotebookResponseDto {
   userId: number;
   isPublic: boolean;
   updatedAt: string;
-  models?: {modelId: number}[];
-  datasets?: {datasetId: number}[];
+  models?: { modelId: number }[];
+  datasets?: { datasetId: number }[];
 
-  static fromNotebook(data: Notebook & {models?: {modelId: number}[]; datasets?: {datasetId: number}[];}): NotebookResponseDto {
+  static fromNotebook(
+    data: Notebook & { models?: { modelId: number }[]; datasets?: { datasetId: number }[] },
+  ): NotebookResponseDto {
     return {
       ...data,
       updatedAt: DatetimeService.formatVNTime(data.updatedAt),
