@@ -80,7 +80,8 @@ function Row(props) {
         }
     ],
     "amountOfTime": 0,
-    "visibility": true
+    "visibility": true,
+    "courseId": 1
 });
   const [fileGet, setFileGet] = useState("")
   const getLesson = useCallback(async (id) => {

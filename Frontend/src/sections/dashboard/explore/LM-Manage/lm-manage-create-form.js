@@ -10,6 +10,7 @@ import {
   Chip,
   Card,
   CardContent,
+  CardMedia,
   FormControlLabel,
   FormHelperText,
   MenuItem,
@@ -45,10 +46,10 @@ const typeOptions = [
     label: 'WORD',
     value: 'WORD'
   },
-  {
-    label: 'CODE',
-    value: 'CODE'
-  },
+  // {
+  //   label: 'CODE',
+  //   value: 'CODE'
+  // },
   {
     label: 'PPT',
     value: 'PPT'
@@ -101,13 +102,53 @@ export const LMCreateForm = (props) => {
   const [topicOptions, setTopicOptions] = useState([]);
   const [idLMList, setIdLMList] = useState([]);
   const [disabled, setDisabled] = useState(false);
+  const [listLMAccordingToLesson, setListLMAccordingToLesson] = useState({
+    "title": "",
+    "learningMaterial": [
+        {
+            "id": 9,
+            "name": "Document21"
+        }
+    ],
+    "amountOfTime": 0,
+    "visibility": true,
+    "courseId": 1
+});
+  const getLesson = useCallback(async (id) => {
+    try {
+      const response = await exploreApi.getLesson(id);
+
+      if (isMounted()) {
+        setListLMAccordingToLesson(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [open])
+
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values, helpers) => {
       try {
         // NOTE: Make API request
-        await lm_manageApi.createLM({
+        values.type === "QUIZ" 
+        ? await lm_manageApi.createLM({
+          name: values.name,
+          difficulty: values.difficulty,
+          type: values.type,
+          score: values.score,
+          rating: values.rating,
+          time: values.time,
+          topicId: values.topicId,
+          quiz: {
+            duration: values.time,
+            shuffle: true,
+            fileId: idLMList[0],
+          },
+          // lessonId: parseInt(lessonId,10)
+        })
+        : await lm_manageApi.createLM({
           name: values.name,
           difficulty: values.difficulty,
           type: values.type,
@@ -121,7 +162,7 @@ export const LMCreateForm = (props) => {
       })
         // await lm_manageApi.createLM(values);
         toast.success('Tài liệu học tập đã được tạo');
-        // router.push(`${paths.dashboard.explore}/${courseId}`);
+        router.push(`${paths.dashboard.explore}/${listLMAccordingToLesson.courseId}`);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');
@@ -146,6 +187,7 @@ export const LMCreateForm = (props) => {
 
   useEffect(() => {
     getTopics();
+    getLesson(lessonId);
   },[]);
 
   const handleFilesDrop = useCallback((newFiles) => {
@@ -186,7 +228,7 @@ export const LMCreateForm = (props) => {
         setIdLMList([response.data["id"]])
         setDisabled(true);
         toast.success('File đã đăng tải thành công');
-        // router.push(`${paths.dashboard.explore}/course`);
+        // router.push(`${paths.dashboard.explore}/${listLMAccordingToLesson.courseId}`);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');
@@ -395,6 +437,11 @@ export const LMCreateForm = (props) => {
           </CardContent>
         </Card>
         <Card>
+          {formik.values.type === "QUIZ" ? <CardMedia
+            component="img"
+            src="/quiz_create_template.png"
+            alt="Mô tả cho ảnh của bạn"
+          /> : <></>}
           <CardContent>
             <Grid
               container
@@ -406,7 +453,7 @@ export const LMCreateForm = (props) => {
               >
                 <Stack spacing={1}>
                   <Typography variant="h6">
-                    Tài liệu học..........
+                    Tài liệu học
                   </Typography>
                   <Typography
                     color="text.secondary"
@@ -420,7 +467,21 @@ export const LMCreateForm = (props) => {
                 xs={12}
                 md={8}
               >
-                <FileDropzoneVn
+                {formik.values.type === "QUIZ" 
+                ? <FileDropzoneVn
+                  accept={{
+                    'application/vnd.ms-excel': ['csv', 'xlsx'],
+                    'text/csv': ['csv'],
+                  }}
+                  caption="(Vui lòng tạo file quiz theo mẫu trên)"
+                  files={files}
+                  disabled={disabled}
+                  onDrop={handleFilesDrop}
+                  onRemove={handleFileRemove}
+                  onRemoveAll={handleFilesRemoveAll}
+                  onUpload={handleFilesUpload}
+                />
+                :<FileDropzoneVn
                   accept={{ '*/*': [] }}
                   caption="(PDF, SVG, JPG, PNG, or gif maximum 900x400, ...)"
                   files={files}
@@ -429,7 +490,7 @@ export const LMCreateForm = (props) => {
                   onRemove={handleFileRemove}
                   onRemoveAll={handleFilesRemoveAll}
                   onUpload={handleFilesUpload}
-                />
+                />}
               </Grid>
             </Grid>
           </CardContent>
