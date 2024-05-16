@@ -23,7 +23,7 @@ import { paths } from '../../../paths';
 import { exploreApi } from '../../../api/explore';
 import { FileApi } from '../../../api/file';
 import { useMounted } from '../../../hooks/use-mounted';
-import { LMCreateForm } from '../../../sections/dashboard/explore/LM-Manage/lm-manage-create-form';
+import { LMCreateForm } from '../../../sections/dashboard/explore/lm-manage/lm-manage-create-form';
 
 import axios from 'axios';
 

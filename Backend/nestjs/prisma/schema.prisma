@@ -11,14 +11,14 @@ model AuthenticatedUser {
   id               Int                @id @default(autoincrement())
   avatar           String?
   email            String
-  name             String
-  birth            BigInt
-  gender           GenderType         @default(UNKNOWN)
-  language         String
+  name             String?
+  birth            BigInt?
+  gender           GenderType?        @default(UNKNOWN)
+  language         String?
   password         String
   username         String             @unique
   refeshToken      String?            @map("refesh_token")
-  state            Boolean            @default(true)
+  state            Boolean?           @default(true)
   lastLogin        BigInt             @map("last_login")
   lastLogout       BigInt             @map("last_logout")
   accountType      AccountType

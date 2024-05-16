@@ -35,7 +35,7 @@ const validationSchema = Yup.object({
   name: Yup
     .string()
     .max(255)
-    .required('Name is required'),
+    .required('Username is required'),
   password: Yup
     .string()
     .min(7)
@@ -105,7 +105,7 @@ const Page = () => {
                 error={!!(formik.touched.name && formik.errors.name)}
                 fullWidth
                 helperText={formik.touched.name && formik.errors.name}
-                label="Name"
+                label="Username"
                 name="name"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}

@@ -174,7 +174,7 @@ export const MobileNav = (props) => {
               />
             ))}
           </Stack>
-          <Box sx={{ p: 3 }}>
+          {/* <Box sx={{ p: 3 }}>
             <Typography
               color="neutral.400"
               variant="subtitle1"
@@ -201,7 +201,7 @@ export const MobileNav = (props) => {
             >
               Documentation
             </Button>
-          </Box>
+          </Box> */}
         </Stack>
       </Scrollbar>
     </Drawer>

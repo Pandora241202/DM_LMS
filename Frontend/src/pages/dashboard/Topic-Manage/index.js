@@ -18,9 +18,9 @@ import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
-import { TopicManageListSearch } from '../../../sections/dashboard/Topic-Manage/topic-manage-list-search';
-import { TopicManageListTable } from '../../../sections/dashboard/Topic-Manage/topic-manage-list-table';
-import { topic_manageApi } from '../../../api/Topic-Manage';
+import { TopicManageListSearch } from '../../../sections/dashboard/topic-manage/topic-manage-list-search';
+import { TopicManageListTable } from '../../../sections/dashboard/topic-manage/topic-manage-list-table';
+import { topic_manageApi } from '../../../api/topic-manage';
 
 const useSearch = () => {
   const [search, setSearch] = useState({
@@ -165,7 +165,7 @@ const TopicList = () => {
                   <Link
                     color="text.primary"
                     component={NextLink}
-                    href={paths.dashboard.Topic_Manage}
+                    href={paths.dashboard.topic_manage}
                     variant="subtitle2"
                   >
                     Quản lý chủ đề
@@ -180,7 +180,7 @@ const TopicList = () => {
                 <Button
                   component={NextLink}
                   // Thay đổi đường dẫn để lưu vào db
-                  href={`${paths.dashboard.Topic_Manage}/create`}
+                  href={`${paths.dashboard.topic_manage}/create`}
                   startIcon={(
                     <SvgIcon>
                       <PlusIcon />

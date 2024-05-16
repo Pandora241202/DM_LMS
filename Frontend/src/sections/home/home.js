@@ -29,8 +29,8 @@ export const Home = () =>{
                 spacing={{ xs: 1, sm: 2, md: 4 }}
                 sx = {{
                     position: 'absolute',
-                    top: '40%',
-                    right: '10%',
+                    top: { md: '80%', lg: '40%' },
+                    right: { md: '5%', lg: '10%' },
                     height: '80px',
                     width: '600px'
                 }}

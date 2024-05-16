@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const apiUrl = 'http://localhost:8080';
 
-class Topic_ManageApi {
+class topic_manage_Api {
   getListTopic() {
     return axios.get(`${apiUrl}/topics`);
     //return Promise.resolve(deepCopy(forums));
@@ -34,4 +34,4 @@ class Topic_ManageApi {
 //   }
 }
 
-export const topic_manageApi = new Topic_ManageApi();
+export const topic_manageApi = new topic_manage_Api();

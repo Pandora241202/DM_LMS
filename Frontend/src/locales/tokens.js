@@ -71,8 +71,8 @@ export const tokens = {
     resetPassword: 'nav.resetPassword',
     socialMedia: 'nav.socialMedia',
     verifyCode: 'nav.verifyCode',
-    LM_Manage: 'nav.LM_Manage',
-    Topic_Manage: 'nav.Topic_Manage',
-    Account_Manage: 'nav.Account_Manage',
+    lm_manage: 'nav.lm_manage',
+    topic_manage: 'nav.topic_manage',
+    account_manage: 'nav.account_manage',
   }
 };

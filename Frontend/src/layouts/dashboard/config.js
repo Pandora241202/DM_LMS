@@ -34,13 +34,15 @@ import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined';
 import { tokens } from '../../locales/tokens';
 import { paths } from '../../paths';
+import { useAuth } from '../../hooks/use-auth';
 
 // navigation silde
 
-export const getSections = (t) => [
+
+export const getSections = (t, accountType) => [
   {
     items: [
-      {
+      accountType === "ADMIN" && {
         title: t(tokens.nav.overview),
         path: paths.dashboard.index,
         icon: (
@@ -77,49 +79,40 @@ export const getSections = (t) => [
           </SvgIcon>
         )
       },
-      {
-        title: t(tokens.nav.analytics),
-        path: paths.dashboard.analytics,
-        icon: (
-          <SvgIcon fontSize="small">
-            <BarChartSquare02Icon />
-          </SvgIcon>
-        )
-      },
-      {
-        title: t(tokens.nav.ecommerce),
-        path: paths.dashboard.ecommerce,
-        icon: (
-          <SvgIcon fontSize="small">
-            <LineChartUp04Icon />
-          </SvgIcon>
-        )
-      },
-      {
-        title: t(tokens.nav.crypto),
-        path: paths.dashboard.crypto,
-        icon: (
-          <SvgIcon fontSize="small">
-            <CurrencyBitcoinCircleIcon />
-          </SvgIcon>
-        ),
-        label: (
-          <Chip
-            color="primary"
-            label="New"
-            size="small"
-          />
-        )
-      },
-      {
-        title: t(tokens.nav.account),
-        path: paths.dashboard.account,
-        icon: (
-          <SvgIcon fontSize="small">
-            <HomeSmileIcon />
-          </SvgIcon>
-        )
-      }
+      // accountType === "ADMIN" && {
+      //   title: t(tokens.nav.analytics),
+      //   path: paths.dashboard.analytics,
+      //   icon: (
+      //     <SvgIcon fontSize="small">
+      //       <BarChartSquare02Icon />
+      //     </SvgIcon>
+      //   )
+      // },
+      // accountType === "ADMIN" && {
+      //   title: t(tokens.nav.ecommerce),
+      //   path: paths.dashboard.ecommerce,
+      //   icon: (
+      //     <SvgIcon fontSize="small">
+      //       <LineChartUp04Icon />
+      //     </SvgIcon>
+      //   )
+      // },
+      // accountType === "ADMIN" && {
+      //   title: t(tokens.nav.crypto),
+      //   path: paths.dashboard.crypto,
+      //   icon: (
+      //     <SvgIcon fontSize="small">
+      //       <CurrencyBitcoinCircleIcon />
+      //     </SvgIcon>
+      //   ),
+      //   label: (
+      //     <Chip
+      //       color="primary"
+      //       label="New"
+      //       size="small"
+      //     />
+      //   )
+      // }
     ]
   },
   {
@@ -206,15 +199,15 @@ export const getSections = (t) => [
           }
         ]
       },
-      {
-        title: t(tokens.nav.chat),
-        path: paths.dashboard.chat,
-        icon: (
-          <SvgIcon fontSize="small">
-            <MessageChatSquareIcon />
-          </SvgIcon>
-        )
-      },
+      // {
+      //   title: t(tokens.nav.chat),
+      //   path: paths.dashboard.chat,
+      //   icon: (
+      //     <SvgIcon fontSize="small">
+      //       <MessageChatSquareIcon />
+      //     </SvgIcon>
+      //   )
+      // },
     ]
   },
   {
@@ -249,12 +242,12 @@ export const getSections = (t) => [
       }
     ]
   },
-  {
+  accountType === "ADMIN" &&  {
     subheader: t(tokens.nav.admin),
     items: [
       {
-        title: t(tokens.nav.LM_Manage),
-        path: paths.dashboard.LM_Manage,
+        title: t(tokens.nav.lm_manage),
+        path: paths.dashboard.lm_manage,
         icon: (
           <SvgIcon fontSize="small">
             <ArticleOutlinedIcon />
@@ -262,8 +255,8 @@ export const getSections = (t) => [
         )
       },
       {
-        title: t(tokens.nav.Topic_Manage),
-        path: paths.dashboard.Topic_Manage,
+        title: t(tokens.nav.topic_manage),
+        path: paths.dashboard.topic_manage,
         icon: (
           <SvgIcon fontSize="small">
             <AccountTreeOutlinedIcon />
@@ -271,8 +264,8 @@ export const getSections = (t) => [
         )
       },
       {
-        title: t(tokens.nav.Account_Manage),
-        path: paths.dashboard.Account_Manage,
+        title: t(tokens.nav.account_manage),
+        path: paths.dashboard.account_manage,
         icon: (
           <SvgIcon fontSize="small">
             <ManageAccountsOutlinedIcon />
@@ -281,7 +274,7 @@ export const getSections = (t) => [
       },
     ]
   },
-  {
+  accountType === "ADMIN" && {
     subheader: t(tokens.nav.concepts),
     items: [
       {
@@ -477,7 +470,7 @@ export const getSections = (t) => [
       },
     ]
   },
-  {
+  accountType === "ADMIN" && {
     subheader: t(tokens.nav.pages),
     items: [
       {
@@ -606,84 +599,84 @@ export const getSections = (t) => [
       }
     ]
   },
-  {
-    subheader: 'Misc',
-    items: [
-      {
-        title: 'Level 0',
-        icon: (
-          <SvgIcon fontSize="small">
-            <AlignLeft02Icon />
-          </SvgIcon>
-        ),
-        items: [
-          {
-            title: 'Level 1a',
-            items: [
-              {
-                title: 'Level 2a',
-                items: [
-                  {
-                    title: 'Level 3a'
-                  },
-                  {
-                    title: 'Level 3b',
-                    disabled: true
-                  }
-                ]
-              },
-              {
-                title: 'Level 2b'
-              }
-            ]
-          },
-          {
-            title: 'Level 1b'
-          }
-        ]
-      },
-      {
-        title: 'Disabled',
-        disabled: true,
-        icon: (
-          <SvgIcon fontSize="small">
-            <XSquareIcon />
-          </SvgIcon>
-        )
-      },
-      {
-        title: 'Label',
-        icon: (
-          <SvgIcon fontSize="small">
-            <File01Icon />
-          </SvgIcon>
-        ),
-        label: (
-          <Chip
-            color="primary"
-            label="New"
-            size="small"
-          />
-        )
-      },
-      {
-        title: 'Blank',
-        path: paths.dashboard.blank,
-        icon: (
-          <SvgIcon fontSize="small">
-            <File01Icon />
-          </SvgIcon>
-        )
-      },
-      {
-        title: 'External Link',
-        path: 'https://devias.io',
-        icon: (
-          <SvgIcon fontSize="small">
-            <File01Icon />
-          </SvgIcon>
-        )
-      }
-    ]
-  }
+  // {
+  //   subheader: 'Misc',
+  //   items: [
+  //     {
+  //       title: 'Level 0',
+  //       icon: (
+  //         <SvgIcon fontSize="small">
+  //           <AlignLeft02Icon />
+  //         </SvgIcon>
+  //       ),
+  //       items: [
+  //         {
+  //           title: 'Level 1a',
+  //           items: [
+  //             {
+  //               title: 'Level 2a',
+  //               items: [
+  //                 {
+  //                   title: 'Level 3a'
+  //                 },
+  //                 {
+  //                   title: 'Level 3b',
+  //                   disabled: true
+  //                 }
+  //               ]
+  //             },
+  //             {
+  //               title: 'Level 2b'
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           title: 'Level 1b'
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       title: 'Disabled',
+  //       disabled: true,
+  //       icon: (
+  //         <SvgIcon fontSize="small">
+  //           <XSquareIcon />
+  //         </SvgIcon>
+  //       )
+  //     },
+  //     {
+  //       title: 'Label',
+  //       icon: (
+  //         <SvgIcon fontSize="small">
+  //           <File01Icon />
+  //         </SvgIcon>
+  //       ),
+  //       label: (
+  //         <Chip
+  //           color="primary"
+  //           label="New"
+  //           size="small"
+  //         />
+  //       )
+  //     },
+  //     {
+  //       title: 'Blank',
+  //       path: paths.dashboard.blank,
+  //       icon: (
+  //         <SvgIcon fontSize="small">
+  //           <File01Icon />
+  //         </SvgIcon>
+  //       )
+  //     },
+  //     {
+  //       title: 'External Link',
+  //       path: 'https://devias.io',
+  //       icon: (
+  //         <SvgIcon fontSize="small">
+  //           <File01Icon />
+  //         </SvgIcon>
+  //       )
+  //     }
+  //   ]
+  // }
 ];

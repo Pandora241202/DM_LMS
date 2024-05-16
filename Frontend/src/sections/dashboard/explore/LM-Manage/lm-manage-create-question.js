@@ -5,7 +5,7 @@ import { JobCategoryStep } from '././lm-manage-category-step';
 // import { JobDescriptionStep } from '././job-description-step';
 // import { JobDetailsStep } from '././job-details-step';
 import { JobPreview } from '././lm-manage-question-preview';
-import { lm_manageApi } from '../../../../api/LM-Manage';
+import { lm_manageApi } from '../../../../api/lm-manage';
 import { useMounted } from '../../../../hooks/use-mounted';
 
 const StepIcon = (props) => {

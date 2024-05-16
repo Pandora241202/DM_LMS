@@ -22,7 +22,6 @@ export class LearningMaterialController {
   @Get(':id')
   async detail(@Res() res: Response, @Param('id', ParseIntPipe) id: number) {
     const lm = await this.learningMaterialService.detail(id);
-    console.log(lm);
 
     if (lm.type === 'OTHER') {
       const filePath = `./uploads/materialFiles/${(lm.DTO as FileDTO).fileName}`;

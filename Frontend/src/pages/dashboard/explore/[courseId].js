@@ -14,7 +14,7 @@ import {
   SvgIcon,
   Typography
 } from '@mui/material';
-import { lm_manageApi } from '../../../api/LM-Manage';
+import { lm_manageApi } from '../../../api/lm-manage';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';

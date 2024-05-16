@@ -1,9 +1,10 @@
 import { AccountType, BackgroundKnowledgeType, GenderType, Prisma, QualificationType } from '@prisma/client';
 import { IsArray, IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { timeEponch } from 'src/shared/date.helper';
+import { leanObject } from 'src/shared/prisma.helper';
 
 export class UserCreateREQ {
-  @IsNotEmpty()
+  @IsOptional() 
   @IsEmail()
   email: string;
 
@@ -11,6 +12,7 @@ export class UserCreateREQ {
   @IsString()
   name: string;
 
+  @IsOptional()
   @IsEnum(GenderType)
   gender: GenderType;
 
@@ -56,7 +58,7 @@ export class UserCreateREQ {
     return {
       email: body.email,
       name: body.name,
-      birth: timeEponch(body.birth),
+      birth: body.birth ? timeEponch(body.birth): null,
       gender: body.gender ? body.gender : GenderType.UNKNOWN,
       language: body.language,
       lastLogin: Date.now(),

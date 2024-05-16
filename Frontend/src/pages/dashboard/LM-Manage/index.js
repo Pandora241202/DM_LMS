@@ -13,14 +13,14 @@ import {
   SvgIcon,
   Typography
 } from '@mui/material';
-import { lm_manageApi } from '../../../api/LM-Manage';
+import { lm_manageApi } from '../../../api/lm-manage';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
-import { LMManageListSearch } from '../../../sections/dashboard/LM-Manage/lm-manage-list-search';
-import { LMManageListTable } from '../../../sections/dashboard/LM-Manage/lm-manage-list-table';
+import { LMManageListSearch } from '../../../sections/dashboard/lm-manage/lm-manage-list-search';
+import { LMManageListTable } from '../../../sections/dashboard/lm-manage/lm-manage-list-table';
 import { applyPagination } from '../../../utils/apply-pagination';
 
 const useSearch = () => {
@@ -214,7 +214,7 @@ const LMList = () => {
                   <Link
                     color="text.primary"
                     component={NextLink}
-                    href={paths.dashboard.LM_Manage}
+                    href={paths.dashboard.lm_manage}
                     variant="subtitle2"
                   >
                     Quản lý tài liệu học tập
@@ -229,7 +229,7 @@ const LMList = () => {
                 <Button
                   component={NextLink}
                   // Thay đổi đường dẫn để lưu vào db
-                  href={`${paths.dashboard.LM_Manage}/create`}
+                  href={`${paths.dashboard.lm_manage}/create`}
                   startIcon={(
                     <SvgIcon>
                       <PlusIcon />

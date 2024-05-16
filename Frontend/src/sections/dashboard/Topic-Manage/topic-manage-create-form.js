@@ -20,7 +20,7 @@ import {
 import { FileDropzoneVn } from '../../../components/file-dropzone-vn';
 import { QuillEditor } from '../../../components/quill-editor';
 import { paths } from '../../../paths';
-import { topic_manageApi } from '../../../api/Topic-Manage';
+import { topic_manageApi } from '../../../api/topic-manage';
 import { useMounted } from '../../../hooks/use-mounted';
 
 const subjectOptions = [
@@ -119,7 +119,7 @@ export const TopicCreateForm = (props) => {
           postTopicId: [values.postTopicId],
       })
         toast.success('Chủ đề học tập đã được tạo');
-        router.push(paths.dashboard.Topic_Manage);
+        router.push(paths.dashboard.topic_manage);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');

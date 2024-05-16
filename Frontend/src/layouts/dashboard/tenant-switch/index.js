@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import ChevronDownIcon from '@untitled-ui/icons-react/build/esm/ChevronDown';
 import { Box, IconButton, Stack, SvgIcon, Typography } from '@mui/material';
 import { TenantPopover } from './tenant-popover';
+import { paths } from '../../../paths';
+import NextLink from 'next/link';
 
 const tenants = ['Devias', 'Acme Corp'];
 
@@ -31,34 +33,31 @@ export const TenantSwitch = (props) => {
         {...props}>
         <Box sx={{ flexGrow: 1 }}>
           <Typography
+            href= {paths.dashboard}
+            style={{ cursor: 'pointer' }}
             color="inherit"
             variant="h6"
           >
-            Devias
+            DM Learning System
           </Typography>
-          <Typography
-            color="neutral.400"
-            variant="body2"
-          >
-            Production
-          </Typography>
+          
         </Box>
-        <IconButton
+        {/* <IconButton
           onClick={handlePopoverOpen}
           ref={anchorRef}
         >
           <SvgIcon sx={{ fontSize: 16 }}>
             <ChevronDownIcon />
           </SvgIcon>
-        </IconButton>
+        </IconButton> */}
       </Stack>
-      <TenantPopover
+      {/* <TenantPopover
         anchorEl={anchorRef.current}
         onChange={handleTenantChange}
         onClose={handlePopoverClose}
         open={openPopover}
         tenants={tenants}
-      />
+      /> */}
     </>
   );
 };
