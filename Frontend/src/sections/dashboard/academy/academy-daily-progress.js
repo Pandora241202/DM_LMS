@@ -77,10 +77,8 @@ const useChartOptions = (timeLeft) => {
 };
 
 export const AcademyDailyProgress = (props) => {
-  const { timeCurrent, timeGoal } = props;
-  const timeLeft = timeGoal - timeCurrent;
-  const currentProgress = (timeCurrent * 100) / timeGoal;
-  const chartOptions = useChartOptions(timeLeft);
+  const { currentProgress, lessonName } = props;
+  const chartOptions = useChartOptions(currentProgress);
   const chartSeries = [currentProgress];
 
   return (
@@ -91,6 +89,7 @@ export const AcademyDailyProgress = (props) => {
             mx: -4,
             my: -6
           }}
+          marginBottom={20}
         >
           <Chart
             width={260}
@@ -101,17 +100,17 @@ export const AcademyDailyProgress = (props) => {
           />
         </Box>
         <Typography variant="h6">
-          Today’s progress of your {timeGoal}-minutes goal
+          
         </Typography>
         <Typography
           color="text.secondary"
           variant="body2"
         >
-          You have used 80% of your available spots. Upgrade plan to create more projects.
+          {lessonName ? `Bạn vừa bắt đầu học ${lessonName}` : `Tiếp tục học bài ${lessonName}`}
         </Typography>
         <Box sx={{ mt: 2 }}>
           <Button variant="contained">
-            Continue: React and Redux Tutorial
+            {lessonName}
           </Button>
         </Box>
       </CardContent>

@@ -5,8 +5,9 @@ import { useCallback, useEffect, useState } from "react";
 import { CourseCard } from "./academy/course-card";
 import { usePageView } from "../../hooks/use-page-view";
 import { Grid, Typography, backdropClasses } from "@mui/material";
-import { Container, Stack } from "@mui/system";
+import { Box, Container, Stack } from "@mui/system";
 import { grey } from "@mui/material/colors";
+import { AcademyDailyProgress } from "./academy/academy-daily-progress";
 
 const useListCourses = (id) => {
   const isMounted = useMounted();
@@ -45,6 +46,15 @@ export const DashboardLearner = () => {
 
     return (
         <>
+            <Grid
+                xs={12}
+                md={9}
+            >
+                <AcademyDailyProgress
+                    currentProgress={listCourses[0].lastestLessonPercentComplete}
+                    lessonName={listCourses[0].lastestLesson? listCourses[0].lastestLesson.title : listCourses[0].course.name}
+                />
+            </Grid>
             <>
                 <div>
                     <Typography variant="h5" marginBottom={3}>

@@ -64,11 +64,13 @@ const Page = () => {
                 justifyContent="space-between"
                 spacing={4}
               >
-                <div>
-                  <Typography variant="h4">
-                    Tổng quan
-                  </Typography>
-                </div>
+                {
+                  user.accountType === 'ADMIN' && <div>
+                    <Typography variant="h4">
+                      Tổng quan
+                    </Typography>
+                  </div>
+                }
                 <Box>
                   {
                     user.accountType === 'ADMIN' ? <DashboardAdmin/> : <DashboardLearner/>
