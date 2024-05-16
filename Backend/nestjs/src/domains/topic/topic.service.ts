@@ -127,7 +127,7 @@ export class TopicService {
   }
 
   async list() {
-    const topics = await this.prismaService.topic.findMany({ select: { id: true, title: true } });
+    const topics = await this.prismaService.topic.findMany({ orderBy: {id: "asc"}, select: { id: true, title: true, subject: true } });
     return topics;
   }
 }

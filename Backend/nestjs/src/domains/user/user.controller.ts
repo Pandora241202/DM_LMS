@@ -62,6 +62,11 @@ export class UserController {
     return await this.userService.detail(id);
   }
 
+  @Get(':id/courses')
+  async getAllCourses(@Param('id', ParseIntPipe) id: number) {
+    return await this.userService.getAllCourses(id);
+  }
+
   @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() body: UserUpdateREQ) {
     return await this.userService.update(id, body);

@@ -105,7 +105,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Register | Devias Kit PRO
+          Register
         </title>
       </Head>
       <div>

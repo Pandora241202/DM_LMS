@@ -14,7 +14,7 @@ const LMCreate = () => {
     <>
       <Head>
         <title>
-          Dashboard: LM Create | Devias Kit PRO
+          Dashboard: LM Create
         </title>
       </Head>
       <Box

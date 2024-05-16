@@ -33,7 +33,7 @@ export const TenantSwitch = (props) => {
         {...props}>
         <Box sx={{ flexGrow: 1 }}>
           <Typography
-            href= {paths.dashboard}
+            href= {paths.dashboard.index}
             style={{ cursor: 'pointer' }}
             color="inherit"
             variant="h6"

@@ -33,7 +33,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: Crypto | Devias Kit PRO
+          Dashboard: Crypto
         </title>
       </Head>
       <Box

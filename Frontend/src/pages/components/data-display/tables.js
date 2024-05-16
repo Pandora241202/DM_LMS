@@ -70,7 +70,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Components: Tables | Devias Kit PRO
+          Components: Tables
         </title>
       </Head>
       <Box

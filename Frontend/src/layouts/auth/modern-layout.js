@@ -96,7 +96,7 @@ export const Layout = (props) => {
                   }
                 }}
               >
-                Devias Kit <span>PRO</span>
+                DM LMS
               </Box>
             </Stack>
           </Box>

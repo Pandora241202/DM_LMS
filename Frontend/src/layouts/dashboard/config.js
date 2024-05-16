@@ -42,7 +42,7 @@ import { useAuth } from '../../hooks/use-auth';
 export const getSections = (t, accountType) => [
   {
     items: [
-      accountType === "ADMIN" && {
+      {
         title: t(tokens.nav.overview),
         path: paths.dashboard.index,
         icon: (
@@ -79,7 +79,7 @@ export const getSections = (t, accountType) => [
           </SvgIcon>
         )
       },
-      // accountType === "ADMIN" && {
+      // {
       //   title: t(tokens.nav.analytics),
       //   path: paths.dashboard.analytics,
       //   icon: (
@@ -88,7 +88,7 @@ export const getSections = (t, accountType) => [
       //     </SvgIcon>
       //   )
       // },
-      // accountType === "ADMIN" && {
+      // {
       //   title: t(tokens.nav.ecommerce),
       //   path: paths.dashboard.ecommerce,
       //   icon: (
@@ -97,7 +97,7 @@ export const getSections = (t, accountType) => [
       //     </SvgIcon>
       //   )
       // },
-      // accountType === "ADMIN" && {
+      // {
       //   title: t(tokens.nav.crypto),
       //   path: paths.dashboard.crypto,
       //   icon: (
@@ -242,7 +242,7 @@ export const getSections = (t, accountType) => [
       }
     ]
   },
-  accountType === "ADMIN" &&  {
+   {
     subheader: t(tokens.nav.admin),
     items: [
       {
@@ -274,7 +274,7 @@ export const getSections = (t, accountType) => [
       },
     ]
   },
-  accountType === "ADMIN" && {
+  {
     subheader: t(tokens.nav.concepts),
     items: [
       {
@@ -470,7 +470,7 @@ export const getSections = (t, accountType) => [
       },
     ]
   },
-  accountType === "ADMIN" && {
+  {
     subheader: t(tokens.nav.pages),
     items: [
       {

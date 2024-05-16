@@ -392,25 +392,27 @@ model File {
 }
 
 model RegisterCourse {
-  id        Int     @id @default(autoincrement())
-  learnerId Int
-  courseId  Int
-  course    Course  @relation(fields: [courseId], references: [id])
-  learner   Learner @relation(fields: [learnerId], references: [id])
+  id           Int      @id @default(autoincrement())
+  learnerId    Int
+  courseId     Int
+  registerDate DateTime @default(now()) @map("register_date")
+  course       Course   @relation(fields: [courseId], references: [id])
+  learner      Learner  @relation(fields: [learnerId], references: [id])
 
   @@unique([learnerId, courseId])
   @@map("register_courses")
 }
 
 model HistoryOfCourse {
-  learnerId                    Int     @map("learner_id")
-  courseId                     Int     @map("course_id")
-  lastestLessonId              Int?    @map("lesson_id")
-  lastestLessonPercentComplete Float?  @default(0) @map("lastest_lesson_percent_complete")
-  percentComplete              Float?  @default(0) @map("percent_complete")
-  course                       Course  @relation(fields: [courseId], references: [id])
-  learner                      Learner @relation(fields: [learnerId], references: [id])
-  lastestLesson                Lesson? @relation(fields: [lastestLessonId], references: [id])
+  learnerId                    Int      @map("learner_id")
+  courseId                     Int      @map("course_id")
+  lastestStudyTime             DateTime @default(now()) @map("lastest_study_time")
+  lastestLessonId              Int?     @map("lastest_lesson_id")
+  lastestLessonPercentComplete Float?   @default(0) @map("lastest_lesson_percent_complete")
+  percentComplete              Float?   @default(0) @map("percent_complete")
+  course                       Course   @relation(fields: [courseId], references: [id])
+  learner                      Learner  @relation(fields: [learnerId], references: [id])
+  lastestLesson                Lesson?  @relation(fields: [lastestLessonId], references: [id])
 
   @@unique([learnerId, courseId])
   @@map("history_of_courses")

@@ -25,10 +25,8 @@ import { topic_manageApi } from '../../../api/topic-manage';
 const useSearch = () => {
   const [search, setSearch] = useState({
     filters: {
-      name: undefined,
-      category: [],
-      status: [],
-      inStock: undefined
+      title: undefined,
+      subject: [],
     },
     page: 0,
     rowsPerPage: 5
@@ -40,36 +38,6 @@ const useSearch = () => {
   };
 };
 
-// const useProducts = (search) => {
-//   const isMounted = useMounted();
-//   const [state, setState] = useState({
-//     products: [],
-//     productsCount: 0
-//   });
-
-//   const getProducts = useCallback(async () => {
-//     try {
-//       const response = await productsApi.getProducts(search);
-
-//       if (isMounted()) {
-//         setState({
-//           products: response.data,
-//           productsCount: response.count
-//         });
-//       }
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   }, [search, isMounted]);
-
-//   useEffect(() => {
-//       getProducts();
-//     },
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//     [search]);
-
-//   return state;
-// };
 const useTopics = (search) => {
   const isMounted = useMounted();
   const [state, setState] = useState({
@@ -80,11 +48,14 @@ const useTopics = (search) => {
   const getTopics = useCallback(async () => {
     try {
       const response = await topic_manageApi.getListTopic();
-
+      let topics = search.filters.subject.length !== 0 ? response.data.filter(topic => search.filters.subject.includes(topic.subject)) : response.data;
+      if (search.title)
+        topics = topics.filter(topic => topic.title.indexOf(search.title) !== -1)
+      
       if (isMounted()) {
         setState({
-          Topics: response.data,
-          TopicsCount: response.data.length
+          Topics: topics,
+          TopicsCount: topics.length
         });
       }
     } catch (err) {
@@ -111,6 +82,15 @@ const TopicList = () => {
     updateSearch((prevState) => ({
       ...prevState,
       filters
+    }));
+  }, [updateSearch]);
+
+  const handleSearchChange = useCallback((title) => {
+    updateSearch((prevState) => ({
+      ...prevState,
+      ...{
+        title
+      }
     }));
   }, [updateSearch]);
 
@@ -193,7 +173,7 @@ const TopicList = () => {
               </Stack>
             </Stack>
             <Card>
-              <TopicManageListSearch onFiltersChange={handleFiltersChange} />
+              <TopicManageListSearch onFiltersChange={handleFiltersChange} onSearchChange={handleSearchChange}/>
               <TopicManageListTable
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleRowsPerPageChange}

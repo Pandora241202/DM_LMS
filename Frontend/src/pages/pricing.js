@@ -22,7 +22,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Pricing | Devias Kit PRO
+          Pricing
         </title>
       </Head>
       <Box

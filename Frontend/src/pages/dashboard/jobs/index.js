@@ -55,7 +55,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: Job Browse | Devias Kit PRO
+          Dashboard: Job Browse
         </title>
       </Head>
       <Box

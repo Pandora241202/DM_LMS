@@ -63,7 +63,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: Overview | Devias Kit PRO
+          Dashboard: Overview
         </title>
       </Head>
       <Box
@@ -122,7 +122,7 @@ const Page = () => {
             >
               <Course
                 title={_course.name}
-                amount={_course.amountOfTime}
+                amount={Math.floor(_course.amountOfTime/60)}
                 id={_course.id} />  
             </Grid>
             ))}

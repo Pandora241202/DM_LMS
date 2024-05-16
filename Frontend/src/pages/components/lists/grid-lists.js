@@ -45,7 +45,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Components: Grid Lists | Devias Kit PRO
+          Components: Grid Lists
         </title>
       </Head>
       <Box

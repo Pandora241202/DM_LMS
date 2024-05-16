@@ -128,4 +128,10 @@ export class UserService {
       data: LearnerHistoryCourseUpdateREQ.toUpdateInput(body, percentComplete),
     });
   }
+
+  async getAllCourses(learnerId: number) {
+    const courses = await this.prismaService.historyOfCourse.findMany({take: 3, where: {learnerId: learnerId}, orderBy: {lastestStudyTime: "desc"}, select: {lastestLessonPercentComplete: true, lastestLesson: {select: {id: true, title: true}}, course: {select: {id: true, name: true, description: true, amountOfTime: true}}}})
+
+    return courses
+  }
 }

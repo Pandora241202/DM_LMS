@@ -40,37 +40,6 @@ const useSearch = () => {
     updateSearch: setSearch
   };
 };
-
-// const useProducts = (search) => {
-//   const isMounted = useMounted();
-//   const [state, setState] = useState({
-//     products: [],
-//     productsCount: 0
-//   });
-
-//   const getProducts = useCallback(async () => {
-//     try {
-//       const response = await productsApi.getProducts(search);
-
-//       if (isMounted()) {
-//         setState({
-//           products: response.data,
-//           productsCount: response.count
-//         });
-//       }
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   }, [search, isMounted]);
-
-//   useEffect(() => {
-//       getProducts();
-//     },
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//     [search]);
-
-//   return state;
-// };
 const useLMs = (search) => {
   const isMounted = useMounted();
   const [state, setState] = useState({
@@ -85,8 +54,8 @@ const useLMs = (search) => {
       let data = response.data;
       if (typeof search.filters !== 'undefined') {
         data = data.filter((lm) => {
-          if (typeof search.filters.name !== 'undefined' && search.filters.name !== '') {
-            const nameMatched = lm.name.toLowerCase().includes(filters.name.toLowerCase());
+          if (typeof search.name !== 'undefined' && search.name !== '') {
+            const nameMatched = lm.name.toLowerCase().includes(search.name.toLowerCase());
   
             if (!nameMatched) {
               return false;
@@ -127,8 +96,6 @@ const useLMs = (search) => {
       // if (typeof search.page !== 'undefined' && typeof search.rowsPerPage !== 'undefined') {
       //   data = applyPagination(data, search.page, search.rowsPerPage);
       // }
-      console.log(data);
-      console.log(search);
 
       if (isMounted()) {
         setState({
@@ -161,6 +128,15 @@ const LMList = () => {
       ...prevState,
       filters
     }));
+  }, [updateSearch]);
+
+  const handleSearchChange = useCallback((name) => {
+    updateSearch((prevState) => {
+      return {
+        ...prevState,
+        name
+      }
+  });
   }, [updateSearch]);
 
   const handlePageChange = useCallback((event, page) => {
@@ -242,7 +218,7 @@ const LMList = () => {
               </Stack>
             </Stack>
             <Card>
-              <LMManageListSearch onFiltersChange={handleFiltersChange} />
+              <LMManageListSearch onFiltersChange={handleFiltersChange} onSearchChange={handleSearchChange}/>
               <LMManageListTable
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleRowsPerPageChange}

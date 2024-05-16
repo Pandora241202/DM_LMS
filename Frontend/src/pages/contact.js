@@ -14,7 +14,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Contact | Devias Kit PRO
+          Contact
         </title>
       </Head>
       <Box

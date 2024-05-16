@@ -11,7 +11,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: LM Question Create | Devias Kit PRO
+          Dashboard: LM Question Create
         </title>
       </Head>
       <Box

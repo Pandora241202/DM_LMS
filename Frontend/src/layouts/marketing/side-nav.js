@@ -256,10 +256,10 @@ export const SideNav = (props) => {
       >
         <Stack
           alignItems="center"
-          component={NextLink}
+          component={NextLink}  
           direction="row"
           display="inline-flex"
-          href={paths.index}
+          href={paths.dashboard.index}
           spacing={1}
           sx={{ textDecoration: 'none' }}
         >
@@ -285,7 +285,7 @@ export const SideNav = (props) => {
               }
             }}
           >
-            Devias Kit <span>PRO</span>
+            DM LMS
           </Box>
         </Stack>
       </Box>

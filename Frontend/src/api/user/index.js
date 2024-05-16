@@ -8,6 +8,10 @@ class UserApi {
     return axios.get(`${apiUrl}/${id}`);
   }
 
+  getUserCourses(id) {
+    return axios.get(`${apiUrl}/${id}/courses`);
+  }
+
   getBaseInfo(userId) {
     return axios.get(`${apiUrl}/base-information/${userId}`);
   }
