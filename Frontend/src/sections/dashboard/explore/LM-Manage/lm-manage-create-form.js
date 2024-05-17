@@ -146,7 +146,7 @@ export const LMCreateForm = (props) => {
             shuffle: true,
             fileId: idLMList[0],
           },
-          // lessonId: parseInt(lessonId,10)
+          lessonId: parseInt(lessonId,10)
         })
         : await lm_manageApi.createLM({
           name: values.name,
@@ -470,7 +470,7 @@ export const LMCreateForm = (props) => {
                 {formik.values.type === "QUIZ" 
                 ? <FileDropzoneVn
                   accept={{
-                    'application/vnd.ms-excel': ['csv', 'xlsx'],
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['xlsx'],
                     'text/csv': ['csv'],
                   }}
                   caption="(Vui lòng tạo file quiz theo mẫu trên)"

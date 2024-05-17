@@ -1,4 +1,7 @@
+
 /** @type {import('next').NextConfig} */
+
+const { withNextVideo } = require('next-video/process')
 
 const config = {
   swcMinify: true,
@@ -36,5 +39,6 @@ const withTM = require('next-transpile-modules')([
 
 module.exports = {
   ...withTM(config), 
+  ...withNextVideo(config),
   // pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js']
 }

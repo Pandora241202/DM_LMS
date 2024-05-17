@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Suspense } from 'react'
 import PropTypes from 'prop-types';
 import Collapse from '@mui/material/Collapse';
 import Table from '@mui/material/Table';
@@ -60,7 +61,89 @@ const Item = styled(Paper)(({ theme }) => ({
 //     ],
 //   };
 // }
+export const Video = ({lmId}) => {
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isSeeking, setIsSeeking] = useState(false);
+  const videoRef = useRef(null);
 
+  // const getFile = async (lmId) => {
+  //   const response = await fileApi.getFileFromGGDrive(lmId)
+  //   console.log(response)
+  //   return response.data
+  // }
+
+  // useEffect(()=>{
+  //   getFile(lmId)
+  // },[])
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    const updateCurrentTime = () => {
+      setCurrentTime(video.currentTime);
+    };
+
+    const handleSeekStart = () => {
+      setIsSeeking(true);
+    };
+
+    const handleSeekEnd = () => {
+      setIsSeeking(false);
+    };
+
+    video.addEventListener('timeupdate', updateCurrentTime);
+    video.addEventListener('seeking', handleSeekStart);
+    video.addEventListener('seeked', handleSeekEnd);
+
+    return () => {
+      video.removeEventListener('timeupdate', updateCurrentTime);
+      video.removeEventListener('seeking', handleSeekStart);
+      video.removeEventListener('seeked', handleSeekEnd);
+    };
+  }, [videoRef.current]);
+
+  const handleVideoSeek = (event) => {
+    const video = videoRef.current;
+    const time = parseFloat(event.target.value);
+
+    // Kiểm tra xem giá trị thời gian có hợp lệ không
+    if (!isNaN(time) && isFinite(time)) {
+      setCurrentTime(time);
+      if (video) {
+        video.currentTime = time;
+      }
+    }
+  };
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <video
+        ref={videoRef}
+        width="70%"
+        // height="70%"
+        controls
+        preload="none"
+        onTimeUpdate={handleVideoSeek}
+      >
+        <source src={`http://localhost:8080/learning-materials/${lmId}`} type="video/mp4" />
+        <track
+          src="/path/to/captions.vtt"
+          kind="subtitles"
+          srcLang="en"
+          label="English"
+        />
+        Your browser does not support the video tag.
+      </video>
+      {!isSeeking && (
+        <p>Current Time: {currentTime.toFixed(2)} seconds</p>
+      )}
+    </div>
+      )
+}
 
 
 function Row(props) {
@@ -96,6 +179,10 @@ function Row(props) {
     }
   }, [open])
 
+
+  const createLog = useCallback(() => {
+    
+  })
   const getFile = useCallback(async (id) => {
     try {
       // const response = await fileApi.getFileFromGGDrive(id);
@@ -105,6 +192,7 @@ function Row(props) {
         // setFileGet(response.data.url);
         window.open(`http://localhost:8080/learning-materials/${id}`, '_blank');
         // console.log(fileGet)
+
       }
     } catch (err) {
       console.error(err);
@@ -152,19 +240,23 @@ function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
                 {listLMAccordingToLesson.learningMaterial.map((_lm) => (
-                <Item
-                    sx={{
-                    my: 1,
-                    mx: 'auto',
-                    p: 1,
-                    }}
-                    onClick={() => getFile(_lm.id)}
-                >
-                    <Stack spacing={2} direction="row" alignItems="center">
-                        <FileIcon extension={_lm.type} />
-                        <Typography noWrap>{_lm.name}</Typography>
-                    </Stack>
-                </Item>
+                <div>
+                  <Item
+                      sx={{
+                      my: 1,
+                      mx: 'auto',
+                      p: 1,
+                      }}
+                      onClick={() => getFile(_lm.id)}
+                  >
+                      <Stack spacing={2} direction="row" alignItems="center">
+                          <FileIcon extension={_lm.type} />
+                          <Typography noWrap>{_lm.name}</Typography>
+                      </Stack>
+                  </Item>
+                  {console.log(_lm.id)}
+                  {_lm.type === "VIDEO" ? <Video lmId={_lm.id}/> : <></>}
+                </div>
                 ))}
             </Box>
             {console.log(listLMAccordingToLesson["learningMaterial"])}
