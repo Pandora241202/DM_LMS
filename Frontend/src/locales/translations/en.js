@@ -70,7 +70,7 @@ export const en = {
   [tokens.nav.notebookCreate]: 'Notebook Create',
   [tokens.nav.notebookList]: 'Notebook List',
   [tokens.nav.verifyCode]: 'Verify Code',
-  [tokens.nav.LM_Manage]: 'Manange LM',
-  [tokens.nav.Account_Manage]: 'Manage Account',
-  [tokens.nav.Topic_Manage]: 'Manage Topic',
+  [tokens.nav.lm_manage]: 'Manange LM',
+  [tokens.nav.account_manage]: 'Manage Account',
+  [tokens.nav.topic_manage]: 'Manage Topic',
 };

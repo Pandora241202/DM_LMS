@@ -47,14 +47,14 @@ export const TopNav = (props) => {
           direction="row"
           spacing={2}
         >
-          {!lgUp && (
+          {/* {!lgUp && (
             <IconButton onClick={onMobileNavOpen}>
               <SvgIcon>
                 <Menu01Icon />
               </SvgIcon>
             </IconButton>
           )}
-          <SearchButton />
+          <SearchButton /> */}
         </Stack>
         <Stack
           alignItems="center"

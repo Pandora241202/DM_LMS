@@ -25,7 +25,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Components: Colors | Devias Kit PRO
+          Components: Colors
         </title>
       </Head>
       <Box

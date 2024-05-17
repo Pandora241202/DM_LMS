@@ -31,7 +31,7 @@ class AuthApi {
   }
 
   async signUp(request) {
-    const { email, name, password } = request;
+    const { email, username, password } = request;
 
     await wait(1000);
 
@@ -49,7 +49,7 @@ class AuthApi {
           id: createResourceId(),
           avatar: undefined,
           email,
-          name,
+          username,
           password,
           plan: 'Standard'
         };

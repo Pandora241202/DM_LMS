@@ -110,7 +110,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: Chat | Devias Kit PRO
+          Dashboard: Chat
         </title>
       </Head>
       <Divider />

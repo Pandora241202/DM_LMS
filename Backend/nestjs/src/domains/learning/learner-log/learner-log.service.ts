@@ -21,21 +21,24 @@ export class LearnerLogService {
     await fspromises.writeFile('temp.py', learnerAnswers);
     let score: number = 0;
 
-    for(let i = 0; i < inputFile.length; i++) {
+    for (let i = 0; i < inputFile.length; i++) {
       const { stdout, stderr } = await new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
-        exec(`python temp.py ${'uploads/materialFiles/' + inputFile[i].prefix + '--' + inputFile[i].name}`, async (error, stdout, stderr) => {
-          await fspromises.unlink('temp.py');
-          if (error) {
-            reject(error);
-            throw new ConflictException(error, 'Code can not run');
-          }
-          resolve({ stdout, stderr });
-        });
+        exec(
+          `python temp.py ${'uploads/materialFiles/' + inputFile[i].prefix + '--' + inputFile[i].name}`,
+          async (error, stdout, stderr) => {
+            await fspromises.unlink('temp.py');
+            if (error) {
+              reject(error);
+              throw new ConflictException(error, 'Code can not run');
+            }
+            resolve({ stdout, stderr });
+          },
+        );
       });
 
       let output: string = await fspromises.readFile(`uploads/materialFiles/${inputFile[i].prefix}--output.txt`, 'utf8');
       if (output === stdout) score += 1;
-    };
+    }
 
     return score;
   }
@@ -46,7 +49,7 @@ export class LearnerLogService {
       select: { question: { include: { choice: true } } },
     });
 
-    const correctAnswers = QuizDTO.fromEntity(quiz as any).correctAnswers;
+    const correctAnswers = QuizDTO.fromEntity("", quiz as any).correctAnswers;
     let score: number = 0;
 
     for (let i = 0; i < correctAnswers.length; i++) if (correctAnswers[i] === learnerAnswers[i].charCodeAt(0) - 65) score += 1;
@@ -69,15 +72,21 @@ export class LearnerLogService {
       score = await this.getScoreOfCode(lm.Exercise.codeId, body.learnerAnswer as string);
     else if (lm.type === LearningMaterialType.QUIZ)
       score = await this.getScoreOfQuiz(lm.Exercise.quizId, body.learnerAnswer as string[]);
+    else if (lm.type === LearningMaterialType.VIDEO) score = body.time;
 
     if (!log)
       log = await this.prismaService.learnerLog.create({
         data: LearnerLogCreateREQ.toCreateInput(userID, body, score),
-        select: { id: true, attempts: true},
+        select: { id: true, attempts: true },
       });
     else
       await this.prismaService.learnerLog.updateMany({
-        where: { learnerId: body.learnerId, learningMaterialId: body.learningMaterialId, state: true, attempts: log.attempts + 1 },
+        where: {
+          learnerId: body.learnerId,
+          learningMaterialId: body.learningMaterialId,
+          state: true,
+          attempts: log.attempts + 1,
+        },
         data: { score },
       });
 

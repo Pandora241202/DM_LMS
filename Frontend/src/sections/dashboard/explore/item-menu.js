@@ -38,7 +38,7 @@ export const ItemMenu = (props) => {
       <MenuItem 
         onClick={onClose}
         component={NextLink}
-        href={`${paths.dashboard.explore}/LM_Create/${idLesson}`}
+        href={`${paths.dashboard.explore}/lm_create/${idLesson}`}
         >
         <SvgIcon fontSize="small">
           <CreateNewFolderOutlinedIcon />
@@ -48,7 +48,7 @@ export const ItemMenu = (props) => {
       <MenuItem 
         onClick={onClose}
         component={NextLink}
-        href={`${paths.dashboard.explore}/LM_Question_Create/${idLesson}`}
+        href={`${paths.dashboard.explore}/lm_question_create/${idLesson}`}
         >
         <SvgIcon fontSize="small">
           <QuestionMarkOutlinedIcon />
@@ -58,7 +58,7 @@ export const ItemMenu = (props) => {
       <MenuItem 
         onClick={onClose}
         component={NextLink}
-        href={`${paths.dashboard.explore}/LM_Code_Create/${idLesson}`}
+        href={`${paths.dashboard.explore}/lm_code_create/${idLesson}`}
         >
         <SvgIcon fontSize="small">
           <CodeOutlinedIcon />

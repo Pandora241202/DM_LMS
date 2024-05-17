@@ -6,11 +6,12 @@ import { HorizontalLayout } from './horizontal-layout';
 import { VerticalLayout } from './vertical-layout';
 import { getSections } from './config';
 import { withAuthGuard } from '../../hocs/with-auth-guard';
+import { useAuth } from '../../hooks/use-auth';
 
 const useTranslatedSections = () => {
   const { t } = useTranslation();
-
-  return useMemo(() => getSections(t), [t]);
+  const { user } = useAuth()
+  return useMemo(() => getSections(t, user.accountType), [t]);
 };
 
 export const Layout = withAuthGuard((props) => {

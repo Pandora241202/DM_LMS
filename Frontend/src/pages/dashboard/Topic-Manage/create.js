@@ -5,7 +5,7 @@ import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator'
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
-import { TopicCreateForm } from '../../../sections/dashboard/Topic-Manage/topic-manage-create-form';
+import { TopicCreateForm } from '../../../sections/dashboard/topic-manage/topic-manage-create-form';
 
 const TopicCreate = () => {
   usePageView();
@@ -42,7 +42,7 @@ const TopicCreate = () => {
                 <Link
                   color="text.primary"
                   component={NextLink}
-                  href={paths.dashboard.Topic_Manage}
+                  href={paths.dashboard.topic_manage}
                   variant="subtitle2"
                 >
                   Quản lý chủ đề

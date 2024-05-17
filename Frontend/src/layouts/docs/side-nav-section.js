@@ -20,7 +20,7 @@ const reduceChildRoutes = ({ acc, depth, item, pathname }) => {
         label={item.label}
         open={partialMatch}
         path={item.path}
-        title={item.title}
+        title={item.title ? item.title :""}
       >
         <Stack
           component="ul"
@@ -48,7 +48,7 @@ const reduceChildRoutes = ({ acc, depth, item, pathname }) => {
         key={item.title}
         label={item.label}
         path={item.path}
-        title={item.title}
+        title={item.title ? item.title :""}
       />
     );
   }

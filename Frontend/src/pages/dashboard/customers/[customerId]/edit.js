@@ -49,7 +49,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: Customer Edit | Devias Kit PRO
+          Dashboard: Customer Edit
         </title>
       </Head>
       <Box

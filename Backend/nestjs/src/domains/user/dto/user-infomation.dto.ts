@@ -1,12 +1,14 @@
 import { AccountType, GenderType, Prisma } from '@prisma/client';
 import { parseEponch } from 'src/shared/date.helper';
+import { leanObject } from 'src/shared/prisma.helper';
 
 export class UserInfoDTO {
   id: number;
   email: string;
-  birth: bigint;
+  age: bigint;
   gender: GenderType;
   language: string;
+  name: string;
   username: string;
   state: boolean;
   accountType: AccountType;
@@ -15,6 +17,7 @@ export class UserInfoDTO {
     return {
       id: true,
       avatar: true,
+      name: true,
       email: true,
       birth: true,
       gender: true,
@@ -25,17 +28,21 @@ export class UserInfoDTO {
     };
   }
 
-  static fromEntity(e: Prisma.AuthenticatedUserGetPayload<unknown>) {
-    return {
+  static fromEntity(e: Prisma.AuthenticatedUserGetPayload<{include: {Course: true}}>, registerCourseIds?: number[]) {
+    const courseIds = e.Course ? e.Course.map(c => c.id) : []
+    return leanObject({
       id: e.id,
       avatar: e.avatar,
       email: e.email,
-      birth: parseEponch(Date.now()).year - parseEponch(e.birth).year,
+      name: e.name,
+      age: parseEponch(Date.now()).year - parseEponch(e.birth).year,
       gender: e.gender,
       language: e.language,
       username: e.username,
       state: e.state,
       accountType: e.accountType,
-    };
+      createdCourseIds: courseIds,
+      registerCourseIds: registerCourseIds ? registerCourseIds : null,
+    });
   }
 }

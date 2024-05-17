@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Box, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 import { usePageView } from '../../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../../layouts/dashboard';
-import { JobCreateForm } from '../../../../sections/dashboard/explore/LM-Manage/lm-manage-create-question';
+import { JobCreateForm } from '../../../../sections/dashboard/explore/lm-manage/lm-manage-create-question';
 
 const Page = () => {
   usePageView();
@@ -11,7 +11,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: LM Question Create | Devias Kit PRO
+          Dashboard: LM Question Create
         </title>
       </Head>
       <Box

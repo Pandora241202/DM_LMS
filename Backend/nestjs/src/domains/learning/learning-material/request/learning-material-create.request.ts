@@ -78,7 +78,7 @@ export class LearningMaterialCreateREQ {
       type: body.type,
       rating: body.rating ? body.rating : 5.0,
       score: body.score,
-      time: body.time ? body.time : 300,
+      time: body.time ? body.time * 60 : 300,
       Lesson: connectRelation(body.lessonId),
       Topic: connectRelation(body.topicId),
       Creator: connectRelation(body.creatorId),

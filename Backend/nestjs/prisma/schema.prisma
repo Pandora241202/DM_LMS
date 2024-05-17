@@ -11,14 +11,14 @@ model AuthenticatedUser {
   id               Int                @id @default(autoincrement())
   avatar           String?
   email            String
-  name             String
-  birth            BigInt
-  gender           GenderType         @default(UNKNOWN)
-  language         String
+  name             String?
+  birth            BigInt?
+  gender           GenderType?        @default(UNKNOWN)
+  language         String?
   password         String
   username         String             @unique
   refeshToken      String?            @map("refesh_token")
-  state            Boolean            @default(true)
+  state            Boolean?           @default(true)
   lastLogin        BigInt             @map("last_login")
   lastLogout       BigInt             @map("last_logout")
   accountType      AccountType
@@ -61,7 +61,7 @@ model LearningMaterial {
   difficulty   Float
   type         LearningMaterialType
   rating       Float
-  score        Float
+  score        Float                @default(10)
   time         Float?
   topicId      Int                  @map("topic_id")
   lessonId     Int?
@@ -82,10 +82,11 @@ model LearningMaterial {
 model Course {
   id              Int                     @id @default(autoincrement())
   idInstructor    Int                     @map("id_instructor")
+  rating          Float                   @default(5) @map("rating")
   name            String
   visibility      Boolean
   description     String
-  amountOfTime    Int                     @map("amount_of_time")
+  amountOfTime    Int                     @default(0) @map("amount_of_time")
   level           BackgroundKnowledgeType
   createdAt       DateTime                @default(now()) @map("created_at")
   updatedAt       DateTime                @default(now()) @map("updated_at")
@@ -392,25 +393,27 @@ model File {
 }
 
 model RegisterCourse {
-  id        Int     @id @default(autoincrement())
-  learnerId Int
-  courseId  Int
-  course    Course  @relation(fields: [courseId], references: [id])
-  learner   Learner @relation(fields: [learnerId], references: [id])
+  id           Int      @id @default(autoincrement())
+  learnerId    Int
+  courseId     Int
+  registerDate DateTime @default(now()) @map("register_date")
+  course       Course   @relation(fields: [courseId], references: [id])
+  learner      Learner  @relation(fields: [learnerId], references: [id])
 
   @@unique([learnerId, courseId])
   @@map("register_courses")
 }
 
 model HistoryOfCourse {
-  learnerId                    Int     @map("learner_id")
-  courseId                     Int     @map("course_id")
-  lastestLessonId              Int?    @map("lesson_id")
-  lastestLessonPercentComplete Float?  @default(0) @map("lastest_lesson_percent_complete")
-  percentComplete              Float?  @default(0) @map("percent_complete")
-  course                       Course  @relation(fields: [courseId], references: [id])
-  learner                      Learner @relation(fields: [learnerId], references: [id])
-  lastestLesson                Lesson? @relation(fields: [lastestLessonId], references: [id])
+  learnerId                   Int      @map("learner_id")
+  courseId                    Int      @map("course_id")
+  lastestStudyTime            DateTime @default(now()) @map("lastest_study_time")
+  lastestLessonId             Int?     @map("lastest_lesson_id")
+  lastestLessonMinuteComplete Float?   @default(0) @map("lastest_lesson_minute_complete")
+  percentComplete             Float?   @default(0) @map("percent_complete")
+  course                      Course   @relation(fields: [courseId], references: [id])
+  learner                     Learner  @relation(fields: [learnerId], references: [id])
+  lastestLesson               Lesson?  @relation(fields: [lastestLessonId], references: [id])
 
   @@unique([learnerId, courseId])
   @@map("history_of_courses")

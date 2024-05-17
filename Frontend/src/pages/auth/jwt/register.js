@@ -39,6 +39,7 @@ const initialValues = {
   email: '',
   name: '',
   password: '',
+  accountType: '',
   policy: false,
   submit: null
 };
@@ -52,7 +53,7 @@ const validationSchema = Yup.object({
   name: Yup
     .string()
     .max(255)
-    .required('Name is required'),
+    .required('Username is required'),
   password: Yup
     .string()
     .min(7)
@@ -73,7 +74,7 @@ const Page = () => {
     validationSchema,
     onSubmit: async (values, helpers) => {
       try {
-        await signUp(values.email, values.name, values.password);
+        await signUp(values.email, values.name, values.password, values.accountType);
 
         if (isMounted()) {
           router.push(returnTo || paths.dashboard.index);
@@ -96,7 +97,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Register | Devias Kit PRO
+          Register
         </title>
       </Head>
       <div>
@@ -132,7 +133,7 @@ const Page = () => {
                   error={!!(formik.touched.name && formik.errors.name)}
                   fullWidth
                   helperText={formik.touched.name && formik.errors.name}
-                  label="Name"
+                  label="Username"
                   name="name"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}

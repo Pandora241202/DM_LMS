@@ -7,12 +7,14 @@ export class CourseDTO {
   updatedAt: Date;
   name: string;
   visibility: boolean;
+  rating: number;
   description: string;
   amountOfTime: number;
   level: BackgroundKnowledgeType;
   instructor: {
     id: number;
     name: string;
+    email: string;
   };
   lessons: {
     id: number;
@@ -25,6 +27,7 @@ export class CourseDTO {
       createdAt: true,
       updatedAt: true,
       name: true,
+      rating: true,
       visibility: true,
       description: true,
       amountOfTime: true,
@@ -43,12 +46,14 @@ export class CourseDTO {
       updatedAt: entity.updatedAt,
       name: entity.name,
       visibility: entity.visibility,
+      rating: entity.rating,
       description: entity.description,
       amountOfTime: entity.amountOfTime,
       level: entity.level,
       instructor: {
         id: entity.Instructor.id,
         name: entity.Instructor.name,
+        email: entity.Instructor.email
       },
       lessons,
     };
@@ -58,6 +63,8 @@ export class CourseDTO {
 export class CourseListDTO {
   id: number;
   name: string;
+  rating: number;
+  level: string;
   amountOfTime: number;
   createdAt: Date;
   updatedAt: Date;
@@ -66,6 +73,8 @@ export class CourseListDTO {
     return {
       id: entity.id,
       name: entity.name,
+      rating: entity.rating,
+      level: entity.level,
       amountOfTime: entity.amountOfTime,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,

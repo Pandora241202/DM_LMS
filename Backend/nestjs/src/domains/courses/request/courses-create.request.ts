@@ -32,7 +32,7 @@ export class CourseCreateREQ {
       visibility: body.visibility,
       level: body.level,
       description: body.description,
-      amountOfTime: body.amountOfTime,
+      amountOfTime: 0,
       Lesson: connectManyRelation(body.lessonIds),
     };
   }
