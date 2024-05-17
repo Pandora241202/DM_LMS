@@ -5,9 +5,10 @@ import { leanObject } from 'src/shared/prisma.helper';
 export class UserInfoDTO {
   id: number;
   email: string;
-  birth: bigint;
+  age: bigint;
   gender: GenderType;
   language: string;
+  name: string;
   username: string;
   state: boolean;
   accountType: AccountType;
@@ -16,6 +17,7 @@ export class UserInfoDTO {
     return {
       id: true,
       avatar: true,
+      name: true,
       email: true,
       birth: true,
       gender: true,
@@ -32,7 +34,8 @@ export class UserInfoDTO {
       id: e.id,
       avatar: e.avatar,
       email: e.email,
-      birth: parseEponch(Date.now()).year - parseEponch(e.birth).year,
+      name: e.name,
+      age: parseEponch(Date.now()).year - parseEponch(e.birth).year,
       gender: e.gender,
       language: e.language,
       username: e.username,

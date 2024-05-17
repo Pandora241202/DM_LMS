@@ -54,6 +54,7 @@ export const Layout = (props) => {
                   height: 24,
                   width: 24
                 }}
+                marginRight={2}
               >
                 <Logo />
               </Box>

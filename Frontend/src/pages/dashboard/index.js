@@ -65,7 +65,7 @@ const Page = () => {
                 spacing={4}
               >
                 {
-                  user.accountType === 'ADMIN' && <div>
+                  user?.accountType === 'ADMIN' && <div>
                     <Typography variant="h4">
                       Tổng quan
                     </Typography>
@@ -73,7 +73,7 @@ const Page = () => {
                 }
                 <Box>
                   {
-                    user.accountType === 'ADMIN' ? <DashboardAdmin/> : <DashboardLearner/>
+                    user?.accountType === 'ADMIN' ? <DashboardAdmin/> : <DashboardLearner/>
                   }  
                 </Box>
               </Stack>
