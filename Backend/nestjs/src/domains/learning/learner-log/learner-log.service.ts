@@ -49,7 +49,7 @@ export class LearnerLogService {
       select: { question: { include: { choice: true } } },
     });
 
-    const correctAnswers = QuizDTO.fromEntity(quiz as any).correctAnswers;
+    const correctAnswers = QuizDTO.fromEntity("", quiz as any).correctAnswers;
     let score: number = 0;
 
     for (let i = 0; i < correctAnswers.length; i++) if (correctAnswers[i] === learnerAnswers[i].charCodeAt(0) - 65) score += 1;

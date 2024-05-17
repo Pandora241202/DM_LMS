@@ -22,11 +22,15 @@ export class LearningMaterialController {
   @Get(':id')
   async detail(@Res() res: Response, @Param('id', ParseIntPipe) id: number) {
     const lm = await this.learningMaterialService.detail(id);
-    console.log(lm);
 
     if (lm.type === 'OTHER') {
       const filePath = `./uploads/materialFiles/${(lm.DTO as FileDTO).fileName}`;
       if (!existsSync(filePath)) throw new NotFoundException('Can not find file');
+      res.set({
+        'Content-Type': (lm.DTO as FileDTO).type,
+        'Content-Disposition': `attachment; filename=${(lm.DTO as FileDTO).name}`,
+        'filename': lm.DTO.name
+      });
       createReadStream(filePath).pipe(res);
     } else return res.status(200).json(lm.DTO);
   }
