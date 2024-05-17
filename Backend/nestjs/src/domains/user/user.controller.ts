@@ -15,7 +15,7 @@ export class UserController {
 
   @Post(':learnerId/courses')
   async registerCourse(@Param('learnerId', ParseIntPipe) learnerId: number, @Body() body: UserRegisterCourseCreateREQ) {
-    return await this.userService.registerCourse(learnerId, body.courseId);
+    return await this.userService.registerCourse(learnerId, Number(body.courseId));
   }
 
   @Patch(':learnerId/courses/:courseId')
@@ -63,8 +63,8 @@ export class UserController {
   }
 
   @Get(':id/courses')
-  async getAllCourses(@Param('id', ParseIntPipe) id: number) {
-    return await this.userService.getAllCourses(id);
+  async getAllCourses(@Param('id', ParseIntPipe) id: number, @Query() query: { take: number }) {
+    return await this.userService.getAllCourses(id, Number(query?.take));
   }
 
   @Patch(':id')

@@ -4,7 +4,7 @@ import { timeEponch } from 'src/shared/date.helper';
 import { leanObject } from 'src/shared/prisma.helper';
 
 export class UserCreateREQ {
-  @IsOptional() 
+  @IsOptional()
   @IsEmail()
   email: string;
 
@@ -58,7 +58,7 @@ export class UserCreateREQ {
     return {
       email: body.email,
       name: body.name,
-      birth: body.birth ? timeEponch(body.birth): null,
+      birth: body.birth ? timeEponch(body.birth) : null,
       gender: body.gender ? body.gender : GenderType.UNKNOWN,
       language: body.language,
       lastLogin: Date.now(),

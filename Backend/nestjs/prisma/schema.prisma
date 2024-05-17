@@ -82,6 +82,7 @@ model LearningMaterial {
 model Course {
   id              Int                     @id @default(autoincrement())
   idInstructor    Int                     @map("id_instructor")
+  rating          Float                   @default(5) @map("rating")
   name            String
   visibility      Boolean
   description     String
@@ -404,15 +405,15 @@ model RegisterCourse {
 }
 
 model HistoryOfCourse {
-  learnerId                    Int      @map("learner_id")
-  courseId                     Int      @map("course_id")
-  lastestStudyTime             DateTime @default(now()) @map("lastest_study_time")
-  lastestLessonId              Int?     @map("lastest_lesson_id")
-  lastestLessonPercentComplete Float?   @default(0) @map("lastest_lesson_percent_complete")
-  percentComplete              Float?   @default(0) @map("percent_complete")
-  course                       Course   @relation(fields: [courseId], references: [id])
-  learner                      Learner  @relation(fields: [learnerId], references: [id])
-  lastestLesson                Lesson?  @relation(fields: [lastestLessonId], references: [id])
+  learnerId                   Int      @map("learner_id")
+  courseId                    Int      @map("course_id")
+  lastestStudyTime            DateTime @default(now()) @map("lastest_study_time")
+  lastestLessonId             Int?     @map("lastest_lesson_id")
+  lastestLessonMinuteComplete Float?   @default(0) @map("lastest_lesson_minute_complete")
+  percentComplete             Float?   @default(0) @map("percent_complete")
+  course                      Course   @relation(fields: [courseId], references: [id])
+  learner                     Learner  @relation(fields: [learnerId], references: [id])
+  lastestLesson               Lesson?  @relation(fields: [lastestLessonId], references: [id])
 
   @@unique([learnerId, courseId])
   @@map("history_of_courses")

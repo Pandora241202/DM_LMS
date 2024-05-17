@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { addDays, subDays, subHours, subMinutes } from 'date-fns';
 import { useCallback, useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
@@ -15,21 +14,15 @@ import {
 import { usePageView } from '../../../hooks/use-page-view';
 import { useSettings } from '../../../hooks/use-settings';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
-import { OverviewBanner } from '../../../sections/dashboard/overview/overview-banner';
-import { OverviewDoneTasks } from '../../../sections/dashboard/overview/overview-done-tasks';
-import { OverviewEvents } from '../../../sections/dashboard/overview/overview-events';
-import { OverviewInbox } from '../../../sections/dashboard/overview/overview-inbox';
-import { OverviewTransactions } from '../../../sections/dashboard/overview/overview-transactions';
-import { OverviewPendingIssues } from '../../../sections/dashboard/overview/overview-pending-issues';
-import { OverviewSubscriptionUsage } from '../../../sections/dashboard/overview/overview-subscription-usage';
-import { OverviewHelp } from '../../../sections/dashboard/overview/overview-help';
-import { OverviewJobs } from '../../../sections/dashboard/overview/overview-jobs';
-import { OverviewOpenTickets } from '../../../sections/dashboard/overview/overview-open-tickets';
-import { OverviewTips } from '../../../sections/dashboard/overview/overview-tips';
-import { Course } from '../../../sections/dashboard/overview/course';
+import ArrowLeftIcon from '@untitled-ui/icons-react/build/esm/ArrowLeft';
+import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
+import { CourseCard } from '../../../sections/dashboard/academy/course-card';
 import { paths } from '../../../paths';
 import { useMounted } from '../../../hooks/use-mounted';
 import { exploreApi } from '../../../api/explore';
+import { useAuth } from '../../../hooks/use-auth';
+import { CourseSearch } from '../../../sections/dashboard/academy/course-search';
+import * as consts from '../../../constants';
 
 // import { CreateCourseDialog } from '../../../sections/dashboard/explore/create-course-dialog';
 
@@ -37,16 +30,25 @@ const now = new Date();
 
 const Page = () => {
   const isMounted = useMounted();
+  const { user } = useAuth()
   const settings = useSettings();
   const [listCourses, setListCourses] = useState([]);
-  // const [openCreateCourseDialog, setOpenCreateCourseDialog] = useState(false)
+  const [page, setPage] = useState(0);
+  const [filter, setFilter] = useState(null);
 
-  const getCourses = useCallback(async () => {
+
+  const getCourses = useCallback(async (filter) => {
     try {
       const response = await exploreApi.getListCourse();
+      console.log(filter)
+      let course = response.data
+      if (filter){
+        if (filter.name) course = course.filter(c => c.name.toLowerCase().includes(filter.name))
+        if (filter.level && filter.level != "NONE") course = course.filter(c => c.level === filter.level)
+      }
 
       if (isMounted()) {
-        setListCourses([...response.data]);
+        setListCourses(course);
       }
     } catch (err) {
       console.error(err);
@@ -54,8 +56,10 @@ const Page = () => {
   }, [])
 
   useEffect(() => {
-    getCourses();
-  },[]);
+    getCourses(filter);
+  },[filter]);
+
+  const handleFilter = useCallback((filterBy) => setFilter(filterBy), [])
 
   usePageView();
 
@@ -74,7 +78,7 @@ const Page = () => {
         }}
       >
         <Container maxWidth={settings.stretch ? false : 'xl'}>
-          <Grid
+         <Grid
             container
             disableEqualOverflow
             spacing={{
@@ -87,97 +91,90 @@ const Page = () => {
                 direction="row"
                 justifyContent="space-between"
                 spacing={4}
+                marginBottom={2}
               >
-                <div>
-                  <Typography variant="h4">
-                    Các khoá học mới
-                  </Typography>
-                </div>
-                <div>
-                  <Stack
-                    direction="row"
-                    spacing={4}
-                  >
-                    <Button
-                      component={NextLink}
-                      href={`${paths.dashboard.explore}/create`}
-                      // onClick={() => setOpenCreateCourseDialog(true)}
-                      startIcon={(
-                        <SvgIcon>
-                          <PlusIcon />
-                        </SvgIcon>
-                      )}
-                      variant="contained"
+                <>
+                  <div>
+                    <Typography variant="h4">
+                      Toàn bộ khóa học
+                    </Typography>
+                  </div>
+                  <div>
+                    <Stack
+                      direction="row"
+                      spacing={4}
                     >
-                      Tạo khoá học mới
-                    </Button>
-                  </Stack>
-                </div>
+                      {user.accountType !== 'LEARNER' && <Button
+                        component={NextLink}
+                        href={`${paths.dashboard.explore}/create`}
+                        startIcon={(
+                          <SvgIcon>
+                            <PlusIcon />
+                          </SvgIcon>
+                        )}
+                        variant="contained"
+                      >
+                        Tạo khoá học mới
+                      </Button>}
+                    </Stack>
+                  </div>
+                </>
               </Stack>
+              <CourseSearch onFilter = {handleFilter}/>
             </Grid>
-            {listCourses.map((_course) => 
+            {listCourses
+            .slice(page*consts.FORUMS_PER_PAGE, page*consts.FORUMS_PER_PAGE + consts.FORUMS_PER_PAGE)
+            .map((_course) => 
             (<Grid
               xs={12}
-              md={6}
+              md={4}
             >
-              <Course
-                title={_course.name}
-                amount={Math.floor(_course.amountOfTime/60)}
-                id={_course.id} />  
+              <CourseCard course = {_course} isExplore = {true}/>  
             </Grid>
             ))}
-            {/* <Grid
-              xs={12}
-              md={4}
-            >
-              <OverviewPendingIssues amount={12} />
-            </Grid>
-            
-            <Grid
-              xs={12}
-              md={4}
-            >
-              <OverviewOpenTickets amount={5} />
-            </Grid> */}
-            {/* <Grid
-              xs={12}
-              md={7}
-            >
-              <OverviewBanner />
-            </Grid>
-            <Grid
-              xs={12}
-              md={5}
-            >
-              <OverviewTips
-                sx={{ height: '100%' }}
-                tips={[
-                  {
-                    title: 'New fresh design.',
-                    content: 'Your favorite template has a new trendy look, more customization options, screens & more.'
-                  },
-                  {
-                    title: 'Tip 2.',
-                    content: 'Tip content'
-                  },
-                  {
-                    title: 'Tip 3.',
-                    content: 'Tip content'
-                  }
-                ]}
-              />
-            </Grid> */}
           </Grid>
-          {/* {
-            openCreateCourseDialog && (
-              <CreateCourseDialog
-                openCreateCourseDialog={openCreateCourseDialog}
-                setOpenCreateCourseDialog={setOpenCreateCourseDialog}
-              />
-            )
-          } */}
+          <Stack
+            alignItems="center"
+            direction="row"
+            justifyContent="center"
+            spacing={1}
+            sx={{
+              mt: 4,
+              mb: 8
+            }}
+          >
+            <Button
+              disabled={page == 0}
+              startIcon={(
+                <SvgIcon>
+                  <ArrowLeftIcon />
+                </SvgIcon>
+              )}
+              onClick={() => {
+                setPage(page - 1);
+                window.scrollTo(0,0);
+              }}
+            >
+            </Button>
+            <Typography variant="body1">
+              {page + 1} / {Math.ceil(listCourses.length / consts.FORUMS_PER_PAGE)}
+            </Typography>
+            <Button
+              disabled={page == Math.floor(listCourses.length / consts.FORUMS_PER_PAGE)}
+              endIcon={(
+                <SvgIcon>
+                  <ArrowRightIcon />
+                </SvgIcon>
+              )}
+              onClick={() => {
+                setPage(page + 1);
+                window.scrollTo(0,0);
+              }}
+            >
+            </Button>
+          </Stack>
         </Container>
-      </Box>
+      </Box> 
     </>
   );
 };

@@ -10,6 +10,7 @@ import * as bcrypt from 'bcrypt';
 import { UserRegisterCourseCreateREQ } from './request/user-register-course-create.request';
 import { LearnerHistoryCourseCreateREQ } from './request/learner-history-course-create.request';
 import { LearnerHistoryCourseUpdateREQ } from './request/learner-history-course-update.request';
+import { register } from 'module';
 
 @Injectable()
 export class UserService {
@@ -31,7 +32,7 @@ export class UserService {
         });
       }
 
-      return UserInfoDTO.fromEntity(user);
+      return UserInfoDTO.fromEntity(user as any);
     });
   }
 
@@ -40,8 +41,9 @@ export class UserService {
   }
 
   async detail(id: number) {
-    const user = await this.prismaService.authenticatedUser.findUniqueOrThrow({ where: { id } });
-    return UserInfoDTO.fromEntity(user);
+    const user = await this.prismaService.authenticatedUser.findUniqueOrThrow({ where: { id }, include: {Course: true}});
+    const registeCourseIds = (await this.prismaService.registerCourse.findMany({where: {learnerId: user.id}, select: {courseId: true}})).map(register => register.courseId)
+    return UserInfoDTO.fromEntity(user as any, registeCourseIds);
   }
 
   async findAll(query: PaginationREQ) {
@@ -129,9 +131,28 @@ export class UserService {
     });
   }
 
-  async getAllCourses(learnerId: number) {
-    const courses = await this.prismaService.historyOfCourse.findMany({take: 3, where: {learnerId: learnerId}, orderBy: {lastestStudyTime: "desc"}, select: {lastestLessonPercentComplete: true, lastestLesson: {select: {id: true, title: true}}, course: {select: {id: true, name: true, description: true, amountOfTime: true}}}})
+  async getAllCourses(learnerId: number, take: number) {
+    const courses = take
+      ? await this.prismaService.historyOfCourse.findMany({
+          take: take,
+          where: { learnerId: learnerId },
+          orderBy: { lastestStudyTime: 'desc' },
+          select: {
+            lastestLessonMinuteComplete: true,
+            lastestLesson: { select: { id: true, title: true, amountOfTime: true } },
+            course: { select: { id: true, name: true, description: true, amountOfTime: true } },
+          },
+        })
+      : await this.prismaService.historyOfCourse.findMany({
+          where: { learnerId: learnerId },
+          orderBy: { lastestStudyTime: 'desc' },
+          select: {
+            lastestLessonMinuteComplete: true,
+            lastestLesson: { select: { id: true, title: true, amountOfTime: true } },
+            course: { select: { id: true, name: true, description: true, amountOfTime: true } },
+          },
+        });
 
-    return courses
+    return courses;
   }
 }

@@ -59,16 +59,16 @@ export const getSections = (t, accountType) => [
             <GraduationHat01Icon />
           </SvgIcon>
         ),
-        items: [
-          {
-            title: t(tokens.nav.dashboard),
-            path: paths.dashboard.academy.index
-          },
-          {
-            title: t(tokens.nav.course),
-            path: paths.dashboard.academy.courseDetails
-          }
-        ]
+        // items: [
+        //   {
+        //     title: t(tokens.nav.dashboard),
+        //     path: paths.dashboard.academy.index
+        //   },
+        //   {
+        //     title: t(tokens.nav.course),
+        //     path: paths.dashboard.academy.courseDetails
+        //   }
+        // ]
       },
       {
         title: t(tokens.nav.explore),

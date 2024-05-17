@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import ArrowLeftIcon from '@untitled-ui/icons-react/build/esm/ArrowLeft';
 import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
 import {
   Box,
@@ -16,39 +17,49 @@ import { AcademyDailyProgress } from '../../../sections/dashboard/academy/academ
 import { AcademyFind } from '../../../sections/dashboard/academy/academy-find';
 import { CourseCard } from '../../../sections/dashboard/academy/course-card';
 import { CourseSearch } from '../../../sections/dashboard/academy/course-search';
+import { useMounted } from '../../../hooks/use-mounted';
+import { useCallback, useEffect, useState } from 'react';
+import { userApi } from '../../../api/user';
+import { useAuth } from '../../../hooks/use-auth';
+import * as consts from '../../../constants';
 
-const useCourses = () => {
-  return [
-    {
-      id: 'c3a2b7331eef8329e2a87c79',
-      description: 'Introductory course for design and framework basics',
-      duration: '78 hours',
-      media: '/assets/courses/course-1.png',
-      progress: 23,
-      title: 'React and Redux Tutorial'
-    },
-    {
-      id: '3f02f696f869ecd1c68e95a3',
-      description: 'Introductory course for design and framework basics',
-      duration: '14 hours',
-      media: '/assets/courses/course-2.png',
-      progress: 52,
-      title: 'React and Express Tutorial'
-    },
-    {
-      id: 'f6e76a6474038384cd9e032b',
-      description: 'Introductory course for design and framework basics',
-      duration: '21 hours',
-      media: '/assets/courses/course-3.png',
-      progress: 90,
-      title: 'React Crash Course: Beginner'
+const useCourses = (id) => {
+  const isMounted = useMounted();
+  const [listCourses, setListCourses] = useState([{
+        lastestLessonMinuteComplete: 0,
+        lastestLesson: {
+            id: 0,
+            title: "",
+            amountOfTime: 0,
+        },
+        course: {
+            id: 0,
+            name: ""
+        }
+    }]);
+
+  const getListCourses = useCallback(async () => {
+    try {
+        const response = await userApi.getUserCourses(id)
+        if (isMounted()) {
+          setListCourses(response.data);
+        }
+    } catch (err) {
+      console.error(err);
     }
-  ];
+  }, [isMounted]);
+
+  useEffect(() => {
+    getListCourses();
+  }, [id]);
+  return listCourses; 
 };
 
 const Page = () => {
   const settings = useSettings();
-  const courses = useCourses();
+  const {user} = useAuth()
+  const courses = useCourses(user.id);
+  const [page, setPage] = useState(0);
 
   usePageView();
 
@@ -63,32 +74,9 @@ const Page = () => {
         component="main"
         sx={{ flexGrow: 1 }}
       >
-        <Box
-          sx={{
-            backgroundColor: 'primary.darkest',
-            color: 'primary.contrastText',
-            py: '120px'
-          }}
-        >
-          <Container maxWidth="xl">
-            <Typography
-              color="inherit"
-              variant="h5"
-            >
-              Find unparalleled knowledge
-            </Typography>
-            <Typography
-              color="inherit"
-              sx={{ mt: 1, mb: 6 }}
-            >
-              Learn from the top-tier creatives and leading experts in AI
-            </Typography>
-            <CourseSearch />
-          </Container>
-        </Box>
         <Box sx={{ py: '64px' }}>
           <Container maxWidth={settings.stretch ? false : 'xl'}>
-            <Grid
+             <Grid
               container
               spacing={{
                 xs: 3,
@@ -96,64 +84,67 @@ const Page = () => {
               }}
             >
               <Grid xs={12}>
-                <Typography variant="h6">
-                  Welcome back, Anika
-                </Typography>
-                <Typography
-                  color="text.secondary"
-                  sx={{ mt: 1 }}
-                  variant="body2"
-                >
-                  Nice progress so far, keep it up!
-                </Typography>
-              </Grid>
-              <Grid
-                xs={12}
-                md={9}
-              >
-                <AcademyDailyProgress
-                  timeCurrent={20}
-                  timeGoal={35}
-                />
-              </Grid>
-              <Grid
-                xs={12}
-                md={3}
-              >
-                <AcademyFind />
-              </Grid>
-              <Grid xs={12}>
                 <Stack
                   alignItems="flex-start"
                   direction="row"
                   justifyContent="space-between"
                   spacing={3}
                 >
-                  <Typography variant="h6">
-                    My Courses
+                  <Typography variant="h3">
+                    Các khóa học đã đăng kí
                   </Typography>
-                  <Button
-                    color="inherit"
-                    endIcon={(
-                      <SvgIcon>
-                        <ArrowRightIcon />
-                      </SvgIcon>
-                    )}
-                  >
-                    See all
-                  </Button>
                 </Stack>
               </Grid>
-              {courses.map((course) => (
+              {courses
+              .slice(page*consts.FORUMS_PER_PAGE, page*consts.FORUMS_PER_PAGE + consts.FORUMS_PER_PAGE)
+              .map((history) => (
                 <Grid
-                  key={course.id}
+                  key={history.course.id}
                   xs={12}
                   md={4}
                 >
-                  <CourseCard course={course} />
+                  <CourseCard course={history.course} />
                 </Grid>
               ))}
             </Grid>
+            <Stack
+              alignItems="center"
+              direction="row"
+              justifyContent="center"
+              spacing={1}
+              sx={{
+                mt: 4,
+                mb: 8
+              }}
+            >
+              <Button
+                disabled={page == 0}
+                startIcon={(
+                  <SvgIcon>
+                    <ArrowLeftIcon />
+                  </SvgIcon>
+                )}
+                onClick={() => {
+                  setPage(page - 1);
+                  window.scrollTo(0,0);
+                }}
+              />
+              <Typography variant="body1">
+                {page + 1} / {Math.ceil(courses.length / consts.FORUMS_PER_PAGE)}
+              </Typography>
+              <Button
+                disabled={page == Math.floor(courses.length / consts.FORUMS_PER_PAGE)}
+                endIcon={(
+                  <SvgIcon>
+                    <ArrowRightIcon />
+                  </SvgIcon>
+                )}
+                onClick={() => {
+                  setPage(page + 1);
+                  window.scrollTo(0,0);
+                }}
+              />
+            </Stack>
           </Container>
         </Box>
       </Box>

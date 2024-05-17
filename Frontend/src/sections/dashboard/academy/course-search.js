@@ -1,10 +1,24 @@
 import SearchMdIcon from '@untitled-ui/icons-react/build/esm/SearchMd';
 import { Box, Button, Card, Stack, SvgIcon, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useCallback, useState } from 'react';
 
-const platformOptions = ['Web', 'Node.js', 'Python', 'C#'];
+const levelOptions = [
+  "NONE",
+  "BASIC",
+  "INTERMEDIATE",
+  "EXPERT"
+];
 
-export const CourseSearch = () => {
+export const CourseSearch = (props) => {
+  const {onFilter} = props
+  const [name, setName] = useState(null)
+  const [level, setLevel] = useState(null)
+
+  const handleSearchButton = useCallback(() => {
+    onFilter({name, level})
+  }, [name, level])
+
   return (
     <Card>
       <Stack
@@ -18,21 +32,22 @@ export const CourseSearch = () => {
           <TextField
             defaultValue=""
             fullWidth
-            label="Search"
+            label="Tên khóa học"
+            onChange={(event) => setName(event.target.value)}
             name="query"
-            placeholder="Title or description"
           />
         </Box>
         <Box sx={{ flexGrow: 1 }}>
           <TextField
-            defaultValue="web"
+            defaultValue="NONE"
             fullWidth
-            label="Platform"
-            name="platform"
+            label="Phân loại"
+            name="subject"
             select
             SelectProps={{ native: true }}
+            onChange={(event) => setLevel(event.target.value)}
           >
-            {platformOptions.map((option) => (
+            {levelOptions.map((option) => (
               <option
                 key={option}
                 value={option}
@@ -42,24 +57,6 @@ export const CourseSearch = () => {
             ))}
           </TextField>
         </Box>
-        <div>
-          <DatePicker
-            inputFormat="dd/MM/yyyy"
-            label="From"
-            onChange={() => { }}
-            renderInput={(inputProps) => <TextField {...inputProps} />}
-            value={new Date()}
-          />
-        </div>
-        <div>
-          <DatePicker
-            inputFormat="dd/MM/yyyy"
-            label="To"
-            onChange={() => { }}
-            renderInput={(inputProps) => <TextField {...inputProps} />}
-            value={new Date()}
-          />
-        </div>
         <Button
           size="large"
           startIcon={(
@@ -68,8 +65,9 @@ export const CourseSearch = () => {
             </SvgIcon>
           )}
           variant="contained"
+          onClick={handleSearchButton}
         >
-          Search
+          Tìm kiếm
         </Button>
       </Stack>
     </Card>

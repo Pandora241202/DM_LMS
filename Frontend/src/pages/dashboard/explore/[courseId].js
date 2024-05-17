@@ -4,12 +4,15 @@ import NextLink from 'next/link';
 import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
 
 import {
+  Alert,
   Box,
   Breadcrumbs,
   Button,
   Card,
   Container,
+  Grid,
   Link,
+  Rating,
   Stack,
   SvgIcon,
   Typography
@@ -25,6 +28,8 @@ import { LMManageListTable } from '../../../sections/dashboard/explore/explore-l
 import { applyPagination } from '../../../utils/apply-pagination';
 import CollapsibleTable from '../../../sections/dashboard/explore/lesson-list-table';
 import { exploreApi } from '../../../api/explore';
+import { useAuth } from '../../../hooks/use-auth';
+import { userApi } from '../../../api/user';
 
 const useSearch = () => {
   const [search, setSearch] = useState({
@@ -126,18 +131,28 @@ const useLMs = (search) => {
 
 const LessonList = () => {
   const { search, updateSearch } = useSearch();
+  const { user } = useAuth();
   const { LMs, LMsCount } = useLMs(search);
   const courseUrl = window.location.href.split('/');
   const courseId = (courseUrl[courseUrl.length - 1]);
   const [lessonList, setLessonList] = useState([]);
   const [courseTitle, setCourseTitle] = useState("");
+  const [courseDescription, setCourseDescription] = useState("");
+  const [instructor, setInstructor] = useState("");
+  const [level, setLevel] = useState("");
+  const [rating, setRating] = useState("");
+  const [updatedAt, setUpdated] = useState("");
 
   useEffect(() => {(async () => {
     try {
       const response = await exploreApi.detailCourse(courseId);
       setLessonList(response.data.lessons)
       setCourseTitle(response.data.name)
-
+      setCourseDescription(response.data.description)
+      setInstructor(response.data.instructor)
+      setRating(response.data.rating)
+      setLevel(response.data.level)
+      setUpdated(response.data.updatedAt.slice(8, 10) + '-' + response.data.updatedAt.slice(5, 7) + '-' + response.data.updatedAt.slice(0, 4))
     } catch (err) {
       console.error(err);
     }
@@ -166,11 +181,13 @@ const LessonList = () => {
     }));
   }, [updateSearch]);
 
+  const handleRegisterCourse = useCallback(async () => await userApi.registerCourse(user.id, courseId))
+
   return (
     <>
       <Head>
         <title>
-          Dashboard: Quản lý tài liệu học tập
+          Khóa học {courseTitle}
         </title>
       </Head>
       <Box
@@ -202,20 +219,19 @@ const LessonList = () => {
                   </Link>
                   <Link
                     color="text.primary"
-                    component={NextLink}
-                    href={`${paths.dashboard.explore}/create`}
                     variant="subtitle2"
                   >
-                    Tạo khoá học mới
+                    {courseTitle}
                   </Link>
                 </Breadcrumbs>
               </Stack>
+              
               <Stack
                 alignItems="center"
                 direction="row"
                 spacing={3}
               >
-                <Button
+                {user.accountType !== 'LEARNER' && user.id !== instructor.id && <Button
                   component={NextLink}
                   // Thay đổi đường dẫn để lưu vào db
                   href={`${paths.dashboard.explore}/lesson/${courseId}`}
@@ -227,9 +243,49 @@ const LessonList = () => {
                   variant="contained"
                 >
                   Thêm bài học mới
-                </Button>
+                </Button>}
+                {
+                  user.accountType === 'LEARNER' && !user.registerCourseIds?.includes(Number(courseId)) && <Button
+                    onClick={handleRegisterCourse}                    
+                    startIcon={(
+                      <SvgIcon>
+                        <PlusIcon />
+                      </SvgIcon>
+                    )}
+                    variant="contained"
+                  >
+                    Đăng kí khóa học
+                  </Button>
+                }
+                {
+                  user.accountType === 'LEARNER' && user.registerCourseIds?.includes(Number(courseId)) && 
+                  <Alert variant="filled" severity="success" sx={{ color: 'white' }}>
+                    Bạn đang học khóa học này
+                  </Alert>
+                }
               </Stack>
             </Stack>
+            <Grid>
+              <Stack direction={"row"} spacing={3}>
+                <img src="/assets/cards/card-visa.png" width={600} height={300}/>
+                <Grid container spacing={3} direction={"row"}>
+                  <Stack direction={"row"} spacing={5}>
+                    <Rating name="read-only" value={rating} readOnly />
+                    <Typography variant='h5'>
+                      Trình độ: {level}
+                    </Typography>
+                    <Typography variant='h5'>
+                      Cập nhật: {updatedAt}
+                    </Typography>
+                  </Stack>
+                  <Grid item>
+                    <Typography variant='h5'>
+                      {courseDescription}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Stack>
+            </Grid>
             <Card>
               {/* <LMManageListSearch onFiltersChange={handleFiltersChange} />
               <LMManageListTable
@@ -241,6 +297,7 @@ const LessonList = () => {
                 rowsPerPage={search.rowsPerPage}
               /> */}
               <CollapsibleTable 
+                accountType = {user.accountType}
                 rows={lessonList}  
               />
             </Card>

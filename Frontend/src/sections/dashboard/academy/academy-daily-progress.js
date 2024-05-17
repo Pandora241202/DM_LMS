@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Box, Button, Card, CardContent, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Chart } from '../../../components/chart';
 
@@ -77,7 +77,8 @@ const useChartOptions = (timeLeft) => {
 };
 
 export const AcademyDailyProgress = (props) => {
-  const { currentProgress, lessonName } = props;
+  const { timeCurrent, timeGoal, lessonName, courseName } = props;
+  const currentProgress = timeGoal - timeCurrent;
   const chartOptions = useChartOptions(currentProgress);
   const chartSeries = [currentProgress];
 
@@ -89,7 +90,6 @@ export const AcademyDailyProgress = (props) => {
             mx: -4,
             my: -6
           }}
-          marginBottom={20}
         >
           <Chart
             width={260}
@@ -105,12 +105,13 @@ export const AcademyDailyProgress = (props) => {
         <Typography
           color="text.secondary"
           variant="body2"
+          marginTop={2}
         >
-          {lessonName ? `Bạn vừa bắt đầu học ${lessonName}` : `Tiếp tục học bài ${lessonName}`}
+          {lessonName ? `Tiếp tục học bài ${lessonName}` : `Bạn vừa bắt đầu học ${courseName}`}
         </Typography>
         <Box sx={{ mt: 2 }}>
           <Button variant="contained">
-            {lessonName}
+            {lessonName ? lessonName : courseName}
           </Button>
         </Box>
       </CardContent>

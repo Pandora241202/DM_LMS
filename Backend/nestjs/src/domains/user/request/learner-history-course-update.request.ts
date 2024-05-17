@@ -9,12 +9,12 @@ export class LearnerHistoryCourseUpdateREQ {
 
   @IsOptional()
   @IsNumber()
-  lastestLessonPercentComplete: number = 0;
+  lastestLessonMinuteComplete: number = 0;
 
   static toUpdateInput(body: LearnerHistoryCourseUpdateREQ, percentComplete: number): Prisma.HistoryOfCourseUpdateInput {
     return {
       lastestLesson: connectRelation(body.lessonId),
-      lastestLessonPercentComplete: body.lastestLessonPercentComplete ? body.lastestLessonPercentComplete : 0,
+      lastestLessonMinuteComplete: body.lastestLessonMinuteComplete ? body.lastestLessonMinuteComplete : 0,
       percentComplete: percentComplete,
     };
   }

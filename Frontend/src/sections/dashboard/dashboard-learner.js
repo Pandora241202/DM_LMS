@@ -3,19 +3,22 @@ import { useAuth } from "../../hooks/use-auth"
 import { useMounted } from "../../hooks/use-mounted";
 import { useCallback, useEffect, useState } from "react";
 import { CourseCard } from "./academy/course-card";
-import { usePageView } from "../../hooks/use-page-view";
-import { Grid, Typography, backdropClasses } from "@mui/material";
+import { Button, Grid, SvgIcon, Typography } from "@mui/material";
 import { Box, Container, Stack } from "@mui/system";
 import { grey } from "@mui/material/colors";
 import { AcademyDailyProgress } from "./academy/academy-daily-progress";
+import { useSettings } from "../../hooks/use-settings";
+import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
+import { paths } from "../../paths";
 
 const useListCourses = (id) => {
   const isMounted = useMounted();
   const [listCourses, setListCourses] = useState([{
-        lastestLessonPercentComplete: 0,
+        lastestLessonMinuteComplete: 0,
         lastestLesson: {
             id: 0,
-            title: ""
+            title: "",
+            amountOfTime: 0,
         },
         course: {
             id: 0,
@@ -25,7 +28,7 @@ const useListCourses = (id) => {
 
   const getListCourses = useCallback(async () => {
     try {
-        const response = await userApi.getUserCourses(id)
+        const response = await userApi.getUserCourses(id, 3)
         if (isMounted()) {
           setListCourses(response.data);
         }
@@ -41,44 +44,75 @@ const useListCourses = (id) => {
 }; 
 
 export const DashboardLearner = () => {
+    const settings = useSettings();
     const { user } = useAuth()
     const listCourses = useListCourses(user.id)
 
     return (
         <>
-            <Grid
-                xs={12}
-                md={9}
-            >
-                <AcademyDailyProgress
-                    currentProgress={listCourses[0].lastestLessonPercentComplete}
-                    lessonName={listCourses[0].lastestLesson? listCourses[0].lastestLesson.title : listCourses[0].course.name}
-                />
-            </Grid>
-            <>
-                <div>
-                    <Typography variant="h5" marginBottom={3}>
-                        Các khóa học gần đây
-                    </Typography>
-                </div>
-                <Stack
-                    direction={"row"}
-                    spacing={2}
-                >   
-                    {
-                        listCourses && listCourses.map(history => (
-                            <Grid
-                                key={history.course.id}
-                                xs={12}
-                                md={6}
-                                border= {grey[50]}
-                            >
-                                <CourseCard course={history.course} />
-                            </Grid>   
-                        ))
-                    }
-                </Stack>
-            </>
-        </>
+        <Box
+            component="main"
+            sx={{ flexGrow: 1 }}
+        >
+            <Box sx={{ py: '64px' }}>
+                <Container maxWidth={settings.stretch ? false : 'xl'}>
+                    <Grid
+                        container
+                        spacing={{
+                            xs: 3,
+                            lg: 4
+                        }}
+                    >
+                    <Grid xs={12}>
+                        <Typography variant="h4">
+                            Chào mừng trở lại
+                        </Typography>
+                        <Typography
+                            color="text.secondary"
+                            sx={{ mt: 1 }}
+                            variant="body2"
+                            marginBottom={2}
+                        >
+                            Học là một cuộc phiêu lưu không bao giờ kết thúc.
+                        </Typography>
+                    </Grid>
+                    <Grid
+                        xs={12}
+                        md={12}
+                    >
+                        <AcademyDailyProgress
+                            timeCurrent={listCourses[0].lastestLessonMinuteComplete*60}
+                            timeGoal={listCourses[0].lastestLesson ? listCourses[0].lastestLesson.amountOfTime : ""}
+                            courseName = {listCourses[0].course.name}
+                            lessonName = {listCourses[0].lastestLesson ? listCourses[0].lastestLesson.title : ""}
+                        />
+                    </Grid>
+                    <Grid xs={12} marginBottom={2}>
+                        <Stack
+                            alignItems="flex-start"
+                            direction="row"
+                            justifyContent="space-between"
+                            spacing={3}
+                        >
+                            <Typography variant="h5">
+                                Học gần đây
+                            </Typography>
+                        </Stack>
+                    </Grid>
+                    {listCourses.map((history) => (
+                        <Grid
+                            key={history.course.id}
+                            xs={12}
+                            md={3.5}
+                            marginRight={5}
+                        >
+                        <CourseCard course={history.course} />
+                        </Grid>
+                    ))}
+                    </Grid>
+                </Container>
+            </Box>
+        </Box>
+    </>
     )
 }

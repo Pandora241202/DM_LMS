@@ -57,12 +57,12 @@ export const CourseCard = (props) => {
             color="text.secondary"
             variant="caption"
           >
-            {course.amountOfTime/60}p
+            {course.amountOfTime > 3600 ? `${Math.floor(course.amountOfTime/3600)}h${Math.floor((course.amountOfTime%3600)/60)}p` : `${Math.floor(course.amountOfTime/60)}p`}
           </Typography>
         </Stack>
       </CardContent>
       <LinearProgress
-        value={course.progress}
+        value={course.progress ? course.progress : 100}
         variant="determinate"
       />
       <Box
@@ -82,7 +82,7 @@ export const CourseCard = (props) => {
           )}
           href={`${paths.dashboard.explore}/${course.id}`}
         >
-          Continue
+          {props.isExplore ? "Khám phá" : "Tiếp tục"}
         </Button>
       </Box>
     </Card>
