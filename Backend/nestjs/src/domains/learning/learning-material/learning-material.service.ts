@@ -174,7 +174,7 @@ export class LearningMaterialService {
 
     const lm = await this.prismaService.learningMaterial.findFirst({
       where: { id },
-      select: { type: true, Exercise: { select: { quizId: true, codeId: true } }, Other: { select: { fileId: true } } },
+      select: { name: true, type: true, Exercise: { select: { quizId: true, codeId: true } }, Other: { select: { fileId: true } } },
     });
     if (!lm) throw new NotFoundException("Couldn't find learning material");
 
@@ -186,7 +186,7 @@ export class LearningMaterialService {
       if (!code) throw new NotFoundException("Couldn't find learning material");
 
       type = 'CODE';
-      DTO = CodeDTO.fromEntity(code as any);
+      DTO = CodeDTO.fromEntity(lm.name, code as any);
     } else if (lm.type === LearningMaterialType.QUIZ) {
       const quiz = await this.prismaService.quiz.findFirst({
         where: { id: lm.Exercise.quizId },
@@ -196,7 +196,7 @@ export class LearningMaterialService {
       if (!quiz) throw new NotFoundException("Couldn't find learning material");
 
       type = 'QUIZ';
-      DTO = QuizDTO.fromEntity(quiz as any);
+      DTO = QuizDTO.fromEntity(lm.name, quiz as any);
     } else {
       const file = await this.prismaService.file.findFirst({ where: { id: lm.Other.fileId } });
       if (!file) throw new NotFoundException("Couldn't find learning material");

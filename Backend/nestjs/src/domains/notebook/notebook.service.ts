@@ -9,6 +9,10 @@ export class NotebookService {
   async create(data: Prisma.NotebookUncheckedCreateInput) {
     return await this.prismaService.notebook.create({
       data: data,
+      include: {
+        modelVariations: true,
+        datasets: true
+      }
     });
   }
 
@@ -48,34 +52,9 @@ export class NotebookService {
     });
   }
 
-  async updateOne(id: number, data: Prisma.NotebookUncheckedUpdateInput, modelVariationIds: number[], datasetIds: number[]) {
+  async updateOne(id: number, data: Prisma.NotebookUncheckedUpdateInput) {
     let updateData: any = { ...data };
-    if (modelVariationIds) {
-      updateData = {
-        ...updateData,
-        modelVariations: {
-          set: modelVariationIds.map((modelVariationId) => ({
-            modelVariationId_notebookId: {
-              modelVariationId: modelVariationId,
-              notebookId: id,
-            },
-          })),
-        },
-      };
-    }
-    if (datasetIds) {
-      updateData = {
-        ...updateData,
-        datasets: {
-          set: datasetIds.map((datasetId) => ({
-            datasetId_notebookId: {
-              datasetId: datasetId,
-              notebookId: id,
-            },
-          })),
-        },
-      };
-    }
+    console.log(updateData);
     return await this.prismaService.notebook.update({
       where: { id: id },
       data: updateData,
