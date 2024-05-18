@@ -31,8 +31,10 @@ import { useRouter } from 'next/navigation';
 import { useMounted } from '../../../hooks/use-mounted';
 import { exploreApi } from '../../../api/explore';
 import { fileApi } from '../../../api/file';
+import { learning_logApi } from '../../../api/learning-log';
 import { ItemMenu } from './item-menu';
 import { paths } from '../../../paths';
+import { useAuth } from '../../../hooks/use-auth';
 
 
 
@@ -155,6 +157,7 @@ function Row(props) {
   const courseId = (courseUrl[courseUrl.length - 1]);
   const isMounted = useMounted();
   const menuRef = useRef(null);
+  const { user } = useAuth();
   const [openMenu, setOpenMenu] = useState(false);
   const { row, accountType, isInstructor } = props;
   const [open, setOpen] = React.useState(false);
@@ -184,9 +187,21 @@ function Row(props) {
   }, [open])
 
 
-  const createLog = useCallback(() => {
-    
-  })
+  const createFileLog = async (lm, user) => {
+    try {
+      const response = await learning_logApi.createLog(user.id, {
+        rating: 3,
+        time: 120, //chỗ này cần phải lấy time của lm sau đó gắn vào
+        attempts: 1,
+        learningMaterialId: lm.id,
+      });
+      console.log(response);
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   const getFile = useCallback(async (id) => {
     try {
       // const response = await fileApi.getFileFromGGDrive(id);
@@ -203,7 +218,8 @@ function Row(props) {
     }
   }, [open])
 
-  const handlePageChange = (lm) => {
+  const handlePageChange = (lm, user) => {
+    createFileLog(lm, user)
     switch(lm.type) {
       case "VIDEO":
         router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
@@ -213,6 +229,7 @@ function Row(props) {
         break;
       default:
         // code block
+        createFileLog(lm, user)
         getFile(lm.id)
     }
 
@@ -269,7 +286,7 @@ function Row(props) {
                       mx: 'auto',
                       p: 1,
                       }}
-                      onClick={() => handlePageChange(_lm)}
+                      onClick={() => handlePageChange(_lm, user)}
                   >
                       <Stack spacing={2} direction="row" alignItems="center">
                           <FileIcon extension={_lm.type} />

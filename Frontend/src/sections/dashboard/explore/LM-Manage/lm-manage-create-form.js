@@ -25,6 +25,7 @@ import { QuillEditor } from '../../../../components/quill-editor';
 import { paths } from '../../../../paths';
 import { topic_manageApi } from '../../../../api/topic-manage';
 import { lm_manageApi } from '../../../../api/lm-manage';
+import { exploreApi } from '../../../../api/explore';
 import { useMounted } from '../../../../hooks/use-mounted';
 import axios from 'axios';
 
@@ -119,6 +120,7 @@ export const LMCreateForm = (props) => {
       const response = await exploreApi.getLesson(id);
 
       if (isMounted()) {
+        console.log(response.data)
         setListLMAccordingToLesson(response.data);
       }
     } catch (err) {
@@ -187,7 +189,7 @@ export const LMCreateForm = (props) => {
 
   useEffect(() => {
     getTopics();
-    getLesson(lessonId);
+    getLesson(lessonId);  
   },[]);
 
   const handleFilesDrop = useCallback((newFiles) => {
@@ -492,6 +494,7 @@ export const LMCreateForm = (props) => {
                   onUpload={handleFilesUpload}
                 />}
               </Grid>
+              {/* {console.log(listLMAccordingToLesson)} */}
             </Grid>
           </CardContent>
         </Card>
