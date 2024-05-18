@@ -31,11 +31,11 @@ import { useRouter } from 'next/navigation';
 import { useMounted } from '../../../hooks/use-mounted';
 import { exploreApi } from '../../../api/explore';
 import { fileApi } from '../../../api/file';
+import { userApi } from '../../../api/user';
 import { learning_logApi } from '../../../api/learning-log';
 import { ItemMenu } from './item-menu';
 import { paths } from '../../../paths';
 import { useAuth } from '../../../hooks/use-auth';
-
 
 
 
@@ -186,6 +186,19 @@ function Row(props) {
     }
   }, [open])
 
+  const getUser = useCallback(async (id) => {
+    try {
+      const response = await userApi.getUser(id);
+
+      if (isMounted()) {
+        console.log(response.data)
+        return response.data;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [])
+
 
   const createFileLog = async (lm, user) => {
     try {
@@ -218,21 +231,38 @@ function Row(props) {
     }
   }, [open])
 
-  const handlePageChange = (lm, user) => {
-    createFileLog(lm, user)
-    switch(lm.type) {
-      case "VIDEO":
-        router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
-        break;
-      case "PDF":
-        router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
-        break;
-      default:
-        // code block
-        createFileLog(lm, user)
-        getFile(lm.id)
-    }
-
+  const handlePageChange = (lm, user) => {  
+    // Kiểm tra trước xem khoá học này đã được user register chưa, nếu được register rồi thì mới gửi api createFileLog và getFile
+    // const getUser = async (id) => {
+    //   try {
+    //     const response = await userApi.getUser(user.id);
+    //     return response.data;
+    //   } catch(err)  {
+    //     console.error(err);
+    //   }
+    // }
+    const userData = getUser(user.id)
+    console.log(user)
+    // if(userData.registerCourseIds.includes(courseId)) {
+    //   // Gửi api createFileLog và getFile
+    //   createFileLog(lm, user)
+    //   switch(lm.type) {
+    //     case "VIDEO":
+    //       router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
+    //       break;
+    //     case "PDF":
+    //       router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
+    //       break;
+    //     default:
+    //       // code block
+    //       createFileLog(lm, user)
+    //       getFile(lm.id)
+    //   }
+    //   console.log("hehehehe")
+    // }
+    // else{
+    //   console.log("huhuhuhuhu")
+    // }
   }
 
   const handleMenuClose = useCallback(() => {
