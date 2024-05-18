@@ -12,8 +12,9 @@ export class ForumService {
     });
   }
 
-  async getAll() {
+  async getMany(criteria) {
     return await this.prismaService.forum.findMany({
+      where: criteria,
       select: {
         id: true,
         title: true,
