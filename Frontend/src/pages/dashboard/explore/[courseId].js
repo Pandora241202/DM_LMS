@@ -299,6 +299,7 @@ const LessonList = () => {
               /> */}
               <CollapsibleTable 
                 accountType = {user.accountType}
+                isInstructor = {user.id === instructor.id}
                 rows={lessonList}  
               />
             </Card>
