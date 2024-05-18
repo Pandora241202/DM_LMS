@@ -5,6 +5,7 @@ from ontology import *
 from database import *
 from forum import *
 import json
+import os
 
 pythonServer = Path(__file__).resolve().parent
 systemOntology = pythonServer / 'ontology'
