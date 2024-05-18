@@ -186,18 +186,18 @@ function Row(props) {
     }
   }, [open])
 
-  const getUser = useCallback(async (id) => {
-    try {
-      const response = await userApi.getUser(id);
+  // const getUser = useCallback(async (id) => {
+  //   try {
+  //     const response = await userApi.getUser(id);
 
-      if (isMounted()) {
-        console.log(response.data)
-        return response.data;
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [])
+  //     if (isMounted()) {
+  //       console.log(response.data)
+  //       return response.data;
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }, [])
 
 
   const createFileLog = async (lm, user) => {
@@ -233,36 +233,23 @@ function Row(props) {
 
   const handlePageChange = (lm, user) => {  
     // Kiểm tra trước xem khoá học này đã được user register chưa, nếu được register rồi thì mới gửi api createFileLog và getFile
-    // const getUser = async (id) => {
-    //   try {
-    //     const response = await userApi.getUser(user.id);
-    //     return response.data;
-    //   } catch(err)  {
-    //     console.error(err);
-    //   }
-    // }
-    const userData = getUser(user.id)
-    console.log(user)
-    // if(userData.registerCourseIds.includes(courseId)) {
-    //   // Gửi api createFileLog và getFile
-    //   createFileLog(lm, user)
-    //   switch(lm.type) {
-    //     case "VIDEO":
-    //       router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
-    //       break;
-    //     case "PDF":
-    //       router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
-    //       break;
-    //     default:
-    //       // code block
-    //       createFileLog(lm, user)
-    //       getFile(lm.id)
-    //   }
-    //   console.log("hehehehe")
-    // }
-    // else{
-    //   console.log("huhuhuhuhu")
-    // }
+    console.log(user.registerCourseIds)
+    if(user.registerCourseIds.includes(parseInt(courseId, 10))) {
+      // Gửi api createFileLog và getFile
+      createFileLog(lm, user)
+      switch(lm.type) {
+        case "VIDEO":
+          router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
+          break;
+        case "PDF":
+          router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
+          break;
+        default:
+          // code block
+          createFileLog(lm, user)
+          getFile(lm.id)
+      }
+    }
   }
 
   const handleMenuClose = useCallback(() => {
@@ -337,7 +324,7 @@ function Row(props) {
         onClose={handleMenuClose}
         open={openMenu}
         idLesson={row.id}
-        idCourse={courseId}
+        idCourse={parseInt(courseId, 10)}
       />}
     </React.Fragment>
   );

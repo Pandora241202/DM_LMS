@@ -3,7 +3,7 @@ import CheckIcon from '@untitled-ui/icons-react/build/esm/Check';
 import { Avatar, Step, StepContent, StepLabel, Stepper, SvgIcon, Typography } from '@mui/material';
 import { JobCategoryStep } from '././././question/preview_category_step';
 import { JobPreview } from '././././question/preview_question_result';
-import { lm_manageApi } from '../../../.././api/LM-Manage';
+import { lm_manageApi } from '../../../.././api/lm-manage';
 import { useMounted } from '../../../../hooks/use-mounted';
 
 const StepIcon = (props) => {

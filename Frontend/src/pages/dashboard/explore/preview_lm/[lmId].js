@@ -177,18 +177,22 @@ import {
   SvgIcon,
   Typography
 } from '@mui/material';
-import { lm_manageApi } from '../../../../api/LM-Manage';
+import { lm_manageApi } from '../../../../api/lm-manage';
 import { BreadcrumbsSeparator } from '../../../../components/breadcrumbs-separator';
 import { useMounted } from '../../../../hooks/use-mounted';
 import { usePageView } from '../../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../../layouts/dashboard';
 import { paths } from '../../../../paths';
 import { exploreApi } from '../../../../api/explore';
+
 import PreviewFile from '../../../../sections/dashboard/explore/preview_lm/preview_file'
 import PreviewVideo from '../../../../sections/dashboard/explore/preview_lm/preview_video'
 import PreviewOfficeFile from '../../../../sections/dashboard/explore/preview_lm/preview_office'
 import { PreviewQuestion } from '../../../../sections/dashboard/explore/preview_lm/preview_question';
 import { LmRating } from '../../../../sections/dashboard/explore/preview_lm/lm_rating'
+import { learning_logApi } from '../../../../api/learning-log';
+import { useAuth } from '../../../../hooks/use-auth';
+
 
 
 const useSearch = () => {
@@ -290,23 +294,78 @@ const useLMs = (search) => {
 
 
 const PreviewLM = () => {
+  const previewlmformUrl = window.location.href.split('/');
+  const lmId = (previewlmformUrl[previewlmformUrl.length - 1]);
+  const [valueRating, setValueRating] = useState(3);
+  const [hoverRating, setHoverRating] = useState(3);
   const { search, updateSearch } = useSearch();
   const { LMs, LMsCount } = useLMs(search);
-  const courseUrl = window.location.href.split('/');
-  const courseId = (courseUrl[courseUrl.length - 1]);
-  const [lessonList, setLessonList] = useState([]);
-  const [courseTitle, setCourseTitle] = useState("");
+  const isMounted = useMounted();
+  const {user} = useAuth();
 
-  useEffect(() => {(async () => {
+  const [lm, setLm] = useState("")
+  // const [lessonList, setLessonList] = useState([]);
+  // const [courseTitle, setCourseTitle] = useState("");
+
+  const getDetailLM = useCallback(async (id) => {
     try {
-      const response = await exploreApi.detailCourse(courseId);
-      setLessonList(response.data.lessons)
-      setCourseTitle(response.data.name)
+      const response = await lm_manageApi.getDetailLM(id);
+
+
+      if (isMounted()) {
+        // console.log(response.data)
+        // setFileGet(response.data.url);
+        setLm(response.data)
+        // console.log(fileGet)
+
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [lm])
+
+  const createFileLog = async (lmId, user) => {
+    try {
+      const response = await learning_logApi.createLog(user.id, {
+        rating: valueRating,
+        time: 120, //chỗ này cần phải lấy time của lm sau đó gắn vào
+        attempts: 1,
+        learningMaterialId: lmId,
+      });
+      console.log(response);
 
     } catch (err) {
       console.error(err);
     }
-  })()}, []);
+  }
+
+  // useEffect(() => {async () => {
+  //   try {
+  //     const response = await exploreApi.detailCourse(courseId);
+  //     setLessonList(response.data.lessons)
+  //     setCourseTitle(response.data.name)
+
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }}, []);
+
+  useEffect(() => {
+    try {
+      createFileLog(parseInt(lmId,10), user)
+      console.log("hihihihihihihih")
+
+    } catch (err) {
+      console.error(err);
+    }}, [valueRating]);
+
+  useEffect(() => {
+    try {
+      getDetailLM(parseInt(lmId,10))
+
+    } catch (err) {
+      console.error(err);
+    }}, []);
 
   usePageView();
 
@@ -355,7 +414,7 @@ const PreviewLM = () => {
               <Stack spacing={1}>
                 <Typography variant="h4">
                   {/* {courseTitle} */}
-                  KHÔNG LẤY ĐƯỢC TÊN LM
+                  {lm.name}
                 </Typography>
                 <Breadcrumbs separator={<BreadcrumbsSeparator />}>
                   <Link
@@ -377,13 +436,23 @@ const PreviewLM = () => {
                 </Breadcrumbs>
               </Stack>
             </Stack>
-            {/* <Card>
-              <PreviewOfficeFile lmId = {535}/>
-              
-            </Card> */}
-            <PreviewQuestion />
             <Card>
-              <LmRating />
+              {
+                lm.type === "VIDEO" ? <PreviewVideo lmId = {parseInt(lmId, 10)} /> : <></>
+              }{
+                lm.type === "PDF" ? <PreviewOfficeFile lmId = {parseInt(lmId, 10)} /> : <></>
+              }              
+            </Card>
+              {
+                lm.type === "QUIZ" ? <PreviewQuestion/> : <></>
+              }
+            <Card>
+              <LmRating 
+                value={valueRating} 
+                setValue={setValueRating} 
+                hover={hoverRating} 
+                setHover={setHoverRating}
+              />
             </Card>
           </Stack>
         </Container>

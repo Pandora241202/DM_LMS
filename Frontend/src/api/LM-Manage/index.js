@@ -74,6 +74,10 @@ class lm_manage_Api {
     return axios.get(`${apiUrl}/${id}`)
   }
 
+  getDetailLM (id) {
+    return axios.get(`${apiUrl}/${id}/information`)
+  }
+
 //   getForumDetail(id) {
 //     return axios.get(`${apiUrl}/${id}`);
 //     //return Promise.resolve(deepCopy(forumDetail));

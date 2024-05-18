@@ -61,10 +61,8 @@ const customIcons = {
   
 
 
-export const LmRating = () => {
+export const LmRating = ({value, setValue, hover, setHover }) => {
 //   const { chapter } = props;
-  const [value, setValue] = React.useState(2);
-  const [hover, setHover] = React.useState(2);
 //   const [valueIcon, setValue]
 
   return (
