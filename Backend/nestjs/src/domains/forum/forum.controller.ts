@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   NotFoundException,
   Put,
+  Query,
   UseGuards,
   UseInterceptors,
   UploadedFile,
@@ -87,9 +88,12 @@ export class ForumController {
   }
 
   @Get()
-  async getAll() {
+  async getMany(@Query() queryParams) {
     try {
-      const result = await this.forumService.getAll();
+      if (queryParams.userId) {
+        queryParams.userId = +queryParams.userId;
+      }
+      const result = await this.forumService.getMany(queryParams);
       return JSON.stringify(result.map((f) => ForumDto.ForumResponseDto.fromForum({ ...f, content: '' })));
     } catch (error) {
       console.log(error);
