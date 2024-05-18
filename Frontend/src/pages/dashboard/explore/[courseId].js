@@ -230,8 +230,8 @@ const LessonList = () => {
                 alignItems="center"
                 direction="row"
                 spacing={3}
-              >
-                {user.accountType !== 'LEARNER' && user.id !== instructor.id && <Button
+              > 
+                {user.accountType !== 'LEARNER' && user.id === instructor.id && <Button
                   component={NextLink}
                   // Thay đổi đường dẫn để lưu vào db
                   href={`${paths.dashboard.explore}/lesson/${courseId}`}
@@ -268,22 +268,23 @@ const LessonList = () => {
             <Grid>
               <Stack direction={"row"} spacing={3}>
                 <img src="/assets/cards/card-visa.png" width={600} height={300}/>
-                <Grid container spacing={3} direction={"row"}>
-                  <Stack direction={"row"} spacing={5}>
-                    <Rating name="read-only" value={rating} readOnly />
-                    <Typography variant='h5'>
-                      Trình độ: {level}
-                    </Typography>
+                <Stack container spacing={3} direction={"column"}>
+                  <Stack direction={"column"} spacing={5}>
+                    <Stack direction={"row"} spacing={3}>  
+                      <Rating name="read-only" value={rating} readOnly />
+                      <Typography variant='h5'>
+                        Trình độ: {level}
+                      </Typography>
+                    </Stack>
+                    
                     <Typography variant='h5'>
                       Cập nhật: {updatedAt}
                     </Typography>
                   </Stack>
                   <Grid item>
-                    <Typography variant='h5'>
-                      {courseDescription}
-                    </Typography>
+                    <Typography variant='h6'dangerouslySetInnerHTML={{__html: courseDescription}}/>
                   </Grid>
-                </Grid>
+                </Stack>
               </Stack>
             </Grid>
             <Card>
