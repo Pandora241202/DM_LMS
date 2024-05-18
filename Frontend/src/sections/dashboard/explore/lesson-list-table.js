@@ -27,10 +27,13 @@ import {
 import { FileIcon } from '../../../components/file-icon';
 import { styled } from '@mui/material/styles';
 import { useCallback, useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { useMounted } from '../../../hooks/use-mounted';
 import { exploreApi } from '../../../api/explore';
 import { fileApi } from '../../../api/file';
 import { ItemMenu } from './item-menu';
+import { paths } from '../../../paths';
+
 
 
 
@@ -147,6 +150,7 @@ export const Video = ({lmId}) => {
 
 
 function Row(props) {
+  const router = useRouter();
   const courseUrl = window.location.href.split('/');
   const courseId = (courseUrl[courseUrl.length - 1]);
   const isMounted = useMounted();
@@ -199,6 +203,21 @@ function Row(props) {
     }
   }, [open])
 
+  const handlePageChange = (lm) => {
+    switch(lm.type) {
+      case "VIDEO":
+        router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
+        break;
+      case "PDF":
+        router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
+        break;
+      default:
+        // code block
+        getFile(lm.id)
+    }
+
+  }
+
   const handleMenuClose = useCallback(() => {
     setOpenMenu(false);
   }, []);
@@ -250,7 +269,7 @@ function Row(props) {
                       mx: 'auto',
                       p: 1,
                       }}
-                      onClick={() => getFile(_lm.id)}
+                      onClick={() => handlePageChange(_lm)}
                   >
                       <Stack spacing={2} direction="row" alignItems="center">
                           <FileIcon extension={_lm.type} />
