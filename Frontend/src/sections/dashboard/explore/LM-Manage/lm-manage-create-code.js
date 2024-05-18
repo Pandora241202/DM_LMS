@@ -25,8 +25,101 @@ import { paths } from '../../../../paths';
 import { topic_manageApi } from '../../../../api/Topic-Manage';
 import { lm_manageApi } from '../../../../api/LM-Manage';
 import { useMounted } from '../../../../hooks/use-mounted';
+import AceEditer from 'react-ace';
+import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
+import AddIcon from '@mui/icons-material/Add';
+import { pythonRunnerApi } from '../../../../api/pythonRunner';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+
+import { useAuth } from '../../../../hooks/use-auth';
 import axios from 'axios';
 
+const Code = ({content, setContent}) => {
+
+  const runPythonCode = useCallback(async (i) => {
+    await pythonRunnerApi.postpythonRunner({
+      "code": content[i].code,
+    })
+      .then((response) => {
+        console.log(response);
+        setContent([...content.slice(0, i), { code: content[i].code, stdout: response.data.stdout, stderr: response.data.stderr}, ...content.slice(i+1)]);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }, [content]);
+
+  return (
+    <Stack direction="row">
+    <Card sx={{ width: "100%", height: 500, overflow: 'auto'}}>
+      <CardContent>
+        {content.length === 0 && <Stack direction="row">
+          <Button startIcon={<AddIcon fontSize='small'/>} variant="outlined" color="inherit" sx={{ mr: 2, fontSize: 12, p: 1 }} onClick={() => setContent([{code: "", stdout: "", stderr: ""}])}>Mã nguồn</Button>
+          {/* <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{fontSize: 12, p: 1 }} onClick={() => setContent(['<p></p>'])}>Văn bản</Button> */}
+        </Stack>}
+        {content.map((s, i) => 
+          <Stack spacing={2} mb={2} key={i}>
+            {typeof(s) === "string"   
+              ? <QuillEditor
+                placeholder="Nội dung"
+                sx={{ height: 330 }}
+                value={s}
+                onChange={(c, delta, source, editor) => {
+                  setContent([...content.slice(0, i), c, ...content.slice(i+1)]);
+                }}
+              /> 
+              : <Stack direction="row" border="1px solid" borderColor="action.disabledBackground" borderRadius={1}>
+                <Button variant="inherit" sx={{marginLeft: "auto", maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40, borderRadius: '100%'}} onClick={() => runPythonCode(i)}><PlayArrowOutlinedIcon /></Button>
+                <Stack width="100%">
+                  <AceEditer
+                    mode="python"
+                    theme="github"
+                    value={s.code}
+                    onChange={c => {
+                      setContent([...content.slice(0, i), {code: c, stdout: "", stderr: ""}, ...content.slice(i+1)]);
+                    }}
+                    name="python-editor"
+                    width="100%"
+                    height="300px"
+                  />
+                  {s.stdout != "" && <>
+                    <Typography variant='body2'>stdout:</Typography>
+                    <AceEditer
+                      readOnly
+                      mode="python"
+                      theme="github"
+                      value={s.stdout}
+                      width="100%"
+                      height="50px"
+                    />
+                  </>}
+                  {s.stderr != "" && <>
+                    <Typography variant='body1'>stderr</Typography>
+                    <AceEditer
+                      readOnly
+                      mode="python"
+                      theme="github"
+                      value={s.stderr}
+                      width="100%"
+                      height="50px"
+                    />
+                  </>}
+                </Stack>
+              </Stack>
+            }
+            {/* <Stack direction="row">
+              <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{ mr: 2, fontSize: 12, p: 1  }} onClick={() => setContent([...content.slice(0, i+1), {code: "", stdout: "", stderr: ""}, ...content.slice(i+1)])}>Mã nguồn</Button>
+              <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{ fontSize: 12, p: 1  }} onClick={() => setContent([...content.slice(0, i+1), '<p></p>', ...content.slice(i+1)])}>Văn bản</Button>
+            </Stack> */}
+          </Stack>
+        )}
+      </CardContent>
+      {console.log(content)}
+    </Card>
+  </Stack>
+  );
+}
 
 const typeOptions = [
   {
@@ -132,13 +225,14 @@ function FileUploadSection({ caption, setIdLMList }) {
         setIdLMList([response.data["id"]])
         setDisabled(true);
         toast.success('File đã đăng tải thành công');
-        // router.push(`${paths.dashboard.explore}/course`);
+        // router.push(`${paths.dashboard.explore}/${listLMAccordingToLesson.courseId}`);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');
         console.error('Error uploading file:', err);
       }
   };
+
 
   return (
     <div>
@@ -163,6 +257,29 @@ export const LMCreateForm = (props) => {
   const lmcreateformUrl = window.location.href.split('/');
   const lessonId = (lmcreateformUrl[lmcreateformUrl.length - 1]);
   // const courseId = (lmcreateformUrl[lmcreateformUrl.length - 2]);
+  const [listLMAccordingToLesson, setListLMAccordingToLesson] = useState({
+    "title": "",
+    "learningMaterial": [
+        {
+            "id": 9,
+            "name": "Document21"
+        }
+    ],
+    "amountOfTime": 0,
+    "visibility": true,
+    "courseId": 1
+  });
+  const getLesson = useCallback(async (id) => {
+    try {
+      const response = await exploreApi.getLesson(id);
+
+      if (isMounted()) {
+        setListLMAccordingToLesson(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [open])
   const isMounted = useMounted();
   const router = useRouter();
   const [topicIds, setTopicIds] = useState([])
@@ -173,6 +290,12 @@ export const LMCreateForm = (props) => {
   const [inputFileId, setInputFileId] = useState([]);
   const [outputFileId, setOutputFileId] = useState([]);
   const [disabled, setDisabled] = useState(false);
+
+  const { user } = useAuth();
+  const [examplecontent, setExamplecontent] = useState([]);
+  const [truthcontent, setTruthcontent] = useState([]);
+
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -190,14 +313,15 @@ export const LMCreateForm = (props) => {
           topicId: values.topicId,
           code: {
             question: values.description,
-            inputId: inputFileId[0],
-            outputId: outputFileId[0],
+            inputIds: inputFileId,
+            exampleCode: examplecontent[0].code,
+            truthCode: truthcontent[0].code,
           },
           lessonId: parseInt(lessonId,10)
       })
         // await lm_manageApi.createLM(values);
         toast.success('Tài liệu code đã được tạo');
-        // router.push(`${paths.dashboard.explore}/${courseId}`);
+        router.push(`${paths.dashboard.explore}/${listLMAccordingToLesson.courseId}`);
       } catch (err) {
         console.error(err);
         toast.error('Something went wrong!');
@@ -207,6 +331,24 @@ export const LMCreateForm = (props) => {
       }
     }
   });
+
+  // const handleSubmitNotebook = useCallback(async () => {
+  //   await notebookApi.postNotebook({
+  //     modelVariationIds: modelVariations ? modelVariations.map(v => v.id) : null,
+  //     datasetIds: datasets ? datasets.map(d => d.id) : null,
+  //     title: title,
+  //     content: content.map(c => typeof(c) === "string" ? c : c.code ),
+  //     isPublic: isPublic,
+  //     labels: labels,
+  //     userId: user.id
+  //   })
+  //     .then((response) => {
+  //       router.push(paths.dashboard.notebook.details.replace(':notebookId', response.data.id));
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     })
+  // }, [title, isPublic, content, labels, datasets, modelVariations]);
 
   const getTopics = useCallback(async () => {
     try {
@@ -222,7 +364,9 @@ export const LMCreateForm = (props) => {
 
   useEffect(() => {
     getTopics();
+    getLesson(lessonId);
   },[]);
+
 
   return (
     <form
@@ -360,8 +504,24 @@ export const LMCreateForm = (props) => {
                   {console.log(inputFileId[0])}
                   </div>
                   <div>
-                  <FileUploadSection caption="Thông tin đầu ra (Output file)" setIdLMList={setOutputFileId}/>
-                  {console.log(outputFileId)}
+                    <Typography
+                        color="text.secondary"
+                        sx={{ mb: 2 }}
+                        variant="subtitle2"
+                    >
+                      Đoạn code mẫu
+                    </Typography>
+                    <Code content={examplecontent} setContent={setExamplecontent}/>
+                  </div>
+                  <div>
+                    <Typography
+                      color="text.secondary"
+                      sx={{ mb: 2 }}
+                      variant="subtitle2"
+                    >
+                      Đoạn code kết quả 
+                    </Typography>
+                    <Code content={truthcontent} setContent={setTruthcontent}/>
                   </div>
                 </Stack>
               </Grid>
