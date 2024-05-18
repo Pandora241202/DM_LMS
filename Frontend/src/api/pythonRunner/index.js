@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:8080/pythonRunner';
+const apiUrl = `${process.env.SERVER_API}/pythonRunner`;
 
 class PythonRunnerApi {
   postpythonRunner(request) {

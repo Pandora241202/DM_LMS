@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:8080/model';
+const apiUrl = `${process.env.SERVER_API}/model`;
 
 class ModelApi {
   getModels(queryParams) {
@@ -16,7 +16,7 @@ class ModelApi {
   }
 
   postModelVariation(request) {
-    return axios.post('http://localhost:8080/modelVariation', request)
+    return axios.post(`${process.env.SERVER_API}/modelVariation`, request)
   }
 
   putModel(id, request) {
