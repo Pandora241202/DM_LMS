@@ -14,7 +14,7 @@ const ProductCreate = () => {
     <>
       <Head>
         <title>
-          Dashboard: Product Create | Devias Kit PRO
+          Dashboard: Product Create
         </title>
       </Head>
       <Box

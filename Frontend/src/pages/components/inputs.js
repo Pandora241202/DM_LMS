@@ -40,7 +40,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Components: Inputs | Devias Kit PRO
+          Components: Inputs
         </title>
       </Head>
       <Box

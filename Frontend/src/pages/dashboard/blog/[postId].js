@@ -92,7 +92,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Blog: Post Details | Devias Kit PRO
+          Blog: Post Details
         </title>
       </Head>
       <Box

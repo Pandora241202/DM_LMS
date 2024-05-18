@@ -203,7 +203,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: Calendar | Devias Kit PRO
+          Dashboard: Calendar
         </title>
       </Head>
       <Box

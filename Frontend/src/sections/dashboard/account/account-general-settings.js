@@ -17,9 +17,12 @@ import {
 } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 
-export const AccountGeneralSettings = (props) => {
-  const { avatar, email, name } = props;
+const genderOptions = ["MALE", "FEMALE", "UNKNOWN"]
 
+export const AccountGeneralSettings = (props) => {
+  const { avatar, user } = props;
+  const { email, name, password, username, gender } = user
+  
   return (
     <Stack
       spacing={4}
@@ -35,7 +38,7 @@ export const AccountGeneralSettings = (props) => {
               md={4}
             >
               <Typography variant="h6">
-                Basic details
+                Thông tin cơ bản
               </Typography>
             </Grid>
             <Grid
@@ -86,22 +89,7 @@ export const AccountGeneralSettings = (props) => {
                           }
                         }}
                       >
-                        <Stack
-                          alignItems="center"
-                          direction="row"
-                          spacing={1}
-                        >
-                          <SvgIcon color="inherit">
-                            <Camera01Icon />
-                          </SvgIcon>
-                          <Typography
-                            color="inherit"
-                            variant="subtitle2"
-                            sx={{ fontWeight: 700 }}
-                          >
-                            Select
-                          </Typography>
-                        </Stack>
+                        
                       </Box>
                       <Avatar
                         src={avatar}
@@ -116,12 +104,6 @@ export const AccountGeneralSettings = (props) => {
                       </Avatar>
                     </Box>
                   </Box>
-                  <Button
-                    color="inherit"
-                    size="small"
-                  >
-                    Change
-                  </Button>
                 </Stack>
                 <Stack
                   alignItems="center"
@@ -130,14 +112,14 @@ export const AccountGeneralSettings = (props) => {
                 >
                   <TextField
                     defaultValue={name}
-                    label="Full Name"
+                    label="Tên"
                     sx={{ flexGrow: 1 }}
                   />
                   <Button
                     color="inherit"
                     size="small"
                   >
-                    Save
+                    Lưu
                   </Button>
                 </Stack>
                 <Stack
@@ -147,8 +129,7 @@ export const AccountGeneralSettings = (props) => {
                 >
                   <TextField
                     defaultValue={email}
-                    disabled
-                    label="Email Address"
+                    label="Email"
                     required
                     sx={{
                       flexGrow: 1,
@@ -161,7 +142,87 @@ export const AccountGeneralSettings = (props) => {
                     color="inherit"
                     size="small"
                   >
-                    Edit
+                    Lưu
+                  </Button>
+                </Stack>
+                <Stack
+                  alignItems="center"
+                  direction="row"
+                  spacing={2}
+                >
+                  <TextField
+                    defaultValue={gender}
+                    label="Giới tính"
+                    select
+                    SelectProps={{ native: true }}
+                    sx={{
+                      flexGrow: 1,
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        borderStyle: 'dashed'
+                      }
+                    }}
+                  >
+                    {genderOptions.map((option) => (
+                      <option
+                        key={option}
+                        value={option}
+                      >
+                        {option}
+                      </option>
+                    ))}
+                  </TextField>
+                  <Button
+                    color="inherit"
+                    size="small"
+                  >
+                    Lưu
+                  </Button>
+                </Stack>
+                <Stack
+                  alignItems="center"
+                  direction="row"
+                  spacing={2}
+                >
+                  <TextField
+                    defaultValue={username}
+                    label="Tài khoản"
+                    required
+                    sx={{
+                      flexGrow: 1,
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        borderStyle: 'dashed'
+                      }
+                    }}
+                  />
+                  <Button
+                    color="inherit"
+                    size="small"
+                  >
+                    Lưu
+                  </Button>
+                </Stack>
+                <Stack
+                  alignItems="center"
+                  direction="row"
+                  spacing={2}
+                >
+                  <TextField
+                    defaultValue={password}
+                    label="Mật khẩu"
+                    type='password'
+                    required
+                    sx={{
+                      flexGrow: 1,
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        borderStyle: 'dashed'
+                      }
+                    }}
+                  />
+                  <Button
+                    color="inherit"
+                    size="small"
+                  >
+                    Lưu
                   </Button>
                 </Stack>
               </Stack>
@@ -169,6 +230,7 @@ export const AccountGeneralSettings = (props) => {
           </Grid>
         </CardContent>
       </Card>
+      
       <Card>
         <CardContent>
           <Grid
@@ -180,95 +242,19 @@ export const AccountGeneralSettings = (props) => {
               md={4}
             >
               <Typography variant="h6">
-                Public profile
-              </Typography>
-            </Grid>
-            <Grid
-              xs={12}
-              sm={12}
-              md={8}
-            >
-              <Stack
-                divider={<Divider />}
-                spacing={3}
-              >
-                <Stack
-                  alignItems="flex-start"
-                  direction="row"
-                  justifyContent="space-between"
-                  spacing={3}
-                >
-                  <Stack spacing={1}>
-                    <Typography variant="subtitle1">
-                      Make Contact Info Public
-                    </Typography>
-                    <Typography
-                      color="text.secondary"
-                      variant="body2"
-                    >
-                      Means that anyone viewing your profile will be able to see your contacts
-                      details.
-                    </Typography>
-                  </Stack>
-                  <Switch />
-                </Stack>
-                <Stack
-                  alignItems="flex-start"
-                  direction="row"
-                  justifyContent="space-between"
-                  spacing={3}
-                >
-                  <Stack spacing={1}>
-                    <Typography variant="subtitle1">
-                      Available to hire
-                    </Typography>
-                    <Typography
-                      color="text.secondary"
-                      variant="body2"
-                    >
-                      Toggling this will let your teammates know that you are available for
-                      acquiring new projects.
-                    </Typography>
-                  </Stack>
-                  <Switch defaultChecked />
-                </Stack>
-              </Stack>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              xs={12}
-              md={4}
-            >
-              <Typography variant="h6">
-                Delete Account
+                Xóa tài khoản
               </Typography>
             </Grid>
             <Grid
               xs={12}
               md={8}
             >
-              <Stack
-                alignItems="flex-start"
-                spacing={3}
+              <Button
+                color="error"
+                variant="outlined"
               >
-                <Typography variant="subtitle1">
-                  Delete your account and all of your source data. This is irreversible.
-                </Typography>
-                <Button
-                  color="error"
-                  variant="outlined"
-                >
-                  Delete account
-                </Button>
-              </Stack>
+                Xóa vĩnh viễn
+              </Button>
             </Grid>
           </Grid>
         </CardContent>

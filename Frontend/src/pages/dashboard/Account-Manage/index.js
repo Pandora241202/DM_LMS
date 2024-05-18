@@ -19,8 +19,8 @@ import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
-import { AccountManageListSearch } from '../../../sections/dashboard/Account-Manage/account-manage-list-search';
-import { AccountManageListTable } from '../../../sections/dashboard/Account-Manage/account-manage-list-table';
+import { AccountManageListSearch } from '../../../sections/dashboard/account-manage/account-manage-list-search';
+import { AccountManageListTable } from '../../../sections/dashboard/account-manage/account-manage-list-table';
 
 const useSearch = () => {
   const [search, setSearch] = useState({

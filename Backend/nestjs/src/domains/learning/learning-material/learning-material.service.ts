@@ -23,29 +23,28 @@ export class LearningMaterialService {
       select: { id: true },
     });
 
-    if (body.lessonId){
+    if (body.lessonId) {
       const lesson = await this.prismaService.lesson.update({
-        where: {id: body.lessonId},
+        where: { id: body.lessonId },
         data: {
           amountOfTime: {
-            increment: body.time*60
-          }
+            increment: body.time * 60,
+          },
         },
         select: {
-          courseId: true
-        }
-      })
+          courseId: true,
+        },
+      });
 
       await this.prismaService.course.update({
-        where: {id: lesson.courseId},
+        where: { id: lesson.courseId },
         data: {
           amountOfTime: {
-            increment: body.time*60
-          }
-        }
-      })
+            increment: body.time * 60,
+          },
+        },
+      });
     }
-
 
     let score: number = 10;
     if (body.type === LearningMaterialType.CODE || body.type === LearningMaterialType.QUIZ) {

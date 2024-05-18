@@ -121,7 +121,7 @@ export const Footer = (props) => (
                   }
                 }}
               >
-                Devias Kit <span>PRO</span>
+                DM LMS
               </Box>
             </Stack>
             <Typography

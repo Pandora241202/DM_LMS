@@ -80,7 +80,7 @@ export const TopNav = (props) => {
                 }
               }}
             >
-              Devias Kit <span>PRO</span>
+              DM <span>LMS</span>
             </Box>
           </Stack>
           <Chip

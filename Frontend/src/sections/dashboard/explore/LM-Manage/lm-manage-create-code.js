@@ -22,9 +22,9 @@ import {
 import { FileDropzoneVn } from '../../../../components/file-dropzone-vn';
 import { QuillEditor } from '../../../../components/quill-editor';
 import { paths } from '../../../../paths';
-import { topic_manageApi } from '../../../../api/Topic-Manage';
-import { lm_manageApi } from '../../../../api/LM-Manage';
 import { exploreApi } from '../../../../api/explore';
+import { topic_manageApi } from '../../../../api/topic-manage';
+import { lm_manageApi } from '../../../../api/lm-manage';
 import { useMounted } from '../../../../hooks/use-mounted';
 import AceEditer from 'react-ace';
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';

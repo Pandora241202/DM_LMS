@@ -5,7 +5,7 @@ import { BreadcrumbsSeparator } from '../../../../components/breadcrumbs-separat
 import { usePageView } from '../../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../../layouts/dashboard';
 import { paths } from '../../../../paths';
-import { LMCreateForm } from '../../../../sections/dashboard/explore/LM-Manage/lm-manage-create-code';
+import { LMCreateForm } from '../../../../sections/dashboard/explore/lm-manage/lm-manage-create-code';
 
 const LMCreate = () => {
   usePageView();
@@ -14,7 +14,7 @@ const LMCreate = () => {
     <>
       <Head>
         <title>
-          Dashboard: LM Create | Devias Kit PRO
+          Dashboard: LM Create
         </title>
       </Head>
       <Box
@@ -42,7 +42,7 @@ const LMCreate = () => {
                 <Link
                   color="text.primary"
                   component={NextLink}
-                  href={paths.dashboard.LM_Manage}
+                  href={paths.dashboard.lm_manage}
                   variant="subtitle2"
                 >
                   Danh sách bài học

@@ -146,15 +146,15 @@ export const paths = {
       index: '/dashboard/products',
       create: '/dashboard/products/create'
     },
-    personal_info: '/dashboard/personal-info',
+    personal_info: '/dashboard/account',
     social: {
       index: '/dashboard/social',
       profile: '/dashboard/social/profile',
       feed: '/dashboard/social/feed'
     },
-    Topic_Manage: '/dashboard/Topic-Manage',
-    LM_Manage: '/dashboard/LM-Manage',
-    Account_Manage: '/dashboard/Account-Manage',
+    topic_manage: '/dashboard/topic-manage',
+    lm_manage: '/dashboard/lm-manage',
+    account_manage: '/dashboard/account-manage',
   },
   components: {
     index: '/components',

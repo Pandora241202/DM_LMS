@@ -60,7 +60,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Components: Quick Stats | Devias Kit PRO
+          Components: Quick Stats
         </title>
       </Head>
       <Box

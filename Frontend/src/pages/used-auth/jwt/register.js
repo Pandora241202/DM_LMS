@@ -12,6 +12,8 @@ import {
   Checkbox,
   FormHelperText,
   Link,
+  MenuItem,
+  Select,
   Stack,
   TextField,
   Typography
@@ -37,43 +39,41 @@ const useParams = () => {
 
 const initialValues = {
   email: '',
-  name: '',
+  username: '',
   password: '',
-  policy: false,
+  accountType: 'LEARNER',
+  policy: true,
   submit: null
 };
 
 const validationSchema = Yup.object({
   email: Yup
     .string()
-    .email('Must be a valid email')
+    .email('Phải đúng định dạng email')
     .max(255)
-    .required('Email is required'),
-  name: Yup
+    .required('Email không được trống'),
+  username: Yup
     .string()
     .max(255)
-    .required('Name is required'),
+    .required('Tên đăng nhập không được trống'),
   password: Yup
     .string()
     .min(7)
     .max(255)
-    .required('Password is required'),
-  policy: Yup
-    .boolean()
-    .oneOf([true], 'This field must be checked')
+    .required('Mật khẩu không được trống')
 });
 
 const Page = () => {
   const isMounted = useMounted();
   const router = useRouter();
   const { returnTo } = useParams();
-  const { issuer, signUp } = useAuth();
+  const { signUp } = useAuth();
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values, helpers) => {
       try {
-        await signUp(values.email, values.name, values.password);
+        await signUp({email: values.email, username: values.username, password: values.password, accountType: values.accountType});
 
         if (isMounted()) {
           router.push(returnTo || paths.dashboard.index);
@@ -96,7 +96,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Register | Devias Kit PRO
+          Đăng kí | DM Learning System
         </title>
       </Head>
       <div>
@@ -107,7 +107,7 @@ const Page = () => {
                 color="text.secondary"
                 variant="body2"
               >
-                Already have an account?
+                Đã có tài khoản
                 &nbsp;
                 <Link
                   component={NextLink}
@@ -115,12 +115,12 @@ const Page = () => {
                   underline="hover"
                   variant="subtitle2"
                 >
-                  Log in
+                  Đăng nhập
                 </Link>
               </Typography>
             )}
             sx={{ pb: 0 }}
-            title="Register"
+            title="Đăng kí"
           />
           <CardContent>
             <form
@@ -129,20 +129,20 @@ const Page = () => {
             >
               <Stack spacing={3}>
                 <TextField
-                  error={!!(formik.touched.name && formik.errors.name)}
+                  error={!!(formik.touched.username && formik.errors.username)}
                   fullWidth
-                  helperText={formik.touched.name && formik.errors.name}
-                  label="Name"
-                  name="name"
+                  helperText={formik.touched.username && formik.errors.username}
+                  label="Tên đăng nhập"
+                  name="username"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  value={formik.values.name}
+                  value={formik.values.username}
                 />
                 <TextField
                   error={!!(formik.touched.email && formik.errors.email)}
                   fullWidth
                   helperText={formik.touched.email && formik.errors.email}
-                  label="Email Address"
+                  label="Email"
                   name="email"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -153,15 +153,27 @@ const Page = () => {
                   error={!!(formik.touched.password && formik.errors.password)}
                   fullWidth
                   helperText={formik.touched.password && formik.errors.password}
-                  label="Password"
+                  label="Mật khẩu"
                   name="password"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   type="password"
                   value={formik.values.password}
                 />
-              </Stack>
-              <Box
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Who are you?"
+                  name="accountType"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.accountType}
+                >
+                  <MenuItem value={"LEARNER"}>LEARNER</MenuItem>
+                  <MenuItem value={"INSTRUCTOR"}>INSTRUCTOR</MenuItem>
+              </Select>
+            </Stack>
+              {/* <Box
                 sx={{
                   alignItems: 'center',
                   display: 'flex',
@@ -192,7 +204,7 @@ const Page = () => {
                 <FormHelperText error>
                   {formik.errors.policy}
                 </FormHelperText>
-              )}
+              )} */}
               {formik.errors.submit && (
                 <FormHelperText
                   error
@@ -209,14 +221,14 @@ const Page = () => {
                 type="submit"
                 variant="contained"
               >
-                Register
+                Đăng kí
               </Button>
             </form>
           </CardContent>
         </Card>
-        <Box sx={{ mt: 3 }}>
+        {/* <Box sx={{ mt: 3 }}>
           <AuthIssuer issuer={issuer} />
-        </Box>
+        </Box> */}
       </div>
     </>
   );

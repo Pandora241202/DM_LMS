@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Box, Button, Card, CardContent, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Chart } from '../../../components/chart';
 
@@ -77,10 +77,9 @@ const useChartOptions = (timeLeft) => {
 };
 
 export const AcademyDailyProgress = (props) => {
-  const { timeCurrent, timeGoal } = props;
-  const timeLeft = timeGoal - timeCurrent;
-  const currentProgress = (timeCurrent * 100) / timeGoal;
-  const chartOptions = useChartOptions(timeLeft);
+  const { timeCurrent, timeGoal, lessonName, courseName } = props;
+  const currentProgress = timeGoal - timeCurrent;
+  const chartOptions = useChartOptions(currentProgress);
   const chartSeries = [currentProgress];
 
   return (
@@ -101,17 +100,18 @@ export const AcademyDailyProgress = (props) => {
           />
         </Box>
         <Typography variant="h6">
-          Today’s progress of your {timeGoal}-minutes goal
+          
         </Typography>
         <Typography
           color="text.secondary"
           variant="body2"
+          marginTop={2}
         >
-          You have used 80% of your available spots. Upgrade plan to create more projects.
+          {lessonName ? `Tiếp tục học bài ${lessonName}` : `Bạn vừa bắt đầu học ${courseName}`}
         </Typography>
         <Box sx={{ mt: 2 }}>
           <Button variant="contained">
-            Continue: React and Redux Tutorial
+            {lessonName ? lessonName : courseName}
           </Button>
         </Box>
       </CardContent>

@@ -183,7 +183,7 @@ export const CheckDuplicateDialog = (props) => {
               <Link 
                 href={paths.dashboard.forum.details.replace(':forumId', forum.id)} 
                 underline="hover"
-                fontSize={13}
+                fontSize={15}
                 fontWeight={500}
                 color="text.primary"
                 target="_blank" 
@@ -191,6 +191,7 @@ export const CheckDuplicateDialog = (props) => {
               >
                 {forum.title}
               </Link>
+              <Typography color="text.secondary" marginLeft="auto" fontSize={12} fontStyle="italic">Độ tương tự: {(forum.similarScore*100).toFixed()} %</Typography>
             </Stack>)}
         </Box>
         <Stack flexDirection="row" justifyContent="flex-end">

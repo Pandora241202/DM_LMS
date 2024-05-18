@@ -13,7 +13,7 @@ class AuthApi {
   }
 
   async signUp(request) {
-    return axios.post(apiUrl, request)
+    return axios.post(`${apiUrl}/users`, request)
   }
 
   me(id) {

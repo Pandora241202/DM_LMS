@@ -60,7 +60,7 @@ export const de = {
   [tokens.nav.resetPassword]: 'Passwort Zurücksetzen',
   [tokens.nav.socialMedia]: 'Sozialen Medien',
   [tokens.nav.verifyCode]: 'Code Überprüfen',
-  [tokens.nav.LM_Manage]: 'LM Verwalten',
-  [tokens.nav.Account_Manage]: 'Konto verwalten',
-  [tokens.nav.Topic_Manage]: 'Thema verwalten',
+  [tokens.nav.lm_manage]: 'LM Verwalten',
+  [tokens.nav.account_manage]: 'Konto verwalten',
+  [tokens.nav.topic_manage]: 'Thema verwalten',
 };

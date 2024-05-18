@@ -42,7 +42,7 @@ const CourseCreate = () => {
                 <Link
                   color="text.primary"
                   component={NextLink}
-                  href={paths.dashboard.Topic_Manage}
+                  href={paths.dashboard.topic_manage}
                   variant="subtitle2"
                 >
                   Quản lý chủ đề

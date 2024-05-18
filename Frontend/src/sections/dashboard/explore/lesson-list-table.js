@@ -159,7 +159,7 @@ function Row(props) {
   const menuRef = useRef(null);
   const { user } = useAuth();
   const [openMenu, setOpenMenu] = useState(false);
-  const { row } = props;
+  const { row, accountType } = props;
   const [open, setOpen] = React.useState(false);
   const [listLMAccordingToLesson, setListLMAccordingToLesson] = useState({
     "title": "",
@@ -290,16 +290,19 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.title}
         </TableCell>
-        <TableCell align="right">
-            <IconButton
-                onClick={handleMenuOpen}
-                ref={menuRef}
-            >
-              <SvgIcon fontSize="small">
-                  <DotsVerticalIcon />
-              </SvgIcon>
-            </IconButton>
-        </TableCell>
+        {
+          accountType !== "LEARNER" && 
+          <TableCell align="right">
+              <IconButton
+                  onClick={handleMenuOpen}
+                  ref={menuRef}
+              >
+                <SvgIcon fontSize="small">
+                    <DotsVerticalIcon />
+                </SvgIcon>
+              </IconButton>
+          </TableCell>
+        }
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -329,13 +332,13 @@ function Row(props) {
           </Collapse>
         </TableCell>
       </TableRow>
-      <ItemMenu
+      {accountType !== "LEARNER" && <ItemMenu
         anchorEl={menuRef.current}
         onClose={handleMenuClose}
         open={openMenu}
         idLesson={row.id}
         idCourse={courseId}
-      />
+      />}
     </React.Fragment>
   );
 }
@@ -348,7 +351,7 @@ Row.propTypes = {
   }).isRequired,
 };
 
-export default function CollapsibleTable({rows}) {
+export default function CollapsibleTable({accountType, rows}) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -361,7 +364,7 @@ export default function CollapsibleTable({rows}) {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.id} row={row} />
+            <Row key={row.id} row={row} accountType={accountType}/>
           ))}
         </TableBody>
       </Table>

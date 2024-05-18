@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const apiUrl = 'http://localhost:8080/learning-materials';
 
-class LM_ManageApi {
+class lm_manage_Api {
   createLM(request) {
     return axios.post(apiUrl, request);
     //return Promise.resolve(deepCopy(forums));
@@ -92,4 +92,4 @@ class LM_ManageApi {
 //   }
 }
 
-export const lm_manageApi = new LM_ManageApi();
+export const lm_manageApi = new lm_manage_Api();

@@ -175,5 +175,5 @@ SideNavItem.propTypes = {
   icon: PropTypes.node,
   open: PropTypes.bool,
   path: PropTypes.string,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string
 };

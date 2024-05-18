@@ -54,6 +54,7 @@ export const Layout = (props) => {
                   height: 24,
                   width: 24
                 }}
+                marginRight={2}
               >
                 <Logo />
               </Box>
@@ -70,7 +71,7 @@ export const Layout = (props) => {
                   }
                 }}
               >
-                Devias Kit <span>PRO</span>
+                DM LMS
               </Box>
             </Stack>
           </Stack>

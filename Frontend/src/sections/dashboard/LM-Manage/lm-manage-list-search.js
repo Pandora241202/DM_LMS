@@ -59,7 +59,7 @@ const stockOptions = [
 ];
 
 export const LMManageListSearch = (props) => {
-  const { onFiltersChange, ...other } = props;
+  const { onFiltersChange, onSearchChange, ...other } = props;
   const queryRef = useRef(null);
   const [query, setQuery] = useState('');
   const [chips, setChips] = useState([]);
@@ -115,7 +115,8 @@ export const LMManageListSearch = (props) => {
   const handleQueryChange = useCallback((event) => {
     event.preventDefault();
     setQuery(queryRef.current?.value || '');
-  }, []);
+    onSearchChange?.(queryRef.current?.value)
+  }, [onSearchChange]);
 
   const handleTypeChange = useCallback((values) => {
     setChips((prevChips) => {
@@ -278,7 +279,7 @@ export const LMManageListSearch = (props) => {
           inputProps={{ ref: queryRef }}
           placeholder="Tìm kiếm tên tài liệu học tập"
           sx={{ flexGrow: 1 }}
-          value={query}
+          // value={query}
         />
       </Stack>
       <Divider />
