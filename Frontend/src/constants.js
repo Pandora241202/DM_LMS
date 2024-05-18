@@ -612,7 +612,7 @@ export const BASE_INFO_QUES = [
         ]
     },
     {
-        question: "Bạn thích các khóa học nhấn mạn vào",
+        question: "Bạn thích các khóa học nhấn mạnh vào",
         options: [
             {
                 label: "các sự kiện thực tế, dữ liệu",

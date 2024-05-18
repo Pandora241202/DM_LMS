@@ -8,7 +8,8 @@ import {
   Stack,
   SvgIcon,
   Typography,
-  Unstable_Grid2 as Grid
+  Unstable_Grid2 as Grid,
+  Link
 } from '@mui/material';
 import { usePageView } from '../../../hooks/use-page-view';
 import { useSettings } from '../../../hooks/use-settings';
@@ -22,6 +23,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { userApi } from '../../../api/user';
 import { useAuth } from '../../../hooks/use-auth';
 import * as consts from '../../../constants';
+import { paths } from '../../../paths';
 
 const useCourses = (id) => {
   const isMounted = useMounted();
@@ -76,7 +78,7 @@ const Page = () => {
       >
         <Box sx={{ py: '64px' }}>
           <Container maxWidth={settings.stretch ? false : 'xl'}>
-             <Grid
+            <Grid
               container
               spacing={{
                 xs: 3,
@@ -95,7 +97,7 @@ const Page = () => {
                   </Typography>
                 </Stack>
               </Grid>
-              {courses
+              {courses.length !== 0 && courses
               .slice(page*consts.FORUMS_PER_PAGE, page*consts.FORUMS_PER_PAGE + consts.FORUMS_PER_PAGE)
               .map((history) => (
                 <Grid
@@ -106,8 +108,11 @@ const Page = () => {
                   <CourseCard course={history.course} />
                 </Grid>
               ))}
+              {
+                courses.length === 0 && <Typography>Bạn chưa đăng kí khóa học nào, <Link href={paths.dashboard.explore}>khám phá thêm</Link></Typography>
+              }
             </Grid>
-            <Stack
+            {courses.length !== 0 && <Stack
               alignItems="center"
               direction="row"
               justifyContent="center"
@@ -144,7 +149,7 @@ const Page = () => {
                   window.scrollTo(0,0);
                 }}
               />
-            </Stack>
+            </Stack>}
           </Container>
         </Box>
       </Box>
