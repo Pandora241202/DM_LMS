@@ -64,7 +64,7 @@ export class LearnerLogService {
 
     const lm = await this.prismaService.learningMaterial.findFirst({
       where: { id: body.learningMaterialId },
-      select: { rating: true, type: true, Exercise: true, Other: true },
+      select: { rating: true, type: true, Exercise: true, Other: true, score: true },
     });
 
     let score: number = 10;
@@ -100,7 +100,7 @@ export class LearnerLogService {
     const updateRating = (lm.rating + body.rating) / 2;
     await this.prismaService.learningMaterial.update({ where: { id: body.learningMaterialId }, data: { rating: updateRating } });
 
-    return { id: log.id, score };
+    return { id: log.id, score: score, maxScore: lm.score };
   }
 
   async createBatch(body: LearnerLogCreateREQ[]) {
