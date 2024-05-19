@@ -441,6 +441,7 @@ const PreviewLM = () => {
                 lm.type === "PDF" ? <PreviewOfficeFile lmId = {parseInt(lmId, 10)} /> : <></>
               }              
             </Card>
+            {console.log(lm)}
               {
                 lm.type === "QUIZ" ? <PreviewQuestion lmId = {parseInt(lmId, 10)}/> : <></>
               }
