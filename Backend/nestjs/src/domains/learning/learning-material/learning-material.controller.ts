@@ -35,6 +35,11 @@ export class LearningMaterialController {
     } else return res.status(200).json(lm.DTO);
   }
 
+  @Get(':id/information')
+  async getInformation(@Param('id', ParseIntPipe) id: number) {
+    return this.learningMaterialService.information(id)
+  }
+
   @Get()
   async list() {
     return await this.learningMaterialService.list();
