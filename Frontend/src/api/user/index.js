@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:8080/users';
+const apiUrl = `${process.env.NEXT_PUBLIC_SERVER_API}/users`;
 
 
 class UserApi {
@@ -9,6 +9,7 @@ class UserApi {
   }
 
   getUserCourses(id, take) {
+    console.log(process.env.NEXT_PUBLIC_SERVER_API)
     const url = take ? `${apiUrl}/${id}/courses?take=${take}` : `${apiUrl}/${id}/courses`
     return axios.get(url);
   }

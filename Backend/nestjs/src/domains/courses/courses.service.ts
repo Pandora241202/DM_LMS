@@ -16,6 +16,7 @@ export class CourseService {
 
   async detail(id: number) {
     const course = await this.prismaService.course.findFirst({ where: { id }, select: CourseDTO.selectFields() });
+    // const lessons = await this.prismaService.lesson.findMany({ where: { courseId: course.id}, select: {id: true, title: true}})
     if (!course) throw new NotFoundException('Course not found');
 
     return CourseDTO.fromEnTity(course as any);
@@ -24,6 +25,9 @@ export class CourseService {
   async getAll(query: CourseListREQ) {
     const condition = CourseListREQ.toCondition(query);
     const courses = await this.prismaService.course.findMany({
+      orderBy: {
+        id: 'asc'
+      },
       where: condition,
       select: { id: true, name: true, level: true, rating: true, createdAt: true, updatedAt: true, amountOfTime: true },
     });

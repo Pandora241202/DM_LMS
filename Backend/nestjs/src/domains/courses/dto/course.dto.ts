@@ -38,7 +38,7 @@ export class CourseDTO {
   }
 
   static fromEnTity(entity: Prisma.CourseGetPayload<{ include: { Instructor: true; Lesson: true } }>): CourseDTO {
-    const lessons = entity.Lesson.map((l) => ({ id: l.id, title: l.title }));
+    const lessons = entity.Lesson.map((l) => ({ id: l.id, title: l.title })).sort((a, b) => a.id - b.id);
 
     return {
       id: entity.id,

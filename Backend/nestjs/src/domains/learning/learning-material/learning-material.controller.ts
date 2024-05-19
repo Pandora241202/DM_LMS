@@ -36,8 +36,8 @@ export class LearningMaterialController {
   }
 
   @Get(':id/information')
-  async getInformation(@Param('id', ParseIntPipe) id: number) {
-    return this.learningMaterialService.information(id)
+  async getInfomation(@Param('id', ParseIntPipe) id: number) {
+    return this.learningMaterialService.infomation(id)
   }
 
   @Get()

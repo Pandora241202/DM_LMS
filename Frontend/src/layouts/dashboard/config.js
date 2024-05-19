@@ -35,11 +35,6 @@ import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { tokens } from '../../locales/tokens';
 import { paths } from '../../paths';
-import { useAuth } from '../../hooks/use-auth';
-
-const adminSideNav = {}
-
-const notAdminSideNav = {}
 
 
 export const getSections = (t, accountType) => [
@@ -54,7 +49,7 @@ export const getSections = (t, accountType) => [
           </SvgIcon>
         )
       },
-      {
+      ...accountType !== "ADMIN" ? [{
         title: t(tokens.nav.learningPath),
         path: paths.dashboard.learningPaths.index,
         icon: (
@@ -71,7 +66,7 @@ export const getSections = (t, accountType) => [
             <GraduationHat01Icon />
           </SvgIcon>
         ),
-      },
+      }] : [],
       {
         title: t(tokens.nav.explore),
         path: paths.dashboard.explore,

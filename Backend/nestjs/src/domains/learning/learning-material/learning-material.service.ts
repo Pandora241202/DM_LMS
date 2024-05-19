@@ -225,7 +225,7 @@ export class LearningMaterialService {
     return lms;
   }
 
-  async information(id: number) {
+  async infomation(id: number) {
     const lm = await this.prismaService.learningMaterial.findFirst({ where: { id }, select: {name: true, difficulty: true, type: true, rating: true, score: true}})
     if (!lm) throw new NotFoundException("Not found learning material")
     return InfoLMDTO.fromEntity(lm as any)

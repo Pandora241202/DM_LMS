@@ -39,7 +39,7 @@ export class LearnerLogCreateREQ {
       learningMaterialRating: body.rating,
       score: score,
       time: body.time,
-      attempts: body.attempts,
+      attempts: 1,
       learningMaterial: connectRelation(body.learningMaterialId),
       learner: connectRelation(userID),
     };

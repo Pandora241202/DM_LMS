@@ -159,7 +159,7 @@ function Row(props) {
   const menuRef = useRef(null);
   const { user } = useAuth();
   const [openMenu, setOpenMenu] = useState(false);
-  const { row, accountType } = props;
+  const { row, accountType, isInstructor } = props;
   const [open, setOpen] = React.useState(false);
   const [listLMAccordingToLesson, setListLMAccordingToLesson] = useState({
     "title": "",
@@ -244,6 +244,9 @@ function Row(props) {
         case "PDF":
           router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
           break;
+        case "QUIZ":
+          router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
+          break;
         default:
           // code block
           createFileLog(lm, user)
@@ -278,7 +281,7 @@ function Row(props) {
           {row.title}
         </TableCell>
         {
-          accountType !== "LEARNER" && 
+          accountType !== "LEARNER" && isInstructor &&
           <TableCell align="right">
               <IconButton
                   onClick={handleMenuOpen}
@@ -319,7 +322,7 @@ function Row(props) {
           </Collapse>
         </TableCell>
       </TableRow>
-      {accountType !== "LEARNER" && <ItemMenu
+      {accountType !== "LEARNER" && isInstructor && <ItemMenu
         anchorEl={menuRef.current}
         onClose={handleMenuClose}
         open={openMenu}
@@ -338,7 +341,7 @@ Row.propTypes = {
   }).isRequired,
 };
 
-export default function CollapsibleTable({accountType, rows}) {
+export default function CollapsibleTable({accountType, rows, isInstructor}) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -351,7 +354,7 @@ export default function CollapsibleTable({accountType, rows}) {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.id} row={row} accountType={accountType}/>
+            <Row key={row.id} row={row} accountType={accountType} isInstructor={isInstructor}/>
           ))}
         </TableBody>
       </Table>

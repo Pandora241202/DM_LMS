@@ -3,8 +3,8 @@ import CheckIcon from '@untitled-ui/icons-react/build/esm/Check';
 import { Avatar, Step, StepContent, StepLabel, Stepper, SvgIcon, Typography } from '@mui/material';
 import { JobCategoryStep } from '././././question/preview_category_step';
 import { JobPreview } from '././././question/preview_question_result';
-import { lm_manageApi } from '../../../.././api/lm-manage';
 import { useMounted } from '../../../../hooks/use-mounted';
+import { lm_manageApi } from '../../../../api/lm-manage';
 
 const StepIcon = (props) => {
     const { active, completed, icon } = props;
@@ -34,7 +34,8 @@ const StepIcon = (props) => {
     );
   };
   
-  export const PreviewQuestion = () => {
+  export const PreviewQuestion = (props) => {
+    const { lmId } = props;
     const isMounted = useMounted();
     const [activeStep, setActiveStep] = useState(0);
     const [complete, setComplete] = useState(false);
@@ -63,29 +64,33 @@ const StepIcon = (props) => {
       ]
       }
   
-    const [resultDT, setResultDT] = useState([[],[],[],[]])
+    const [resultDT, setResultDT] = useState([{
+      questions: [],
+      choices: []
+    }])
   
     useEffect(() => {
-      const fetchData = async (id = 517) => {
+      const fetchData = async (id) => {
         try {
           const response = await lm_manageApi.getLmQuiz(id);
-          console.log(response);
+          
           if (isMounted()) {
             const temp = Object.entries(response.data)
             setResultDT(temp)
-            console.log(temp)
           }
         } catch (err) {
           console.error(err);
         }
       };
     
-      fetchData();
+      fetchData(lmId);
+    }, [lmId]);
+  
+    const [answers, setAnswers] = useState([])
+
+    useEffect(() => {
+      setAnswers(new Array(resultDT[1]?.length))
     }, []);
-  
-    console.log(resultDT);
-  
-    const [answers, setAnswers] = useState(new Array(resultDT[1].length))
   
     const handleNext = useCallback(() => {
       setActiveStep((prevState) => prevState + 1);
@@ -112,14 +117,15 @@ const StepIcon = (props) => {
     }
   
     const steps = useMemo(() => {
-      return result.questions.map((question, index) => (index != result.questions.length - 1 ? {
+      console.log(resultDT)
+      return resultDT.questions?.map((question, index) => (index != resultDT.questions?.length - 1 ? {
           label: `Câu hỏi ${index + 1}`,
           content: (
             <JobCategoryStep
               onBack={handleBack}
               onNext={handleNext}
               question={question}
-              choices={result.choices[index]}
+              choices={resultDT.choices[index]}
               index={index}
               answers={answers}
               updateAnswer={updateAnswer}
@@ -132,7 +138,7 @@ const StepIcon = (props) => {
                   onBack={handleBack}
                   onNext={handleComplete}
                   question={question}
-                  choices={result.choices[index]}
+                  choices={resultDT.choices[index]}
                   index={index}
                   answers={answers}
                   updateAnswer={updateAnswer}
@@ -140,7 +146,7 @@ const StepIcon = (props) => {
               ),
             }
       ))
-    }, [answers, handleBack, handleNext, handleComplete]);
+    }, [resultDT, answers, handleBack, handleNext, handleComplete]);
   
     if (complete) {
       return <JobPreview />;
@@ -158,7 +164,7 @@ const StepIcon = (props) => {
           }
         }}
       >
-        {steps.map((step, index) => {
+        {steps?.map((step, index) => {
           const isCurrentStep = activeStep === index;
           console.log(answers)
           return (
