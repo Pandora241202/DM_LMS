@@ -134,7 +134,7 @@ export const Video = ({lmId}) => {
         preload="none"
         onTimeUpdate={handleVideoSeek}
       >
-        <source src={`http://localhost:8080/learning-materials/${lmId}`} type="video/mp4" />
+        <source src={`${process.env.NEXT_PUBLIC_SERVER_API}/learning-materials/${lmId}`} type="video/mp4" />
         <track
           src="/path/to/captions.vtt"
           kind="subtitles"
@@ -222,7 +222,7 @@ function Row(props) {
       if (isMounted()) {
         // console.log(response.data)
         // setFileGet(response.data.url);
-        window.open(`http://localhost:8080/learning-materials/${id}`, '_blank');
+        window.open(`${process.env.NEXT_PUBLIC_SERVER_API}/learning-materials/${id}`, '_blank');
         // console.log(fileGet)
 
       }

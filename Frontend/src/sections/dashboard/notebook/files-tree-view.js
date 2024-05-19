@@ -31,7 +31,7 @@ export const FilesTreeView = (props) => {
           {expandList[i] && f.items.map(item => 
             <Link
               key={item}
-              href={`http://localhost:8080/uploads/${item}`}
+              href={`${process.env.NEXT_PUBLIC_SERVER_API}/uploads/${item}`}
               color="text.primary"
               target="_blank" 
               rel="noopener noreferrer"

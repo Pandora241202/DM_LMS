@@ -9,11 +9,11 @@ export default function PreviewOfficeFile({lmId}) {
         WebViewer(
           {
             path: '/lib',
-            initialDoc: `http://localhost:8080/learning-materials/${lmId}`,
+            initialDoc: `${process.env.NEXT_PUBLIC_SERVER_API}/learning-materials/${lmId}`,
           },
           viewer.current,
         ).then(instance => {
-            instance.UI.loadDocument(`http://localhost:8080/learning-materials/${lmId}`);
+            instance.UI.loadDocument(`${process.env.NEXT_PUBLIC_SERVER_API}/learning-materials/${lmId}`);
         });
       })
     }, []);
