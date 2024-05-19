@@ -53,7 +53,7 @@ export class CourseDTO {
       instructor: {
         id: entity.Instructor.id,
         name: entity.Instructor.name,
-        email: entity.Instructor.email
+        email: entity.Instructor.email,
       },
       lessons,
     };

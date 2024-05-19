@@ -11,8 +11,8 @@ export class NotebookService {
       data: data,
       include: {
         modelVariations: true,
-        datasets: true
-      }
+        datasets: true,
+      },
     });
   }
 

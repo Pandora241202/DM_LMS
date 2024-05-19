@@ -49,7 +49,7 @@ export class LearnerLogService {
       select: { question: { include: { choice: true } } },
     });
 
-    const correctAnswers = QuizDTO.fromEntity("", quiz as any).correctAnswers;
+    const correctAnswers = QuizDTO.fromEntity('', quiz as any).correctAnswers;
     let score: number = 0;
 
     for (let i = 0; i < correctAnswers.length; i++) if (correctAnswers[i] === learnerAnswers[i].charCodeAt(0) - 65) score += 1;
@@ -74,14 +74,13 @@ export class LearnerLogService {
       score = await this.getScoreOfQuiz(lm.Exercise.quizId, body.learnerAnswer as string[]);
     else if (lm.type === LearningMaterialType.VIDEO) score = body.time;
 
-    if (!log){
-      console.log(userID)
+    if (!log) {
+      console.log(userID);
       log = await this.prismaService.learnerLog.create({
         data: LearnerLogCreateREQ.toCreateInput(userID, body, score),
         select: { id: true, attempts: true },
       });
-    }
-    else
+    } else
       await this.prismaService.learnerLog.updateMany({
         where: {
           learnerId: body.learnerId,

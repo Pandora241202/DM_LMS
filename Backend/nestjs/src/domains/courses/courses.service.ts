@@ -26,7 +26,7 @@ export class CourseService {
     const condition = CourseListREQ.toCondition(query);
     const courses = await this.prismaService.course.findMany({
       orderBy: {
-        id: 'asc'
+        id: 'asc',
       },
       where: condition,
       select: { id: true, name: true, level: true, rating: true, createdAt: true, updatedAt: true, amountOfTime: true },

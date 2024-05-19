@@ -94,14 +94,14 @@ export const AnalyticsStats = (props) => {
             {value}
           </Typography>
         </div>
-        <Box sx={{ width: 200 }}>
+        {/* <Box sx={{ width: 200 }}>
           <Chart
             height={100}
             options={chartOptions}
             series={chartSeries}
             type="area"
           />
-        </Box>
+        </Box> */}
       </Stack>
       <Divider />
       <CardActions>

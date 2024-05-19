@@ -41,8 +41,10 @@ export class UserService {
   }
 
   async detail(id: number) {
-    const user = await this.prismaService.authenticatedUser.findUniqueOrThrow({ where: { id }, include: {Course: true}});
-    const registeCourseIds = (await this.prismaService.registerCourse.findMany({where: {learnerId: user.id}, select: {courseId: true}})).map(register => register.courseId)
+    const user = await this.prismaService.authenticatedUser.findUniqueOrThrow({ where: { id }, include: { Course: true } });
+    const registeCourseIds = (
+      await this.prismaService.registerCourse.findMany({ where: { learnerId: user.id }, select: { courseId: true } })
+    ).map((register) => register.courseId);
     return UserInfoDTO.fromEntity(user as any, registeCourseIds);
   }
 
