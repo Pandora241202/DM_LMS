@@ -17,7 +17,7 @@ const useTranslatedSections = () => {
 export const Layout = withAuthGuard((props) => {
   const settings = useSettings();
   const sections = useTranslatedSections();
-
+  
   if (settings.layout === 'horizontal') {
     return (
       <HorizontalLayout

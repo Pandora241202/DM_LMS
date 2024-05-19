@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = `${process.env.SERVER_API}/dataset`;
+const apiUrl = `${process.env.NEXT_PUBLIC_SERVER_API}/dataset`;
 
 class DatasetApi {
   getDatasets(queryParams) {

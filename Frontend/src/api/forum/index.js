@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = `${process.env.SERVER_API}/forum`;
+const apiUrl = `${process.env.NEXT_PUBLIC_SERVER_API}/forum`;
 
 class ForumApi {
   getForums() {

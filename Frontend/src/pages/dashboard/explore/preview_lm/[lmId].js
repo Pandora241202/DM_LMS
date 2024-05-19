@@ -353,8 +353,6 @@ const PreviewLM = () => {
   useEffect(() => {
     try {
       createFileLog(parseInt(lmId,10), user)
-      console.log("hihihihihihihih")
-
     } catch (err) {
       console.error(err);
     }}, [valueRating]);
@@ -444,7 +442,7 @@ const PreviewLM = () => {
               }              
             </Card>
               {
-                lm.type === "QUIZ" ? <PreviewQuestion/> : <></>
+                lm.type === "QUIZ" ? <PreviewQuestion lmId = {parseInt(lmId, 10)}/> : <></>
               }
             <Card>
               <LmRating 

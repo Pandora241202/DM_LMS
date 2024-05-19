@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = `${process.env.SERVER_API}/learning-path`;
+const apiUrl = `${process.env.NEXT_PUBLIC_SERVER_API}/learning-path`;
 
 class LearningPathApi {
   getLearningPath(learnerId) {

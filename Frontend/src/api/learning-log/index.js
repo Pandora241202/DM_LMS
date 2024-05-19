@@ -2,7 +2,7 @@
 // import { forumDetail, forums } from './data';
 import axios from 'axios';
 
-const apiUrl = `${process.env.SERVER_API}/learner-logs`;
+const apiUrl = `${process.env.NEXT_PUBLIC_SERVER_API}/learner-logs`;
 
 class Learning_logApi {
   createLog(userId, request) {

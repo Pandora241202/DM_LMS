@@ -215,7 +215,7 @@ function FileUploadSection({ caption, setIdLMList }) {
         // NOTE: Make API request
         // console.log(formik.values);
         // console.log(files.map((_file) => _file.path))
-        const response = await axios.post(`${process.env.SERVER_API}/files`,
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/files`,
             formData, {
             headers: {
                 "Content-Type": "multipart/form-data",

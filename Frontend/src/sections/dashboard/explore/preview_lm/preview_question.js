@@ -34,7 +34,8 @@ const StepIcon = (props) => {
     );
   };
   
-  export const PreviewQuestion = () => {
+  export const PreviewQuestion = (props) => {
+    const { lmId } = props;
     const isMounted = useMounted();
     const [activeStep, setActiveStep] = useState(0);
     const [complete, setComplete] = useState(false);
@@ -69,7 +70,7 @@ const StepIcon = (props) => {
     }])
   
     useEffect(() => {
-      const fetchData = async (id = 517) => {
+      const fetchData = async (id) => {
         try {
           const response = await lm_manageApi.getLmQuiz(id);
           
@@ -82,14 +83,13 @@ const StepIcon = (props) => {
         }
       };
     
-      fetchData();
-    }, []);
+      fetchData(lmId);
+    }, [lmId]);
   
     const [answers, setAnswers] = useState([])
 
     useEffect(() => {
-      console.log("efff")
-      setAnswers(new Array(resultDT[1].length))
+      setAnswers(new Array(resultDT[1]?.length))
     }, []);
   
     const handleNext = useCallback(() => {
@@ -117,7 +117,8 @@ const StepIcon = (props) => {
     }
   
     const steps = useMemo(() => {
-      return resultDT.questions.map((question, index) => (index != resultDT.questions.length - 1 ? {
+      console.log(resultDT)
+      return resultDT.questions?.map((question, index) => (index != resultDT.questions?.length - 1 ? {
           label: `Câu hỏi ${index + 1}`,
           content: (
             <JobCategoryStep
@@ -163,7 +164,7 @@ const StepIcon = (props) => {
           }
         }}
       >
-        {steps.map((step, index) => {
+        {steps?.map((step, index) => {
           const isCurrentStep = activeStep === index;
           console.log(answers)
           return (

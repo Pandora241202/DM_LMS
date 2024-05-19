@@ -244,6 +244,9 @@ function Row(props) {
         case "PDF":
           router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
           break;
+        case "QUIZ":
+          router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
+          break;
         default:
           // code block
           createFileLog(lm, user)
