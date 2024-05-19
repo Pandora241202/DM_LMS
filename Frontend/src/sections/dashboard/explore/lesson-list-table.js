@@ -236,6 +236,7 @@ function Row(props) {
     console.log(user.registerCourseIds)
     if(user.registerCourseIds.includes(parseInt(courseId, 10))) {
       // Gửi api createFileLog và getFile
+      console.log(lm.type)
       createFileLog(lm, user)
       switch(lm.type) {
         case "VIDEO":
