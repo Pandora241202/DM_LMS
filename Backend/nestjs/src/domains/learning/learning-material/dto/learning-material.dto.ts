@@ -40,3 +40,18 @@ export class QuizDTO {
     };
   }
 }
+
+export class InfoLMDTO {
+  name: string;
+  difficulty: number;
+  type: string;
+  rating: number;
+  score: number;
+
+  static fromEntity(entity: Prisma.LearningMaterialGetPayload<unknown>): InfoLMDTO {
+    const {name, difficulty, type, rating, score} = entity
+    return {
+      name, difficulty, type, rating, score
+    };
+  }
+}

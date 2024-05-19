@@ -2,7 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { LearningMaterialCreateREQ, Quiz, Code } from './request/learning-material-create.request';
 import { LearningMaterialType } from '@prisma/client';
-import { CodeDTO, QuizDTO } from './dto/learning-material.dto';
+import { CodeDTO, InfoLMDTO, QuizDTO } from './dto/learning-material.dto';
 import { connectManyRelation, connectRelation } from 'src/shared/prisma.helper';
 import { FileService } from 'src/services/file/file.service';
 import { FileDTO } from 'src/services/file/dto/file.dto';
@@ -223,5 +223,11 @@ export class LearningMaterialService {
     });
 
     return lms;
+  }
+
+  async infomation(id: number) {
+    const lm = await this.prismaService.learningMaterial.findFirst({ where: { id }, select: {name: true, difficulty: true, type: true, rating: true, score: true}})
+    if (!lm) throw new NotFoundException("Not found learning material")
+    return InfoLMDTO.fromEntity(lm as any)
   }
 }

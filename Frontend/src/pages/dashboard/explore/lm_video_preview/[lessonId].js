@@ -67,7 +67,7 @@ export default Page;
 // const Page = () => {
 //   return (    
 //     // Render a YouTube video player
-//     <ReactPlayer url='http://localhost:8080/learning-materials/531' />
+//     <ReactPlayer url=`${process.env.SERVER_API}/learning-materials/531` />
 //   );
 // };
 

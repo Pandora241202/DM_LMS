@@ -207,7 +207,8 @@ export const AccountGeneralSettings = (props) => {
                   spacing={2}
                 >
                   <TextField
-                    defaultValue={password}
+                    defaultValue={''}
+                    placeholder='***************'
                     label="Mật khẩu"
                     type='password'
                     required

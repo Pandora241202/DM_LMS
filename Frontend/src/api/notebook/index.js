@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:8080/notebook';
+const apiUrl = `${process.env.SERVER_API}/notebook`;
 
 class NotebookApi {
   getNotebooks(queryParams) {

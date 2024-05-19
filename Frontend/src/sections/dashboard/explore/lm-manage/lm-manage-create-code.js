@@ -22,9 +22,9 @@ import {
 import { FileDropzoneVn } from '../../../../components/file-dropzone-vn';
 import { QuillEditor } from '../../../../components/quill-editor';
 import { paths } from '../../../../paths';
-import { exploreApi } from '../../../../api/explore';
 import { topic_manageApi } from '../../../../api/topic-manage';
 import { lm_manageApi } from '../../../../api/lm-manage';
+import { exploreApi } from '../../../../api/explore';
 import { useMounted } from '../../../../hooks/use-mounted';
 import AceEditer from 'react-ace';
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
@@ -215,7 +215,7 @@ function FileUploadSection({ caption, setIdLMList }) {
         // NOTE: Make API request
         // console.log(formik.values);
         // console.log(files.map((_file) => _file.path))
-        const response = await axios.post('http://localhost:8080/files',
+        const response = await axios.post(`${process.env.SERVER_API}/files`,
             formData, {
             headers: {
                 "Content-Type": "multipart/form-data",

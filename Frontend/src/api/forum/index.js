@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:8080/forum';
+const apiUrl = `${process.env.SERVER_API}/forum`;
 
 class ForumApi {
   getForums() {

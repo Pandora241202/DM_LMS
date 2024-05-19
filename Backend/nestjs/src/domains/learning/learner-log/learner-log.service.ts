@@ -74,11 +74,13 @@ export class LearnerLogService {
       score = await this.getScoreOfQuiz(lm.Exercise.quizId, body.learnerAnswer as string[]);
     else if (lm.type === LearningMaterialType.VIDEO) score = body.time;
 
-    if (!log)
+    if (!log){
+      console.log(userID)
       log = await this.prismaService.learnerLog.create({
         data: LearnerLogCreateREQ.toCreateInput(userID, body, score),
         select: { id: true, attempts: true },
       });
+    }
     else
       await this.prismaService.learnerLog.updateMany({
         where: {
