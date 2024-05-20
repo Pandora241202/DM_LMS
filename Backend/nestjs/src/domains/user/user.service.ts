@@ -134,27 +134,16 @@ export class UserService {
   }
 
   async getAllCourses(learnerId: number, take: number) {
-    const courses = take
-      ? await this.prismaService.historyOfCourse.findMany({
-          take: take,
-          where: { learnerId: learnerId },
+    const courses = await this.prismaService.historyOfCourse.findMany({
+          ...take && { take: take},
+          where: { learnerId: learnerId,  course: {visibility: true}},
           orderBy: { lastestStudyTime: 'desc' },
           select: {
             lastestLessonMinuteComplete: true,
             lastestLesson: { select: { id: true, title: true, amountOfTime: true } },
-            course: { select: { id: true, name: true, description: true, amountOfTime: true } },
+            course: { select: { id: true, name: true, description: true, amountOfTime: true, visibility: true } },
           },
         })
-      : await this.prismaService.historyOfCourse.findMany({
-          where: { learnerId: learnerId },
-          orderBy: { lastestStudyTime: 'desc' },
-          select: {
-            lastestLessonMinuteComplete: true,
-            lastestLesson: { select: { id: true, title: true, amountOfTime: true } },
-            course: { select: { id: true, name: true, description: true, amountOfTime: true } },
-          },
-        });
-
     return courses;
   }
 }

@@ -14,7 +14,8 @@ class UserApi {
   }
 
   getOwnCourses(id){
-    return axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/courses/own`, {userId: id});
+    console.log(id)
+    return axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/courses/${id}/own`);
   }
 
   getBaseInfo(userId) {

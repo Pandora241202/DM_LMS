@@ -10,51 +10,47 @@ import { AcademyDailyProgress } from "./academy/academy-daily-progress";
 import { useSettings } from "../../hooks/use-settings";
 import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
 import { paths } from "../../paths";
-
-const useListCourses = (id) => {
-  const isMounted = useMounted();
-  const [listCourses, setListCourses] = useState([{
-        lastestLessonMinuteComplete: 0,
-        lastestLesson: {
-            id: 0,
-            title: "",
-            amountOfTime: 0,
-        },
-        course: {
-            id: 0,
-            name: ""
-        }
-    }]);
-
-  const getListCourses = useCallback(async () => {
-    try {
-        const response = await userApi.getUserCourses(id, 3)
-        if (isMounted()) {
-          setListCourses(response.data);
-        }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isMounted]);
-
-  useEffect(() => {
-    getListCourses();
-  }, [id]);
-  return listCourses;   
-}; 
+import { AnalyticsStats } from "./analytics/analytics-stats";
+import { AnalyticsTrafficSources } from "./analytics/analytics-traffic-sources";
+import { analyticsApi } from "../../api/analytics";
 
 export const DashboardInstructor = () => {
-    const settings = useSettings();
     const { user } = useAuth()
-    const listCourses = useListCourses(user?.id)
+    const settings = useSettings();
+    const isMounted = useMounted();
+    const [historyWeekRegister, setHistoryWeekRegister] = useState(0)
+    const [historyMonthRegister, setHistoryMonthRegister] = useState(0)
+    const [historyWeekRegisterCourse, setHistoryWeekRegisterCourse] = useState([])
+
+    const getApi = useCallback(async () => {
+        try {
+            const weekRegiter = await analyticsApi.getHistoryRegister(user.id, "week")
+            const monthRegiter = await analyticsApi.getHistoryRegister(user.id, "month")
+            const reponse = await analyticsApi.getHistoryRegisterCourse(user.id)
+            
+            console.log(reponse)
+            const registerCourse = reponse.data.map(item => ({ x: item.name, y: Number(item.numberOfRegister), id: item.id}))
+
+            if (isMounted()) {
+                setHistoryWeekRegister(String(weekRegiter.data.historyRegister));
+                setHistoryMonthRegister(String(monthRegiter.data.historyRegister));
+                setHistoryWeekRegisterCourse(registerCourse);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
+
+    useEffect(() => {
+        getApi()
+    }, [])
+
 
     return (
         <>
-        <Box
-            component="main"
-            sx={{ flexGrow: 1 }}
-        >
-            <Box sx={{ py: '64px' }}>
+            <Box
+                component="main"
+            >
                 <Container maxWidth={settings.stretch ? false : 'xl'}>
                     <Grid
                         container
@@ -63,56 +59,31 @@ export const DashboardInstructor = () => {
                             lg: 4
                         }}
                     >
-                    <Grid xs={12}>
-                        <Typography variant="h4">
-                            Chào mừng trở lại
-                        </Typography>
-                        <Typography
-                            color="text.secondary"
-                            sx={{ mt: 1 }}
-                            variant="body2"
-                            marginBottom={2}
-                        >
-                            Học là một cuộc phiêu lưu không bao giờ kết thúc.
-                        </Typography>
-                    </Grid>
-                    <Grid
-                        xs={12}
-                        md={12}
-                    >
-                        {listCourses[0]?.lastestLesson && <AcademyDailyProgress
-                            timeCurrent={listCourses[0]?.lastestLessonMinuteComplete*60}
-                            timeGoal={listCourses[0]?.lastestLesson ? listCourses[0]?.lastestLesson.amountOfTime : ""}
-                            courseName = {listCourses[0]?.course.name}
-                            lessonName = {listCourses[0]?.lastestLesson ? listCourses[0]?.lastestLesson.title : ""}
-                        />}
-                    </Grid>
-                    <Grid xs={12} marginBottom={2}>
-                        <Stack
-                            alignItems="flex-start"
-                            direction="row"
-                            justifyContent="space-between"
-                            spacing={3}
-                        >
-                            <Typography variant="h5">
-                                Học gần đây
-                            </Typography>
-                        </Stack>
-                    </Grid>
-                    {listCourses.map((history) => (
                         <Grid
-                            key={history.course.id}
                             xs={12}
-                            md={3.5}    
-                            marginRight={5}
+                            md={6}
                         >
-                        <CourseCard course={history.course} />
+                            <AnalyticsStats title="Tổng đăng kí mới trong tuần" value = {historyWeekRegister}/>
                         </Grid>
-                    ))}
+                        <Grid
+                            xs={12}
+                            md={6}
+                        >
+                            <AnalyticsStats title="Tổng đăng kí mới trong tuần" value = {historyMonthRegister}/>
+                        </Grid>
+                        
+                        <Grid
+                            xs={12}
+                            lg={12}
+                            >
+                            <AnalyticsTrafficSources
+                                data={historyWeekRegisterCourse}
+                                type="registerCourse"
+                            />
+                        </Grid>
                     </Grid>
                 </Container>
             </Box>
-        </Box>
-    </>
+        </>
     )
 }

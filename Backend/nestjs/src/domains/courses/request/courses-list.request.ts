@@ -24,21 +24,10 @@ export class CourseOwnListREQ {
   @IsNumber()
   userId: number;
 
-  @IsOptional()
-  @IsBoolean()
-  visibility: boolean;
-
-  @IsOptional()
-  @IsString()
-  name: string;
-
   static toCondition(query: CourseOwnListREQ): Prisma.CourseFindManyArgs['where'] {
+    console.log(query.userId)
     return leanObject({
       idInstructor: query.userId,
-      visibility: query.visibility,
-      name: {
-        contains: query.name,
-      },
     });
   }
 }

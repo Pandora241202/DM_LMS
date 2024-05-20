@@ -146,10 +146,10 @@ model Topic {
 model TopicLink {
   id      Int     @id @default(autoincrement())
   state   Boolean @default(true)
-  startId Int     @map("start_id")
+  startId Int?     @map("start_id")
   endId   Int?    @map("end_id")
   end     Topic?  @relation("end_link", fields: [endId], references: [id])
-  start   Topic   @relation("start_link", fields: [startId], references: [id])
+  start   Topic?   @relation("start_link", fields: [startId], references: [id])
 
   @@unique([startId, endId])
   @@map("topic_link")

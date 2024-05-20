@@ -10,14 +10,18 @@ const levelOptions = [
   "EXPERT"
 ];
 
+const visibilityOptions = ["VISIBLE", "NON_VISIBLE"];
+
 export const CourseSearch = (props) => {
-  const {onFilter} = props
-  const [name, setName] = useState(null)
-  const [level, setLevel] = useState(null)
+  const {onFilter, isInstructor} = props
+  const [name, setName] = useState("")
+  const [level, setLevel] = useState("NONE")
+  const [visibility, setVisibility] = useState(true)
+
 
   const handleSearchButton = useCallback(() => {
-    onFilter({name, level})
-  }, [name, level])
+    onFilter({name, level, visibility})
+  }, [name, level, visibility])
 
   return (
     <Card>
@@ -57,6 +61,29 @@ export const CourseSearch = (props) => {
             ))}
           </TextField>
         </Box>
+        {
+          isInstructor && 
+          <Box sx={{ flexGrow: 1 }}>
+            <TextField
+              defaultValue="NONE"
+              fullWidth
+              label="Phân loại"
+              name="subject"
+              select
+              SelectProps={{ native: true }}
+              onChange={(event) => setVisibility(event.target.value === "VISIBLE")}
+            >
+              {visibilityOptions.map((option) => (
+                <option
+                  key={option}
+                  value={option}
+                >
+                  {option}
+                </option>
+              ))}
+            </TextField>
+          </Box>
+        }
         <Button
           size="large"
           startIcon={(
