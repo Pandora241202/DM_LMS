@@ -41,8 +41,8 @@ export const CourseCard = (props) => {
           color="text.secondary"
           sx={{ mt: 1 }}
           variant="body2"
+          dangerouslySetInnerHTML={{__html: course.description}}
         >
-          {course.description}
         </Typography>
         <Stack
           alignItems="center"

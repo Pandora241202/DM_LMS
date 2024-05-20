@@ -27,6 +27,7 @@ import { OverviewTips } from '../../sections/dashboard/overview/overview-tips';
 import { useAuth } from '../../hooks/use-auth';
 import { DashboardAdmin } from '../../sections/dashboard/dashboard-admin';
 import { DashboardLearner } from '../../sections/dashboard/dashboard-learner';
+import { DashboardInstructor } from '../../sections/dashboard/dashboard-instructor';
 
 const now = new Date();
 
@@ -73,7 +74,13 @@ const Page = () => {
                 }
                 <Box>
                   {
-                    user?.accountType === 'ADMIN' ? <DashboardAdmin/> : <DashboardLearner/>
+                    user?.accountType === 'ADMIN' && <DashboardAdmin/>
+                  }
+                  {
+                    user?.accountType === 'LEARNER' && <DashboardLearner/>
+                  }
+                  {
+                    user?.accountType === 'INSTRUCTOR' && <DashboardInstructor/>
                   }  
                 </Box>
               </Stack>

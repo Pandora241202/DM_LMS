@@ -39,7 +39,8 @@ export class CourseService {
     const condition = CourseOwnListREQ.toCondition(query);
     const courses = await this.prismaService.course.findMany({
       where: condition,
-      select: { id: true, name: true, createdAt: true, updatedAt: true, amountOfTime: true },
+      orderBy: {id: 'asc'},
+      select: { id: true, name: true, createdAt: true, updatedAt: true, amountOfTime: true, description: true },
     });
 
     return courses.map((c) => CourseListDTO.fromEntity(c as any));

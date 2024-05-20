@@ -66,7 +66,7 @@ export const LearningPathDoneLOs = (props) => {
           )}
           size="small"
           component={NextLink}
-          href={paths.dashboard.blog.postDetails}
+          href={paths.dashboard.explore + `/preview_lm/${id}`}
         >
           Xem lại
         </Button>

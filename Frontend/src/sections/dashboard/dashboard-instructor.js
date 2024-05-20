@@ -43,7 +43,7 @@ const useListCourses = (id) => {
   return listCourses;   
 }; 
 
-export const DashboardLearner = () => {
+export const DashboardInstructor = () => {
     const settings = useSettings();
     const { user } = useAuth()
     const listCourses = useListCourses(user?.id)

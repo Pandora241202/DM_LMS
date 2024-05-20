@@ -75,7 +75,6 @@ export class LearnerLogService {
     else if (lm.type === LearningMaterialType.VIDEO) score = body.time;
 
     if (!log) {
-      console.log(userID);
       log = await this.prismaService.learnerLog.create({
         data: LearnerLogCreateREQ.toCreateInput(userID, body, score),
         select: { id: true, attempts: true },

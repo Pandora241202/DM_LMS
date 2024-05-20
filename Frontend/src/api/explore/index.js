@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = '`${process.env.NEXT_PUBLIC_SERVER_API}';
+const apiUrl = `${process.env.NEXT_PUBLIC_SERVER_API}`;
 
 class ExploreApi {
   getListTopic() {

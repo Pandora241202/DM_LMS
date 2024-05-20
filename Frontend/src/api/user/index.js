@@ -9,9 +9,12 @@ class UserApi {
   }
 
   getUserCourses(id, take) {
-    console.log(process.env.NEXT_PUBLIC_SERVER_API)
     const url = take ? `${apiUrl}/${id}/courses?take=${take}` : `${apiUrl}/${id}/courses`
     return axios.get(url);
+  }
+
+  getOwnCourses(id){
+    return axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/courses/own`, {userId: id});
   }
 
   getBaseInfo(userId) {

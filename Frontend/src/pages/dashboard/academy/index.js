@@ -25,7 +25,7 @@ import { useAuth } from '../../../hooks/use-auth';
 import * as consts from '../../../constants';
 import { paths } from '../../../paths';
 
-const useCourses = (id) => {
+const useCourses = (id, accountType) => {
   const isMounted = useMounted();
   const [listCourses, setListCourses] = useState([{
         lastestLessonMinuteComplete: 0,
@@ -42,7 +42,8 @@ const useCourses = (id) => {
 
   const getListCourses = useCallback(async () => {
     try {
-        const response = await userApi.getUserCourses(id)
+        const response = accountType === "LEARNER" ? await userApi.getUserCourses(id) : await userApi.getOwnCourses(id);
+
         if (isMounted()) {
           setListCourses(response.data);
         }
@@ -60,7 +61,7 @@ const useCourses = (id) => {
 const Page = () => {
   const settings = useSettings();
   const {user} = useAuth()
-  const courses = useCourses(user.id);
+  const courses = useCourses(user?.id, user?.accountType);
   const [page, setPage] = useState(0);
 
   usePageView();
@@ -93,7 +94,7 @@ const Page = () => {
                   spacing={3}
                 >
                   <Typography variant="h3">
-                    Các khóa học đã đăng kí
+                    {user.accountType === "LEARNER" ? "Các khóa học đã đăng kí" : "Các khóa học đã tạo"}
                   </Typography>
                 </Stack>
               </Grid>
@@ -101,15 +102,15 @@ const Page = () => {
               .slice(page*consts.FORUMS_PER_PAGE, page*consts.FORUMS_PER_PAGE + consts.FORUMS_PER_PAGE)
               .map((history) => (
                 <Grid
-                  key={history.course.id}
+                  key={history.course?.id}
                   xs={12}
                   md={4}
                 >
-                  <CourseCard course={history.course} />
+                  {history.course && <CourseCard course={history.course} />}
                 </Grid>
               ))}
               {
-                courses.length === 0 && <Typography>Bạn chưa đăng kí khóa học nào, <Link href={paths.dashboard.explore}>khám phá thêm</Link></Typography>
+                courses.length === 0 && user.accountType === "LEARNER" && <Typography>Bạn chưa đăng kí khóa học nào, <Link href={paths.dashboard.explore}>khám phá thêm</Link></Typography>
               }
             </Grid>
             {courses.length !== 0 && <Stack
