@@ -45,5 +45,8 @@ const withTM = require('next-transpile-modules')([
 module.exports = {
   ...withTM(config), 
   ...withNextVideo(config),
+  images: {
+    unoptimized: true
+  },
   // pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js']
 }

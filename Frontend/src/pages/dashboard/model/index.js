@@ -217,7 +217,7 @@ const Page = () => {
                   authorAvatar={model.author.avatar}
                   authorName={model.author.name}
                   modelVariationsCount={model.modelVariations.length}
-                  notebooksCount={model.notebooks.length}
+                  notebooksCount={model.modelVariations.reduce((count, current) => count + current.notebooks.length, 0)}
                   votes={model.votes}
                   description={model.description}
                   title={model.title}
