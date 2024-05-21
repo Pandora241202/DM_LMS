@@ -201,7 +201,7 @@ export const getSections = (t, accountType) => [
       },
       {
         title: t(tokens.nav.account_manage),
-        path: paths.dashboard.account_manage,
+        path: paths.dashboard.account_manage.index,
         icon: (
           <SvgIcon fontSize="small">
             <ManageAccountsOutlinedIcon />

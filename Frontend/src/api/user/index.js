@@ -8,6 +8,10 @@ class UserApi {
     return axios.get(`${apiUrl}/${id}`);
   }
 
+  getAllUser() {
+    return axios.get(`${apiUrl}`);
+  }
+
   getUserCourses(id, take) {
     const url = take ? `${apiUrl}/${id}/courses?take=${take}` : `${apiUrl}/${id}/courses`
     return axios.get(url);

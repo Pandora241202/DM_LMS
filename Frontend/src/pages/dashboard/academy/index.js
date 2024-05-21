@@ -10,7 +10,8 @@ import {
   SvgIcon,
   Typography,
   Unstable_Grid2 as Grid,
-  Link
+  Link,
+  Breadcrumbs
 } from '@mui/material';
 import { usePageView } from '../../../hooks/use-page-view';
 import { useSettings } from '../../../hooks/use-settings';
@@ -26,6 +27,7 @@ import { userApi } from '../../../api/user';
 import { useAuth } from '../../../hooks/use-auth';
 import * as consts from '../../../constants';
 import { paths } from '../../../paths';
+import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 
 const useCourses = (id, accountType, filter) => {
   const isMounted = useMounted();
@@ -104,11 +106,29 @@ const Page = () => {
                   marginBottom={2}
                 >
                   <>  
-                    <div>
+                    <Stack spacing={1}>
                       <Typography variant="h4">
                         {user.accountType === "LEARNER" ? "Các khóa học đã đăng kí" : "Các khóa học đã tạo"}
                       </Typography>
-                    </div>
+                      <Breadcrumbs separator={<BreadcrumbsSeparator />}>
+                        <Link
+                          color="text.primary"
+                          component={NextLink}
+                          href={paths.dashboard.index}
+                          variant="subtitle2"
+                        >
+                          Trang chủ
+                        </Link>
+                        <Link
+                          color="text.primary"
+                          component={NextLink}
+                          href={paths.dashboard.explore}
+                          variant="subtitle2"
+                        >
+                          Toàn bộ khóa học
+                        </Link>
+                      </Breadcrumbs>
+                    </Stack>
                     <div>
                       <Stack
                         direction="row"

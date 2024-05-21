@@ -8,8 +8,10 @@ import {
   Container,
   Stack,
   SvgIcon,
+  Link,
   Typography,
-  Unstable_Grid2 as Grid
+  Unstable_Grid2 as Grid,
+  Breadcrumbs
 } from '@mui/material';
 import { usePageView } from '../../../hooks/use-page-view';
 import { useSettings } from '../../../hooks/use-settings';
@@ -23,6 +25,7 @@ import { exploreApi } from '../../../api/explore';
 import { useAuth } from '../../../hooks/use-auth';
 import { CourseSearch } from '../../../sections/dashboard/academy/course-search';
 import * as consts from '../../../constants';
+import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 
 // import { CreateCourseDialog } from '../../../sections/dashboard/explore/create-course-dialog';
 
@@ -93,13 +96,29 @@ const Page = () => {
                 spacing={4}
                 marginBottom={2}
               >
-                <>
-                  <div>
-                    <Typography variant="h4">
+                <Stack spacing={1}>
+                  <Typography variant="h4">
+                    Toàn bộ khóa học
+                  </Typography>
+                  <Breadcrumbs separator={<BreadcrumbsSeparator />}>
+                    <Link
+                      color="text.primary"
+                      component={NextLink}
+                      href={paths.dashboard.index}
+                      variant="subtitle2"
+                    >
+                      Trang chủ
+                    </Link>
+                    <Link
+                      color="text.primary"
+                      component={NextLink}
+                      href={paths.dashboard.explore}
+                      variant="subtitle2"
+                    >
                       Toàn bộ khóa học
-                    </Typography>
-                  </div>
-                </>
+                    </Link>
+                  </Breadcrumbs>
+                </Stack>
               </Stack>
               <CourseSearch onFilter = {handleFilter}/>
             </Grid>

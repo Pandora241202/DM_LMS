@@ -154,7 +154,10 @@ export const paths = {
     },
     topic_manage: '/dashboard/topic-manage',
     lm_manage: '/dashboard/lm-manage',
-    account_manage: '/dashboard/account-manage',
+    account_manage: {
+      index: '/dashboard/account-manage',
+      create: '/dashboard/account-manage/create'
+    }
   },
   components: {
     index: '/components',
