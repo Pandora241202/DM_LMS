@@ -96,7 +96,7 @@ export const Layout = (props) => {
                   }
                 }}
               >
-                DM LMS
+                HNM LMS
               </Box>
             </Stack>
           </Box>

@@ -38,7 +38,7 @@ export const TenantSwitch = (props) => {
             color="inherit"
             variant="h6"
           >
-            DM Learning System
+            HNM Learning System
           </Typography>
           
         </Box>

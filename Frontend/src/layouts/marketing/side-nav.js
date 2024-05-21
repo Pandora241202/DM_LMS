@@ -285,7 +285,7 @@ export const SideNav = (props) => {
               }
             }}
           >
-            DM LMS
+            HNM LMS
           </Box>
         </Stack>
       </Box>
