@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { LearningLogDTO } from 'src/domains/learning/learner-log/dto/learning-log.dto';
 
 const DFS = (
@@ -54,6 +55,12 @@ function transformData(data: { startId: number; endId: number }[]): { start: num
 }
 
 export class TopicDTO {
+  id: number;
+  title: string;
+  subject: string;
+  preTopicIds: number[];
+  postTopicIds: number[];
+
   static getSimilarityLM(logs: LearningLogDTO[]) {
     let result: { rating: number; similarity: number; lmID: number; name: string; score: number } = {
       rating: -1,
@@ -118,5 +125,18 @@ export class TopicDTO {
 
   static getTopicPath(topicLink: { startId: number; endId: number }[], start: number, end: number): number[][] {
     return DFS([], [], transformData(topicLink), start, end);
+  }
+
+  static fromEntity(entity: Prisma.TopicGetPayload<{include: {StartLink: true, EndLink: true}}>): TopicDTO{
+    const preTopicIds = entity.EndLink.map(l => l.startId)
+    const postTopicIds = entity.StartLink.map(l => l.endId)
+
+    return {
+      id: entity.id,
+      title: entity.title,
+      subject: entity.subject,
+      preTopicIds,
+      postTopicIds
+    }
   }
 }

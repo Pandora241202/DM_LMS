@@ -6,6 +6,7 @@ import { TopicLinkDeleteREQ } from './request/topic-link-delete.request';
 import { TopicDetailRESP } from './response/topic-detail.response';
 import { TopicLinkUpdateREQ } from './request/topic-link-update.request';
 import { connectRelation } from 'src/shared/prisma.helper';
+import { TopicDTO } from './dto/topic.dto';
 
 @Injectable()
 export class TopicService {
@@ -129,8 +130,8 @@ export class TopicService {
   async list() {
     const topics = await this.prismaService.topic.findMany({
       orderBy: { id: 'asc' },
-      select: { id: true, title: true, subject: true },
+      select: { id: true, title: true, subject: true, StartLink: true, EndLink: true},
     });
-    return topics;
+    return topics.map(topic => TopicDTO.fromEntity(topic));
   }
 }

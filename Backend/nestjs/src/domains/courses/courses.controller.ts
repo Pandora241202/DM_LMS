@@ -13,9 +13,9 @@ export class CourseController {
     return await this.courseService.create(body);
   }
 
-  @Get('own')
-  async ownCourse(@Body() body: CourseOwnListREQ) {
-    return await this.courseService.ownCourse(body);
+  @Get(':id/own')
+  async ownCourse(@Param('id', ParseIntPipe) id: number) {
+    return await this.courseService.ownCourse(id);
   }
 
   @Get(':id')

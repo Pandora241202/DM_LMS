@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { paths } from '../../../paths';
 export const AnalyticsTrafficSources = (props) => {
-  const { data } = props;
+  const { data, type } = props;
   const [chartSeries, setChartSeries] = useState(null)
   const [options, setOptions] = useState(null)
   const [forumPath, setForumPath] = useState(null)
@@ -24,7 +24,8 @@ export const AnalyticsTrafficSources = (props) => {
         events:{
           click: function(event, chartContext, config) {
           // The last parameter config contains additional information like `seriesIndex` and `dataPointIndex` for cartesian chartsc
-            setForumPath(`${paths.dashboard.forum.index}/${data[config.dataPointIndex]?.x}`);
+            const path = type === "forum" ? `${paths.dashboard.forum.index}/${data[config.dataPointIndex]?.x}` : `${paths.dashboard.explore}/${data[config.dataPointIndex]?.id}`
+            setForumPath(path);
           }
         }
       },
@@ -103,7 +104,7 @@ export const AnalyticsTrafficSources = (props) => {
     <Card>
       <CardHeader
         sx={{ pb: 0 }}
-        title="Top forum được truy cập trong tháng"
+        title={`Top ${type === "forum" ? "forum" : "khóa học"} được ${type === "forum" ? "truy cập" : "đăng kí"} trong tháng`}
       />
       <CardContent sx={{ pt: 0 }}>
         {chartSeries && <Chart

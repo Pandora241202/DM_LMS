@@ -41,7 +41,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: Overview
+          Tổng quan
         </title>
       </Head>
       <Box
@@ -66,7 +66,7 @@ const Page = () => {
                 spacing={4}
               >
                 {
-                  user?.accountType === 'ADMIN' && <div>
+                  user?.accountType !== 'LEARNER' && <div>
                     <Typography variant="h4">
                       Tổng quan
                     </Typography>
@@ -74,14 +74,14 @@ const Page = () => {
                 }
                 <Box>
                   {
+                    user?.accountType === 'INSTRUCTOR' && <DashboardInstructor/>
+                  }  
+                  {
                     user?.accountType === 'ADMIN' && <DashboardAdmin/>
                   }
                   {
                     user?.accountType === 'LEARNER' && <DashboardLearner/>
                   }
-                  {
-                    user?.accountType === 'INSTRUCTOR' && <DashboardInstructor/>
-                  }  
                 </Box>
               </Stack>
             </Grid>
