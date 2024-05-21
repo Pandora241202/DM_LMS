@@ -17,7 +17,7 @@ export class LearnerLogCreateREQ {
 
   @IsOptional()
   @IsNumber()
-  learnerAnswer: string[] | string | number;
+  learnerAnswer: string[] | string | number[];
 
   @IsNumber()
   @Min(1)

@@ -43,7 +43,7 @@ export class LearnerLogService {
     return score;
   }
 
-  async getScoreOfQuiz(quizId: number, learnerAnswers: string[]) {
+  async getScoreOfQuiz(quizId: number, learnerAnswers: number[]) {
     const quiz = await this.prismaService.quiz.findFirst({
       where: { id: quizId },
       select: { question: { include: { choice: true } } },
@@ -52,7 +52,7 @@ export class LearnerLogService {
     const correctAnswers = QuizDTO.fromEntity("", quiz as any).correctAnswers;
     let score: number = 0;
 
-    for (let i = 0; i < correctAnswers.length; i++) if (correctAnswers[i] === learnerAnswers[i].charCodeAt(0) - 65) score += 1;
+    for (let i = 0; i < correctAnswers.length; i++) if (correctAnswers[i] === learnerAnswers[i]) score += 1;
     return score;
   }
 
@@ -71,7 +71,7 @@ export class LearnerLogService {
     if (lm.type === LearningMaterialType.CODE)
       score = await this.getScoreOfCode(lm.Exercise.codeId, body.learnerAnswer as string);
     else if (lm.type === LearningMaterialType.QUIZ)
-      score = await this.getScoreOfQuiz(lm.Exercise.quizId, body.learnerAnswer as string[]);
+      score = await this.getScoreOfQuiz(lm.Exercise.quizId, body.learnerAnswer as number[]);
     else if (lm.type === LearningMaterialType.VIDEO) score = body.time;
 
     if (!log){
@@ -87,9 +87,8 @@ export class LearnerLogService {
           learnerId: body.learnerId,
           learningMaterialId: body.learningMaterialId,
           state: true,
-          attempts: log.attempts + 1,
         },
-        data: { score },
+        data: { score: score, attempts: {increment: 1}},
       });
 
     await this.prismaService.learningPath.updateMany({
