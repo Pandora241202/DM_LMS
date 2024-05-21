@@ -26,7 +26,7 @@ export class CourseService {
     const condition = CourseListREQ.toCondition(query);
     const courses = await this.prismaService.course.findMany({
       orderBy: {
-        id: 'asc'
+        id: 'asc',
       },
       where: condition,
       select: { id: true, name: true, level: true, rating: true, createdAt: true, updatedAt: true, amountOfTime: true },
@@ -35,14 +35,15 @@ export class CourseService {
     return courses.map((c) => CourseListDTO.fromEntity(c as any));
   }
 
-  async ownCourse(query: CourseOwnListREQ) {
-    const condition = CourseOwnListREQ.toCondition(query);
+  async ownCourse(instructorId: number) {
     const courses = await this.prismaService.course.findMany({
-      where: condition,
-      select: { id: true, name: true, createdAt: true, updatedAt: true, amountOfTime: true },
+      where: {idInstructor: instructorId},
+      orderBy: {id: 'asc'},
+      // select: { id: true, name: true, createdAt: true, updatedAt: true, amountOfTime: true, description: true },
+      select: { id: true, name: true, level: true, amountOfTime: true, description: true, visibility: true },
     });
 
-    return courses.map((c) => CourseListDTO.fromEntity(c as any));
+    return courses.map((c) => ({id: c.id, name: c.name, level: c.level, amountOfTime: c.amountOfTime, description: c.description, visibility: c.visibility}));
   }
 
   async update(id: number, body: CourseUpdateREQ) {

@@ -142,6 +142,7 @@ const LessonList = () => {
   const [level, setLevel] = useState("");
   const [rating, setRating] = useState("");
   const [updatedAt, setUpdated] = useState("");
+  const [registered, setRegistered] = useState(null);
 
   useEffect(() => {(async () => {
     try {
@@ -153,10 +154,11 @@ const LessonList = () => {
       setRating(response.data.rating)
       setLevel(response.data.level)
       setUpdated(response.data.updatedAt.slice(8, 10) + '-' + response.data.updatedAt.slice(5, 7) + '-' + response.data.updatedAt.slice(0, 4))
+      if (!registered) setRegistered(user.registerCourseIds?.includes(Number(courseId)));
     } catch (err) {
       console.error(err);
     }
-  })()}, []);
+  })()}, [registered]);
 
   usePageView();
 
@@ -181,7 +183,10 @@ const LessonList = () => {
     }));
   }, [updateSearch]);
 
-  const handleRegisterCourse = useCallback(async () => await userApi.registerCourse(user.id, courseId))
+  const handleRegisterCourse = useCallback(async () => {
+    await userApi.registerCourse(user.id, courseId); 
+    setRegistered(true);
+  }, [courseId])
 
   return (
     <>
@@ -245,7 +250,7 @@ const LessonList = () => {
                   Thêm bài học mới
                 </Button>}
                 {
-                  user.accountType === 'LEARNER' && !user.registerCourseIds?.includes(Number(courseId)) && <Button
+                  user.accountType === 'LEARNER' && !registered && <Button
                     onClick={handleRegisterCourse}                    
                     startIcon={(
                       <SvgIcon>
@@ -258,7 +263,7 @@ const LessonList = () => {
                   </Button>
                 }
                 {
-                  user.accountType === 'LEARNER' && user.registerCourseIds?.includes(Number(courseId)) && 
+                  user.accountType === 'LEARNER' && registered && 
                   <Alert variant="filled" severity="success" sx={{ color: 'white' }}>
                     Bạn đang học khóa học này
                   </Alert>
@@ -300,6 +305,7 @@ const LessonList = () => {
               <CollapsibleTable 
                 accountType = {user.accountType}
                 isInstructor = {user.id === instructor.id}
+                registered = {registered}
                 rows={lessonList}  
               />
             </Card>

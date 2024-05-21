@@ -28,8 +28,8 @@ export class UserInfoDTO {
     };
   }
 
-  static fromEntity(e: Prisma.AuthenticatedUserGetPayload<{include: {Course: true}}>, registerCourseIds?: number[]) {
-    const courseIds = e.Course ? e.Course.map(c => c.id) : []
+  static fromEntity(e: Prisma.AuthenticatedUserGetPayload<{ include: { Course: true } }>, registerCourseIds?: number[]) {
+    const courseIds = e.Course ? e.Course.map((c) => c.id) : [];
     return leanObject({
       id: e.id,
       avatar: e.avatar,

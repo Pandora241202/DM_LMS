@@ -106,7 +106,7 @@ const PreviewVideo = ({lmId}) => {
           preload="none"
           onTimeUpdate={handleVideoSeek}
         >
-          <source src={`http://localhost:8080/learning-materials/${lmId}`} type="video/mp4" />
+          <source src={`${process.env.NEXT_PUBLIC_SERVER_API}/learning-materials/${lmId}`} type="video/mp4" />
           <track
             src="/path/to/captions.vtt"
             kind="subtitles"

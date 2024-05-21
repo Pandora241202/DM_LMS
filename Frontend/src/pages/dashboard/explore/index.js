@@ -67,7 +67,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: Overview
+          Khám phá các khóa học
         </title>
       </Head>
       <Box
@@ -78,7 +78,7 @@ const Page = () => {
         }}
       >
         <Container maxWidth={settings.stretch ? false : 'xl'}>
-         <Grid
+        <Grid
             container
             disableEqualOverflow
             spacing={{
@@ -98,25 +98,6 @@ const Page = () => {
                     <Typography variant="h4">
                       Toàn bộ khóa học
                     </Typography>
-                  </div>
-                  <div>
-                    <Stack
-                      direction="row"
-                      spacing={4}
-                    >
-                      {user.accountType !== 'LEARNER' && <Button
-                        component={NextLink}
-                        href={`${paths.dashboard.explore}/create`}
-                        startIcon={(
-                          <SvgIcon>
-                            <PlusIcon />
-                          </SvgIcon>
-                        )}
-                        variant="contained"
-                      >
-                        Tạo khoá học mới
-                      </Button>}
-                    </Stack>
                   </div>
                 </>
               </Stack>

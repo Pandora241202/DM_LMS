@@ -92,7 +92,7 @@ export const AccountPopover = (props) => {
       <Box sx={{ p: 1 }}>
         <ListItemButton
           component={NextLink}
-          href={paths.dashboard.social.profile}
+          href={paths.dashboard.account}
           sx={{
             borderRadius: 1,
             px: 1,
@@ -112,7 +112,7 @@ export const AccountPopover = (props) => {
             )}
           />
         </ListItemButton>
-        <ListItemButton
+        {/* <ListItemButton
           component={NextLink}
           href={paths.dashboard.account}
           sx={{
@@ -133,8 +133,8 @@ export const AccountPopover = (props) => {
               </Typography>
             )}
           />
-        </ListItemButton>
-        <ListItemButton
+        </ListItemButton> */}
+        {/* <ListItemButton
           component={NextLink}
           href={paths.dashboard.index}
           sx={{
@@ -155,7 +155,7 @@ export const AccountPopover = (props) => {
               </Typography>
             )}
           />
-        </ListItemButton>
+        </ListItemButton> */}
       </Box>
       <Divider sx={{ my: '0 !important' }} />
       <Box

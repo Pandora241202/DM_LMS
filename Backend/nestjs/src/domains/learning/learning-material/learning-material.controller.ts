@@ -29,7 +29,7 @@ export class LearningMaterialController {
       res.set({
         'Content-Type': (lm.DTO as FileDTO).type,
         'Content-Disposition': `attachment; filename=${(lm.DTO as FileDTO).name}`,
-        'filename': lm.DTO.name
+        filename: lm.DTO.name,
       });
       createReadStream(filePath).pipe(res);
     } else return res.status(200).json(lm.DTO);
@@ -37,7 +37,7 @@ export class LearningMaterialController {
 
   @Get(':id/information')
   async getInfomation(@Param('id', ParseIntPipe) id: number) {
-    return this.learningMaterialService.infomation(id)
+    return this.learningMaterialService.infomation(id);
   }
 
   @Get()

@@ -34,19 +34,23 @@ class NotebookCreateRequestDto {
 
   // Map from dto request to entity create input
   static toCreateInput(data: NotebookCreateRequestDto): Prisma.NotebookUncheckedCreateInput {
-    const {modelVariationIds, datasetIds, ...rest} = data;
+    const { modelVariationIds, datasetIds, ...rest } = data;
     return {
-      ...rest, 
-      modelVariations: modelVariationIds ? {
-        create: modelVariationIds.map(id => ({
-          modelVariation: { connect: { id: id } }
-        }))
-      } : undefined,
-      datasets: datasetIds ? {
-        create: datasetIds.map(id => ({
-          dataset: { connect: { id: id } }
-        }))
-      } : undefined,
+      ...rest,
+      modelVariations: modelVariationIds
+        ? {
+            create: modelVariationIds.map((id) => ({
+              modelVariation: { connect: { id: id } },
+            })),
+          }
+        : undefined,
+      datasets: datasetIds
+        ? {
+            create: datasetIds.map((id) => ({
+              dataset: { connect: { id: id } },
+            })),
+          }
+        : undefined,
     };
   }
 }
@@ -81,16 +85,24 @@ class NotebookUpdateRequestDto {
     const { modelVariationIds, datasetIds, ...rest } = data;
     return {
       ...rest,
-      ...(modelVariationIds ? {modelVariations: {
-        create: modelVariationIds.map(id => ({
-          modelVariation: { connect: { id: id } }
-        }))
-      }} : {}),
-      ...(datasetIds ? {datasets: {
-        create: datasetIds.map(id => ({
-          dataset: { connect: { id: id } }
-        }))
-      }} : {}),
+      ...(modelVariationIds
+        ? {
+            modelVariations: {
+              create: modelVariationIds.map((id) => ({
+                modelVariation: { connect: { id: id } },
+              })),
+            },
+          }
+        : {}),
+      ...(datasetIds
+        ? {
+            datasets: {
+              create: datasetIds.map((id) => ({
+                dataset: { connect: { id: id } },
+              })),
+            },
+          }
+        : {}),
       updatedAt: new Date(),
     };
   }
@@ -104,10 +116,12 @@ class NotebookResponseDto {
   userId: number;
   isPublic: boolean;
   updatedAt: string;
-  modelVariations?: {modelVariationId: number}[];
-  datasets?: {datasetId: number}[];
+  modelVariations?: { modelVariationId: number }[];
+  datasets?: { datasetId: number }[];
 
-  static fromNotebook(data: Notebook & {modelVariations?: {modelVariationId: number}[]; datasets?: {datasetId: number}[];}): NotebookResponseDto {
+  static fromNotebook(
+    data: Notebook & { modelVariations?: { modelVariationId: number }[]; datasets?: { datasetId: number }[] },
+  ): NotebookResponseDto {
     return {
       ...data,
       updatedAt: DatetimeService.formatVNTime(data.updatedAt),

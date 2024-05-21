@@ -10,7 +10,7 @@
 //         WebViewer(
 //           {
 //             path: '/lib',
-//             initialDoc: `http://localhost:8080/learning-materials/${534}`,
+//             initialDoc: `${process.env.NEXT_PUBLIC_SERVER_API}/learning-materials/${534}`,
 //           },
 //           viewer.current,
 //         ).then((instance) => {

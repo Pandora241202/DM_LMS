@@ -24,7 +24,10 @@ export class QuizDTO {
   choices: string[][];
   correctAnswers: number[];
 
-  static fromEntity(name: string, entity: Prisma.QuizGetPayload<{ include: { question: { include: { choice: true } } } }>): QuizDTO {
+  static fromEntity(
+    name: string,
+    entity: Prisma.QuizGetPayload<{ include: { question: { include: { choice: true } } } }>,
+  ): QuizDTO {
     const duration = entity.duration ? Number(entity.duration) : 0;
     const choices = entity.question.map((q) => q.choice.map((c) => c.content));
     const questions = entity.question.map((q) => q.content);
@@ -49,9 +52,13 @@ export class InfoLMDTO {
   score: number;
 
   static fromEntity(entity: Prisma.LearningMaterialGetPayload<unknown>): InfoLMDTO {
-    const {name, difficulty, type, rating, score} = entity
+    const { name, difficulty, type, rating, score } = entity;
     return {
-      name, difficulty, type, rating, score
+      name,
+      difficulty,
+      type,
+      rating,
+      score,
     };
   }
 }

@@ -7,7 +7,10 @@ import {
   Stack,
   SvgIcon,
   Typography,
-  Unstable_Grid2 as Grid
+  Unstable_Grid2 as Grid,
+  Card,
+  CardHeader,
+  CardContent
 } from '@mui/material';
 import { usePageView } from '../../hooks/use-page-view';
 import { useSettings } from '../../hooks/use-settings';
@@ -18,15 +21,46 @@ import { AnalyticsSocialSources } from '../../sections/dashboard/analytics/analy
 import { AnalyticsTrafficSources } from '../../sections/dashboard/analytics/analytics-traffic-sources';
 import { AnalyticsVisitsByCountry } from '../../sections/dashboard/analytics/analytics-visits-by-country';
 import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useMounted } from '../../hooks/use-mounted';
+import { analyticsApi } from '../../api/analytics';
+
+
 
 export const DashboardAdmin = () => {
     const settings = useSettings()
-    const [data, setData] = useState([
-        {
-            data: [0, 170, 242, 98, 63, 56, 85, 171, 209, 163, 204, 21, 264, 0]
+    const isMounted = useMounted();
+    const [historyWeekUser, setHistoryWeekUser] = useState(null)
+    const [historyMonthUser, setHistoryMonthUser] = useState(null)
+    const [historyWeekLog, setHistoryWeekLog] = useState(null)
+    const [historyMonthLog, setHistoryMonthLog] = useState(null)
+    const [historyForum, setHistoryForum] = useState(null)
+
+    const getApi = useCallback(async () => {
+        try {
+            const weekUser = await analyticsApi.getHistoryUser("week")
+            const monthUser = await analyticsApi.getHistoryUser("month")
+            const weekLog = await analyticsApi.getHistoryLog("week")
+            const monthLog = await analyticsApi.getHistoryLog("month")
+            const reponse = await analyticsApi.getHistoryForum()
+            
+            const forum = reponse.data.thisMonthLearnerForum.map(item => ({ x: item.forum_id, y: Number(item.total_access_time) }))
+
+            if (isMounted()) {
+                setHistoryWeekUser(String(weekUser.data.todayLogin));
+                setHistoryMonthUser(String(monthUser.data.todayLogin));
+                setHistoryWeekLog(String(weekLog.data.todayLearnerLog));
+                setHistoryMonthLog(String(monthLog.data.todayLearnerLog));
+                setHistoryForum(forum);
+            }
+        } catch (err) {
+            console.error(err);
         }
-    ])
+    }, [])
+
+    useEffect(() => {
+        getApi()
+    }, [])
 
     return (
         <>
@@ -37,206 +71,43 @@ export const DashboardAdmin = () => {
                 <Grid
                     container
                     spacing={{
-                    xs: 3,
-                    lg: 4
+                        xs: 3,
+                        lg: 4
                     }}
                 >
                     <Grid
                         xs={12}
-                        md={4}
+                        md={3}
+                    >
+                        <AnalyticsStats title="Tổng lượt truy cập trong tuần" value = {historyWeekUser}/>
+                    </Grid>
+                    <Grid
+                        xs={12}
+                        md={3}
+                    >
+                        <AnalyticsStats title="Tổng lượt truy cập trong tháng" value = {historyMonthUser}/>
+                    </Grid>
+                    <Grid
+                        xs={12}
+                        md={3}
+                    >
+                        <AnalyticsStats title="Tổng ghi nhận lịch sử học trong tuần" value = {historyWeekLog}/>
+                    </Grid>
+                    <Grid
+                        xs={12}
+                        md={3}
+                    >
+                        <AnalyticsStats title="Tổng ghi nhận lịch sử học trong tháng" value = {historyMonthLog}/>
+                    </Grid>
+                    
+                    <Grid
+                        xs={12}
+                        lg={12}
                         >
-                        <AnalyticsStats
-                            action={(
-                            <Button
-                                color="inherit"
-                                endIcon={(
-                                <SvgIcon>
-                                    <ArrowRightIcon />
-                                </SvgIcon>
-                                )}
-                                size="small"
-                            >
-                                See sources
-                            </Button>
-                            )}
-                            chartSeries={[
-                            {
-                                data: [0, 170, 242, 98, 63, 56, 85, 171, 209, 163, 204, 21, 264, 0]
-                            }
-                            ]}
-                            title="Impressions"
-                            value="36,6K"
+                        <AnalyticsTrafficSources
+                            data={historyForum ? historyForum : []}
+                            type={"forum"}
                         />
-                        </Grid>
-                    <Grid
-                    xs={12}
-                    md={4}
-                    >
-                    <AnalyticsStats
-                        action={(
-                        <Button
-                            color="inherit"
-                            endIcon={(
-                            <SvgIcon>
-                                <ArrowRightIcon />
-                            </SvgIcon>
-                            )}
-                            size="small"
-                        >
-                            See traffic
-                        </Button>
-                        )}
-                        chartSeries={[
-                        {
-                            data: [0, 245, 290, 187, 172, 106, 15, 210, 202, 19, 18, 3, 212, 0]
-                        }
-                        ]}
-                        title="Engagements"
-                        value="19K"
-                    />
-                    </Grid>
-                    <Grid
-                    xs={12}
-                    md={4}
-                    >
-                    <AnalyticsStats
-                        action={(
-                        <Button
-                            color="inherit"
-                            endIcon={(
-                            <SvgIcon>
-                                <ArrowRightIcon />
-                            </SvgIcon>
-                            )}
-                            size="small"
-                        >
-                            See campaigns
-                        </Button>
-                        )}
-                        chartSeries={[
-                        {
-                            data: [0, 277, 191, 93, 92, 85, 166, 240, 63, 4, 296, 144, 166, 0]
-                        }
-                        ]}
-                        title="Spent"
-                        value="$41.2K"
-                    />
-                    </Grid>
-                    <Grid
-                    xs={12}
-                    lg={8}
-                    >
-                    <AnalyticsTrafficSources
-                        chartSeries={[
-                        {
-                            name: 'Organic',
-                            data: [45, 40, 37, 41, 42, 45, 42]
-                        },
-                        {
-                            name: 'Marketing',
-                            data: [19, 26, 22, 19, 22, 24, 28]
-                        }
-                        ]}
-                    />
-                    </Grid>
-                    <Grid
-                    xs={12}
-                    lg={4}
-                    >
-                    <AnalyticsVisitsByCountry
-                        visits={[
-                        {
-                            id: 'us',
-                            name: 'United States',
-                            seoPercentage: 40,
-                            value: 31200
-                        },
-                        {
-                            id: 'uk',
-                            name: 'United Kingdom',
-                            seoPercentage: 47,
-                            value: 12700
-                        },
-                        {
-                            id: 'ru',
-                            name: 'Russia',
-                            seoPercentage: 65,
-                            value: 10360
-                        },
-                        {
-                            id: 'ca',
-                            name: 'Canada',
-                            seoPercentage: 23,
-                            value: 5749
-                        },
-                        {
-                            id: 'de',
-                            name: 'Germany',
-                            seoPercentage: 45,
-                            value: 2932
-                        },
-                        {
-                            id: 'es',
-                            name: 'Spain',
-                            seoPercentage: 56,
-                            value: 200
-                        }
-                        ]}
-                    />
-                    </Grid>
-                    <Grid
-                    xs={12}
-                    lg={8}
-                    >
-                    <AnalyticsMostVisited
-                        pages={[
-                        {
-                            bounceRate: 16,
-                            uniqueVisits: 8584,
-                            url: '/',
-                            visitors: 95847
-                        },
-                        {
-                            bounceRate: 5,
-                            uniqueVisits: 648,
-                            url: '/auth/login',
-                            visitors: 7500
-                        },
-                        {
-                            bounceRate: 2,
-                            uniqueVisits: 568,
-                            url: '/dashboard',
-                            visitors: 85406
-                        },
-                        {
-                            bounceRate: 12,
-                            uniqueVisits: 12322,
-                            url: '/blog/top-5-react-frameworks',
-                            visitors: 75050
-                        },
-                        {
-                            bounceRate: 10,
-                            uniqueVisits: 11645,
-                            url: '/blog/understand-programming-principles',
-                            visitors: 68003
-                        },
-                        {
-                            bounceRate: 8,
-                            uniqueVisits: 10259,
-                            url: '/blog/design-patterns',
-                            visitors: 49510
-                        }
-                        ]}
-                    />
-                    </Grid>
-                    <Grid
-                    xs={12}
-                    lg={4}
-                    >
-                    <AnalyticsSocialSources
-                        chartSeries={[10, 10, 20]}
-                        labels={['Linkedin', 'Facebook', 'Instagram']}
-                    />
                     </Grid>
                 </Grid>
                 </Container>

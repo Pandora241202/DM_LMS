@@ -18,10 +18,12 @@ import { DatasetModule } from './domains/dataset/dataset.module';
 import { NotebookModule } from './domains/notebook/notebook.module';
 import { PythonRunnerModule } from './domains/pythonRunner/pythonRunner.module';
 import { join } from 'path';
+import { AnalyticsModule } from './domains/analytics/analytics.module';
 @Module({
   imports: [
     PrismaModule,
     AuthModule,
+    AnalyticsModule,
     UserModule,
     LearningModule,
     TopicModule,

@@ -216,7 +216,7 @@ const Page = () => {
                       {datasetDetail.filesType.map((t, idx) => (
                         <Link
                           key={idx}
-                          href={`http://localhost:8080/uploads/datasets/${datasetDetail.id}_${idx}${t}`}
+                          href={`${process.env.NEXT_PUBLIC_SERVER_API}/uploads/datasets/${datasetDetail.id}_${idx}${t}`}
                           color="text.primary"
                           target="_blank" 
                           rel="noopener noreferrer"

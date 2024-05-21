@@ -134,7 +134,7 @@ export const Video = ({lmId}) => {
         preload="none"
         onTimeUpdate={handleVideoSeek}
       >
-        <source src={`http://localhost:8080/learning-materials/${lmId}`} type="video/mp4" />
+        <source src={`${process.env.NEXT_PUBLIC_SERVER_API}/learning-materials/${lmId}`} type="video/mp4" />
         <track
           src="/path/to/captions.vtt"
           kind="subtitles"
@@ -159,7 +159,7 @@ function Row(props) {
   const menuRef = useRef(null);
   const { user } = useAuth();
   const [openMenu, setOpenMenu] = useState(false);
-  const { row, accountType, isInstructor } = props;
+  const { row, accountType, isInstructor, registered } = props;
   const [open, setOpen] = React.useState(false);
   const [listLMAccordingToLesson, setListLMAccordingToLesson] = useState({
     "title": "",
@@ -222,7 +222,7 @@ function Row(props) {
       if (isMounted()) {
         // console.log(response.data)
         // setFileGet(response.data.url);
-        window.open(`http://localhost:8080/learning-materials/${id}`, '_blank');
+        window.open(`${process.env.NEXT_PUBLIC_SERVER_API}/learning-materials/${id}`, '_blank');
         // console.log(fileGet)
 
       }
@@ -231,12 +231,10 @@ function Row(props) {
     }
   }, [open])
 
-  const handlePageChange = (lm, user) => {  
+  const handlePageChange = (lm, registered) => {  
     // Kiểm tra trước xem khoá học này đã được user register chưa, nếu được register rồi thì mới gửi api createFileLog và getFile
-    console.log(user.registerCourseIds)
-    if(user.registerCourseIds.includes(parseInt(courseId, 10))) {
+    if(registered) {
       // Gửi api createFileLog và getFile
-      console.log(lm.type)
       createFileLog(lm, user)
       switch(lm.type) {
         case "VIDEO":
@@ -307,7 +305,7 @@ function Row(props) {
                       mx: 'auto',
                       p: 1,
                       }}
-                      onClick={() => handlePageChange(_lm, user)}
+                      onClick={() => handlePageChange(_lm, registered)}
                   >
                       <Stack spacing={2} direction="row" alignItems="center">
                           <FileIcon extension={_lm.type} />
@@ -342,7 +340,7 @@ Row.propTypes = {
   }).isRequired,
 };
 
-export default function CollapsibleTable({accountType, rows, isInstructor}) {
+export default function CollapsibleTable({accountType, rows, isInstructor, registered}) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -355,7 +353,7 @@ export default function CollapsibleTable({accountType, rows, isInstructor}) {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.id} row={row} accountType={accountType} isInstructor={isInstructor}/>
+            <Row key={row.id} row={row} accountType={accountType} isInstructor={isInstructor} registered={registered}/>
           ))}
         </TableBody>
       </Table>

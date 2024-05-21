@@ -49,7 +49,7 @@ export const getSections = (t, accountType) => [
           </SvgIcon>
         )
       },
-      ...accountType !== "ADMIN" ? [{
+      ...accountType === "LEARNER" ? [{
         title: t(tokens.nav.learningPath),
         path: paths.dashboard.learningPaths.index,
         icon: (
@@ -57,7 +57,7 @@ export const getSections = (t, accountType) => [
             <RouteIcon />
           </SvgIcon>
         )
-      },
+      }] : [],
       {
         title: t(tokens.nav.academy),
         path: paths.dashboard.academy.index,
@@ -66,7 +66,7 @@ export const getSections = (t, accountType) => [
             <GraduationHat01Icon />
           </SvgIcon>
         ),
-      }] : [],
+      },
       {
         title: t(tokens.nav.explore),
         path: paths.dashboard.explore,
