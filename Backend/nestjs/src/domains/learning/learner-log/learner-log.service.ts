@@ -126,4 +126,13 @@ export class LearnerLogService {
 
     return log.map((l) => LearningLogDTO.fromEntity(l as any));
   }
+
+  async update(id: number, rating: number) {
+    const {learningMaterialId, learningMaterialRating} = await this.prismaService.learnerLog.findFirst({where: {id}, select: {learningMaterialId: true, learningMaterialRating: true}});
+    const oldRating = (await this.prismaService.learningMaterial.findFirst({where: {id: learningMaterialId}, select: {rating: true}})).rating;
+    const newRating = (oldRating*2 - learningMaterialRating + rating)/2
+
+    await this.prismaService.learnerLog.update({where: {id}, data: {learningMaterialRating: rating}});
+    await this.prismaService.learningMaterial.update({where: {id: learningMaterialId}, data: {rating: newRating}});
+  }
 }
