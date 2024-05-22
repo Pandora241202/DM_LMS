@@ -2,7 +2,7 @@
   "name": "@devias/kit-pro-react",
   "version": "6.0.0",
   "author": "Devias",
-  "homepage": "https://devias.io",
+  "homepage": "https://dm_lms.com",
   "private": true,
   "scripts": {
     "dev": "next & npx next-video sync -w",
