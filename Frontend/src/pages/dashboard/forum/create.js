@@ -297,7 +297,7 @@ const Page = () => {
                         }
                       />
                       <Typography sx={{ mt: 1, mb: 3, fontStyle: 'italic', fontSize: 13 }}>
-                        Nhấn "Enter" để thêm nhãn. Ít nhất 1 
+                        Nhấn "Enter" để thêm nhãn. Ít nhất 1 nhãn
                       </Typography>
                       <Box >
                         {labels.map((label,index) => 
