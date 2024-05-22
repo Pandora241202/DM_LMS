@@ -2,7 +2,7 @@
   "name": "dm_lms",
   "version": "1.0.0",
   "author": "Devias",
-  "homepage": "https://Pandora241202.github.io/DM_LMS",
+  "homepage": "https://dm_lms.com",
   "private": true,
   "scripts": {
     "dev": "next & npx next-video sync -w",
@@ -12,9 +12,7 @@
     "build-export": "next build && next export",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,css,scss}\"",
-    "predeploy": "next build && next export",
-    "deploy": "gh-pages -d out"
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,css,scss}\""
   },
   "browserslist": {
     "production": [
@@ -66,7 +64,6 @@
     "eslint-config-prettier": "^9.1.0",
     "firebase": "9.9.4",
     "formik": "2.2.9",
-    "gh-pages": "^6.1.1",
     "gray-matter": "4.0.3",
     "i18next": "21.9.1",
     "lodash.debounce": "4.0.8",
