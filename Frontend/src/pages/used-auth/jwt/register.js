@@ -96,7 +96,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Đăng kí | DM Learning System
+          Đăng kí | HNM Learning System
         </title>
       </Head>
       <div>

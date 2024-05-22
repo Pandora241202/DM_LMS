@@ -3,7 +3,7 @@ export const paths = {
   checkout: '/checkout',
   contact: '/contact',
   pricing: '/pricing',
-  auth: {
+  /*auth: {
     auth0: {
       callback: '/auth/auth0/callback',
       login: '/auth/auth0/login'
@@ -45,7 +45,7 @@ export const paths = {
       classic: '/auth-demo/verify-code/classic',
       modern: '/auth-demo/verify-code/modern'
     }
-  },
+  },*/
   usedAuth: {
     auth0: {
       callback: '/used-auth/auth0/callback',
@@ -146,7 +146,7 @@ export const paths = {
       index: '/dashboard/products',
       create: '/dashboard/products/create'
     },
-    personal_info: '/dashboard/account',
+    personal_info: '/dashboard/personal-info',
     social: {
       index: '/dashboard/social',
       profile: '/dashboard/social/profile',
