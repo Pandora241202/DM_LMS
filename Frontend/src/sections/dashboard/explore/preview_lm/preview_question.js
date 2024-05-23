@@ -35,7 +35,7 @@ const StepIcon = (props) => {
   };
   
   export const PreviewQuestion = (props) => {
-    const { lmId } = props;
+    const { lmId, user } = props;
     const isMounted = useMounted();
     const [activeStep, setActiveStep] = useState(0);
     const [complete, setComplete] = useState(false);
@@ -73,7 +73,7 @@ const StepIcon = (props) => {
     useEffect(() => {
       const fetchData = async (id) => {
         try {
-          const response = await lm_manageApi.getLmQuiz(id);
+          const response = await lm_manageApi.get1Lm(id);
           
           if (isMounted()) {
             const temp = Object.entries(response.data)
@@ -151,7 +151,11 @@ const StepIcon = (props) => {
     }, [resultDT, answers, handleBack, handleNext, handleComplete]);
   
     if (complete) {
-      return <JobPreview />;
+      return <JobPreview 
+                lmId={lmId}
+                user={user}
+                answers={answers}
+              />;
     }
   
     return (

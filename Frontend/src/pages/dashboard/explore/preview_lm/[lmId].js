@@ -188,6 +188,7 @@ import { exploreApi } from '../../../../api/explore';
 import PreviewFile from '../../../../sections/dashboard/explore/preview_lm/preview_file'
 import PreviewVideo from '../../../../sections/dashboard/explore/preview_lm/preview_video'
 import PreviewOfficeFile from '../../../../sections/dashboard/explore/preview_lm/preview_office'
+import PreviewCode from '../../../../sections/dashboard/explore/preview_lm/preview_code'
 import { PreviewQuestion } from '../../../../sections/dashboard/explore/preview_lm/preview_question';
 import { LmRating } from '../../../../sections/dashboard/explore/preview_lm/lm_rating'
 import { learning_logApi } from '../../../../api/learning-log';
@@ -296,6 +297,7 @@ const useLMs = (search) => {
 const PreviewLM = () => {
   const previewlmformUrl = window.location.href.split('/');
   const lmId = (previewlmformUrl[previewlmformUrl.length - 1]);
+  const [currentTime, setCurrentTime] = useState(0); //current time for video
   const [valueRating, setValueRating] = useState(3);
   const [hoverRating, setHoverRating] = useState(3);
   const { search, updateSearch } = useSearch();
@@ -339,6 +341,7 @@ const PreviewLM = () => {
     }
   }
 
+
   // useEffect(() => {async () => {
   //   try {
   //     const response = await exploreApi.detailCourse(courseId);
@@ -352,7 +355,9 @@ const PreviewLM = () => {
 
   useEffect(() => {
     try {
-      createFileLog(parseInt(lmId,10), user)
+      if(lm.type === "PDF"){
+        createFileLog(parseInt(lmId,10), user)
+      }
     } catch (err) {
       console.error(err);
     }}, [valueRating]);
@@ -436,22 +441,31 @@ const PreviewLM = () => {
             </Stack>
             <Card>
               {
-                lm.type === "VIDEO" ? <PreviewVideo lmId = {parseInt(lmId, 10)} /> : <></>
+                lm.type === "VIDEO" ? <PreviewVideo lmId = {parseInt(lmId, 10)} 
+                                                    // currentTime={currentTime} 
+                                                    // setCurrentTime={setCurrentTime}
+                                                    valueRating={valueRating}/> : <></>
               }{
                 lm.type === "PDF" ? <PreviewOfficeFile lmId = {parseInt(lmId, 10)} /> : <></>
-              }              
+              }
             </Card>
-            {console.log(lm)}
+            {/* {console.log(lm)} */}
               {
-                lm.type === "QUIZ" ? <PreviewQuestion lmId = {parseInt(lmId, 10)}/> : <></>
+                lm.type === "QUIZ" ? <PreviewQuestion 
+                                        lmId = {parseInt(lmId, 10)} 
+                                        user={user}/> : <></>
+              }
+              {
+                lm.type === "CODE" ? <PreviewCode lmId = {parseInt(lmId, 10)} /> : <></>
               }
             <Card>
-              <LmRating 
+              {lm.type === "VIDEO" || lm.type === "PDF" 
+                ?<LmRating 
                 value={valueRating} 
                 setValue={setValueRating} 
                 hover={hoverRating} 
                 setHover={setHoverRating}
-              />
+              /> : <></>}
             </Card>
           </Stack>
         </Container>

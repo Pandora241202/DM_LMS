@@ -16,6 +16,7 @@ const reduceChildRoutes = ({ acc, depth, item, pathname }) => {
   const exactMatch = checkPath ? pathname === item.path : false;
 
   if (item.items) {
+    console.log(item.path)
     acc.push(
       <SideNavItem
         active={partialMatch}
@@ -25,7 +26,7 @@ const reduceChildRoutes = ({ acc, depth, item, pathname }) => {
         key={item.title}
         label={item.label}
         open={partialMatch}
-        path={item.path}
+        path={`${item.path}`}
         title={item.title}
       >
         <Stack
@@ -54,7 +55,7 @@ const reduceChildRoutes = ({ acc, depth, item, pathname }) => {
         icon={item.icon}
         key={item.title}
         label={item.label}
-        path={item.path}
+        path={`${item.path}`}
         title={item.title}
       />
     );

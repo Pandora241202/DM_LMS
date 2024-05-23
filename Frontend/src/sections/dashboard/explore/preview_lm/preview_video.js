@@ -1,4 +1,6 @@
-import React ,{useState, useEffect, useRef} from 'react';
+import React ,{useState, useEffect, useRef, useCallback} from 'react';
+import { learning_logApi } from '../../../../api/learning-log';
+import { useAuth } from '../../../../hooks/use-auth';
 
 // export default function PreviewVideo({lmId}) {
 
@@ -38,10 +40,40 @@ import React ,{useState, useEffect, useRef} from 'react';
     
 //   }
 
-const PreviewVideo = ({lmId}) => {
+const PreviewVideo = ({lmId, valueRating}) => {
     const [currentTime, setCurrentTime] = useState(0);
     const [isSeeking, setIsSeeking] = useState(false);
     const videoRef = useRef(null);
+    const {user} = useAuth();
+    console.log(valueRating);
+
+    // Refs to hold the latest values of currentTime and valueRating
+    const currentTimeRef = useRef(currentTime);
+    const valueRatingRef = useRef(valueRating);
+
+    // Update the refs when the state changes
+    useEffect(() => {
+      currentTimeRef.current = currentTime;
+    }, [currentTime]);
+
+    useEffect(() => {
+      valueRatingRef.current = valueRating;
+    }, [valueRating]);
+
+    const createVideoLog = async (lmId, user) => {
+      try {
+        const response = await learning_logApi.createLog(user.id, {
+          rating: valueRatingRef.current,
+          time: currentTimeRef.current, //chỗ này cần phải lấy time của lm sau đó gắn vào
+          attempts: 1,
+          learningMaterialId: lmId,
+        });
+        console.log(response);
+  
+      } catch (err) {
+        console.error(err);
+      }
+    }
   
     // const getFile = async (lmId) => {
     //   const response = await fileApi.getFileFromGGDrive(lmId)
@@ -49,9 +81,23 @@ const PreviewVideo = ({lmId}) => {
     //   return response.data
     // }
   
-    // useEffect(()=>{
-    //   getFile(lmId)
-    // },[])
+    console.log(valueRatingRef)
+
+    useEffect(() => {
+      // getFile(lmId)
+      setCurrentTime(0);
+      const handleLocationChange = () => {
+        createVideoLog(lmId, user)
+      };
+
+      window.addEventListener('popstate', handleLocationChange);
+    },[])
+
+    // const handleLocationChange = useCallback(() => {
+    //   createVideoLog(lmId, user)
+    // }, []);
+    // window.removeEventListener('popstate', handleLocationChange);
+
   
     useEffect(() => {
       const video = videoRef.current;
