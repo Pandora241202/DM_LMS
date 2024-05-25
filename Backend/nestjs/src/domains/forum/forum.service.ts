@@ -46,13 +46,12 @@ export class ForumService {
       todayAccess[0].createdAt.getDate() === new Date().getDate() &&
       todayAccess[0].createdAt.getMonth() === new Date().getMonth() &&
       todayAccess[0].createdAt.getFullYear() === new Date().getFullYear()
-    ){
+    ) {
       await this.prismaService.historyAccessForum.update({
         where: { createdAt_forumId: { forumId: id, createdAt: todayAccess[0].createdAt } },
         data: { accessTime: { increment: 1 } },
       });
-    }
-    else await this.prismaService.historyAccessForum.create({ data: { Forum: connectRelation(id) } });
+    } else await this.prismaService.historyAccessForum.create({ data: { Forum: connectRelation(id) } });
 
     return forum;
   }

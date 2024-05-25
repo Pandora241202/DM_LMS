@@ -227,8 +227,8 @@ export class LearningMaterialService {
           select: {
             id: true,
             title: true,
-          }
-        }
+          },
+        },
       },
     });
 
