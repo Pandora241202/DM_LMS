@@ -40,9 +40,7 @@ import AddIcon from '@mui/icons-material/Add';
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { github } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { dark } from "react-syntax-highlighter/dist/esm/styles/prism"
+import { CourseLesson } from './code/preview-code-lesson';
 
 const PreviewCode = ({lmId}) => {
   const [title, setTitle] = useState('');
@@ -64,6 +62,7 @@ const PreviewCode = ({lmId}) => {
         setLm(response.data)
     }
     getLmCode()
+    setContent([{code: "", stdout: "", stderr: ""}])
   }, [])
   console.log(lm)
 
@@ -115,33 +114,24 @@ const PreviewCode = ({lmId}) => {
         }}
       >
         <Container maxWidth="xl">
-          <Stack alignItems="center" justifyContent="space-between" direction="row">
-            {lm ? <Card sx={{ width: "100%", height: 500, overflow: 'auto'}}>
-                <Grid container spacing={2} sx={{padding:2}} direction="column">
-                    <Grid item xs={12} md={6}>
-                        <Typography variant="h6">Đề bài</Typography>
-                        <Box dangerouslySetInnerHTML={{ __html: lm.question }} />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Typography variant="h6">Code mẫu</Typography>
-                        <Box component="pre" sx={{ backgroundColor: '#f5f5f5', padding: 2, borderRadius: 1, color: 'black' }}>
-                            <SyntaxHighlighter language={"Python"} style={github}>
-                            {lm.exampleCode}
-                            </SyntaxHighlighter>
-                        </Box>
-                    </Grid>
-                    
-                </Grid>
-            </Card> : <></>}
+          <Stack alignItems="left" justifyContent="space-between" direction="column">
+          <Typography variant="h5">Đề bài</Typography>
+            {lm && <Box dangerouslySetInnerHTML={{ __html: lm.question }} />}
+            {lm && <CourseLesson content={`
+\`\`\`python
+${lm.exampleCode}
+\`\`\`
+`} />}
           </Stack>
           <Divider sx={{ my: 1 }}/>
-          <Stack direction="row">
-            <Card sx={{ width: "75%", height: 500, overflow: 'auto'}}>
+          <Stack direction="column">
+            <Typography variant="h5" sx={{mt:2, mb: 3}}>Phần làm bài</Typography>
+            <Card sx={{ width: "100%", height: 500, overflow: 'auto'}}>
               <CardContent>
-                {content.length === 0 && <Stack direction="row">
+                {/* {content.length === 0 && <Stack direction="row">
                   <Button startIcon={<AddIcon fontSize='small'/>} variant="outlined" color="inherit" sx={{ mr: 2, fontSize: 12, p: 1 }} onClick={() => setContent([{code: "", stdout: "", stderr: ""}])}>Mã nguồn</Button>
                   <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{fontSize: 12, p: 1 }} onClick={() => setContent(['<p></p>'])}>Văn bản</Button>
-                </Stack>}
+                </Stack>} */}
                 {content.map((s, i) => 
                   <Stack spacing={2} mb={2} key={i}>
                     {typeof(s) === "string"   
@@ -154,6 +144,7 @@ const PreviewCode = ({lmId}) => {
                         }}
                       /> 
                       : <Stack direction="row" border="1px solid" borderColor="action.disabledBackground" borderRadius={1}>
+                        {/* Nút run code */}
                         <Button variant="inherit" sx={{marginLeft: "auto", maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40, borderRadius: '100%'}} onClick={() => runPythonCode(i)}><PlayArrowOutlinedIcon /></Button>
                         <Stack width="100%">
                           <AceEditer
@@ -200,7 +191,7 @@ const PreviewCode = ({lmId}) => {
                 )}
               </CardContent>
             </Card>
-            <Card sx={{ width: "25%", height: 500, overflow: 'auto' }}>
+            {/* <Card sx={{ width: "25%", height: 500, overflow: 'auto' }}>
               <CardContent>
                 <Typography variant='h6'>Input</Typography>
                 <Box direction="row" sx={{ my: 2}}>
@@ -246,7 +237,7 @@ const PreviewCode = ({lmId}) => {
                   )}
                 </Box>
               </CardContent>
-            </Card>
+            </Card> */}
           </Stack>
         </Container>
       </Box>
