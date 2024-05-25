@@ -32,6 +32,8 @@ import {
 import { Scrollbar } from '../../../components/scrollbar';
 import { SeverityPill } from '../../../components/severity-pill';
 import { FileIcon } from '../../../components/file-icon';
+import { useRouter } from 'next/navigation';
+import { paths } from '../../../paths';
 
 const categoryOptions = [
   {
@@ -71,6 +73,7 @@ export const LMManageListTable = (props) => {
     ...other
   } = props;
   const [currentLM, setCurrentLM] = useState(null);
+  const router = useRouter()
   const [state, setState] = useState(false);
 
   const handleLMToggle = useCallback((LmId) => {
@@ -159,7 +162,7 @@ export const LMManageListTable = (props) => {
                                 width: 80
                               }}
                             /> */}
-                              <FileIcon extension={LM.type} />
+                              <FileIcon extension={LM.type}/>
                           {/* )
                           : (
                             <Box
@@ -223,7 +226,7 @@ export const LMManageListTable = (props) => {
                           Thời gian: {LM.time} phút
                         </Typography>
                         <Typography variant="subtitle2">
-                          Topic: {LM.topicId}
+                          Topic: {LM.Topic.title}
                         </Typography>
                       </Stack>
                     </TableCell>

@@ -157,7 +157,7 @@ const LMList = () => {
     <>
       <Head>
         <title>
-          Dashboard: Quản lý tài liệu học tập
+          Quản lý tài liệu học tập
         </title>
       </Head>
       <Box

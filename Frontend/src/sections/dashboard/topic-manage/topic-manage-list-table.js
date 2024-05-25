@@ -105,11 +105,17 @@ export const TopicManageListTable = (props) => {
         <Table sx={{ minWidth: 1200 }}>
           <TableHead>
             <TableRow>
-              <TableCell width="25%">
+              <TableCell width="5%" align='center'>
                 ID
               </TableCell>
-              <TableCell width="25%">
-                Tên chủ đề 
+              <TableCell width="50%" align='center'>
+                TÊN CHỦ ĐỀ 
+              </TableCell>
+              <TableCell width="20%" align='center'>
+                CHỦ ĐỀ TRƯỚC
+              </TableCell>
+              <TableCell width="20%" align='center'>
+                CHỦ ĐỀ SAU
               </TableCell>
               <TableCell align="right">
               </TableCell>
@@ -131,80 +137,38 @@ export const TopicManageListTable = (props) => {
                     hover
                     key={Topic.id}
                   >
-                    <TableCell width="25%">
-                      {/* <Box
-                        sx={{
-                          alignItems: 'center',
-                          display: 'flex'
-                        }}
-                      >
-                        {Topic.image
-                          ? (
-                            <Box
-                              sx={{
-                                alignItems: 'center',
-                                backgroundColor: 'neutral.50',
-                                backgroundImage: `url(${Topic.image})`,
-                                backgroundPosition: 'center',
-                                backgroundSize: 'cover',
-                                borderRadius: 1,
-                                display: 'flex',
-                                height: 80,
-                                justifyContent: 'center',
-                                overflow: 'hidden',
-                                width: 80
-                              }}
-                            />
-                          )
-                          : (
-                            <Box
-                              sx={{
-                                alignItems: 'center',
-                                backgroundColor: 'neutral.50',
-                                borderRadius: 1,
-                                display: 'flex',
-                                height: 80,
-                                justifyContent: 'center',
-                                width: 80
-                              }}
-                            >
-                              <SvgIcon>
-                                <Image01Icon />
-                              </SvgIcon>
-                            </Box>
-                          )}
-                        <Box
-                          sx={{
-                            cursor: 'pointer',
-                            ml: 2
-                          }}
-                        >
-                          <Typography variant="subtitle2">
-                            {Topic.title}
-                          </Typography>
-                          <Typography
-                            color="text.secondary"
-                            variant="body2"
-                          >
-                            in {Topic.category}
-                          </Typography>
-                        </Box>
-                      </Box> */}
+                    <TableCell width="5%" align='center'>
                       {Topic.id}
                     </TableCell>
                     <TableCell>
-                      {/* <SeverityPill color={statusColor}>
-                        {Topic.status}
-                      </SeverityPill
-                      > */}
                       <Typography
                         color="textSecondary"
                         variant="body2"
+                        textAlign={"center"}
                       >
                         {/* {Topic.updatedAt ? new Date(Topic.updatedAt).toLocaleDateString('en-GB') : 'N/A'} */}
                         {Topic.title}
                       </Typography>
                     </TableCell>
+                    <TableCell>
+                      <Typography
+                        color="textSecondary"
+                        variant="body2"
+                        textAlign={"center"}
+                      >
+                        {Topic.preTopicIds.join(', ')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography
+                        color="textSecondary"
+                        variant="body2"
+                        textAlign={"center"}
+                      >
+                        {Topic.postTopicIds.join(', ')}
+                      </Typography>
+                    </TableCell>
+
                     <TableCell align="right">
                       <IconButton onClick={() => handleProductToggle(Topic.id)}   >
                         <SvgIcon>

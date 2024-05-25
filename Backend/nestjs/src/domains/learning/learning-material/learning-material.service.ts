@@ -223,7 +223,12 @@ export class LearningMaterialService {
         name: true,
         time: true,
         type: true,
-        topicId: true,
+        Topic: {
+          select: {
+            id: true,
+            title: true,
+          }
+        }
       },
     });
 

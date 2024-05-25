@@ -152,9 +152,12 @@ export const paths = {
       profile: '/dashboard/social/profile',
       feed: '/dashboard/social/feed'
     },
-    Topic_Manage: '/dashboard/Topic-Manage',
-    LM_Manage: '/dashboard/LM-Manage',
-    Account_Manage: '/dashboard/Account-Manage',
+    topic_manage: '/dashboard/topic-manage',
+    lm_manage: '/dashboard/lm-manage',
+    account_manage: {
+      index: '/dashboard/account-manage',
+      create: '/dashboard/account-manage/create'
+    }
   },
   components: {
     index: '/components',
