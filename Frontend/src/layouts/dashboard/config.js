@@ -169,7 +169,7 @@ export const getSections = (t, accountType) => [
     items: [
       {
         title: t(tokens.nav.personal_info),
-        path: paths.dashboard.personal_info,
+        path: paths.dashboard.account,
         icon: (
           <SvgIcon fontSize="small">
             <AccountBoxOutlinedIcon />

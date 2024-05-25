@@ -79,7 +79,7 @@ export class CourseListDTO {
       amountOfTime: entity.amountOfTime,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
-      description: entity.description 
+      description: entity.description,
     };
   }
 }
