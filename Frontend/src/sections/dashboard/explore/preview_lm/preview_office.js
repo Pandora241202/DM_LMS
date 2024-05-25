@@ -1,8 +1,28 @@
 import {useEffect, useRef} from 'react';
+// import { learning_logApi } from '../../../../api/learning-log';
+// import { useAuth } from '../../../../hooks/use-auth';
+
 
 export default function PreviewOfficeFile({lmId}) {
 
     const viewer = useRef(null);
+    // const {user} = useAuth();
+
+
+    // const createFileLog = async (lmId, user) => {
+    //   try {
+    //     const response = await learning_logApi.createLog(user.id, {
+    //       rating: valueRating,
+    //       time: 120, //chỗ này cần phải lấy time của lm sau đó gắn vào
+    //       attempts: 1,
+    //       learningMaterialId: lmId,
+    //     });
+    //     console.log(response);
+  
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
+    // }
 
     useEffect(() => {
       import('@pdftron/webviewer').then(() => {
@@ -18,6 +38,12 @@ export default function PreviewOfficeFile({lmId}) {
       })
     }, []);
 
+    // useEffect(() => {
+    //   try {
+    //     createFileLog(parseInt(lmId,10), user)
+    //   } catch (err) {
+    //     console.error(err);
+    //   }}, [valueRating]);
 
     return (
       <div className="MyComponent">

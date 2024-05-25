@@ -71,7 +71,7 @@ export const JobCreateForm = () => {
   useEffect(() => {
     const fetchData = async (id = 517) => {
       try {
-        const response = await lm_manageApi.getLmQuiz(id);
+        const response = await lm_manageApi.get1Lm(id);
         console.log(response);
         if (isMounted()) {
           const temp = Object.entries(response.data)

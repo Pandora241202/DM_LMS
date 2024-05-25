@@ -70,7 +70,7 @@ class lm_manage_Api {
     //return Promise.resolve(deepCopy(forums));
   }
 
-  getLmQuiz(id) {
+  get1Lm(id) {
     return axios.get(`${apiUrl}/${id}`)
   }
 

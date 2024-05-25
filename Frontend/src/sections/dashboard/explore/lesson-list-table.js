@@ -246,6 +246,9 @@ function Row(props) {
         case "QUIZ":
           router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
           break;
+        case "CODE":
+          router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
+          break;
         default:
           // code block
           createFileLog(lm, user)
@@ -298,7 +301,7 @@ function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
                 {listLMAccordingToLesson.learningMaterial.map((_lm) => (
-                <div>
+                <div key={_lm.id}>
                   <Item
                       sx={{
                       my: 1,
@@ -312,8 +315,8 @@ function Row(props) {
                           <Typography noWrap>{_lm.name}</Typography>
                       </Stack>
                   </Item>
-                  {console.log(_lm.id)}
-                  {_lm.type === "VIDEO" ? <Video lmId={_lm.id}/> : <></>}
+                  {/* {console.log(_lm.id)}
+                  {_lm.type === "VIDEO" ? <Video lmId={_lm.id}/> : <></>} */}
                 </div>
                 ))}
             </Box>
@@ -333,7 +336,6 @@ function Row(props) {
 }
 
 Row.propTypes = {
-  key: PropTypes.number,
   row: PropTypes.shape({
     title: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,

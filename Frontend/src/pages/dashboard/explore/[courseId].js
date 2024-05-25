@@ -276,7 +276,7 @@ const LessonList = () => {
                 <Stack container spacing={3} direction={"column"}>
                   <Stack direction={"column"} spacing={5}>
                     <Stack direction={"row"} spacing={3}>  
-                      <Rating name="read-only" value={rating} readOnly />
+                      <Rating name="read-only" value={parseInt(rating,10)} readOnly />
                       <Typography variant='h5'>
                         Trình độ: {level}
                       </Typography>

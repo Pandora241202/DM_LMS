@@ -15,6 +15,10 @@ class Learning_logApi {
     //return Promise.resolve(deepCopy(forums));
   }
 
+  updateRating(logId, request) {
+    return axios.patch(`${apiUrl}/${logId}`, request);
+  }
+
 }
 
 export const learning_logApi = new Learning_logApi();
