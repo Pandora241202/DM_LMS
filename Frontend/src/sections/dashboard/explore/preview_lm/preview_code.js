@@ -40,6 +40,7 @@ import AddIcon from '@mui/icons-material/Add';
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import { learning_logApi } from '../../../../api/learning-log';
 import { CourseLesson } from './code/preview-code-lesson';
 
 const PreviewCode = ({lmId}) => {
@@ -51,6 +52,7 @@ const PreviewCode = ({lmId}) => {
   const [datasets, setDatasets] = useState([]);
   const [openInputChosenDialog, setOpenInputChosenDialog] = useState(false);
   const [lm, setLm] = useState();
+  const [score, setScore] = useState([0,0]) //[score, maxScore]
   const { user } = useAuth();
   const router = useRouter();
   
@@ -66,6 +68,27 @@ const PreviewCode = ({lmId}) => {
   }, [])
   console.log(lm)
 
+
+  // This function takes responsibility to submit this code and create Log
+  const createCodeLog = async (lmId, user) => {
+    try {
+      const response = await learning_logApi.createLog(user.id, {
+        rating: 3,
+        learnerAnswer: content[0].code,
+        time: 1200, //chỗ này cần phải lấy time của lm sau đó gắn vào
+        attempts: 1,
+        learningMaterialId: lmId,
+      });
+      console.log(response);
+      setScore([response.data.score, response.data.maxScore])
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  console.log(score)
+
+  // This function run the code of user
   const handleSubmitNotebook = useCallback(async () => {
     await notebookApi.postNotebook({
       modelVariationIds: modelVariations ? modelVariations.map(v => v.id) : null,
@@ -123,10 +146,17 @@ ${lm.exampleCode}
 \`\`\`
 `} />}
           </Stack>
+          {/* <Divider sx={{ my: 1 }}/>
+          <Stack direction="column">
+            <Typography variant="h5" sx={{mt:2, mb: 3}}>Test case mẫu</Typography>
+          </Stack> */}
           <Divider sx={{ my: 1 }}/>
           <Stack direction="column">
-            <Typography variant="h5" sx={{mt:2, mb: 3}}>Phần làm bài</Typography>
-            <Card sx={{ width: "100%", height: 500, overflow: 'auto'}}>
+            <Stack direction="row" sx={{ justifyContent: 'space-between', mt: 2, mb: 3 }}>
+                <Typography variant="h5">Phần làm bài</Typography>
+                <Typography variant="h6">Số testcase vượt qua: {score[0]}/{score[1]}</Typography>
+                </Stack>
+            <Card sx={{ width: "100%", height: 700, overflow: 'auto'}}>
               <CardContent>
                 {/* {content.length === 0 && <Stack direction="row">
                   <Button startIcon={<AddIcon fontSize='small'/>} variant="outlined" color="inherit" sx={{ mr: 2, fontSize: 12, p: 1 }} onClick={() => setContent([{code: "", stdout: "", stderr: ""}])}>Mã nguồn</Button>
@@ -156,7 +186,7 @@ ${lm.exampleCode}
                             }}
                             name="python-editor"
                             width="100%"
-                            height="300px"
+                            height="500px"
                           />
                           {s.stdout != "" && <>
                             <Typography variant='body2'>stdout:</Typography>
@@ -183,9 +213,13 @@ ${lm.exampleCode}
                         </Stack>
                       </Stack>
                     }
-                    <Stack direction="row">
+                    {/* <Stack direction="row">
                       <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{ mr: 2, fontSize: 12, p: 1  }} onClick={() => setContent([...content.slice(0, i+1), {code: "", stdout: "", stderr: ""}, ...content.slice(i+1)])}>Mã nguồn</Button>
                       <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{ fontSize: 12, p: 1  }} onClick={() => setContent([...content.slice(0, i+1), '<p></p>', ...content.slice(i+1)])}>Văn bản</Button>
+                    </Stack> */}
+                    <Stack direction="row" spacing={2} alignItems="right" sx={{ mt: 2, justifyContent: 'flex-end' }}>
+                        <Button startIcon={<PlayArrowOutlinedIcon />} color="primary" onClick={() => runPythonCode(0)}>Chạy</Button>
+                        <Button startIcon={<SaveIcon />} variant="contained" color="primary" onClick={() => createCodeLog(lmId, user)}>Nộp bài</Button>
                     </Stack>
                   </Stack>
                 )}
@@ -239,6 +273,7 @@ ${lm.exampleCode}
               </CardContent>
             </Card> */}
           </Stack>
+        
         </Container>
       </Box>
       <InputChosenDialog 
