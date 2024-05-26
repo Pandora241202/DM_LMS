@@ -235,7 +235,6 @@ function Row(props) {
     // Kiểm tra trước xem khoá học này đã được user register chưa, nếu được register rồi thì mới gửi api createFileLog và getFile
     if(registered) {
       // Gửi api createFileLog và getFile
-      createFileLog(lm, user)
       switch(lm.type) {
         case "VIDEO":
           router.push(`${paths.dashboard.explore}/preview_lm/${lm.id}`);
