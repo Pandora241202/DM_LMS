@@ -53,7 +53,7 @@ export class CourseDTO {
       instructor: {
         id: entity.Instructor.id,
         name: entity.Instructor.name,
-        email: entity.Instructor.email
+        email: entity.Instructor.email,
       },
       lessons,
     };
@@ -68,6 +68,7 @@ export class CourseListDTO {
   amountOfTime: number;
   createdAt: Date;
   updatedAt: Date;
+  description: string;
 
   static fromEntity(entity: Prisma.CourseGetPayload<unknown>): CourseListDTO {
     return {
@@ -78,6 +79,7 @@ export class CourseListDTO {
       amountOfTime: entity.amountOfTime,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
+      description: entity.description 
     };
   }
 }

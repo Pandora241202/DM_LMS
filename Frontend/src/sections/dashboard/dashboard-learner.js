@@ -80,12 +80,12 @@ export const DashboardLearner = () => {
                         xs={12}
                         md={12}
                     >
-                        <AcademyDailyProgress
-                            timeCurrent={listCourses[0].lastestLessonMinuteComplete*60}
-                            timeGoal={listCourses[0].lastestLesson ? listCourses[0].lastestLesson.amountOfTime : ""}
-                            courseName = {listCourses[0].course.name}
-                            lessonName = {listCourses[0].lastestLesson ? listCourses[0].lastestLesson.title : ""}
-                        />
+                        {listCourses[0]?.lastestLesson && <AcademyDailyProgress
+                            timeCurrent={listCourses[0]?.lastestLessonMinuteComplete*60}
+                            timeGoal={listCourses[0]?.lastestLesson ? listCourses[0]?.lastestLesson.amountOfTime : ""}
+                            courseName = {listCourses[0]?.course.name}
+                            lessonName = {listCourses[0]?.lastestLesson ? listCourses[0]?.lastestLesson.title : ""}
+                        />}
                     </Grid>
                     <Grid xs={12} marginBottom={2}>
                         <Stack
@@ -103,7 +103,7 @@ export const DashboardLearner = () => {
                         <Grid
                             key={history.course.id}
                             xs={12}
-                            md={3.5}
+                            md={3.5}    
                             marginRight={5}
                         >
                         <CourseCard course={history.course} />

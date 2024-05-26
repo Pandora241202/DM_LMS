@@ -21,6 +21,7 @@ import { paths } from '../../../paths';
 import { TopicManageListSearch } from '../../../sections/dashboard/topic-manage/topic-manage-list-search';
 import { TopicManageListTable } from '../../../sections/dashboard/topic-manage/topic-manage-list-table';
 import { topic_manageApi } from '../../../api/topic-manage';
+import { TopicGraph } from '../../../sections/dashboard/topic-manage/topic-graph';
 
 const useSearch = () => {
   const [search, setSearch] = useState({
@@ -112,7 +113,7 @@ const TopicList = () => {
     <>
       <Head>
         <title>
-          Dashboard: Quản lý chủ đề học tập
+          Quản lý chủ đề học tập
         </title>
       </Head>
       <Box
@@ -172,6 +173,7 @@ const TopicList = () => {
                 </Button>
               </Stack>
             </Stack>
+            <TopicGraph topics={Topics}/>
             <Card>
               <TopicManageListSearch onFiltersChange={handleFiltersChange} onSearchChange={handleSearchChange}/>
               <TopicManageListTable

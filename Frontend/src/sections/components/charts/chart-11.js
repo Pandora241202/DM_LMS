@@ -104,7 +104,8 @@ const useChartOptions = () => {
   };
 };
 
-export const Chart11 = () => {
+export const Chart11 = (props) => {
+  const {chartSeries} = props;
   const chartOptions = useChartOptions();
 
   return (
@@ -118,7 +119,7 @@ export const Chart11 = () => {
     >
       <Container maxWidth="md">
         <Card>
-          <CardHeader title="Incremental Sales" />
+          <CardHeader/>
           <CardContent>
             <Chart
               height={350}
@@ -132,7 +133,7 @@ export const Chart11 = () => {
               spacing={3}
               sx={{ mt: 3 }}
             >
-              {chartSeries[0].data.map((item, index) => (
+              {chartSeries[0].data?.map((item, index) => (
                 <Stack
                   key={item.x}
                   direction="row"

@@ -152,7 +152,7 @@ export const ModelVariationsShow = (props) => {
           {variation.filesType.map((t, idx) => (
             <Link
               key={idx}
-              href={`http://localhost:8080/uploads/modelVariations/${variation.id}_${idx}${t}`}
+              href={`${process.env.NEXT_PUBLIC_SERVER_API}/uploads/modelVariations/${variation.id}_${idx}${t}`}
               color="text.primary"
               target="_blank" 
               rel="noopener noreferrer"

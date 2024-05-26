@@ -121,7 +121,7 @@ export const Footer = (props) => (
                   }
                 }}
               >
-                DM LMS
+                HNM LMS
               </Box>
             </Stack>
             <Typography

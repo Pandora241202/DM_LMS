@@ -190,7 +190,7 @@ const Page = () => {
           </Stack>
           {forumDetail.coverImageType && <Box
             sx={{
-              backgroundImage: `url(http://localhost:8080/forumImages/${forumDetail.id}${forumDetail.coverImageType})`,
+              backgroundImage: `url(${process.env.NEXT_PUBLIC_SERVER_API}/forumImages/${forumDetail.id}${forumDetail.coverImageType})`,
               backgroundPosition: 'center',
               backgroundSize: 'cover',
               borderRadius: 1,

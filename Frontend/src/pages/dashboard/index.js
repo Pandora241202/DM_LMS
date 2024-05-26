@@ -27,6 +27,7 @@ import { OverviewTips } from '../../sections/dashboard/overview/overview-tips';
 import { useAuth } from '../../hooks/use-auth';
 import { DashboardAdmin } from '../../sections/dashboard/dashboard-admin';
 import { DashboardLearner } from '../../sections/dashboard/dashboard-learner';
+import { DashboardInstructor } from '../../sections/dashboard/dashboard-instructor';
 
 const now = new Date();
 
@@ -40,7 +41,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: Overview
+          Tổng quan
         </title>
       </Head>
       <Box
@@ -65,7 +66,7 @@ const Page = () => {
                 spacing={4}
               >
                 {
-                  user?.accountType === 'ADMIN' && <div>
+                  user?.accountType !== 'LEARNER' && <div>
                     <Typography variant="h4">
                       Tổng quan
                     </Typography>
@@ -73,8 +74,14 @@ const Page = () => {
                 }
                 <Box>
                   {
-                    user?.accountType === 'ADMIN' ? <DashboardAdmin/> : <DashboardLearner/>
+                    user?.accountType === 'INSTRUCTOR' && <DashboardInstructor/>
                   }  
+                  {
+                    user?.accountType === 'ADMIN' && <DashboardAdmin/>
+                  }
+                  {
+                    user?.accountType === 'LEARNER' && <DashboardLearner/>
+                  }
                 </Box>
               </Stack>
             </Grid>

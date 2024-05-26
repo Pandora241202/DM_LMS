@@ -174,7 +174,12 @@ export class LearningMaterialService {
 
     const lm = await this.prismaService.learningMaterial.findFirst({
       where: { id },
-      select: { name: true, type: true, Exercise: { select: { quizId: true, codeId: true } }, Other: { select: { fileId: true } } },
+      select: {
+        name: true,
+        type: true,
+        Exercise: { select: { quizId: true, codeId: true } },
+        Other: { select: { fileId: true } },
+      },
     });
     if (!lm) throw new NotFoundException("Couldn't find learning material");
 
@@ -218,7 +223,12 @@ export class LearningMaterialService {
         name: true,
         time: true,
         type: true,
-        topicId: true,
+        Topic: {
+          select: {
+            id: true,
+            title: true,
+          }
+        }
       },
     });
 
@@ -226,8 +236,11 @@ export class LearningMaterialService {
   }
 
   async infomation(id: number) {
-    const lm = await this.prismaService.learningMaterial.findFirst({ where: { id }, select: {name: true, difficulty: true, type: true, rating: true, score: true}})
-    if (!lm) throw new NotFoundException("Not found learning material")
-    return InfoLMDTO.fromEntity(lm as any)
+    const lm = await this.prismaService.learningMaterial.findFirst({
+      where: { id },
+      select: { name: true, difficulty: true, type: true, rating: true, score: true },
+    });
+    if (!lm) throw new NotFoundException('Not found learning material');
+    return InfoLMDTO.fromEntity(lm as any);
   }
 }

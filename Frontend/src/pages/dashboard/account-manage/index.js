@@ -102,7 +102,7 @@ const ProductList = () => {
     <>
       <Head>
         <title>
-          Dashboard: Quản lý tài khoản
+          Quản lý tài khoản
         </title>
       </Head>
       <Box
@@ -135,10 +135,10 @@ const ProductList = () => {
                   <Link
                     color="text.primary"
                     component={NextLink}
-                    href={paths.dashboard.products.index}
+                    href={paths.dashboard.account_manage.index}
                     variant="subtitle2"
                   >
-                    Tài khoản
+                    Quản lí tài khoản
                   </Link>
                   <Typography
                     color="text.secondary"

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:8080';
+const apiUrl = `${process.env.NEXT_PUBLIC_SERVER_API}`;
 
 class AuthApi {
   signIn(request) {

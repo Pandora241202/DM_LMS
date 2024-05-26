@@ -130,7 +130,7 @@ export const TopNav = (props) => {
                     }
                   }}
                 >
-                  DM LMS
+                  HNM LMS
                 </Box>
               )}
             </Stack>

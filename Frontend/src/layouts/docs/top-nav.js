@@ -80,7 +80,7 @@ export const TopNav = (props) => {
                 }
               }}
             >
-              DM <span>LMS</span>
+              HNM <span>LMS</span>
             </Box>
           </Stack>
           <Chip
