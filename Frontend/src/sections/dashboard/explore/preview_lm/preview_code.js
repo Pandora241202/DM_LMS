@@ -87,6 +87,7 @@ const PreviewCode = ({lmId}) => {
 
   const runPythonCode = useCallback(async (i) => {
     await pythonRunnerApi.postpythonRunner({
+      "inputTestFile": lm.inputName,
       "code": content[i].code,
     })
       .then((response) => {
@@ -104,7 +105,7 @@ const PreviewCode = ({lmId}) => {
     <>
       <Head>
         <title>
-          Explore: Preview Code
+          Khám phá tài liệu học {lm.name}
         </title>
       </Head>
       <Box
