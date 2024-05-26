@@ -42,8 +42,9 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { learning_logApi } from '../../../../api/learning-log';
 import { CourseLesson } from './code/preview-code-lesson';
+import { LmRating } from './lm_rating'
 
-const PreviewCode = ({lmId}) => {
+const PreviewCode = ({lmId, value, setValue, hover, setHover}) => {
   const [title, setTitle] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [content, setContent] = useState([]);
@@ -273,7 +274,17 @@ ${lm.exampleCode}
               </CardContent>
             </Card> */}
           </Stack>
-        
+          
+          {score[1] == 0 
+          ? <></> 
+          : <div>
+          <Divider sx={{ my: 1, mt: 3, mb: 3 }}/>
+            <LmRating value={value}
+                    setValue={setValue}
+                    hover={hover}
+                    setHover={setHover}>
+            </LmRating>
+          </div>}
         </Container>
       </Box>
       <InputChosenDialog 

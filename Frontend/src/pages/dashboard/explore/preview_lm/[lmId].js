@@ -456,7 +456,11 @@ const PreviewLM = () => {
                                         user={user}/> : <></>
               }
               {
-                lm.type === "CODE" ? <PreviewCode lmId = {parseInt(lmId, 10)} /> : <></>
+                lm.type === "CODE" ? <PreviewCode lmId = {parseInt(lmId, 10)}
+                                                  value={valueRating} 
+                                                  setValue={setValueRating} 
+                                                  hover={hoverRating} 
+                                                  setHover={setHoverRating} /> : <></>
               }
             <Card>
               {lm.type === "VIDEO" || lm.type === "PDF" 
