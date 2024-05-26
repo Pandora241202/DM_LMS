@@ -30,6 +30,7 @@ import CollapsibleTable from '../../../sections/dashboard/explore/lesson-list-ta
 import { exploreApi } from '../../../api/explore';
 import { useAuth } from '../../../hooks/use-auth';
 import { userApi } from '../../../api/user';
+import { CreateLessonDialog } from '../../../sections/dashboard/explore/lesson-create-dialog';
 
 const useSearch = () => {
   const [search, setSearch] = useState({
@@ -143,6 +144,7 @@ const LessonList = () => {
   const [rating, setRating] = useState("");
   const [updatedAt, setUpdated] = useState("");
   const [registered, setRegistered] = useState(null);
+  const [openCreateLessonDialog, setOpenCreateLessonDialog] = useState(false)
 
   useEffect(() => {(async () => {
     try {
@@ -236,19 +238,31 @@ const LessonList = () => {
                 direction="row"
                 spacing={3}
               > 
-                {user.accountType !== 'LEARNER' && user.id === instructor.id && <Button
+                {user.accountType !== 'LEARNER' && user.id === instructor.id && 
+                <>
+                <Button
                   component={NextLink}
                   // Thay đổi đường dẫn để lưu vào db
-                  href={`${paths.dashboard.explore}/lesson/${courseId}`}
+                  // href={`${paths.dashboard.explore}/lesson/${courseId}`}
+                  href={"#"}
+
                   startIcon={(
                     <SvgIcon>
                       <PlusIcon />
                     </SvgIcon>
                   )}
                   variant="contained"
+                  onClick={() => setOpenCreateLessonDialog(true)} 
                 >
                   Thêm bài học mới
-                </Button>}
+                </Button>
+                <CreateLessonDialog
+                  courseId = {courseId}
+                  openCreateLessonDialog={openCreateLessonDialog}
+                  setOpenCreateLessonDialog={setOpenCreateLessonDialog}
+                />
+                </>
+                }
                 {
                   user.accountType === 'LEARNER' && !registered && <Button
                     onClick={handleRegisterCourse}                    

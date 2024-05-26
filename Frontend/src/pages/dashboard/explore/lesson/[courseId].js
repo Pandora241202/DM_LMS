@@ -1,16 +1,18 @@
 import NextLink from 'next/link';
 import Head from 'next/head';
+import { useState } from 'react';
 import { Box, Breadcrumbs, Container, Link, Stack, Typography } from '@mui/material';
 import { BreadcrumbsSeparator } from '../../../../components/breadcrumbs-separator';
 import { usePageView } from '../../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../../layouts/dashboard';
 import { paths } from '../../../../paths';
-import { LessonCreateForm } from '../../../../sections/dashboard/explore/lesson-create-form';
+import { CreateLessonDialog } from '../../../../sections/dashboard/explore/lesson-create-dialog';
 
 const LessonCreate = (props) => {
   console.log(props)
   const courseUrl = window.location.href.split('/');
   const courseId = (courseUrl[courseUrl.length - 1]);
+  const [openCreateLessonDialog, setOpenCreateLessonDialog] = useState()
   usePageView();
 
   return (
@@ -58,8 +60,10 @@ const LessonCreate = (props) => {
                 </Typography>
               </Breadcrumbs>
             </Stack>
-            <LessonCreateForm 
-              courseid = {courseId}
+            <CreateLessonDialog 
+              // courseid = {courseId}
+              openCreateLessonDialog={openCreateLessonDialog}
+              setOpenCreateLessonDialog={setOpenCreateLessonDialog}
             />
           </Stack>
         </Container>
