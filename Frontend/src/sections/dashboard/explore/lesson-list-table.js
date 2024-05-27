@@ -124,6 +124,7 @@ export const Video = ({lmId}) => {
     }
   };
 
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <video
@@ -174,6 +175,7 @@ function Row(props) {
     "courseId": 1
 });
   const [fileGet, setFileGet] = useState("")
+  const [openDialog, setOpenDialog] = useState(false)
   const getLesson = useCallback(async (id) => {
     try {
       const response = await exploreApi.getLesson(id);
@@ -264,6 +266,17 @@ function Row(props) {
     setOpenMenu(true);
   }, []);
 
+  const handleDeleteLesson = useCallback(async (id) => {
+    console.log("Delete lesson")
+    try {
+      const response = await exploreApi.deleteLesson(id);
+      console.log(response)
+    } catch (err) {
+      console.error(err);
+    }
+  }, [])
+
+
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -326,9 +339,12 @@ function Row(props) {
       {accountType !== "LEARNER" && isInstructor && <ItemMenu
         anchorEl={menuRef.current}
         onClose={handleMenuClose}
+        onDelete={handleDeleteLesson}
         open={openMenu}
         idLesson={row.id}
         idCourse={parseInt(courseId, 10)}
+        openDialog={openDialog}
+        setOpenDialog={setOpenDialog}
       />}
     </React.Fragment>
   );

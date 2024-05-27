@@ -33,6 +33,7 @@ import { Scrollbar } from '../../../components/scrollbar';
 import { SeverityPill } from '../../../components/severity-pill';
 import { FileIcon } from '../../../components/file-icon';
 import { useRouter } from 'next/navigation';
+import { lm_manageApi } from '../../../api/lm-manage';
 import { paths } from '../../../paths';
 
 const categoryOptions = [
@@ -95,8 +96,14 @@ export const LMManageListTable = (props) => {
     toast.success('Tài liệu đã được cập nhật');
   }, []);
 
-  const handleLMDelete = useCallback(() => {
-    toast.error('Tài liệu không thể xoá');
+  const handleLMDelete = useCallback(async (id) => {
+    try {
+      const response = await lm_manageApi.deleteLM(id);
+      console.log(response)
+    } catch (err){
+      console.error(err);
+    }
+    toast.error('Tài liệu đã được xoá');
   }, []);
 
   const handleToggle = ({target}) => {
@@ -275,11 +282,11 @@ export const LMManageListTable = (props) => {
                           >
                             <Grid
                               item
-                              md={6}
+                              md={3}
                               xs={12}
                             >
                               <Typography variant="h6">
-                                Basic details
+                                Thông tin cơ bản
                               </Typography>
                               <Divider sx={{ my: 2 }} />
                               <Grid
@@ -288,30 +295,17 @@ export const LMManageListTable = (props) => {
                               >
                                 <Grid
                                   item
-                                  md={6}
+                                  md={12}
                                   xs={12}
                                 >
                                   <TextField
                                     defaultValue={LM.name}
                                     fullWidth
-                                    label="Product name"
+                                    label="Tên tài liệu học"
                                     name="name"
                                   />
                                 </Grid>
-                                <Grid
-                                  item
-                                  md={6}
-                                  xs={12}
-                                >
-                                  <TextField
-                                    defaultValue={LM.sku}
-                                    disabled
-                                    fullWidth
-                                    label="SKU"
-                                    name="sku"
-                                  />
-                                </Grid>
-                                <Grid
+                                {/* <Grid
                                   item
                                   md={6}
                                   xs={12}
@@ -319,41 +313,28 @@ export const LMManageListTable = (props) => {
                                   <TextField
                                     defaultValue={LM.category}
                                     fullWidth
-                                    label="Category"
+                                    label="Loại hình"
                                     select
                                   >
                                     {categoryOptions.map((option) => (
                                       <MenuItem
                                         key={option.value}
                                         value={option.value}
-                                      >
+                                        >
                                         {option.label}
                                       </MenuItem>
                                     ))}
                                   </TextField>
-                                </Grid>
-                                <Grid
-                                  item
-                                  md={6}
-                                  xs={12}
-                                >
-                                  <TextField
-                                    defaultValue={LM.id}
-                                    disabled
-                                    fullWidth
-                                    label="Barcode"
-                                    name="barcode"
-                                  />
-                                </Grid>
+                                </Grid> */}
                               </Grid>
                             </Grid>
                             <Grid
                               item
-                              md={6}
+                              md={9}
                               xs={12}
                             >
                               <Typography variant="h6">
-                                Pricing and stocks
+                                Mô tả
                               </Typography>
                               <Divider sx={{ my: 2 }} />
                               <Grid
@@ -362,18 +343,41 @@ export const LMManageListTable = (props) => {
                               >
                                 <Grid
                                   item
-                                  md={6}
+                                  md={4}
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={LM.price}
+                                    defaultValue={LM.type}
                                     fullWidth
-                                    label="Old price"
-                                    name="old-price"
+                                    label="Loại hình"
+                                    name="type"
+                                    select
+                                  >
+                                    {categoryOptions.map((option) => (
+                                      <MenuItem
+                                        key={option.value}
+                                        value={option.value}
+                                        >
+                                        {option.label}
+                                      </MenuItem>
+                                    ))}
+                                  </TextField>
+                                </Grid>
+                                <Grid
+                                  item
+                                  md={4}
+                                  xs={12}
+                                >
+                                  <TextField
+                                    defaultValue={LM.time}
+                                    fullWidth
+                                    label="Thời gian"
+                                    name="time"
+                                    disabled
                                     InputProps={{
                                       startAdornment: (
                                         <InputAdornment position="start">
-                                          {LM.currency}
+                                          {LM.time}
                                         </InputAdornment>
                                       )
                                     }}
@@ -382,37 +386,16 @@ export const LMManageListTable = (props) => {
                                 </Grid>
                                 <Grid
                                   item
-                                  md={6}
+                                  md={4}
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={LM.price}
+                                    defaultValue={LM.Topic.title}
                                     fullWidth
-                                    label="New price"
-                                    name="new-price"
-                                    InputProps={{
-                                      startAdornment: (
-                                        <InputAdornment position="start">
-                                          $
-                                        </InputAdornment>
-                                      )
-                                    }}
-                                    type="number"
+                                    label="Chủ đề học liên quan"
+                                    name="topicTitle"
+                                    disabled
                                   />
-                                </Grid>
-                                <Grid
-                                  item
-                                  md={6}
-                                  xs={12}
-                                  sx={{
-                                    alignItems: 'center',
-                                    display: 'flex'
-                                  }}
-                                >
-                                  <Switch />
-                                  <Typography variant="subtitle2">
-                                    Keep selling when stock is empty
-                                  </Typography>
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -435,21 +418,23 @@ export const LMManageListTable = (props) => {
                               type="submit"
                               variant="contained"
                             >
-                              Update
+                              Cập nhật
                             </Button>
                             <Button
                               color="inherit"
                               onClick={handleLMClose}
                             >
-                              Cancel
+                              Đóng
                             </Button>
                           </Stack>
                           <div>
                             <Button
-                              onClick={handleLMDelete}
+                              onClick={() => handleLMDelete(LM.id)}
                               color="error"
+                              type="submit"
+                              variant="contained"
                             >
-                              Delete LM
+                              Xoá vĩnh viễn
                             </Button>
                           </div>
                         </Stack>

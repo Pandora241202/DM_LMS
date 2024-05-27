@@ -31,6 +31,7 @@ import {
 } from '@mui/material';
 import { Scrollbar } from '../../../components/scrollbar';
 import { SeverityPill } from '../../../components/severity-pill';
+import { topic_manageApi } from '../../../api/topic-manage';
 
 const categoryOptions = [
   {
@@ -69,11 +70,12 @@ export const TopicManageListTable = (props) => {
     rowsPerPage,
     ...other
   } = props;
-  const [currentProduct, setCurrentProduct] = useState(null);
+  const [currentTopic, setCurrentTopic] = useState(null);
+  const [currentTitle, setCurrentTitle] = useState(null);
   const [state, setState] = useState(false);
 
-  const handleProductToggle = useCallback((productId) => {
-    setCurrentProduct((prevProductId) => {
+  const handleLessonToggle = useCallback((productId) => {
+    setCurrentTopic((prevProductId) => {
       if (prevProductId === productId) {
         return null;
       }
@@ -82,22 +84,44 @@ export const TopicManageListTable = (props) => {
     });
   }, []);
 
-  const handleProductClose = useCallback(() => {
-    setCurrentProduct(null);
+  const handleLessonClose = useCallback(() => {
+    setCurrentTopic(null);
   }, []);
 
-  const handleProductUpdate = useCallback(() => {
-    setCurrentProduct(null);
-    toast.success('Product updated');
+  const handleLessonUpdate = useCallback(async (Topic) => {
+    // setCurrentTopic(null);
+    try {
+      const response = await topic_manageApi.updateTopic(Topic.id, {
+        title: currentTitle,
+        addPreIds: [],
+        addPostIds: [],
+        deletePreIds: [],
+        deletePostIds: []
+      });
+      console.log(response)
+    } catch (err) {
+      console.error(err);
+    }
+    toast.success('Chủ đề học đã được cập nhật');
   }, []);
 
-  const handleProductDelete = useCallback(() => {
-    toast.error('Product cannot be deleted');
+  const handleLessonDelete = useCallback(async (id) => {
+    try {
+      const response = await topic_manageApi.deleteTopic(id);
+      console.log(response)
+    } catch (err) {
+      console.error(err);
+    }
+    toast.error('Chủ đề học đã được xoá');
   }, []);
 
   const handleToggle = ({target}) => {
     setState(state => ({ ...state, [target.name]: !state[target.name] }));
   }
+
+  const handleLessonTitle = useCallback((event) => {
+    setCurrentTitle(event.target.value);
+  },[]);
 
   return (
     <div {...other}>
@@ -124,7 +148,7 @@ export const TopicManageListTable = (props) => {
           <TableBody>
             {Topics.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage)
             .map((Topic) => {
-              const isCurrent = Topic.id === currentProduct;
+              const isCurrent = Topic.id === currentTopic;
               // const price = numeral(Topic.price).format(`${Topic.currency}0,0.00`);
               // const quantityColor = Topic.quantity >= 10 ? 'success' : 'error';
               const statusColor = Topic.status === 'published' ? 'success' : 'info';
@@ -170,7 +194,7 @@ export const TopicManageListTable = (props) => {
                     </TableCell>
 
                     <TableCell align="right">
-                      <IconButton onClick={() => handleProductToggle(Topic.id)}   >
+                      <IconButton onClick={() => handleLessonToggle(Topic.id)}   >
                         <SvgIcon>
                           <DotsHorizontalIcon />
                         </SvgIcon>
@@ -206,7 +230,7 @@ export const TopicManageListTable = (props) => {
                               xs={12}
                             >
                               <Typography variant="h6">
-                                Basic details
+                                Thông tin cơ bản
                               </Typography>
                               <Divider sx={{ my: 2 }} />
                               <Grid
@@ -215,30 +239,34 @@ export const TopicManageListTable = (props) => {
                               >
                                 <Grid
                                   item
-                                  md={6}
+                                  md={2}
+                                  xs={12}
+                                >
+                                  <TextField
+                                    defaultValue={Topic.id}
+                                    fullWidth
+                                    disabled
+                                    label="ID"
+                                    name="Id"
+                                  />
+                                </Grid>
+                                <Grid
+                                  item
+                                  md={10}
                                   xs={12}
                                 >
                                   <TextField
                                     defaultValue={Topic.title}
                                     fullWidth
-                                    label="Product title"
+                                    label="Title"
                                     name="title"
+                                    value={currentTitle}
+                                    onChange={handleLessonTitle}
                                   />
+                                  
+                                  {console.log(currentTitle)}
                                 </Grid>
-                                <Grid
-                                  item
-                                  md={6}
-                                  xs={12}
-                                >
-                                  <TextField
-                                    defaultValue={Topic.sku}
-                                    disabled
-                                    fullWidth
-                                    label="SKU"
-                                    name="sku"
-                                  />
-                                </Grid>
-                                <Grid
+                                {/* <Grid
                                   item
                                   md={6}
                                   xs={12}
@@ -271,7 +299,7 @@ export const TopicManageListTable = (props) => {
                                     label="Barcode"
                                     name="barcode"
                                   />
-                                </Grid>
+                                </Grid> */}
                               </Grid>
                             </Grid>
                             <Grid
@@ -280,7 +308,7 @@ export const TopicManageListTable = (props) => {
                               xs={12}
                             >
                               <Typography variant="h6">
-                                Pricing and stocks
+                                Các chủ đề liên quan
                               </Typography>
                               <Divider sx={{ my: 2 }} />
                               <Grid
@@ -293,14 +321,15 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={Topic.price}
+                                    // defaultValue={Topic.preTopicIds}
                                     fullWidth
-                                    label="Old price"
-                                    name="old-price"
+                                    label="Chủ đề trước"
+                                    name="Pre topics"
+                                    disabled
                                     InputProps={{
                                       startAdornment: (
                                         <InputAdornment position="start">
-                                          {Topic.currency}
+                                          {Topic.preTopicIds}
                                         </InputAdornment>
                                       )
                                     }}
@@ -313,21 +342,22 @@ export const TopicManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={Topic.price}
+                                    // defaultValue={Topic.postTopicIds}
                                     fullWidth
-                                    label="New price"
-                                    name="new-price"
+                                    label="Chủ đề sau"
+                                    name="Post topics"
+                                    disabled
                                     InputProps={{
                                       startAdornment: (
                                         <InputAdornment position="start">
-                                          $
+                                          {Topic.postTopicIds}
                                         </InputAdornment>
                                       )
                                     }}
                                     type="number"
                                   />
                                 </Grid>
-                                <Grid
+                                {/* <Grid
                                   item
                                   md={6}
                                   xs={12}
@@ -340,7 +370,7 @@ export const TopicManageListTable = (props) => {
                                   <Typography variant="subtitle2">
                                     Keep selling when stock is empty
                                   </Typography>
-                                </Grid>
+                                </Grid> */}
                               </Grid>
                             </Grid>
                           </Grid>
@@ -358,25 +388,27 @@ export const TopicManageListTable = (props) => {
                             spacing={2}
                           >
                             <Button
-                              onClick={handleProductUpdate}
+                              onClick={() => handleLessonUpdate(Topic)}
                               type="submit"
                               variant="contained"
                             >
-                              Update
+                              Cập nhật
                             </Button>
                             <Button
                               color="inherit"
-                              onClick={handleProductClose}
+                              onClick={handleLessonClose}
                             >
-                              Cancel
+                              Huỷ bỏ
                             </Button>
                           </Stack>
                           <div>
                             <Button
-                              onClick={handleProductDelete}
+                              onClick={() => handleLessonDelete(Topic.id)}
+                              // type="submit"
+                              variant="contained"
                               color="error"
                             >
-                              Delete Topic
+                              Xoá vĩnh viễn
                             </Button>
                           </div>
                         </Stack>

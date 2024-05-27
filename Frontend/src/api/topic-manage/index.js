@@ -12,6 +12,13 @@ class topic_manage_Api {
     return axios.post(`${apiUrl}/topics`, request)
   }
 
+  updateTopic(id, request) {
+    return axios.patch(`${apiUrl}/topics/${id}`, request)
+  }
+
+  deleteTopic(id) {
+    return axios.delete(`${apiUrl}/topics/${id}`)
+  }
 //   getForumDetail(id) {
 //     return axios.get(`${apiUrl}/${id}`);
 //     //return Promise.resolve(deepCopy(forumDetail));
