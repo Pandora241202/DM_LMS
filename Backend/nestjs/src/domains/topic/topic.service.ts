@@ -40,7 +40,6 @@ export class TopicService {
           ),
         );
       }
-
       await Promise.all(createTopicLinkPromises);
     });
   }

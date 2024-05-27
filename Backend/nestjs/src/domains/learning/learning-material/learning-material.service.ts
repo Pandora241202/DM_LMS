@@ -186,7 +186,7 @@ export class LearningMaterialService {
     if (lm.type === LearningMaterialType.CODE) {
       const code = await this.prismaService.code.findFirst({
         where: { id: lm.Exercise.codeId },
-        select: { question: true, exampleCode: true },
+        select: { question: true, exampleCode: true, inputFile: true },
       });
       if (!code) throw new NotFoundException("Couldn't find learning material");
 

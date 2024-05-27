@@ -14,6 +14,18 @@ export class LearningPathService {
   async calculateRecommendedOnes(learnerId: number, body: GetRecommendedLearningPathREQ) {
     await this.prismaService.learningPath.deleteMany({ where: { learnerId: learnerId } });
 
+    const learner = await this.prismaService.learner.findFirst({
+      where: { id: learnerId },
+      select: {
+        backgroundKnowledge: true,
+        qualification: true,
+        activeReflective: true,
+        sensitiveIntuitive: true,
+        visualVerbal: true,
+        sequentialGlobal: true,
+      },
+    });
+
     const { start, end } = getStartEnd(body.goal);
     const style = UserLearnerDTO.learningStyle(body.learningStyleQA);
     let temp: number[][] = [];
@@ -21,12 +33,12 @@ export class LearningPathService {
     const learnerIds = (
       await this.prismaService.learner.findMany({
         where: {
-          qualification: body.qualification,
-          backgroundKnowledge: body.backgroundKnowledge,
-          activeReflective: style.activeReflective,
-          visualVerbal: style.visualVerbal,
-          sequentialGlobal: style.sequentialGlobal,
-          sensitiveIntuitive: style.sequentialGlobal,
+          qualification: body.qualification ? body.qualification : learner.qualification,
+          backgroundKnowledge: body.backgroundKnowledge ? body.backgroundKnowledge : learner.backgroundKnowledge,
+          activeReflective: style.activeReflective ? style.activeReflective : learner.activeReflective,
+          visualVerbal: style.visualVerbal ? style.visualVerbal : learner.visualVerbal,
+          sequentialGlobal: style.sequentialGlobal ? style.sequentialGlobal : learner.sequentialGlobal,
+          sensitiveIntuitive: style.sensitiveIntuitive ? style.sensitiveIntuitive : learner.sensitiveIntuitive,
         },
         select: { id: true },
       })
@@ -119,7 +131,7 @@ export class LearningPathService {
     let result = [];
     for (let i = 0; i < lmIds.length; i++) {
       const log = await this.prismaService.learnerLog.findFirst({
-        where: { id: lmIds[i], learnerId: learnerId },
+        where: { learningMaterialId: lmIds[i], learnerId: learnerId, state: true },
         select: {
           learningMaterial: { include: { Topic: true } },
           score: true,
@@ -135,7 +147,7 @@ export class LearningPathService {
           name: log.learningMaterial.name,
           difficulty: log.learningMaterial.difficulty,
           Topic: log.learningMaterial.Topic,
-          score: log.score,
+          score: Math.floor((log.score * 100) / lms[i].score),
           attempts: log.attempts,
           time: log.time,
         });
