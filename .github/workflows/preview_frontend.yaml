@@ -15,14 +15,11 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
-        run: |
-          cd Frontend
-          vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        working-directory: Frontend
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: |
-          cd Frontend
-          vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        working-directory: Frontend
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
-        run: |
-          cd Frontend
-          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+        working-directory: Frontend
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
