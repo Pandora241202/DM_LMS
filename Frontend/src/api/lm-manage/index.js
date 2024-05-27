@@ -78,6 +78,10 @@ class lm_manage_Api {
     return axios.get(`${apiUrl}/${id}/information`)
   }
 
+  deleteLM (id) {
+    return axios.delete(`${apiUrl}/${id}`)
+  }
+
 //   getForumDetail(id) {
 //     return axios.get(`${apiUrl}/${id}`);
 //     //return Promise.resolve(deepCopy(forumDetail));
