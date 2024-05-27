@@ -20,6 +20,7 @@ import { AcademyDailyProgress } from '../../../sections/dashboard/academy/academ
 import { AcademyFind } from '../../../sections/dashboard/academy/academy-find';
 import NextLink from 'next/link';
 import { CourseCard } from '../../../sections/dashboard/academy/course-card';
+import { CourseCardDelete } from '../../../sections/dashboard/academy/course-card-instructor';
 import { CourseSearch } from '../../../sections/dashboard/academy/course-search';
 import { useMounted } from '../../../hooks/use-mounted';
 import { useCallback, useEffect, useState } from 'react';
@@ -174,7 +175,7 @@ const Page = () => {
                     xs={12}
                     md={4}
                   >
-                    {course && <CourseCard course={course}/>}
+                    {course && <CourseCardDelete course={course}/>}
                   </Grid>
               ))
               }

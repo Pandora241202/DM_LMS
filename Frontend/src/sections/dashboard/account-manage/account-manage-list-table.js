@@ -5,8 +5,10 @@ import { toast } from 'react-hot-toast';
 import ChevronDownIcon from '@untitled-ui/icons-react/build/esm/ChevronDown';
 import ChevronRightIcon from '@untitled-ui/icons-react/build/esm/ChevronRight';
 import DotsHorizontalIcon from '@untitled-ui/icons-react/build/esm/DotsHorizontal';
+import PersonIcon from '@mui/icons-material/Person';
 import Image01Icon from '@untitled-ui/icons-react/build/esm/Image01';
 import {
+  Avatar,
   Box,
   Button,
   CardContent,
@@ -17,6 +19,7 @@ import {
   InputAdornment,
   LinearProgress,
   MenuItem,
+  FormControlLabel,
   Stack,
   SvgIcon,
   Switch,
@@ -29,34 +32,39 @@ import {
   TextField,
   Typography
 } from '@mui/material';
+import { blue, grey, green } from '@mui/material/colors';
 import { Scrollbar } from '../../../components/scrollbar';
 import { SeverityPill } from '../../../components/severity-pill';
+import { FileIcon } from '../../../components/file-icon';
+import { useRouter } from 'next/navigation';
+import { lm_manageApi } from '../../../api/lm-manage';
+import { paths } from '../../../paths';
 
 const categoryOptions = [
   {
-    label: 'Healthcare',
-    value: 'healthcare'
+    label: 'ADMIN',
+    value: 'ADMIN'
   },
   {
-    label: 'Makeup',
-    value: 'makeup'
+    label: 'INSTRUCTOR',
+    value: 'INSTRUCTOR'
   },
   {
-    label: 'Dress',
-    value: 'dress'
-  },
-  {
-    label: 'Skincare',
-    value: 'skincare'
-  },
-  {
-    label: 'Jewelry',
-    value: 'jewelry'
-  },
-  {
-    label: 'Blouse',
-    value: 'blouse'
+    label: 'LEARNER',
+    value: 'LEARNER'
   }
+  // {
+  //   label: 'WORD',
+  //   value: 'WORD'
+  // },
+  // {
+  //   label: 'CODE',
+  //   value: 'CODE'
+  // },
+  // {
+  //   label: 'PPT',
+  //   value: 'PPT'
+  // }
 ];
 
 export const AccountManageListTable = (props) => {
@@ -64,40 +72,56 @@ export const AccountManageListTable = (props) => {
     onPageChange,
     onRowsPerPageChange,
     page,
-    products,
-    productsCount,
+    Accounts,
+    AccountsCount,
     rowsPerPage,
     ...other
   } = props;
-  const [currentProduct, setCurrentProduct] = useState(null);
+  const [currentAccount, setCurrentAccount] = useState(null);
+  // const [account, setAccount] = useState();
+  const router = useRouter()
   const [state, setState] = useState(false);
 
-  const handleProductToggle = useCallback((productId) => {
-    setCurrentProduct((prevProductId) => {
-      if (prevProductId === productId) {
+  const handleAccountToggle = useCallback((Account) => {
+    setCurrentAccount((prevAccount) => {
+      if (prevAccount === Account) {
         return null;
       }
 
-      return productId;
+      return Account;
     });
   }, []);
 
-  const handleProductClose = useCallback(() => {
-    setCurrentProduct(null);
+  const handleAccountClose = useCallback(() => {
+    setCurrentAccount(null);
   }, []);
 
-  const handleProductUpdate = useCallback(() => {
-    setCurrentProduct(null);
-    toast.success('Product updated');
+  const handleAccountUpdate = useCallback(() => {
+    setCurrentAccount(null);
+    toast.success('Tài liệu đã được cập nhật');
   }, []);
 
-  const handleProductDelete = useCallback(() => {
-    toast.error('Product cannot be deleted');
+  const handleAccountDelete = useCallback(async (id) => {
+    try {
+      const response = await lm_manageApi.deleteAccount(id);
+      console.log(response)
+    } catch (err){
+      console.error(err);
+    }
+    toast.error('Tài liệu đã được xoá');
   }, []);
 
   const handleToggle = ({target}) => {
     setState(state => ({ ...state, [target.name]: !state[target.name] }));
   }
+
+  const handleVisibilityChange = () => {
+    setCurrentAccount({...currentAccount, state:!currentAccount.state});
+  }
+
+  // useEffect({
+    
+  // },[])
 
   return (
     <div {...other}>
@@ -105,85 +129,58 @@ export const AccountManageListTable = (props) => {
         <Table sx={{ minWidth: 1200 }}>
           <TableHead>
             <TableRow>
-              <TableCell />
+              <TableCell>
+                ID
+              </TableCell>
               <TableCell width="25%">
-                Name
-              </TableCell>
-              <TableCell width="25%">
-                Email
+                Người dùng
               </TableCell>
               <TableCell>
-                Location
+                Mô tả
               </TableCell>
               <TableCell>
-                Phone
+                Trạng thái
               </TableCell>
-              <TableCell>
-                Signed Up
-              </TableCell>
+              {/* <TableCell width="25%">
+                Đánh giá
+              </TableCell> */}
               <TableCell align="right">
-                Actions
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product) => {
-              const isCurrent = product.id === currentProduct;
-              const price = numeral(product.price).format(`${product.currency}0,0.00`);
-              const quantityColor = product.quantity >= 10 ? 'success' : 'error';
-              const statusColor = product.status === 'published' ? 'success' : 'info';
-              const hasManyVariants = product.variants > 1;
+            {Accounts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((Account) => {
+              // const isCurrent = Account.id === currentAccount.id;
+              // const price = numeral(Account.price).format(`${Account.currency}0,0.00`);
+              // const quantityColor = Account.quantity >= 10 ? 'success' : 'error';
+              const statusColor = Account.state === true ? 'success' : 'error';
+              const hasManyVariants = Account.variants > 1;
               // const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
               return (
-                <Fragment key={product.id}>
+                <Fragment key={Account.id}>
                   <TableRow
                     hover
-                    key={product.id}
+                    key={Account.id}
                   >
-                    <TableCell
-                      padding="checkbox"
-                      sx={{
-                        ...(isCurrent && {
-                          position: 'relative',
-                          '&:after': {
-                            position: 'absolute',
-                            content: '" "',
-                            top: 0,
-                            left: 0,
-                            backgroundColor: 'primary.main',
-                            width: 3,
-                            height: 'calc(100% + 1px)'
-                          }
-                        })
-                      }}
-                      width="25%"
-                    >
-                      {/* <IconButton onClick={() => handleProductToggle(product.id)}>
-                        <SvgIcon>
-                          {isCurrent ? <ChevronDownIcon /> : <ChevronRightIcon />}
-                        </SvgIcon>
-                      </IconButton> */}
-                      <Checkbox 
-                        key = {product.id}
-                        onChange = {handleToggle}
-                        checked = {state[product.id]}
-                      />
+                    <TableCell>
+                      {Account.id}
                     </TableCell>
-                    <TableCell width="25%">
+                    <TableCell width="40%">
                       <Box
                         sx={{
                           alignItems: 'center',
                           display: 'flex'
                         }}
                       >
-                        {product.image
-                          ? (
-                            <Box
+                        {/* {Account.image
+                          ? ( */}
+                            {/* <Box
                               sx={{
                                 alignItems: 'center',
                                 backgroundColor: 'neutral.50',
-                                backgroundImage: `url(${product.image})`,
+                                backgroundImage: `url(/assets/products/product-1.png)`,
                                 backgroundPosition: 'center',
                                 backgroundSize: 'cover',
                                 borderRadius: 1,
@@ -193,8 +190,24 @@ export const AccountManageListTable = (props) => {
                                 overflow: 'hidden',
                                 width: 80
                               }}
-                            />
-                          )
+                            /> */}
+                              {/* <FileIcon extension={Account.type}/> */}
+                              {Account.accountType == "LEARNER" ? 
+                              <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
+                                <PersonIcon />
+                              </Avatar> : <></>
+                              }    
+                              {Account.accountType == "ADMIN" ? 
+                              <Avatar sx={{ bgcolor: grey[100], color: grey[600] }}>
+                                <PersonIcon />
+                              </Avatar> : <></>
+                              }
+                              {Account.accountType == "INSTRUCTOR" ? 
+                              <Avatar sx={{ bgcolor: green[100], color: green[600] }}>
+                                <PersonIcon />
+                              </Avatar> : <></>
+                              }  
+                          {/* )
                           : (
                             <Box
                               sx={{
@@ -211,28 +224,31 @@ export const AccountManageListTable = (props) => {
                                 <Image01Icon />
                               </SvgIcon>
                             </Box>
-                          )}
+                          )} */}
                         <Box
                           sx={{
                             cursor: 'pointer',
                             ml: 2
                           }}
                         >
+                          <Typography variant="subtitle1">
+                            {Account.name}
+                          </Typography>
                           <Typography variant="subtitle2">
-                            {product.name}
+                            Tên truy cập: {Account.username}
                           </Typography>
                           <Typography
                             color="text.secondary"
                             variant="body2"
                           >
-                            in {product.category}
+                            Vai trò: {Account.accountType}
                           </Typography>
                         </Box>
                       </Box>
                     </TableCell>
-                    <TableCell width="25%">
-                      <LinearProgress
-                        value={product.quantity}
+                    <TableCell>
+                      {/* <LinearProgress
+                        value={Account.quantity}
                         variant="determinate"
                         color={quantityColor}
                         sx={{
@@ -244,32 +260,51 @@ export const AccountManageListTable = (props) => {
                         color="text.secondary"
                         variant="body2"
                       >
-                        {product.quantity}
+                        {Account.quantity}
                         {' '}
                         in stock
-                        {hasManyVariants && ` in ${product.variants} variants`}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      {price}
-                    </TableCell>
-                    <TableCell>
-                      {product.sku}
+                        {hasManyVariants && ` in ${Account.variants} variants`}
+                      </Typography> */}
+                      <Stack space={4}>
+                        <Typography variant="subtitle2">
+                          Email: {Account.email} 
+                        </Typography>
+                        <Typography variant="subtitle2">
+                          Tuổi: {Account.age}
+                        </Typography>
+                        <Typography variant="subtitle2">
+                          Giới tính: {Account.gender}
+                        </Typography>
+                        {/* <Typography variant="subtitle2">
+                          Topic: {Account.accountType}
+                        </Typography> */}
+                        <Typography variant="subtitle2">
+                          Ngôn ngữ: {Account.language}
+                        </Typography>
+                      </Stack>
                     </TableCell>
                     <TableCell>
                       <SeverityPill color={statusColor}>
-                        {product.status}
+                        {Account.state ? "ACTIVE": "INACTIVE"}
                       </SeverityPill>
-                    </TableCell>
+                      {/* <Typography
+                        color="textSecondary"
+                        variant="body2"
+                      >
+                        {Account.state}
+                      </Typography> */}
+                    </TableCell> 
                     <TableCell align="right">
-                      <IconButton>
+                      <IconButton onClick={() => handleAccountToggle(Account)}   >
                         <SvgIcon>
                           <DotsHorizontalIcon />
                         </SvgIcon>
                       </IconButton>
                     </TableCell>
                   </TableRow>
-                  {isCurrent && (
+                  {/* {isCurrent && (() => setVisibilityChecked(Account.state))()}
+                  {console.log(visibilityChecked)} */}
+                  {currentAccount && Account.id === currentAccount.id && (
                     <TableRow>
                       <TableCell
                         colSpan={7}
@@ -298,7 +333,7 @@ export const AccountManageListTable = (props) => {
                               xs={12}
                             >
                               <Typography variant="h6">
-                                Basic details
+                                Thông tin cơ bản
                               </Typography>
                               <Divider sx={{ my: 2 }} />
                               <Grid
@@ -311,9 +346,10 @@ export const AccountManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.name}
+                                    defaultValue={Account.name}
                                     fullWidth
-                                    label="Product name"
+                                    disabled
+                                    label="Tên người dùng"
                                     name="name"
                                   />
                                 </Grid>
@@ -323,11 +359,11 @@ export const AccountManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.sku}
-                                    disabled
+                                    defaultValue={Account.username}
                                     fullWidth
-                                    label="SKU"
-                                    name="sku"
+                                    disabled
+                                    label="Tên trên hệ thống"
+                                    name="username"
                                   />
                                 </Grid>
                                 <Grid
@@ -336,16 +372,79 @@ export const AccountManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.category}
+                                    defaultValue={Account.gender}
                                     fullWidth
-                                    label="Category"
+                                    disabled
+                                    label="Giới tính"
+                                    name="gender"
+                                  />
+                                </Grid>
+                                <Grid
+                                  item
+                                  md={6}
+                                  xs={12}
+                                >
+                                  <TextField
+                                    defaultValue={Account.email}
+                                    fullWidth
+                                    disabled
+                                    label="Email"
+                                    name="email"
+                                  />
+                                </Grid>
+                                {/* <Grid
+                                  item
+                                  md={6}
+                                  xs={12}
+                                >
+                                  <TextField
+                                    defaultValue={Account.category}
+                                    fullWidth
+                                    label="Loại hình"
                                     select
                                   >
                                     {categoryOptions.map((option) => (
                                       <MenuItem
                                         key={option.value}
                                         value={option.value}
-                                      >
+                                        >
+                                        {option.label}
+                                      </MenuItem>
+                                    ))}
+                                  </TextField>
+                                </Grid> */}
+                              </Grid>
+                            </Grid>
+                            <Grid
+                              item
+                              md={6}
+                              xs={12}
+                            >
+                              <Typography variant="h6">
+                                Mô tả
+                              </Typography>
+                              <Divider sx={{ my: 2 }} />
+                              <Grid
+                                container
+                                spacing={3}
+                              >
+                                <Grid
+                                  item
+                                  md={6}
+                                  xs={12}
+                                >
+                                  <TextField
+                                    defaultValue={Account.accountType}
+                                    fullWidth
+                                    label="Vai trò"
+                                    name="Accounttype"
+                                    select
+                                  >
+                                    {categoryOptions.map((option) => (
+                                      <MenuItem
+                                        key={option.value}
+                                        value={option.value}
+                                        >
                                         {option.label}
                                       </MenuItem>
                                     ))}
@@ -357,62 +456,15 @@ export const AccountManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={product.id}
+                                    defaultValue={Account.age}
+                                    fullWidth
+                                    label="Tuổi"
+                                    name="age"
                                     disabled
-                                    fullWidth
-                                    label="Barcode"
-                                    name="barcode"
-                                  />
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid
-                              item
-                              md={6}
-                              xs={12}
-                            >
-                              <Typography variant="h6">
-                                Pricing and stocks
-                              </Typography>
-                              <Divider sx={{ my: 2 }} />
-                              <Grid
-                                container
-                                spacing={3}
-                              >
-                                <Grid
-                                  item
-                                  md={6}
-                                  xs={12}
-                                >
-                                  <TextField
-                                    defaultValue={product.price}
-                                    fullWidth
-                                    label="Old price"
-                                    name="old-price"
                                     InputProps={{
                                       startAdornment: (
                                         <InputAdornment position="start">
-                                          {product.currency}
-                                        </InputAdornment>
-                                      )
-                                    }}
-                                    type="number"
-                                  />
-                                </Grid>
-                                <Grid
-                                  item
-                                  md={6}
-                                  xs={12}
-                                >
-                                  <TextField
-                                    defaultValue={product.price}
-                                    fullWidth
-                                    label="New price"
-                                    name="new-price"
-                                    InputProps={{
-                                      startAdornment: (
-                                        <InputAdornment position="start">
-                                          $
+                                          {Account.age}
                                         </InputAdornment>
                                       )
                                     }}
@@ -428,11 +480,28 @@ export const AccountManageListTable = (props) => {
                                     display: 'flex'
                                   }}
                                 >
-                                  <Switch />
-                                  <Typography variant="subtitle2">
-                                    Keep selling when stock is empty
-                                  </Typography>
+                                  <FormControlLabel
+                                    control={<Switch
+                                              checked={currentAccount.state}
+                                              onChange={handleVisibilityChange}
+                                              inputProps={{ 'aria-label': 'controlled' }}
+                                            />}
+                                    label="Trạng thái"
+                                  />
+                                  {console.log(currentAccount)}
                                 </Grid>
+                                {/* <Grid
+                                  item
+                                  md={6}
+                                  xs={12}
+                                >
+                                  <TextField
+                                    defaultValue={Account.accountType}
+                                    fullWidth
+                                    label="Vai trò"
+                                    name="topicTitle"
+                                  />
+                                </Grid> */}
                               </Grid>
                             </Grid>
                           </Grid>
@@ -450,25 +519,27 @@ export const AccountManageListTable = (props) => {
                             spacing={2}
                           >
                             <Button
-                              onClick={handleProductUpdate}
+                              onClick={handleAccountUpdate}
                               type="submit"
                               variant="contained"
                             >
-                              Update
+                              Cập nhật
                             </Button>
                             <Button
                               color="inherit"
-                              onClick={handleProductClose}
+                              onClick={handleAccountClose}
                             >
-                              Cancel
+                              Đóng
                             </Button>
                           </Stack>
                           <div>
                             <Button
-                              onClick={handleProductDelete}
+                              onClick={() => handleAccountDelete(Account.id)}
                               color="error"
+                              type="submit"
+                              variant="contained"
                             >
-                              Delete product
+                              Xoá vĩnh viễn
                             </Button>
                           </div>
                         </Stack>
@@ -483,7 +554,7 @@ export const AccountManageListTable = (props) => {
       </Scrollbar>
       <TablePagination
         component="div"
-        count={productsCount}
+        count={AccountsCount}
         onPageChange={onPageChange}
         onRowsPerPageChange={onRowsPerPageChange}
         page={page}
@@ -495,8 +566,8 @@ export const AccountManageListTable = (props) => {
 };
 
 AccountManageListTable.propTypes = {
-  products: PropTypes.array.isRequired,
-  productsCount: PropTypes.number.isRequired,
+  Accounts: PropTypes.array.isRequired,
+  AccountsCount: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   onRowsPerPageChange: PropTypes.func,
   page: PropTypes.number.isRequired,

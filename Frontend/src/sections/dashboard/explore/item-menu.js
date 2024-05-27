@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Link01Icon from '@untitled-ui/icons-react/build/esm/Link01';
 import PlusIcon from '@untitled-ui/icons-react/build/esm/Plus';
 import Trash02Icon from '@untitled-ui/icons-react/build/esm/Trash02';
-import { Menu, MenuItem, menuItemClasses, SvgIcon } from '@mui/material';
+import { Menu, MenuItem, menuItemClasses, SvgIcon, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
 import { paths } from '../../../paths';
 import NextLink from 'next/link';
 import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
@@ -11,7 +11,7 @@ import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 
 
 export const ItemMenu = (props) => {
-  const { anchorEl, onClose, onDelete, open = false, idCourse, idLesson } = props;
+  const { anchorEl, onClose, onDelete, open = false, idCourse, idLesson, openDialog = false, setOpenDialog } = props;
 
   return (
     <Menu
@@ -65,15 +65,36 @@ export const ItemMenu = (props) => {
         </SvgIcon>
         Tạo tài liệu code mới
       </MenuItem>
-      {/* <MenuItem
-        onClick={onDelete}
+      <MenuItem
+        onClick={() => setOpenDialog(true)}
         sx={{ color: 'error.main' }}
       >
         <SvgIcon fontSize="small">
           <Trash02Icon />
         </SvgIcon>
-        Delete
-      </MenuItem> */}
+        Xoá bài học
+      </MenuItem>
+      <Dialog
+        open={openDialog}
+        onClose={onClose}
+        // aria-labelledby="alert-dialog-title"
+        // aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Xoá bài học"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Bạn chắc chắn xoá bài học này ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose}>Huỷ bỏ</Button>
+          <Button onClick={onDelete} autoFocus>
+            Xoá
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Menu>
   );
 };
