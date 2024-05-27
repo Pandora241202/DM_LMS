@@ -11,7 +11,7 @@ class PythonRunnerRequestDto {
 
   @IsArray()
   @IsString({ each: true })
-  inputTestFile?: string[]
+  inputTestFile?: string[];
 
   @IsNotEmpty()
   @IsString()

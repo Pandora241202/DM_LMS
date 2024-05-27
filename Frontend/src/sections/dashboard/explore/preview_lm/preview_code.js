@@ -128,7 +128,7 @@ const PreviewCode = ({lmId, value, setValue, hover, setHover}) => {
     <>
       <Head>
         <title>
-          Khám phá tài liệu học {lm.name}
+          Khám phá tài liệu học {lm?.name}
         </title>
       </Head>
       <Box

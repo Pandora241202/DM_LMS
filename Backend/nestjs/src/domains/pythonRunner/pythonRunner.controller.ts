@@ -26,7 +26,9 @@ export class PythonRunnerController {
         });
       }
 
-      const executeCode = body.inputTestFile ? `python temp.py ${'uploads/materialFiles/' + body.inputTestFile}` :"python temp.py"
+      const executeCode = body.inputTestFile
+        ? `python temp.py ${'uploads/materialFiles/' + body.inputTestFile}`
+        : 'python temp.py';
 
       // Write the user's Python code to a temporary file
       await fs.writeFile('temp.py', body.code);

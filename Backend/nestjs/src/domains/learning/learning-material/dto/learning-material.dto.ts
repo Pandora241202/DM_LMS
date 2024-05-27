@@ -7,13 +7,13 @@ export class CodeDTO {
   exampleCode: string;
   inputName: string;
 
-  static fromEntity(name: string, entity: Prisma.CodeGetPayload<{include: {inputFile: true}}>): CodeDTO {
+  static fromEntity(name: string, entity: Prisma.CodeGetPayload<{ include: { inputFile: true } }>): CodeDTO {
     const { question, exampleCode } = entity;
     return {
       name,
       question,
       exampleCode,
-      inputName: entity.inputFile[0].prefix + "--" + entity.inputFile[0].name,
+      inputName: entity.inputFile[0].prefix + '--' + entity.inputFile[0].name,
     };
   }
 }

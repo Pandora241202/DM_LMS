@@ -29,6 +29,8 @@ export class TopicCreateREQ {
     return {
       title: body.title,
       subject: body.subject,
+      // StartLink: connectManyRelation(body.postTopicIds),
+      // EndLink: connectManyRelation(body.preTopicIds),
     };
   }
 }
