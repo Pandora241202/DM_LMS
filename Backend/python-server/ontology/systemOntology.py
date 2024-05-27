@@ -86,7 +86,7 @@ class SystemOntology:
     def addOnto(self):
         conn = connectDatabase()
         
-        conn.cursor.execute("SELECT id, qualification, background_knowledge, active_reflective, visual_verbal, sequential_global, sensitive_intuitive FROM learners")
+        conn.cursor.execute("SELECT user_id, qualification, background_knowledge, active_reflective, visual_verbal, sequential_global, sensitive_intuitive FROM learners")
         learners = conn.cursor.fetchall()
         
         conn.cursor.execute("SELECT id, name, difficulty, type, rating, score, time, topic_id FROM learning_materials")
