@@ -131,7 +131,7 @@ export const AuthProvider = (props) => {
 
   const signUp = useCallback(async (request) => {
     const user = await authApi.signUp(request);
-    const { accessToken, id } = await authApi.signIn({ "username": request.username, "password": request.password });
+    const { accessToken, id } = (await authApi.signIn({ "username": request.username, "password": request.password })).data;
 
     localStorage.setItem(STORAGE_KEY, accessToken);
     localStorage.setItem(ID, id);
