@@ -38,7 +38,11 @@ const useLOs = (update) => {
     try {
       const response = await learningPathApi.getLearningPath(user.id);
       if (isMounted()) {
-        setLOs(response.data);
+        if (response.data.length == 0) {
+          router.push(paths.dashboard.learningPaths.create);
+        } else {
+          setLOs(response.data);
+        }
       }
     } catch (err) {
       console.error(err);
