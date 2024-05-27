@@ -10,18 +10,17 @@ jobs:
   Deploy-Preview:
   
     runs-on: ubuntu-latest
-    
-    defaults:
-      run:
-        working-directory: Frontend
-        
     steps:
       - uses: actions/checkout@v2
       - name: Install Vercel CLI
+        working-directory: Frontend
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
+        working-directory: Frontend
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
+        working-directory: Frontend
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
+        working-directory: Frontend
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
