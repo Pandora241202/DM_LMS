@@ -40,11 +40,11 @@ import AddIcon from '@mui/icons-material/Add';
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { github } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { dark } from "react-syntax-highlighter/dist/esm/styles/prism"
+import { learning_logApi } from '../../../../api/learning-log';
+import { CourseLesson } from './code/preview-code-lesson';
+import { LmRating } from './lm_rating'
 
-const PreviewCode = ({lmId}) => {
+const PreviewCode = ({lmId, value, setValue, hover, setHover}) => {
   const [title, setTitle] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [content, setContent] = useState([]);
@@ -53,6 +53,7 @@ const PreviewCode = ({lmId}) => {
   const [datasets, setDatasets] = useState([]);
   const [openInputChosenDialog, setOpenInputChosenDialog] = useState(false);
   const [lm, setLm] = useState();
+  const [score, setScore] = useState([0,0]) //[score, maxScore]
   const { user } = useAuth();
   const router = useRouter();
   
@@ -64,9 +65,31 @@ const PreviewCode = ({lmId}) => {
         setLm(response.data)
     }
     getLmCode()
+    setContent([{code: "", stdout: "", stderr: ""}])
   }, [])
   console.log(lm)
 
+
+  // This function takes responsibility to submit this code and create Log
+  const createCodeLog = async (lmId, user) => {
+    try {
+      const response = await learning_logApi.createLog(user.id, {
+        rating: 3,
+        learnerAnswer: content[0].code,
+        time: 1200, //chỗ này cần phải lấy time của lm sau đó gắn vào
+        attempts: 1,
+        learningMaterialId: lmId,
+      });
+      console.log(response);
+      setScore([response.data.score, response.data.maxScore])
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  console.log(score)
+
+  // This function run the code of user
   const handleSubmitNotebook = useCallback(async () => {
     await notebookApi.postNotebook({
       modelVariationIds: modelVariations ? modelVariations.map(v => v.id) : null,
@@ -115,33 +138,31 @@ const PreviewCode = ({lmId}) => {
         }}
       >
         <Container maxWidth="xl">
-          <Stack alignItems="center" justifyContent="space-between" direction="row">
-            {lm ? <Card sx={{ width: "100%", height: 500, overflow: 'auto'}}>
-                <Grid container spacing={2} sx={{padding:2}} direction="column">
-                    <Grid item xs={12} md={6}>
-                        <Typography variant="h6">Đề bài</Typography>
-                        <Box dangerouslySetInnerHTML={{ __html: lm.question }} />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Typography variant="h6">Code mẫu</Typography>
-                        <Box component="pre" sx={{ backgroundColor: '#f5f5f5', padding: 2, borderRadius: 1, color: 'black' }}>
-                            <SyntaxHighlighter language={"Python"} style={github}>
-                            {lm.exampleCode}
-                            </SyntaxHighlighter>
-                        </Box>
-                    </Grid>
-                    
-                </Grid>
-            </Card> : <></>}
+          <Stack alignItems="left" justifyContent="space-between" direction="column">
+          <Typography variant="h5">Đề bài</Typography>
+            {lm && <Box dangerouslySetInnerHTML={{ __html: lm.question }} />}
+            {lm && <CourseLesson content={`
+\`\`\`python
+${lm.exampleCode}
+\`\`\`
+`} />}
           </Stack>
+          {/* <Divider sx={{ my: 1 }}/>
+          <Stack direction="column">
+            <Typography variant="h5" sx={{mt:2, mb: 3}}>Test case mẫu</Typography>
+          </Stack> */}
           <Divider sx={{ my: 1 }}/>
-          <Stack direction="row">
-            <Card sx={{ width: "75%", height: 500, overflow: 'auto'}}>
+          <Stack direction="column">
+            <Stack direction="row" sx={{ justifyContent: 'space-between', mt: 2, mb: 3 }}>
+                <Typography variant="h5">Phần làm bài</Typography>
+                <Typography variant="h6">Số testcase vượt qua: {score[0]}/{score[1]}</Typography>
+                </Stack>
+            <Card sx={{ width: "100%", height: 700, overflow: 'auto'}}>
               <CardContent>
-                {content.length === 0 && <Stack direction="row">
+                {/* {content.length === 0 && <Stack direction="row">
                   <Button startIcon={<AddIcon fontSize='small'/>} variant="outlined" color="inherit" sx={{ mr: 2, fontSize: 12, p: 1 }} onClick={() => setContent([{code: "", stdout: "", stderr: ""}])}>Mã nguồn</Button>
                   <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{fontSize: 12, p: 1 }} onClick={() => setContent(['<p></p>'])}>Văn bản</Button>
-                </Stack>}
+                </Stack>} */}
                 {content.map((s, i) => 
                   <Stack spacing={2} mb={2} key={i}>
                     {typeof(s) === "string"   
@@ -154,6 +175,7 @@ const PreviewCode = ({lmId}) => {
                         }}
                       /> 
                       : <Stack direction="row" border="1px solid" borderColor="action.disabledBackground" borderRadius={1}>
+                        {/* Nút run code */}
                         <Button variant="inherit" sx={{marginLeft: "auto", maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40, borderRadius: '100%'}} onClick={() => runPythonCode(i)}><PlayArrowOutlinedIcon /></Button>
                         <Stack width="100%">
                           <AceEditer
@@ -165,7 +187,7 @@ const PreviewCode = ({lmId}) => {
                             }}
                             name="python-editor"
                             width="100%"
-                            height="300px"
+                            height="500px"
                           />
                           {s.stdout != "" && <>
                             <Typography variant='body2'>stdout:</Typography>
@@ -192,15 +214,19 @@ const PreviewCode = ({lmId}) => {
                         </Stack>
                       </Stack>
                     }
-                    <Stack direction="row">
+                    {/* <Stack direction="row">
                       <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{ mr: 2, fontSize: 12, p: 1  }} onClick={() => setContent([...content.slice(0, i+1), {code: "", stdout: "", stderr: ""}, ...content.slice(i+1)])}>Mã nguồn</Button>
                       <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{ fontSize: 12, p: 1  }} onClick={() => setContent([...content.slice(0, i+1), '<p></p>', ...content.slice(i+1)])}>Văn bản</Button>
+                    </Stack> */}
+                    <Stack direction="row" spacing={2} alignItems="right" sx={{ mt: 2, justifyContent: 'flex-end' }}>
+                        <Button startIcon={<PlayArrowOutlinedIcon />} color="primary" onClick={() => runPythonCode(0)}>Chạy</Button>
+                        <Button startIcon={<SaveIcon />} variant="contained" color="primary" onClick={() => createCodeLog(lmId, user)}>Nộp bài</Button>
                     </Stack>
                   </Stack>
                 )}
               </CardContent>
             </Card>
-            <Card sx={{ width: "25%", height: 500, overflow: 'auto' }}>
+            {/* <Card sx={{ width: "25%", height: 500, overflow: 'auto' }}>
               <CardContent>
                 <Typography variant='h6'>Input</Typography>
                 <Box direction="row" sx={{ my: 2}}>
@@ -246,8 +272,19 @@ const PreviewCode = ({lmId}) => {
                   )}
                 </Box>
               </CardContent>
-            </Card>
+            </Card> */}
           </Stack>
+          
+          {score[1] == 0 
+          ? <></> 
+          : <div>
+          <Divider sx={{ my: 1, mt: 3, mb: 3 }}/>
+            <LmRating value={value}
+                    setValue={setValue}
+                    hover={hover}
+                    setHover={setHover}>
+            </LmRating>
+          </div>}
         </Container>
       </Box>
       <InputChosenDialog 
