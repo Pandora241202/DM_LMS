@@ -5,16 +5,16 @@ import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator'
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
-import { ProductCreateForm } from '../../../sections/dashboard/product/product-create-form';
+import { AccountCreateForm } from '../../../sections/dashboard/account-manage/account-manage-create-form';
 
-const ProductCreate = () => {
+const AccountCreate = () => {
   usePageView();
 
   return (
     <>
       <Head>
         <title>
-          Dashboard: Product Create
+          Dashboard: Account Create
         </title>
       </Head>
       <Box
@@ -28,7 +28,7 @@ const ProductCreate = () => {
           <Stack spacing={3}>
             <Stack spacing={1}>
               <Typography variant="h4">
-                Create a new product
+                Tạo một tài liệu học mới
               </Typography>
               <Breadcrumbs separator={<BreadcrumbsSeparator />}>
                 <Link
@@ -37,25 +37,25 @@ const ProductCreate = () => {
                   href={paths.dashboard.index}
                   variant="subtitle2"
                 >
-                  Dashboard
+                  Trang chủ
                 </Link>
                 <Link
                   color="text.primary"
                   component={NextLink}
-                  href={paths.dashboard.products.index}
+                  href={paths.dashboard.account_manage}
                   variant="subtitle2"
                 >
-                  Products
+                  Quản lý tài liệu học tập
                 </Link>
                 <Typography
                   color="text.secondary"
                   variant="subtitle2"
                 >
-                  Create
+                  Tạo mới
                 </Typography>
               </Breadcrumbs>
             </Stack>
-            <ProductCreateForm />
+            <AccountCreateForm />
           </Stack>
         </Container>
       </Box>
@@ -63,10 +63,10 @@ const ProductCreate = () => {
   );
 };
 
-ProductCreate.getLayout = (page) => (
+AccountCreate.getLayout = (page) => (
   <DashboardLayout>
     {page}
   </DashboardLayout>
 );
 
-export default ProductCreate;
+export default AccountCreate;

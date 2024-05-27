@@ -114,7 +114,7 @@ export const CourseCardDelete = (props) => {
             onClose={() => setOpenDialog(false)}
             // aria-labelledby="alert-dialog-title"
             // aria-describedby="alert-dialog-description"
-        >
+            >
                 <DialogTitle id="alert-dialog-title">
                     {"Xoá bài học"}
                 </DialogTitle>
