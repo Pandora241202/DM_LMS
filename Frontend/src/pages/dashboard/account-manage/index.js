@@ -13,7 +13,7 @@ import {
   SvgIcon,
   Typography
 } from '@mui/material';
-import { productsApi } from '../../../api/products';
+import { userApi } from '../../../api/user';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
@@ -21,13 +21,14 @@ import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
 import { AccountManageListSearch } from '../../../sections/dashboard/account-manage/account-manage-list-search';
 import { AccountManageListTable } from '../../../sections/dashboard/account-manage/account-manage-list-table';
+import { applyPagination } from '../../../utils/apply-pagination';
 
 const useSearch = () => {
   const [search, setSearch] = useState({
     filters: {
       name: undefined,
-      category: [],
-      status: [],
+      type: [],
+      topicId: [],
       inStock: undefined
     },
     page: 0,
@@ -39,22 +40,67 @@ const useSearch = () => {
     updateSearch: setSearch
   };
 };
-
-const useProducts = (search) => {
+const useAccounts = (search) => {
   const isMounted = useMounted();
   const [state, setState] = useState({
-    products: [],
-    productsCount: 0
+    Accounts: [],
+    AccountsCount: 0
   });
 
-  const getProducts = useCallback(async () => {
+  const getAccounts = useCallback(async () => {
     try {
-      const response = await productsApi.getProducts(search);
+      // const response = await lm_manageApi.getAccounts(search);
+      const response = await userApi.getAllUser();
+      let data = response.data;
+      if (typeof search.filters !== 'undefined') {
+        data = data.filter((lm) => {
+          if (typeof search.name !== 'undefined' && search.name !== '') {
+            const nameMatched = lm.name.toLowerCase().includes(search.name.toLowerCase());
+  
+            if (!nameMatched) {
+              return false;
+            }
+          }
+  
+          // It is possible to select multiple type options
+          if (typeof search.filters.type !== 'undefined' && search.filters.type.length > 0) {
+            const categoryMatched = search.filters.type.includes(lm.type);
+  
+            if (!categoryMatched) {
+              return false;
+            }
+          }
+  
+          // It is possible to select multiple topicId options
+          if (typeof search.filters.topicId !== 'undefined' && search.filters.topicId.length > 0) {
+            const statusMatched = search.filters.topicId.includes(lm.topicId);
+  
+            if (!statusMatched) {
+              return false;
+            }
+          }
+  
+          // Present only if filter required
+          if (typeof search.filters.inStock !== 'undefined') {
+            const stockMatched = lm.inStock === search.filters.inStock;
+  
+            if (!stockMatched) {
+              return false;
+            }
+          }
+  
+          return true;
+        });
+      }
+  
+      // if (typeof search.page !== 'undefined' && typeof search.rowsPerPage !== 'undefined') {
+      //   data = applyPagination(data, search.page, search.rowsPerPage);
+      // }
 
       if (isMounted()) {
         setState({
-          products: response.data,
-          productsCount: response.count
+          Accounts: data,
+          AccountsCount: data.length
         });
       }
     } catch (err) {
@@ -63,7 +109,7 @@ const useProducts = (search) => {
   }, [search, isMounted]);
 
   useEffect(() => {
-      getProducts();
+      getAccounts();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [search]);
@@ -71,9 +117,9 @@ const useProducts = (search) => {
   return state;
 };
 
-const ProductList = () => {
+const AccountList = () => {
   const { search, updateSearch } = useSearch();
-  const { products, productsCount } = useProducts(search);
+  const { Accounts, AccountsCount } = useAccounts(search);
 
   usePageView();
 
@@ -82,6 +128,15 @@ const ProductList = () => {
       ...prevState,
       filters
     }));
+  }, [updateSearch]);
+
+  const handleSearchChange = useCallback((name) => {
+    updateSearch((prevState) => {
+      return {
+        ...prevState,
+        name
+      }
+  });
   }, [updateSearch]);
 
   const handlePageChange = useCallback((event, page) => {
@@ -135,20 +190,14 @@ const ProductList = () => {
                   <Link
                     color="text.primary"
                     component={NextLink}
-                    href={paths.dashboard.account_manage.index}
+                    href={paths.dashboard.lm_manage}
                     variant="subtitle2"
                   >
-                    Quản lí tài khoản
+                    Quản lý tài khoản
                   </Link>
-                  <Typography
-                    color="text.secondary"
-                    variant="subtitle2"
-                  >
-                    Danh sách
-                  </Typography>
                 </Breadcrumbs>
               </Stack>
-              <Stack
+              {/* <Stack
                 alignItems="center"
                 direction="row"
                 spacing={3}
@@ -156,7 +205,7 @@ const ProductList = () => {
                 <Button
                   component={NextLink}
                   // Thay đổi đường dẫn để lưu vào db
-                  href={paths.dashboard.products.create}
+                  href={`${paths.dashboard.lm_manage}/create`}
                   startIcon={(
                     <SvgIcon>
                       <PlusIcon />
@@ -164,18 +213,18 @@ const ProductList = () => {
                   )}
                   variant="contained"
                 >
-                  Thêm tài khoản
+                  Thêm tài liệu học tập
                 </Button>
-              </Stack>
+              </Stack> */}
             </Stack>
             <Card>
-              <AccountManageListSearch onFiltersChange={handleFiltersChange} />
+              <AccountManageListSearch onFiltersChange={handleFiltersChange} onSearchChange={handleSearchChange}/>
               <AccountManageListTable
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleRowsPerPageChange}
                 page={search.page}
-                products={products}
-                productsCount={productsCount}
+                Accounts={Accounts}
+                AccountsCount={AccountsCount}
                 rowsPerPage={search.rowsPerPage}
               />
             </Card>
@@ -186,10 +235,10 @@ const ProductList = () => {
   );
 };
 
-ProductList.getLayout = (page) => (
+AccountList.getLayout = (page) => (
   <DashboardLayout>
     {page}
   </DashboardLayout>
 );
 
-export default ProductList;
+export default AccountList;

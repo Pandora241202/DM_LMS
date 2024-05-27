@@ -5,31 +5,31 @@ import { Box, Chip, Divider, Input, Stack, SvgIcon, Typography } from '@mui/mate
 import { MultiSelect } from '../../../components/multi-select';
 import { useUpdateEffect } from '../../../hooks/use-update-effect';
 
-const categoryOptions = [
+const typeOptions = [
   {
-    label: 'Healthcare',
-    value: 'healthcare'
+    label: 'ADMIN',
+    value: 'ADMIN'
   },
   {
-    label: 'Makeup',
-    value: 'makeup'
+    label: 'INSTRUCTOR',
+    value: 'INSTRUCTOR'
   },
   {
-    label: 'Dress',
-    value: 'dress'
+    label: 'LEARNER',
+    value: 'LEARNER'
   },
-  {
-    label: 'Skincare',
-    value: 'skincare'
-  },
-  {
-    label: 'Jewelry',
-    value: 'jewelry'
-  },
-  {
-    label: 'Blouse',
-    value: 'blouse'
-  }
+  // {
+  //   label: 'WORD',
+  //   value: 'WORD'
+  // },
+  // {
+  //   label: 'CODE',
+  //   value: 'CODE'
+  // },
+  // {
+  //   label: 'PPT',
+  //   value: 'PPT'
+  // }
 ];
 
 const statusOptions = [
@@ -59,7 +59,7 @@ const stockOptions = [
 ];
 
 export const AccountManageListSearch = (props) => {
-  const { onFiltersChange, ...other } = props;
+  const { onFiltersChange, onSearchChange, ...other } = props;
   const queryRef = useRef(null);
   const [query, setQuery] = useState('');
   const [chips, setChips] = useState([]);
@@ -67,8 +67,8 @@ export const AccountManageListSearch = (props) => {
   const handleChipsUpdate = useCallback(() => {
     const filters = {
       name: undefined,
-      category: [],
-      status: [],
+      type: [],
+      topicId: [],
       inStock: undefined
     };
 
@@ -79,11 +79,11 @@ export const AccountManageListSearch = (props) => {
           // so we can set up it directly
           filters.name = chip.value;
           break;
-        case 'category':
-          filters.category.push(chip.value);
+        case 'type':
+          filters.type.push(chip.value);
           break;
-        case 'status':
-          filters.status.push(chip.value);
+        case 'topicId':
+          filters.topicId.push(chip.value);
           break;
         case 'inStock':
           // The value can be "available" or "outOfStock" and we transform it to a boolean
@@ -115,15 +115,16 @@ export const AccountManageListSearch = (props) => {
   const handleQueryChange = useCallback((event) => {
     event.preventDefault();
     setQuery(queryRef.current?.value || '');
-  }, []);
+    onSearchChange?.(queryRef.current?.value)
+  }, [onSearchChange]);
 
-  const handleCategoryChange = useCallback((values) => {
+  const handleTypeChange = useCallback((values) => {
     setChips((prevChips) => {
       const valuesFound = [];
 
       // First cleanup the previous chips
       const newChips = prevChips.filter((chip) => {
-        if (chip.field !== 'category') {
+        if (chip.field !== 'type') {
           return true;
         }
 
@@ -143,11 +144,11 @@ export const AccountManageListSearch = (props) => {
 
       values.forEach((value) => {
         if (!valuesFound.includes(value)) {
-          const option = categoryOptions.find((option) => option.value === value);
+          const option = typeOptions.find((option) => option.value === value);
 
           newChips.push({
-            label: 'Category',
-            field: 'category',
+            label: 'Type',
+            field: 'type',
             value,
             displayValue: option.label
           });
@@ -164,7 +165,7 @@ export const AccountManageListSearch = (props) => {
 
       // First cleanup the previous chips
       const newChips = prevChips.filter((chip) => {
-        if (chip.field !== 'status') {
+        if (chip.field !== 'topicId') {
           return true;
         }
 
@@ -187,8 +188,8 @@ export const AccountManageListSearch = (props) => {
           const option = statusOptions.find((option) => option.value === value);
 
           newChips.push({
-            label: 'Status',
-            field: 'status',
+            label: 'TopicId',
+            field: 'topicId',
             value,
             displayValue: option.label
           });
@@ -236,12 +237,12 @@ export const AccountManageListSearch = (props) => {
   }, []);
 
   // We memoize this part to prevent re-render issues
-  const categoryValues = useMemo(() => chips
-    .filter((chip) => chip.field === 'category')
+  const typeValues = useMemo(() => chips
+    .filter((chip) => chip.field === 'type')
     .map((chip) => chip.value), [chips]);
 
   const statusValues = useMemo(() => chips
-    .filter((chip) => chip.field === 'status')
+    .filter((chip) => chip.field === 'topicId')
     .map((chip) => chip.value), [chips]);
 
   const stockValues = useMemo(() => {
@@ -276,9 +277,9 @@ export const AccountManageListSearch = (props) => {
           disableUnderline
           fullWidth
           inputProps={{ ref: queryRef }}
-          placeholder="Search by product name"
+          placeholder="Tìm kiếm tài khoản"
           sx={{ flexGrow: 1 }}
-          value={query}
+          // value={query}
         />
       </Stack>
       <Divider />
@@ -326,7 +327,7 @@ export const AccountManageListSearch = (props) => {
               color="text.secondary"
               variant="subtitle2"
             >
-              No filters applied
+              Không có bộ lọc nào được chọn
             </Typography>
           </Box>
         )}
@@ -339,13 +340,13 @@ export const AccountManageListSearch = (props) => {
         sx={{ p: 1 }}
       >
         <MultiSelect
-          label="Category"
-          onChange={handleCategoryChange}
-          options={categoryOptions}
-          value={categoryValues}
+          label="Phân loại"
+          onChange={handleTypeChange}
+          options={typeOptions}
+          value={typeValues}
         />
-        <MultiSelect
-          label="Status"
+        {/* <MultiSelect
+          label="TopicId"
           onChange={handleStatusChange}
           options={statusOptions}
           value={statusValues}
@@ -355,7 +356,7 @@ export const AccountManageListSearch = (props) => {
           onChange={handleStockChange}
           options={stockOptions}
           value={stockValues}
-        />
+        /> */}
       </Stack>
     </div>
   );
