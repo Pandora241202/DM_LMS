@@ -41,7 +41,7 @@ export class ForumService {
       where: { forumId: id },
       select: { createdAt: true },
     });
-    
+
     if (todayAccess.length === 0) await this.prismaService.historyAccessForum.create({ data: { Forum: connectRelation(id) } });
     else if (
       todayAccess[0].createdAt.getDate() === new Date().getDate() &&

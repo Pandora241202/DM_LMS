@@ -1,4 +1,4 @@
-import { AccountType, GenderType, Prisma } from '@prisma/client';
+import { AccountType, BackgroundKnowledgeType, GenderType, Prisma, QualificationType, SubjectType } from '@prisma/client';
 import { parseEponch } from 'src/shared/date.helper';
 import { leanObject } from 'src/shared/prisma.helper';
 
@@ -28,8 +28,29 @@ export class UserInfoDTO {
     };
   }
 
-  static fromEntity(e: Prisma.AuthenticatedUserGetPayload<{ include: { Course: true } }>, registerCourseIds?: number[]) {
+  static fromEntity(
+    e: Prisma.AuthenticatedUserGetPayload<{ include: { Course: true; Learner: true } }>,
+    registerCourseIds?: number[],
+  ) {
     const courseIds = e.Course ? e.Course.map((c) => c.id) : [];
+    const qualification =
+      e.Learner?.qualification === QualificationType.HIGHSCHOOL
+        ? 'Phổ thông'
+        : e.Learner?.qualification === QualificationType.UNDERGRADUATE
+        ? 'Đại học'
+        : e.Learner?.qualification === QualificationType.GRADUATE
+        ? 'Sau đại học'
+        : null;
+
+    const backgroundKnowledge =
+      e.Learner?.backgroundKnowledge === BackgroundKnowledgeType.BASIC
+        ? 'Mới bắt đầu'
+        : e.Learner?.backgroundKnowledge === BackgroundKnowledgeType.INTERMEDIATE
+        ? 'Trình độ trung cấp'
+        : e.Learner?.backgroundKnowledge === BackgroundKnowledgeType.EXPERT
+        ? 'Chuyên gia'
+        : null;
+
     return leanObject({
       id: e.id,
       avatar: e.avatar,
@@ -40,6 +61,8 @@ export class UserInfoDTO {
       language: e.language,
       username: e.username,
       state: e.state,
+      backgroundKnowledge: backgroundKnowledge,
+      qualification: qualification,
       accountType: e.accountType,
       createdCourseIds: courseIds,
       registerCourseIds: registerCourseIds ? registerCourseIds : null,

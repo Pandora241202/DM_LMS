@@ -22,7 +22,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dashboard: Account
+          Thông tin cá nhân
         </title>
       </Head>
       <Box
@@ -45,6 +45,8 @@ const Page = () => {
           <AccountGeneralSettings
               avatar={'/assets/avatars/avatar-anika-visser.png'}
               user = {user}
+              email=''
+              name=''
             />
         </Container>
       </Box>
