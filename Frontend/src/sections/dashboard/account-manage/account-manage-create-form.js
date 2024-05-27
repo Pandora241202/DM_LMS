@@ -172,6 +172,7 @@ export const AccountCreateForm = (props) => {
         // NOTE: Make API request
         // console.log(formik.values);
         // console.log(files.map((_file) => _file.path))
+        console.log("aaaaaa")
         const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/files`,
             formData, {
             headers: {
