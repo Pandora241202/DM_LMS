@@ -125,7 +125,7 @@ export const paths = {
       index: '/dashboard/model',
       details: '/dashboard/model/:modelId',
       create: '/dashboard/model/create',
-      model_variation_create: '/dashboard/model/:modelId/model-variation-create'
+      model_variation_create: '/dashboard/model/:modelId/modelVariationCreate'
     },
     dataset: {
       index: '/dashboard/dataset',

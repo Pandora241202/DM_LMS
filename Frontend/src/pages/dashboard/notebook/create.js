@@ -63,7 +63,7 @@ const Page = () => {
       userId: user.id
     })
       .then((response) => {
-        router.push(paths.dashboard.notebook.details.replace(':notebookId', response.data.id));
+        // router.push(paths.dashboard.notebook.details.replace(':notebookId', response.data.id));
       })
       .catch((err) => {
         console.error(err);
@@ -89,7 +89,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Notebook: Notebook Create
+          Tạo mới một ghi chú
         </title>
       </Head>
       <Box
@@ -168,6 +168,7 @@ const Page = () => {
                 </Select>
               </FormControl>
               <Button variant='contained' sx={{ml: 4}} startIcon={<SaveIcon />} onClick={handleSubmitNotebook}>Lưu ghi chú</Button>
+              
             </Stack>
           </Stack>
           <Divider sx={{ my: 1 }}/>
