@@ -33,6 +33,7 @@ const useLOs = (update) => {
   const isMounted = useMounted();
   const [LOs, setLOs] = useState([]);
   const { user } = useAuth();
+  const router = useRouter();
 
   const getLearningPath = useCallback(async () => {
     try {
