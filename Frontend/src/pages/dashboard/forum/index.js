@@ -71,7 +71,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Forum: Forum List
+          Danh sách diễn dàn
         </title>
       </Head>
       <Box

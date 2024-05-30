@@ -33,12 +33,17 @@ const useLOs = (update) => {
   const isMounted = useMounted();
   const [LOs, setLOs] = useState([]);
   const { user } = useAuth();
+  const router = useRouter();
 
   const getLearningPath = useCallback(async () => {
     try {
       const response = await learningPathApi.getLearningPath(user.id);
       if (isMounted()) {
-        setLOs(response.data);
+        if (response.data.length == 0) {
+          router.push(paths.dashboard.learningPaths.create);
+        } else {
+          setLOs(response.data);
+        }
       }
     } catch (err) {
       console.error(err);
@@ -166,7 +171,7 @@ const Page = () => {
             {LOs
             .slice(page*consts.LOS_PER_PAGE, page*consts.LOS_PER_PAGE + consts.LOS_PER_PAGE)
             .map((LO, index) => {
-              const LearningPathLOs = LO.score >= consts.PERCENTAGE_TO_PASS_LO ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= consts.PERCENTAGE_TO_PASS_LO) ? LearningPathProcessLOs : LearningPathLockedLOs;
+              const LearningPathLOs = LO.score >= LO.passOfPercent*100 ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= LO.passOfPercent*100) ? LearningPathProcessLOs : LearningPathLockedLOs;
               return (
                 <Grid
                   xs={12}

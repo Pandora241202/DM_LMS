@@ -29,6 +29,7 @@ export default function PreviewOfficeFile({lmId}) {
         WebViewer(
           {
             path: '/lib',
+            licenseKey: 'demo:1716829905637:7fdb946c0300000000f14b92b2341076fc2aaff204383f40359044d0e7',
             initialDoc: `${process.env.NEXT_PUBLIC_SERVER_API}/learning-materials/${lmId}`,
           },
           viewer.current,

@@ -109,6 +109,7 @@ const PreviewCode = ({lmId, value, setValue, hover, setHover}) => {
   }, [title, isPublic, content, labels, datasets, modelVariations]);
 
   const runPythonCode = useCallback(async (i) => {
+    console.log(lm)
     await pythonRunnerApi.postpythonRunner({
       "inputTestFile": lm.inputName,
       "code": content[i].code,

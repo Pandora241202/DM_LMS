@@ -6,6 +6,8 @@ import { getStartEnd } from 'src/shared/contants.helper';
 import { UserLearnerDTO } from 'src/domains/user/dto/user-learner.dto';
 import { LearningLogDTO } from '../learner-log/dto/learning-log.dto';
 import { TopicDTO } from 'src/domains/topic/dto/topic.dto';
+import { leanObject } from 'src/shared/prisma.helper';
+import { BackgroundKnowledgeType, QualificationType } from '@prisma/client';
 
 @Injectable()
 export class LearningPathService {
@@ -14,20 +16,29 @@ export class LearningPathService {
   async calculateRecommendedOnes(learnerId: number, body: GetRecommendedLearningPathREQ) {
     await this.prismaService.learningPath.deleteMany({ where: { learnerId: learnerId } });
 
-    const learner = await this.prismaService.learner.findFirst({
-      where: { id: learnerId },
-      select: {
-        backgroundKnowledge: true,
-        qualification: true,
-        activeReflective: true,
-        sensitiveIntuitive: true,
-        visualVerbal: true,
-        sequentialGlobal: true,
-      },
-    });
-
     const { start, end } = getStartEnd(body.goal);
     const style = UserLearnerDTO.learningStyle(body.learningStyleQA);
+
+    const learner = await this.prismaService.learner.update({
+        where: { id: learnerId },
+        data: leanObject({
+          backgroundKnowledge: body.backgroundKnowledge,
+          qualification: body.qualification,
+          activeReflective: style.activeReflective,
+          sensitiveIntuitive: style.sensitiveIntuitive,
+          visualVerbal: style.visualVerbal,
+          sequentialGlobal: style.sequentialGlobal,
+        }),
+        select: {
+          backgroundKnowledge: true,
+          qualification: true,
+          activeReflective: true,
+          sensitiveIntuitive: true,
+          visualVerbal: true,
+          sequentialGlobal: true,
+        },
+      });
+
     let temp: number[][] = [];
 
     const learnerIds = (
@@ -106,12 +117,13 @@ export class LearningPathService {
   async detail(learnerId: number) {
     const paths = await this.prismaService.learningPath.findMany({
       where: { learnerId: learnerId },
+      orderBy: {learningMaterialOrder: 'asc'},
       select: {
-        learningMaterialOrder: true,
+        // learningMaterialOrder: true,
         learningMaterialId: true,
       },
     });
-    const lmIds = paths.sort((a, b) => a.learningMaterialOrder - b.learningMaterialOrder).map((p) => p.learningMaterialId);
+    const lmIds = paths.map((p) => p.learningMaterialId);
 
     const lms = await this.prismaService.learningMaterial.findMany({
       where: { id: { in: lmIds } },
@@ -120,6 +132,7 @@ export class LearningPathService {
         id: true,
         name: true,
         difficulty: true,
+        percentOfPass: true,
         type: true,
         rating: true,
         score: true,
@@ -131,7 +144,7 @@ export class LearningPathService {
     let result = [];
     for (let i = 0; i < lmIds.length; i++) {
       const log = await this.prismaService.learnerLog.findFirst({
-        where: { learningMaterialId: lmIds[i], learnerId: learnerId, state: true },
+        where: { learningMaterialId: lms[i].id, learnerId: learnerId, state: true },
         select: {
           learningMaterial: { include: { Topic: true } },
           score: true,
@@ -141,18 +154,26 @@ export class LearningPathService {
       });
 
       if (!log) result.push({ ...lms[i], score: 0, attempts: 0, time: 0 });
-      else
+      else{
         result.push({
           id: log.learningMaterial.id,
           name: log.learningMaterial.name,
+          percentOfPass: log.learningMaterial.percentOfPass,
           difficulty: log.learningMaterial.difficulty,
           Topic: log.learningMaterial.Topic,
           score: Math.floor((log.score * 100) / lms[i].score),
           attempts: log.attempts,
           time: log.time,
         });
+      }
     }
 
+    result = result.filter((item, index, self) =>
+      index === self.findIndex((t) => (
+        t.Topic.id === item.Topic.id
+      ))
+    );
+    
     return result;
   }
 }
