@@ -171,7 +171,8 @@ const Page = () => {
             {LOs
             .slice(page*consts.LOS_PER_PAGE, page*consts.LOS_PER_PAGE + consts.LOS_PER_PAGE)
             .map((LO, index) => {
-              const LearningPathLOs = LO.score >= LO.passOfPercent*100 ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= LO.passOfPercent*100) ? LearningPathProcessLOs : LearningPathLockedLOs;
+              console.log(LO.score, LO.percentOfPass);
+              const LearningPathLOs = LO.score >= LO.percentOfPass*100 ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= LO.percentOfPass*100) ? LearningPathProcessLOs : LearningPathLockedLOs;
               return (
                 <Grid
                   xs={12}

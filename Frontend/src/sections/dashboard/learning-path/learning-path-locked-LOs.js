@@ -55,7 +55,7 @@ export const LearningPathLockedLOs = (props) => {
           fontStyle="italic"
           pl={2}
         >
-          Hoàn thành {consts.POTENTIAL_TO_PASS_LO}% bài học trước để mở
+          Trải nghiệm bài học trước để mở
         </Typography>
         <Button
           color="inherit"
