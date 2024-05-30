@@ -11,7 +11,8 @@ class SpraqlTopic:
     
     def covertInt(self, path):
         for i in range(0, len(path)):
-            path[i] = int(path[i])
+            if path[i] != 'None':
+                path[i] = int(path[i])
         
         return path
         
@@ -41,7 +42,8 @@ class SpraqlTopic:
             
             qres = self.g.query(sparql_query)
             for row in qres:
-                self.DFS([row["topicID"].value] + stack, path + [row["topicID"].value], paths)
+                if row["topicID"].value != 'None':
+                    self.DFS([row["topicID"].value] + stack, path + [row["topicID"].value], paths)
 
     def spraqlTopic(self):
         paths = []

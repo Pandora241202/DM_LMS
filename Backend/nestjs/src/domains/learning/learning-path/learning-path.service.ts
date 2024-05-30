@@ -7,6 +7,7 @@ import { UserLearnerDTO } from 'src/domains/user/dto/user-learner.dto';
 import { LearningLogDTO } from '../learner-log/dto/learning-log.dto';
 import { TopicDTO } from 'src/domains/topic/dto/topic.dto';
 import { leanObject } from 'src/shared/prisma.helper';
+import { BackgroundKnowledgeType, QualificationType } from '@prisma/client';
 
 @Injectable()
 export class LearningPathService {
@@ -16,12 +17,9 @@ export class LearningPathService {
     await this.prismaService.learningPath.deleteMany({ where: { learnerId: learnerId } });
 
     const { start, end } = getStartEnd(body.goal);
-    const style = UserLearnerDTO.learningStyle(body.learningStyleQA); 
+    const style = UserLearnerDTO.learningStyle(body.learningStyleQA);
 
-    let learner = null;
-
-    if (body.learningStyleQA)
-      learner = await this.prismaService.learner.update({
+    const learner = await this.prismaService.learner.update({
         where: { id: learnerId },
         data: leanObject({
           backgroundKnowledge: body.backgroundKnowledge,
@@ -134,6 +132,7 @@ export class LearningPathService {
         id: true,
         name: true,
         difficulty: true,
+        percentOfPass: true,
         type: true,
         rating: true,
         score: true,
@@ -159,6 +158,7 @@ export class LearningPathService {
         result.push({
           id: log.learningMaterial.id,
           name: log.learningMaterial.name,
+          percentOfPass: log.learningMaterial.percentOfPass,
           difficulty: log.learningMaterial.difficulty,
           Topic: log.learningMaterial.Topic,
           score: Math.floor((log.score * 100) / lms[i].score),

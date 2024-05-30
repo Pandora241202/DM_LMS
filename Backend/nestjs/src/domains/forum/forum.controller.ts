@@ -24,7 +24,6 @@ import * as path from 'path';
 import { renameSync } from 'fs';
 
 //import { AuthGuard } from '../auth/auth.guard';
-
 //@UseGuards(AuthGuard)
 @Controller('forum')
 export class ForumController {

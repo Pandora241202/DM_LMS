@@ -44,7 +44,6 @@ class SpraqlLM:
         return lms
 
     def spraql_lm(self, learningStyle):
-        print("sqplassa")
         result = []
         sparql_query = f"""
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -136,11 +135,12 @@ class SpraqlLM:
                 topics[topic].sort(key=lambda x: x[1]) # sort by similarity
                 
                 # print(topics[topic])
-                recommendTopicMaterial += [{
-                    "topic": topic,
-                    "learning_material": None if topics[topic] == [] else int(topics[topic][0][2])
-                }]
+                # recommendTopicMaterial += [{
+                #     "topic": topic,
+                #     "learning_material": None if topics[topic] == [] else int(topics[topic][0][2])
+                # }]
+                recommendTopicMaterial += [None if topics[topic] == [] else int(topics[topic][0][2])]
                 
-            result += [recommendTopicMaterial]
+            result += [[recommendTopicMaterial]]
 
         return result
