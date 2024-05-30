@@ -45,7 +45,7 @@ export const ItemMenu = (props) => {
         </SvgIcon>
         Tạo tài liệu học mới
       </MenuItem>
-      <MenuItem 
+      {/* <MenuItem 
         onClick={onClose}
         component={NextLink}
         href={`${paths.dashboard.explore}/lm_question_create/${idLesson}`}
@@ -54,7 +54,7 @@ export const ItemMenu = (props) => {
           <QuestionMarkOutlinedIcon />
         </SvgIcon>
         Tạo tài liệu câu hỏi mới
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem 
         onClick={onClose}
         component={NextLink}
