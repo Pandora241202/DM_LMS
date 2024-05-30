@@ -53,10 +53,10 @@ const Code = ({content, setContent}) => {
 
   return (
     <Stack direction="row">
-    <Card sx={{ width: "100%", height: 500, overflow: 'auto'}}>
+    <Card sx={{ width: "100%", height: 400, overflow: 'auto'}}>
       <CardContent>
         {content.length === 0 && <Stack direction="row">
-          <Button startIcon={<AddIcon fontSize='small'/>} variant="outlined" color="inherit" sx={{ mr: 2, fontSize: 12, p: 1 }} onClick={() => setContent([{code: "", stdout: "", stderr: ""}])}>Mã nguồn</Button>
+          {/* <Button startIcon={<AddIcon fontSize='small'/>} variant="outlined" color="inherit" sx={{ mr: 2, fontSize: 12, p: 1 }} onClick={() => setContent([{code: "", stdout: "", stderr: ""}])}>Mã nguồn</Button> */}
           {/* <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{fontSize: 12, p: 1 }} onClick={() => setContent(['<p></p>'])}>Văn bản</Button> */}
         </Stack>}
         {content.map((s, i) => 
@@ -160,6 +160,7 @@ const initialValues = {
   // newPrice: 0,
   // oldPrice: 0,
   score: 10,
+  percentOfPass: 100,
   rating: 5,
   topicId: 0,
   fileId: 0,
@@ -174,6 +175,7 @@ const validationSchema = Yup.object({
   name: Yup.string().max(255).required(),
   time : Yup.number().min(0).required(),
   difficulty: Yup.number().min(0).required(),
+  percentOfPass: Yup.number().min(0).required(),
   rating: Yup.number().min(0).max(5),
   score: Yup.number().min(0),
   topicId: Yup.number().required(),
@@ -293,8 +295,8 @@ export const LMCreateForm = (props) => {
   const [disabled, setDisabled] = useState(false);
 
   const { user } = useAuth();
-  const [examplecontent, setExamplecontent] = useState([]);
-  const [truthcontent, setTruthcontent] = useState([]);
+  const [examplecontent, setExamplecontent] = useState([{code: "", stdout: "", stderr: ""}]);
+  const [truthcontent, setTruthcontent] = useState([{code: "", stdout: "", stderr: ""}]);
 
 
   const formik = useFormik({
@@ -312,6 +314,7 @@ export const LMCreateForm = (props) => {
           time: values.time,
           // topicIds: topicIds.map((topicIds) => topicIds.id)
           topicId: values.topicId,
+          percentOfPass: values.percentOfPass,
           code: {
             question: values.description,
             inputIds: inputFileId,
@@ -422,6 +425,16 @@ export const LMCreateForm = (props) => {
                     onChange={formik.handleChange}
                     type="number"
                     value={formik.values.difficulty}
+                  />
+                  <TextField
+                    error={!!(formik.touched.percentOfPass && formik.errors.percentOfPass)}
+                    fullWidth
+                    label="Chuẩn đầu ra (%)"
+                    name="percentOfPass"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    type="number"
+                    value={formik.values.percentOfPass}
                   />
                   <TextField
                     error={!!(formik.touched.topicId && formik.errors.topicId)}
