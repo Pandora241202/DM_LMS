@@ -8,7 +8,8 @@ import {
   Stack,
   SvgIcon,
   Typography,
-  Unstable_Grid2 as Grid
+  Unstable_Grid2 as Grid,
+  LinearProgress
 } from '@mui/material';
 import ArrowLeftIcon from '@untitled-ui/icons-react/build/esm/ArrowLeft';
 import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
@@ -25,17 +26,18 @@ import { paths } from '../../../paths';
 import { useAuth } from '../../../hooks/use-auth';
 
 import * as consts from '../../../constants';
+import { ChooseGoalLearningPathDialog } from '../../../sections/dashboard/learning-path/choose-goal-learning-path-dialog';
+import { BaseInfoLearningPathDialog } from '../../../sections/dashboard/learning-path/base-info-learning-path-dialog';
 
-const useLOs = () => {
+const useLOs = (update) => {
   const isMounted = useMounted();
   const [LOs, setLOs] = useState([]);
-  const router = useRouter();
   const { user } = useAuth();
+  const router = useRouter();
 
   const getLearningPath = useCallback(async () => {
     try {
       const response = await learningPathApi.getLearningPath(user.id);
-
       if (isMounted()) {
         if (response.data.length == 0) {
           router.push(paths.dashboard.learningPaths.create);
@@ -50,15 +52,22 @@ const useLOs = () => {
 
   useEffect(() => {
     getLearningPath();
-  },[]);
+  },[update]);
 
   return LOs;
 };
 
 const Page = () => {
-  const LOs = useLOs();
-  const settings = useSettings();
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [update, setUpdate] = useState(false);
 
+  const LOs = useLOs(update);
+  const settings = useSettings();
+  const [openSelectGoalDialog, setOpenSelectGoalDialog] = useState(false);
+  const [openBaseInfoDialog, setOpenBaseInfoDialog] = useState(false);
+  const [selectedGoals, setSelectedGoals] = useState([]);
+  const [baseInfoAnswer, setBaseInfoAnswer] = useState([]);
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -66,13 +75,50 @@ const Page = () => {
     setPage(onProcessingLOPage >= 0 ? onProcessingLOPage : 0);
   },[LOs]);
 
+  const handleCreateLearningPath = useCallback( async (chosenLearningPath) => {
+    await learningPathApi.createLearningPath(user.id, {
+      "LOs": chosenLearningPath
+    })
+      .then(async () => {
+        // router.push(paths.dashboard.learningPaths.index);
+        setUpdate(!update)
+      })
+      .catch(error => {
+        setLoading(false);
+        console.error('Error posting data:', error);
+      })
+  })
+
+  const handleConfirmButton = useCallback(async () => {
+    setOpenBaseInfoDialog(false);
+    setLoading(true);
+
+    await learningPathApi.getRecommendedLearningPaths(user.id, {
+      "goal": selectedGoals[0],
+      "learningStyleQA": [...baseInfoAnswer.slice(2)],
+      "backgroundKnowledge": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[1],
+      "qualification": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[0]
+    })
+      .then((response) => {
+        console.log(response);
+
+        handleCreateLearningPath(response.data[0]);
+        setLoading(false);
+        // setRecommendedLearningPaths(response.data);
+      })
+      .catch(error => {
+        setLoading(false);
+        console.error('Error posting data:', error);
+      })
+  }, [selectedGoals, baseInfoAnswer])
+
   usePageView();
 
   return (
     <>
       <Head>
         <title>
-          LearningPath: LOs list 
+          Lộ trình học
         </title>
       </Head> 
       <Box
@@ -114,8 +160,9 @@ const Page = () => {
                         </SvgIcon>
                       )}
                       variant="contained"
+                      onClick={() => setOpenSelectGoalDialog(true)}
                     >
-                      Thay đổi mục tiêu
+                      Thay đổi lộ trình
                     </Button>
                   </Stack>
                 </div>
@@ -124,14 +171,14 @@ const Page = () => {
             {LOs
             .slice(page*consts.LOS_PER_PAGE, page*consts.LOS_PER_PAGE + consts.LOS_PER_PAGE)
             .map((LO, index) => {
-              const LearningPathLOs = LO.score*10 >= consts.PERCENTAGE_TO_PASS_LO ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score*10 >= consts.PERCENTAGE_TO_PASS_LO) ? LearningPathProcessLOs : LearningPathLockedLOs;
+              const LearningPathLOs = LO.score >= consts.PERCENTAGE_TO_PASS_LO ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= consts.PERCENTAGE_TO_PASS_LO) ? LearningPathProcessLOs : LearningPathLockedLOs;
               return (
                 <Grid
                   xs={12}
                   md={4}
                   key={LO.id}
                 >
-                  <LearningPathLOs id={LO.id} topic={LO.Topic.title} learningObject={LO.name} finished={LO.score * 10} />
+                  <LearningPathLOs id={LO.id} topic={LO.Topic.title} learningObject={LO.name} finished={LO.score} />
                 </Grid>
               )
             })}
@@ -175,6 +222,37 @@ const Page = () => {
           </Grid>
         </Container>
       </Box>
+      {openSelectGoalDialog && <ChooseGoalLearningPathDialog 
+        onClose={() => {
+          setSelectedGoals([]);
+          setOpenSelectGoalDialog(false);
+        }}
+        onContinue={() => {
+          setOpenSelectGoalDialog(false);
+          setOpenBaseInfoDialog(true);
+        }}
+        open={openSelectGoalDialog}
+        setSelectedGoals={setSelectedGoals}
+        selectedGoals={selectedGoals}
+      />}
+      {openBaseInfoDialog && <BaseInfoLearningPathDialog 
+        onClose={() => {
+          setSelectedGoals([]);
+          setBaseInfoAnswer([]);
+          setOpenBaseInfoDialog(false);
+        }}
+        onContinue={() => {
+          handleConfirmButton();
+        }}
+        onBack={() => {
+          setOpenSelectGoalDialog(true);
+          setOpenBaseInfoDialog(false);
+          setBaseInfoAnswer([]);
+        }}
+        open={openBaseInfoDialog}
+        setBaseInfoAnswer={setBaseInfoAnswer}
+        baseInfoAnswer={baseInfoAnswer}
+      />}
     </>
   );
 }

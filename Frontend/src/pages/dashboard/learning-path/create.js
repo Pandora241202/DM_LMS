@@ -74,7 +74,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          LearningPath: LOs list 
+          Lộ trình học
         </title>
       </Head>
       <Box
@@ -132,7 +132,7 @@ const Page = () => {
                 <Stack justifyContent="space-between" spacing={2}>
                   <div>
                     <Typography variant="body1">
-                      Chúng tôi có các đề xuất lộ trình học cho bạn như sau
+                      Chúng tôi đề xuất lộ trình học cho bạn như sau
                     </Typography>
                   </div>
                   {recommendedLearningPaths.map((p, idx) =>

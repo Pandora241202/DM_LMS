@@ -109,7 +109,9 @@ const PreviewCode = ({lmId, value, setValue, hover, setHover}) => {
   }, [title, isPublic, content, labels, datasets, modelVariations]);
 
   const runPythonCode = useCallback(async (i) => {
+    console.log(lm)
     await pythonRunnerApi.postpythonRunner({
+      "inputTestFile": lm.inputName,
       "code": content[i].code,
     })
       .then((response) => {
@@ -127,7 +129,7 @@ const PreviewCode = ({lmId, value, setValue, hover, setHover}) => {
     <>
       <Head>
         <title>
-          Explore: Preview Code
+          Khám phá tài liệu học {lm?.name}
         </title>
       </Head>
       <Box

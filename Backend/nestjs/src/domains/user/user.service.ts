@@ -41,7 +41,10 @@ export class UserService {
   }
 
   async detail(id: number) {
-    const user = await this.prismaService.authenticatedUser.findUniqueOrThrow({ where: { id }, include: { Course: true } });
+    const user = await this.prismaService.authenticatedUser.findUniqueOrThrow({
+      where: { id },
+      include: { Course: true, Learner: true },
+    });
     const registeCourseIds = (
       await this.prismaService.registerCourse.findMany({ where: { learnerId: user.id }, select: { courseId: true } })
     ).map((register) => register.courseId);
@@ -135,15 +138,15 @@ export class UserService {
 
   async getAllCourses(learnerId: number, take: number) {
     const courses = await this.prismaService.historyOfCourse.findMany({
-          ...take && { take: take},
-          where: { learnerId: learnerId,  course: {visibility: true}},
-          orderBy: { lastestStudyTime: 'desc' },
-          select: {
-            lastestLessonMinuteComplete: true,
-            lastestLesson: { select: { id: true, title: true, amountOfTime: true } },
-            course: { select: { id: true, name: true, description: true, amountOfTime: true, visibility: true } },
-          },
-        })
+      ...(take && { take: take }),
+      where: { learnerId: learnerId, course: { visibility: true } },
+      orderBy: { lastestStudyTime: 'desc' },
+      select: {
+        lastestLessonMinuteComplete: true,
+        lastestLesson: { select: { id: true, title: true, amountOfTime: true } },
+        course: { select: { id: true, name: true, description: true, amountOfTime: true, visibility: true } },
+      },
+    });
     return courses;
   }
 }

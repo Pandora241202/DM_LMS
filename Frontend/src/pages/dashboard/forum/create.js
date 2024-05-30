@@ -65,7 +65,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Forum: Forum Create
+          Tạo mới diễn dàn
         </title>
       </Head>
       <Box

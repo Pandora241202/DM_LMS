@@ -127,16 +127,16 @@ export class TopicDTO {
     return DFS([], [], transformData(topicLink), start, end);
   }
 
-  static fromEntity(entity: Prisma.TopicGetPayload<{include: {StartLink: true, EndLink: true}}>): TopicDTO{
-    const preTopicIds = entity.EndLink.map(l => l.startId)
-    const postTopicIds = entity.StartLink.map(l => l.endId)
+  static fromEntity(entity: Prisma.TopicGetPayload<{ include: { StartLink: true; EndLink: true } }>): TopicDTO {
+    const preTopicIds = entity.EndLink.map((l) => l.startId);
+    const postTopicIds = entity.StartLink.map((l) => l.endId);
 
     return {
       id: entity.id,
       title: entity.title,
       subject: entity.subject,
       preTopicIds,
-      postTopicIds
-    }
+      postTopicIds,
+    };
   }
 }

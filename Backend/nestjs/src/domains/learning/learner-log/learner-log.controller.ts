@@ -24,8 +24,8 @@ export class LearnerLogController {
   }
 
   @HttpCode(204)
-  @Patch(':logId') 
-  async updateLog(@Param('logId', ParseIntPipe) id: number, @Body() body : { rating: number}){
+  @Patch(':logId')
+  async updateLog(@Param('logId', ParseIntPipe) id: number, @Body() body: { rating: number }) {
     return await this.learnerLogService.update(id, body.rating);
   }
 }

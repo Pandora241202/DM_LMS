@@ -78,11 +78,10 @@ export class ForumController {
   async findSimilarForums(@Body() body: ForumDto.ForumCreateRequestDto) {
     try {
       const similarForums = await lastValueFrom(
-        this.httpService.post(`${process.env.PYTHON_API}/similar-forums`, body.content).pipe(map((res) => res.data)),
+        this.httpService.post(`http://127.0.0.1:8181/similar-forums`, body.content).pipe(map((res) => res.data)),
       );
       return JSON.stringify(similarForums);
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }

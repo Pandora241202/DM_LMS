@@ -59,7 +59,7 @@ export class LearnerLogService {
   async create(userID: number, body: LearnerLogCreateREQ) {
     let log = await this.prismaService.learnerLog.findFirst({
       where: { learnerId: userID, learningMaterialId: body.learningMaterialId },
-      select: { id: true, attempts: true },
+      select: { id: true, attempts: true, score: true },
     });
 
     const lm = await this.prismaService.learningMaterial.findFirst({
@@ -77,7 +77,7 @@ export class LearnerLogService {
     if (!log) {
       log = await this.prismaService.learnerLog.create({
         data: LearnerLogCreateREQ.toCreateInput(userID, body, score),
-        select: { id: true, attempts: true },
+        select: { id: true, attempts: true, score: true},
       });
     } else
       await this.prismaService.learnerLog.updateMany({
@@ -86,7 +86,7 @@ export class LearnerLogService {
           learningMaterialId: body.learningMaterialId,
           state: true,
         },
-        data: { score: score, attempts: {increment: 1}},
+        data: { score: Math.max(log.score, score), attempts: { increment: 1 } },
       });
 
     await this.prismaService.learningPath.updateMany({
@@ -125,11 +125,16 @@ export class LearnerLogService {
   }
 
   async update(id: number, rating: number) {
-    const {learningMaterialId, learningMaterialRating} = await this.prismaService.learnerLog.findFirst({where: {id}, select: {learningMaterialId: true, learningMaterialRating: true}});
-    const oldRating = (await this.prismaService.learningMaterial.findFirst({where: {id: learningMaterialId}, select: {rating: true}})).rating;
-    const newRating = (oldRating*2 - learningMaterialRating + rating)/2
+    const { learningMaterialId, learningMaterialRating } = await this.prismaService.learnerLog.findFirst({
+      where: { id },
+      select: { learningMaterialId: true, learningMaterialRating: true },
+    });
+    const oldRating = (
+      await this.prismaService.learningMaterial.findFirst({ where: { id: learningMaterialId }, select: { rating: true } })
+    ).rating;
+    const newRating = (oldRating * 2 - learningMaterialRating + rating) / 2;
 
-    await this.prismaService.learnerLog.update({where: {id}, data: {learningMaterialRating: rating}});
-    await this.prismaService.learningMaterial.update({where: {id: learningMaterialId}, data: {rating: newRating}});
+    await this.prismaService.learnerLog.update({ where: { id }, data: { learningMaterialRating: rating } });
+    await this.prismaService.learningMaterial.update({ where: { id: learningMaterialId }, data: { rating: newRating } });
   }
 }

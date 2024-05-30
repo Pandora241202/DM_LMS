@@ -24,7 +24,12 @@ export class UserLearnerDTO {
     return a > b ? -2 : 2;
   }
 
-  static learningStyle(answer: string[]) {
+  static learningStyle(answer: string[]): {
+    activeReflective: number;
+    sensitiveIntuitive: number;
+    visualVerbal: number;
+    sequentialGlobal: number;
+  } {
     const activeReflective = this.convertScore(1, answer),
       sensitiveIntuitive = this.convertScore(2, answer),
       visualVerbal = this.convertScore(3, answer),
@@ -53,8 +58,8 @@ export class UserLearnerDTO {
   static toCreateInput(
     userId: number,
     learningStyleQA: string[] = null,
-    backgroundKnowledge: BackgroundKnowledgeType = BackgroundKnowledgeType.BASIC,
-    qualification: QualificationType = QualificationType.HIGHSCHOOL,
+    backgroundKnowledge: BackgroundKnowledgeType = null,
+    qualification: QualificationType = null,
   ): Prisma.LearnerCreateInput {
     const style = learningStyleQA
       ? this.learningStyle(learningStyleQA)

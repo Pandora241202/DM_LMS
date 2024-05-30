@@ -42,7 +42,8 @@ export const CourseCard = (props) => {
           sx={{ mt: 1 }}
           variant="body2"
           dangerouslySetInnerHTML={{__html: course.description}}
-        />
+        >
+        </Typography>
         <Stack
           alignItems="center"
           direction="row"

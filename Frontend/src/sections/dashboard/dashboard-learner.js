@@ -76,7 +76,7 @@ export const DashboardLearner = () => {
                             Học là một cuộc phiêu lưu không bao giờ kết thúc.
                         </Typography>
                     </Grid>
-                    <Grid
+                    {/* <Grid
                         xs={12}
                         md={12}
                     >
@@ -86,7 +86,7 @@ export const DashboardLearner = () => {
                             courseName = {listCourses[0]?.course.name}
                             lessonName = {listCourses[0]?.lastestLesson ? listCourses[0]?.lastestLesson.title : ""}
                         />}
-                    </Grid>
+                    </Grid> */}
                     <Grid xs={12} marginBottom={2}>
                         <Stack
                             alignItems="flex-start"

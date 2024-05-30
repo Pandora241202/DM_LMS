@@ -58,7 +58,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             
         else:
             print(self.path)
-            self.send_reponse(404, 'text/html', b'Not found')
+            self.send_reponse(404, 'text/html', b'HELLO FROM PYTHON SERVER')
             
     def do_POST(self):
         if self.path == '/similar-forums':

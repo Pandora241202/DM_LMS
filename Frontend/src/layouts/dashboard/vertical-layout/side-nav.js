@@ -11,7 +11,7 @@ import { paths } from '../../../paths';
 import { TenantSwitch } from '../tenant-switch';
 import { SideNavSection } from './side-nav-section';
 
-const SIDE_NAV_WIDTH = 280;
+const SIDE_NAV_WIDTH = 300;
 
 const useCssVars = (color) => {
   const theme = useTheme();

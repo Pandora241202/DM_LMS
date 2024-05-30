@@ -75,7 +75,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Model: Model List
+          Danh sách các model
         </title>
       </Head>
       <Box
