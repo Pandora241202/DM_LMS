@@ -32,7 +32,9 @@ export class ModelController {
       if (queryParams.userId) {
         queryParams.userId = +queryParams.userId;
       }
-      const result = await this.modelService.getMany(queryParams);
+      const result = await this.modelService.getMany(Object.entries(queryParams).map(([key, value]) => {
+        return { [key]: value };
+      }));
       return JSON.stringify(result.map((f) => ModelDto.ModelResponseDto.fromModel({ ...f, detail: null })));
     } catch (error) {
       console.log(error);

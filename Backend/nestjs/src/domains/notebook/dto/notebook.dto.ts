@@ -116,11 +116,11 @@ class NotebookResponseDto {
   userId: number;
   isPublic: boolean;
   updatedAt: string;
-  modelVariations?: { modelVariationId: number }[];
-  datasets?: { datasetId: number }[];
+  modelVariations?: any;
+  datasets?: any;
 
   static fromNotebook(
-    data: Notebook & { modelVariations?: { modelVariationId: number }[]; datasets?: { datasetId: number }[] },
+    data: Notebook & { modelVariations?: any; datasets?: any },
   ): NotebookResponseDto {
     return {
       ...data,

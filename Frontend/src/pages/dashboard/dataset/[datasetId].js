@@ -86,6 +86,8 @@ const Page = () => {
   if (!datasetDetail) {
     return null;
   }
+
+  if (!user) return null;
  
   return (
     <>

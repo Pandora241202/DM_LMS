@@ -6,11 +6,10 @@ import {
   CardActionArea,
   Stack,
   Typography,
-  ToggleButton,
-  ToggleButtonGroup
+  Button
 } from '@mui/material';
 import { paths } from '../../../paths';
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import KeyboardDoubleArrowUpOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowUpOutlined';
 import { notebookApi } from '../../../api/notebook';
 
@@ -25,25 +24,24 @@ export const NotebookCard = (props) => {
   } = props;
 
   const [votesValue, setVotesValue] = useState(votes);
-  const [upVote, setUpVote] = useState([]);
+  const [upVote, setUpVote] = useState(false);
 
-  useEffect(() => {
-    const updateNotebook = async() => {
-      await notebookApi.putNotebook(id, {votes: votesValue})
+  const updateNotebookVote = useCallback(async() => {
+    await notebookApi.putNotebook(id, {votes: votesValue + (upVote?-1:1)})
       .then((response) => {console.log(response);})
       .catch(error => {
         console.error('Error putting data:', error);
       })
-    }
-    updateNotebook();
-  }, [votesValue]); 
+    setVotesValue(votesValue + (upVote?-1:1));
+    setUpVote(!upVote);
+    }, [votesValue]);
 
   return (
     <Card 
       variant="outlined"
-      sx={{ width: 250, height: 235, borderColor: "text.disabled"}}
+      sx={{ width: 250, height: 200, borderColor: "text.disabled"}}
     >
-      <CardActionArea href={paths.dashboard.model.details.replace(':modelId', id)}>
+      <CardActionArea href={paths.dashboard.notebook.details.replace(':notebookId', id)}>
         <CardContent sx={{borderBottom: "1px solid", borderColor: "text.disabled"}}>
           <Typography color="text.primary" variant="h6" mb={2}>{title}</Typography>
           <Typography color="text.primary" variant="body2" sx={{ fontSize: 13, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{authorName}</Typography> 
@@ -53,23 +51,19 @@ export const NotebookCard = (props) => {
       <CardContent sx={{py: 1}}>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Stack direction="row" alignItems="center">
-            <ToggleButtonGroup
-              value={upVote}
-              onChange={(e, value) => {
-                setVotesValue(value.length == 1 ? votesValue+1 : votesValue-1);
-                setUpVote(value);
-              }}
+            <Button 
+              color="inherit" 
+              sx={{borderRadius: 1, backgroundColor: upVote?"action.disabledBackground":"inherit", maxWidth: 37, minWidth: 37, p: 1}}
+              onClick={updateNotebookVote}
             >
-              <ToggleButton size="small" value={true}><KeyboardDoubleArrowUpOutlinedIcon fontSize='small'/></ToggleButton>
-            </ToggleButtonGroup>
+              <KeyboardDoubleArrowUpOutlinedIcon fontSize='small'/>
+            </Button>
             <Typography color="text.primary" variant="h6" sx={{ ml: 1 }}>{votesValue}</Typography>
           </Stack>
           <Avatar src={authorAvatar} style={{width: 30, height: 30}}/>
         </Stack>
       </CardContent>
     </Card>
-
-    
   );
 };
 

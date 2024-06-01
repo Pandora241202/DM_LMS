@@ -135,8 +135,7 @@ export const paths = {
     notebook: {
       index: '/dashboard/notebook',
       details: '/dashboard/notebook/:notebookId',
-      create: '/dashboard/notebook/create',
-      edit: '/dashboard/notebook/:notebookId/edit',
+      create: '/dashboard/notebook/create'
     },
     orders: {
       index: '/dashboard/orders',

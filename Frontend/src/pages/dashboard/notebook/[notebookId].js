@@ -1,79 +1,85 @@
 import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
-import { useRouter } from 'next/router';
 import {
-  Avatar,
   Box,
   Breadcrumbs,
   Button,
-  Chip,
+  Card,
+  CardContent,
   Container,
-  Divider,
   Link,
   Stack,
+  TextField,
   Typography,
-  Tabs,
-  Tab,
-  Grid,
-  ToggleButton,
-  ToggleButtonGroup,
+  Select,
+  MenuItem,
+  FormControl,
+  Divider,
+  Avatar
 } from '@mui/material';
-import { notebookApi } from '../../../api/notebook';
-import { userApi } from '../../../api/user';
+import toast from 'react-hot-toast';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
 import { useAuth } from '../../../hooks/use-auth';
-import { ModelVariationsShow } from '../../../sections/dashboard/model/model-variations-show';
+import { notebookApi } from '../../../api/notebook';
+import { userApi } from '../../../api/user';
+import { pythonRunnerApi } from '../../../api/pythonRunner';
+import { useRouter } from 'next/router';
+import { QuillEditor } from '../../../components/quill-editor';
+import { InputChosenDialog } from '../../../sections/dashboard/notebook/input-chosen-dialog';
+import { FilesTreeView } from '../../../sections/dashboard/notebook/files-tree-view';
+import AceEditer from 'react-ace';
+import 'ace-builds/src-noconflict/mode-python';
+import 'ace-builds/src-noconflict/theme-github';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import AddIcon from '@mui/icons-material/Add';
+import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import KeyboardDoubleArrowUpOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowUpOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
-const useModelDetail = () => {
+const useNotebookDetail = () => {
   const isMounted = useMounted();
-  const [modelDetail, setModelDetail] = useState(null);
+  const [notebookDetail, setNotebookDetail] = useState(null);
+  const [title, setTitle] = useState('');
+  const [isPublic, setIsPublic] = useState(false);
+  const [content, setContent] = useState([]);
   const [modelVariations, setModelVariations] = useState([]);
+  const [datasets, setDatasets] = useState([]);
+  const [labels, setLabels] = useState([]);
   const router = useRouter();
 
-  const getModelDetail = useCallback(async () => {
+  const getNotebookDetail = useCallback(async () => {
     try {
       if (router.isReady) {
-        const modelId = router.query.modelId;
-        const response = await modelApi.getModelDetail(modelId);
+        const notebookId = router.query.notebookId;
+        const response = await notebookApi.getNotebookDetail(notebookId);
         console.log(response);
         const userResponse = await userApi.getUser(response.data.userId);
         if (isMounted()) {
-          setModelDetail({
+          setNotebookDetail({
             ...response.data, 
             author: {
               avatar: userResponse.data.avatar,
               name: userResponse.data.username
             }
           });
-
-          const modelVariationsMap = new Map();
-          for (let i = 0; i < response.data.modelVariations.length; i++) {
-            const framework = response.data.modelVariations[i].framework;
-            const slugName = response.data.modelVariations[i].slugName;
-            if (!modelVariationsMap.has(framework)) {
-              modelVariationsMap.set(framework, new Map());
-            }
-            if (!modelVariationsMap.get(framework).has(slugName)) {
-              modelVariationsMap.get(framework).set(slugName, []);
-            }
-            modelVariationsMap.get(framework).get(slugName).push({
-              id: response.data.modelVariations[i].id,
-              version: response.data.modelVariations[i].version,
-              filesType: response.data.modelVariations[i].filesType,
-              description: response.data.modelVariations[i].description,
-              exampleUse: response.data.modelVariations[i].exampleUse
-            });
-          }
-
-          setModelVariations(modelVariationsMap);
+          setTitle(response.data.title);
+          setIsPublic(response.data.isPublic);
+          setContent(response.data.content.map(c => c.startsWith('<p>') ? c : {
+            code: c,
+            stdout: '',
+            stderr: ''
+          }));
+          setModelVariations(response.data.modelVariations);
+          setDatasets(response.data.datasets);
+          setLabels(response.data.labels);
         }
       }
     } catch (err) {
@@ -82,39 +88,69 @@ const useModelDetail = () => {
   }, [isMounted,router.isReady]);
 
   useEffect(() => {
-    getModelDetail();
+    getNotebookDetail();
   }, [router.isReady]);
 
-  return {modelDetail, setModelDetail, modelVariations, setModelVariations};
+  return {notebookDetail, setNotebookDetail, title, setTitle, isPublic, setIsPublic, content, setContent, modelVariations, setModelVariations, datasets, setDatasets, labels, setLabels};
 };
 
 const Page = () => {
-  const router = useRouter();
-  const { modelDetail, setModelDetail, modelVariations, setModelVariations } = useModelDetail(); 
-  const [tabTitle, setTabTitle] = useState('model');
+  const {notebookDetail, setNotebookDetail, title, setTitle, isPublic, setIsPublic, content, setContent, modelVariations, setModelVariations, datasets, setDatasets, labels, setLabels} = useNotebookDetail(); 
+  const [ saveEnable, setSaveEnable ] = useState(false);
   const { user } = useAuth();
-  const [upVote, setUpVote] = useState([]);
+  const [upVote, setUpVote] = useState(false);
+  const [openInputChosenDialog, setOpenInputChosenDialog] = useState(false);
 
-  const updateModel = useCallback(async (data) => {
-    await modelApi.putModel(modelDetail.id, data)
-      .then((response) => {console.log(response);})
-      .catch(error => {
-        console.error('Error putting data:', error);
+  useEffect(() => {
+    if (!notebookDetail) {
+      setSaveEnable(false);
+    }
+    else if (notebookDetail?.title != title || notebookDetail?.content.some((c, i) => c.startsWith('<p>')?c !== content[i] : c !== content[i].code) || notebookDetail?.isPublic != isPublic || notebookDetail?.modelVariations != modelVariations || notebookDetail?.datasets != datasets || notebookDetail?.labels != labels) {
+      setSaveEnable(true);
+    } 
+    else {
+      setSaveEnable(false);
+    }
+  }, [title, content, isPublic, modelVariations, datasets, labels])
+
+  const updateNotebook = useCallback(async (data) => {
+    await notebookApi.putNotebook(notebookDetail.id, data)
+      .then((response) => {
+        console.log(response);
+        setNotebookDetail({
+          ...response.data, 
+          author: notebookDetail.author
+        });
+        toast.success('Cập nhật ghi chú thành công');
+        setSaveEnable(false);
       })
-    setModelDetail({...modelDetail, ...data});
-  }, [modelDetail])
-  
+      .catch((err) => {
+        console.error(err);
+      })
+  }, [title, isPublic, content, labels, datasets, modelVariations]);
+
+  const runPythonCode = useCallback(async (i) => {
+    await pythonRunnerApi.postpythonRunner({
+      "code": content[i].code,
+    })
+      .then((response) => {
+        console.log(response);
+        setContent([...content.slice(0, i), { code: content[i].code, stdout: response.data.stdout, stderr: response.data.stderr}, ...content.slice(i+1)]);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }, [content]);
+
   usePageView();
 
-  if (!modelDetail) {
-    return null;
-  }
- 
+  if (!user || !notebookDetail) return null;
+
   return (
     <>
       <Head>
         <title>
-          Model: Model Detail
+          Tạo mới một ghi chú
         </title>
       </Head>
       <Box
@@ -125,9 +161,9 @@ const Page = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Stack spacing={1} mb={4}>
+          <Stack spacing={1} mb={3}>
             <Typography variant="h3">
-              Mô hình
+              Chi tiết ghi chú
             </Typography>
             <Breadcrumbs separator={<BreadcrumbsSeparator />}>
               <Link
@@ -141,142 +177,239 @@ const Page = () => {
               <Link
                 color="text.primary"
                 component={NextLink}
-                href={paths.dashboard.model.index}
+                href={paths.dashboard.notebook.index}
                 variant="subtitle2"
               >
-                Mô hình
+                Ghi chú
               </Link>
               <Typography
                 color="text.secondary"
                 variant="subtitle2"
               >
-                {modelDetail.title}
+                {title}
               </Typography>
             </Breadcrumbs>
           </Stack>
-          <Stack direction='row'>
-            <Stack spacing={1}>
-              <Typography variant="h4">
-                {modelDetail.title}
-              </Typography>
-              <Typography
-                color="text.secondary"
-                variant="subtitle1"
-              >
-                {modelDetail.description?modelDetail.description:"Không có mô tả"}
-              </Typography>
-            </Stack>
-            {modelDetail.userId == user.id && <Button style={{ marginLeft: 'auto', borderRadius: '100%', maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40 }}>
-              <CreateOutlinedIcon />
-            </Button>}     
-          </Stack>
+          {user.id !== notebookDetail.userId && <Typography variant="h4">
+            {title}
+          </Typography> }
           <Stack
             alignItems="center"
             direction="row"
             spacing={2}
             sx={{ mt: 3, mb: 3 }}
           >
-            <Avatar src={modelDetail.author.avatar}/>
+            <Avatar src={notebookDetail.author.avatar}/>
             <Stack direction="row" alignItems="center" width="100%" justifyContent="space-between">
               <Typography variant="subtitle2">
-                {modelDetail.author.name}
+                {notebookDetail.author.name}
                 {' '}
                 •
                 {' '}
-                Cập nhật mới nhất {modelDetail.updatedAt}
+                Cập nhật mới nhất {notebookDetail.updatedAt}
                 {' '}
                 •
                 {' '}
-                {modelDetail.isPublic ? "Công khai" : "Riêng tư"}
+                {notebookDetail.isPublic ? "Công khai" : "Riêng tư"}
               </Typography>
               <Stack direction="row" alignItems="center">
-                <Typography color="text.primary" variant="h6" sx={{ mr: 1 }}>{modelDetail.votes}</Typography>
-                <ToggleButtonGroup
-                  value={upVote}
-                  onChange={(e, value) => {
-                    updateModel({votes: value.length == 1 ? modelDetail.votes+1 : modelDetail.votes-1});
-                    setUpVote(value);
+                <Typography color="text.primary" variant="h6" sx={{ mr: 1 }}>{notebookDetail.votes}</Typography>
+                <Button 
+                  color="inherit" 
+                  sx={{borderRadius: 1, backgroundColor: upVote?"action.disabledBackground":"inherit", maxWidth: 37, minWidth: 37, p: 1}}
+                  onClick={() => {
+                    updateNotebook({
+                      votes: upVote?notebookDetail.votes - 1:notebookDetail.votes + 1
+                    });
+                    setUpVote(!upVote);
                   }}
                 >
-                  <ToggleButton size="small" value={true}><KeyboardDoubleArrowUpOutlinedIcon fontSize='small'/></ToggleButton>
-                </ToggleButtonGroup>
+                  <KeyboardDoubleArrowUpOutlinedIcon fontSize='small'/>
+                </Button>
               </Stack>
             </Stack>
           </Stack>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4}}>
-            <Tabs value={tabTitle} onChange={(e, v) => setTabTitle(v)}>
-              <Tab label="Mô hình" value="model" sx={{fontSize: 17, mr: 3}}/>
-              <Tab label="Ghi chú" value="notebooks" sx={{fontSize: 17, mr: 3}}/>
-            </Tabs>
-          </Box>
-          {tabTitle == "model" && 
-            <>
-              <Grid
-                container
-                mb={5}
-              >
-                <Grid
-                  item
-                  xs={12}
-                  md={9}
-                  pr={2}
+          {user.id === notebookDetail.userId && <Stack alignItems="center" justifyContent="space-between" direction="row">
+            <TextField
+              sx={{width: 300}}
+              label="Tiêu đề"
+              name="title"
+              variant="standard"
+              required
+              value={title}
+              onChange={e => {
+                setTitle(e.target.value);
+              }}
+            />
+            <Stack direction="row" alignItems="center">
+              <FormControl variant="filled">
+                <Select
+                  value={isPublic}
+                  onChange={(e) => setIsPublic(e.target.value)}
+                  sx={{width: 150}}
+                  variant='standard'
                 >
-                  <Stack direction="row" mb={3}>
-                    <Typography variant='h5'>Chi tiết mô hình</Typography>
-                    {modelDetail.userId == user.id && <Button style={{ marginLeft: 'auto', borderRadius: '100%', maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40 }}>
-                      <CreateOutlinedIcon />
-                    </Button>}
+                  <MenuItem value={false}>
+                    <Stack direction="row" alignItems="center">
+                      <VisibilityOffOutlinedIcon fontSize='small'/> 
+                      <Typography ml={2} variant='body2' sx={{fontWeight: 500}}>
+                        Riêng tư
+                      </Typography>
+                    </Stack>
+                  </MenuItem>
+                  <MenuItem value={true}>
+                    <Stack direction="row">
+                      <VisibilityOutlinedIcon fontSize='small'/>
+                      <Typography ml={2} variant='body2' sx={{fontWeight: 500}}>
+                        Công khai
+                      </Typography>
+                    </Stack>
+                  </MenuItem>
+                </Select>
+              </FormControl>
+              <Button disabled={!saveEnable} variant='contained' sx={{ml: 4}} startIcon={<SaveIcon />} onClick={() => updateNotebook({
+                title: title,
+                isPublic: isPublic,
+                content: content.map(c => typeof(c) === "string" ? c : c.code ),
+                labels: labels,
+                modelVariationIds: modelVariations ? modelVariations.map(v => v.modelVariation.id) : null,
+                datasetIds: datasets ? datasets.map(d => d.dataset.id) : null,
+              })}>Lưu ghi chú</Button>
+            </Stack>
+          </Stack>}
+          <Divider sx={{ my: 1 }}/>
+          <Stack direction="row">
+            <Card sx={{ width: "75%", height: 500, overflow: 'auto'}}>
+              <CardContent>
+                {user.id === notebookDetail.userId && content.length === 0 && <Stack direction="row">
+                  <Button startIcon={<AddIcon fontSize='small'/>} variant="outlined" color="inherit" sx={{ mr: 2, fontSize: 12, p: 1 }} onClick={() => setContent([{code: "", stdout: "", stderr: ""}])}>Mã nguồn</Button>
+                  <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{fontSize: 12, p: 1 }} onClick={() => setContent(['<p></p>'])}>Văn bản</Button>
+                </Stack>}
+                {content.map((s, i) => 
+                  <Stack spacing={2} mb={2} key={i}>
+                    {typeof(s) === "string"   
+                      ? (user.id === notebookDetail.userId 
+                        ? <QuillEditor
+                          placeholder="Nội dung"
+                          sx={{ height: 330 }}
+                          value={s}
+                          onChange={(c, delta, source, editor) => {
+                            setContent([...content.slice(0, i), c, ...content.slice(i+1)]);
+                          }}
+                        /> 
+                        : <Container sx={{ py: 3 }}>
+                            <Typography dangerouslySetInnerHTML={{__html: s}}></Typography>
+                          </Container>)
+                      : <Stack direction="row" border="1px solid" borderColor="action.disabledBackground" borderRadius={1}>
+                        <Button variant="inherit" sx={{marginLeft: "auto", maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40, borderRadius: '100%'}} onClick={() => runPythonCode(i)}><PlayArrowOutlinedIcon /></Button>
+                        <Stack width="100%">
+                          <AceEditer
+                            mode="python"
+                            theme="github"
+                            value={s.code}
+                            readOnly={user.id !== notebookDetail.userId}
+                            onChange={c => {
+                              setContent([...content.slice(0, i), {code: c, stdout: "", stderr: ""}, ...content.slice(i+1)]);
+                            }}
+                            name="python-editor"
+                            width="100%"
+                            height="300px"
+                          />
+                          {s.stdout != "" && <>
+                            <Typography variant='body2'>stdout:</Typography>
+                            <AceEditer
+                              readOnly
+                              mode="python"
+                              theme="github"
+                              value={s.stdout}
+                              width="100%"
+                              height="50px"
+                            />
+                          </>}
+                          {s.stderr != "" && <>
+                            <Typography variant='body1'>stderr</Typography>
+                            <AceEditer
+                              readOnly
+                              mode="python"
+                              theme="github"
+                              value={s.stderr}
+                              width="100%"
+                              height="50px"
+                            />
+                          </>}
+                        </Stack>
+                      </Stack>
+                    }
+                    {user.id === notebookDetail.userId && <Stack direction="row">
+                      <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{ mr: 2, fontSize: 12, p: 1  }} onClick={() => setContent([...content.slice(0, i+1), {code: "", stdout: "", stderr: ""}, ...content.slice(i+1)])}>Mã nguồn</Button>
+                      <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{ fontSize: 12, p: 1  }} onClick={() => setContent([...content.slice(0, i+1), '<p></p>', ...content.slice(i+1)])}>Văn bản</Button>
+                    </Stack>}
                   </Stack>
-                  {modelDetail.detail 
-                  ? <Typography dangerouslySetInnerHTML={{__html: modelDetail.detail}}></Typography> 
-                  : <Typography variant='body1'>Mô hình này chưa có mô tả chi tiết</Typography>}
-                  <Divider sx={{ mt: 5 }} />
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  md={3}
-                >
-                  <Stack direction="row" alignItems="center">
-                    <Typography variant='h6' mr={1}>Nhãn</Typography>
-                    {modelDetail.userId == user.id && <Button style={{ borderRadius: '100%', maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40 }}>
-                      <CreateOutlinedIcon fontSize='small'/>
-                    </Button>}
-                  </Stack>
-                  {modelDetail.labels.length == 0 && <Typography variant='body2'>Không có nhãn</Typography>}
-                  <Box >
-                    {modelDetail.labels.map((label,index) => 
-                      <Chip 
-                        key={index} 
-                        label={label}
-                        sx={{mr: 1, mb: 1}} 
-                      />
-                    )}
-                  </Box>
-                </Grid>
-              </Grid>
-              <Stack direction="row" mb={4}>
-                <Typography variant='h5'>Các biến thể</Typography>
-                {modelDetail.userId == user.id && 
-                  <Button 
-                    style={{ marginLeft: 'auto', maxWidth: 170, minWidth: 170}} 
-                    startIcon={<AddOutlinedIcon />} 
-                    variant="outlined"
-                    onClick={() => router.push(paths.dashboard.model.model_variation_create.replace(':modelId', modelDetail.id))}
-                  >
-                    Thêm biến thể
-                  </Button>
-                }
-              </Stack>
-              {modelVariations.size == 0 
-                ? <Typography variant='body1'>Chưa có biến thể được tải lên</Typography>
-                : <ModelVariationsShow modelVariations={modelVariations} ownerId={modelDetail.userId}/>
-              }
-            </>
-          }
-
+                )}
+              </CardContent>
+            </Card>
+            <Card sx={{ width: "25%", height: 500, overflow: 'auto' }}>
+              <CardContent>
+                <Typography variant='h6' mb={2}>Input</Typography>
+                {user.id === notebookDetail.userId && <Box direction="row">
+                  <Button startIcon={<AddIcon />} variant="outlined" color="inherit" sx={{ mr: 1, mt: 1, fontSize: 12, p: 1 }} onClick={() => setOpenInputChosenDialog(true)}>Chọn thêm</Button>
+                  <Button startIcon={<FileUploadOutlinedIcon />} variant="outlined" color="inherit" sx={{ mr: 1, mt: 1, fontSize: 12, p: 1 }} onClick={() => window.open(paths.dashboard.model.create)}>Mô hình</Button>
+                  <Button startIcon={<FileUploadOutlinedIcon />} variant="outlined" color="inherit" sx={{ mr: 1, my: 1, fontSize: 12, p: 1 }} onClick={() => window.open(paths.dashboard.dataset.create)}>Tập dữ liệu</Button>
+                </Box>}
+                {datasets.length > 0 && <Typography fontWeight={600} fontSize={12} variant="subtitle1" mt={1} marginBottom={1}>TẬP DỮ LIỆU</Typography>}
+                {datasets.length > 0 && <FilesTreeView 
+                  filesTree={datasets.map(d => { return {
+                    id: d.dataset.id,
+                    title: d.dataset.title,
+                    items: d.dataset.filesType.map((t,i) => `datasets/${d.dataset.id}_${i}${t}`)
+                  }})}
+                  variationKeyId='dataset'
+                  setFiles={setDatasets}
+                  editDisabled={user.id !== notebookDetail.userId}
+                />}
+                {modelVariations.length > 0 && <Typography fontWeight={600} fontSize={12} variant="subtitle1" mt={1} marginBottom={1}>MÔ HÌNH</Typography>}
+                {modelVariations.length > 0 && <FilesTreeView 
+                  filesTree={modelVariations.map(v => { return {
+                    id: v.modelVariation.id,
+                    title: `${v.modelVariation.model.title} - ${v.modelVariation.slugName} - V${v.modelVariation.version}`,
+                    items: v.modelVariation.filesType.map((t,i) => `modelVariations/${v.modelVariation.id}_${i}${t}`)
+                  }})}
+                  setFiles={setModelVariations}
+                  variationKeyId='modelVariation'
+                  editDisabled={user.id !== notebookDetail.userId}
+                />}
+                {modelVariations.length == 0 && datasets.length == 0 && <Typography variant="subtitle2">Chưa có input được thêm</Typography>}
+                {user.id === notebookDetail.userId && modelVariations.length == 0 && datasets.length == 0 && <Typography variant='body2' fontSize={12}>Bạn có thể chọn trong tập dữ liệu hoặc mô hình có sẵn hoặc tải lên từ thiết bị</Typography>}
+                <Typography variant='h6' mt={3}>Output</Typography>
+                <Stack direction="row" alignItems="center" mt={3}>
+                  <Typography variant='h6' mr={1}>Nhãn</Typography>
+                  {user.id === notebookDetail.userId && <Button style={{ borderRadius: '100%', maxWidth: 40, minWidth: 40, minHeight: 40, maxHeight: 40 }}>
+                    <CreateOutlinedIcon fontSize='small'/>
+                  </Button>}
+                </Stack>
+                {labels.length == 0 && <Typography variant='body2' mb={1}>Không có nhãn</Typography>}
+                <Box >
+                  {labels.map((label,index) => 
+                    <Chip 
+                      key={index} 
+                      label={label}
+                      sx={{mr: 1, mb: 1}}
+                    />
+                  )}
+                </Box>
+              </CardContent>
+            </Card>
+          </Stack>
         </Container>
       </Box>
+      <InputChosenDialog 
+        onClose={() => setOpenInputChosenDialog(false)}
+        open={openInputChosenDialog}
+        datasets={datasets}
+        modelVariations={modelVariations}
+        setModelVariations={setModelVariations}
+        setDatasets={setDatasets}
+      />
     </>
   );
 };

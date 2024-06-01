@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import SearchMdIcon from '@untitled-ui/icons-react/build/esm/SearchMd';
@@ -23,7 +23,7 @@ import {
 } from '@mui/material';
 import { modelApi } from '../../../api/model';
 import { userApi } from '../../../api/user';
-import { useMounted } from '../../../hooks/use-mounted';
+import { useAuth } from '../../../hooks/use-auth';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
@@ -31,45 +31,38 @@ import { ModelCard } from '../../../sections/dashboard/model/model-card';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import * as consts from '../../../constants';
 
-const useModels = () => {
-  const isMounted = useMounted();
+const Page = () => {
+  const [page, setPage] = useState(0);
+  const [filters, setFilters] = useState([false, true]);
   const [models, setModels] = useState([]);
-
-  const getModels = useCallback(async () => {
-    try {
-      const response = await modelApi.getModels({ isPublic: true });
-      const modelsInfo = await Promise.all(response.data.map(async r => {
-        const userResponse = await userApi.getUser(r.userId);
-        return {
-          ...r, 
-          author: {
-            avatar: userResponse.data.avatar,
-            name: userResponse.data.username
-          }
-        }
-      }));
-
-      if (isMounted()) {
-        setModels(modelsInfo);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isMounted]);
+  const { user } = useAuth();
 
   useEffect(() => {
-    getModels();
-  },[]);
+    const getModels = async (criteria) => {
+      try {
+        const response = await modelApi.getModels(criteria);
+        const modelsInfo = await Promise.all(response.data.map(async r => {
+          const userResponse = await userApi.getUser(r.userId);
+          return {
+            ...r, 
+            author: {
+              avatar: userResponse.data.avatar,
+              name: userResponse.data.username
+            }
+          }
+        }));
+        setModels(modelsInfo);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  return models;
-};
-
-const Page = () => {
-  const models = useModels();
-  const [page, setPage] = useState(0);
-  const [filters, setFilters] = useState([false, false]);
+    getModels(filters[1] ? {userId: user.id} : {userId: user.id, isPublic: true});
+  }, [filters, user])
 
   usePageView();
+
+  if (!user) return null;
 
   return (
     <>
@@ -144,7 +137,7 @@ const Page = () => {
               color="inherit" 
               sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1, backgroundColor: filters[0]?"action.disabledBackground":"inherit"}}
               startIcon={<ListAltOutlinedIcon />}
-              onClick={() => setFilters([!filters[0], filters[1]])}
+              onClick={() => setFilters([!filters[0], !filters[1]])}
             >
               Tất cả
             </Button>
@@ -152,7 +145,7 @@ const Page = () => {
               color="inherit" 
               sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1, backgroundColor: filters[1]?"action.disabledBackground":"inherit"}}
               startIcon={<SubdirectoryArrowRightOutlinedIcon />}
-              onClick={() => setFilters([filters[0], !filters[1]])}
+              onClick={() => setFilters([!filters[0], !filters[1]])}
             >
               Của bạn
             </Button>
