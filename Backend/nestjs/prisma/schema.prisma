@@ -83,7 +83,7 @@ model LearningMaterial {
   type          LearningMaterialType
   rating        Float
   score         Float                @default(10)
-  percentOfPass Float                @default(0.8)
+  percentOfPass Float                @default(80)
   time          Float?
   topicId       Int                  @map("topic_id")
   lessonId      Int?

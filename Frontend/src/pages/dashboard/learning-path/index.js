@@ -28,6 +28,7 @@ import { useAuth } from '../../../hooks/use-auth';
 import * as consts from '../../../constants';
 import { ChooseGoalLearningPathDialog } from '../../../sections/dashboard/learning-path/choose-goal-learning-path-dialog';
 import { BaseInfoLearningPathDialog } from '../../../sections/dashboard/learning-path/base-info-learning-path-dialog';
+import { LearningPathGraph } from '../../../sections/dashboard/learning-path/learning-path-graph';
 
 const useLOs = (update) => {
   const isMounted = useMounted();
@@ -168,11 +169,14 @@ const Page = () => {
                 </div>
               </Stack>
             </Grid>
+            {/* <Grid md={12}>
+              <LearningPathGraph LOs = {LOs}/>
+            </Grid> */}
+
             {LOs
             .slice(page*consts.LOS_PER_PAGE, page*consts.LOS_PER_PAGE + consts.LOS_PER_PAGE)
             .map((LO, index) => {
-              console.log(LO.score, LO.percentOfPass);
-              const LearningPathLOs = LO.score >= LO.percentOfPass*100 ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= LO.percentOfPass*100) ? LearningPathProcessLOs : LearningPathLockedLOs;
+              const LearningPathLOs = LO.score >= LO.percentOfPass ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= LO.percentOfPass) ? LearningPathProcessLOs : LearningPathLockedLOs;
               return (
                 <Grid
                   xs={12}

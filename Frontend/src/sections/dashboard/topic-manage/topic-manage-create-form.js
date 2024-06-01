@@ -226,7 +226,9 @@ export const TopicCreateForm = (props) => {
                     value={formik.values.preTopicId}
                     select
                   >
-                    {topicOptions.map((option) => (
+                    {topicOptions
+                    .filter((option) => formik.values.subject == option.subject)
+                    .map((option) => (
                       <MenuItem
                         key={option.id}
                         value={option.id}
@@ -247,7 +249,7 @@ export const TopicCreateForm = (props) => {
                     select
                   >
                     {topicOptions
-                    .filter((option, index) => index >= formik.values.preTopicId)
+                    .filter((option, index) => formik.values.subject == option.subject && index >= formik.values.preTopicId)
                     .map((option) => (
                       <MenuItem key={option.id} value={option.id} selected>
                         {option.title}

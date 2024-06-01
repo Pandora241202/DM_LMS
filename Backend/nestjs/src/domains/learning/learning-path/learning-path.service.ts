@@ -20,24 +20,24 @@ export class LearningPathService {
     const style = UserLearnerDTO.learningStyle(body.learningStyleQA);
 
     const learner = await this.prismaService.learner.update({
-        where: { id: learnerId },
-        data: leanObject({
-          backgroundKnowledge: body.backgroundKnowledge,
-          qualification: body.qualification,
-          activeReflective: style.activeReflective,
-          sensitiveIntuitive: style.sensitiveIntuitive,
-          visualVerbal: style.visualVerbal,
-          sequentialGlobal: style.sequentialGlobal,
-        }),
-        select: {
-          backgroundKnowledge: true,
-          qualification: true,
-          activeReflective: true,
-          sensitiveIntuitive: true,
-          visualVerbal: true,
-          sequentialGlobal: true,
-        },
-      });
+      where: { id: learnerId },
+      data: leanObject({
+        backgroundKnowledge: body.backgroundKnowledge,
+        qualification: body.qualification,
+        activeReflective: style.activeReflective,
+        sensitiveIntuitive: style.sensitiveIntuitive,
+        visualVerbal: style.visualVerbal,
+        sequentialGlobal: style.sequentialGlobal,
+      }),
+      select: {
+        backgroundKnowledge: true,
+        qualification: true,
+        activeReflective: true,
+        sensitiveIntuitive: true,
+        visualVerbal: true,
+        sequentialGlobal: true,
+      },
+    });
 
     let temp: number[][] = [];
 
@@ -117,7 +117,7 @@ export class LearningPathService {
   async detail(learnerId: number) {
     const paths = await this.prismaService.learningPath.findMany({
       where: { learnerId: learnerId },
-      orderBy: {learningMaterialOrder: 'asc'},
+      orderBy: { learningMaterialOrder: 'asc' },
       select: {
         // learningMaterialOrder: true,
         learningMaterialId: true,
@@ -154,7 +154,7 @@ export class LearningPathService {
       });
 
       if (!log) result.push({ ...lms[i], score: 0, attempts: 0, time: 0 });
-      else{
+      else {
         result.push({
           id: log.learningMaterial.id,
           name: log.learningMaterial.name,
@@ -168,12 +168,8 @@ export class LearningPathService {
       }
     }
 
-    result = result.filter((item, index, self) =>
-      index === self.findIndex((t) => (
-        t.Topic.id === item.Topic.id
-      ))
-    );
-    
+    result = result.filter((item, index, self) => index === self.findIndex((t) => t.Topic.id === item.Topic.id));
+
     return result;
   }
 }

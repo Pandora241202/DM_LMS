@@ -1,5 +1,7 @@
 import React ,{useState, useEffect, useRef, useCallback} from 'react';
 import { learning_logApi } from '../../../../api/learning-log';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import { useAuth } from '../../../../hooks/use-auth';
 
 // const PreviewVideo = ({lmId, valueRating}) => {
@@ -134,47 +136,76 @@ import { useAuth } from '../../../../hooks/use-auth';
 
 import ReactPlayer from 'react-player'
 import Video from 'next-video';
+import { Button } from '@mui/material';
+import { lm_manageApi } from '../../../../api/lm-manage';
+import axios from 'axios';
   // import awesomeVideo from "http://localhost:3000//learning-materials/531" 
 const PreviewVideo = ({lmId, valueRating}) => {
+  const {user} = useAuth()
   const playerRef = useRef(null);
   const [played, setPlayed] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isPlaying, setPlaying] = useState(false);
+  const [canSkip, setCanSkip] = useState(false);
 
   const handleProgress = (state) => {
     setPlayed(state.played);
   };
 
   const handleSeekChange = (e) => {
-    const newPlayed = parseFloat(e.target.value);
+    const newPlayed = parseFloat(e.target?.value);
     setPlayed(newPlayed);
-    playerRef.current.seekTo(newPlayed, 'fraction');
+    playerRef.current?.seekTo(newPlayed, 'fraction');
   };
 
   const handleDuration = (duration) => {
     setDuration(duration);
   };
 
+  const handlePlayPause = () => {
+    setPlaying(!isPlaying);
+  };
+
+  const getCanSkip = useCallback(async () => {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/learner-logs/${user.id}?lmId=${lmId}`)
+    const canSkip = response.data.length === 0 || response.data[0].score < response.data[0].maxScore && response.data[0].type !== 'VIDEO'? false : true
+    setCanSkip(canSkip);
+  }, [])
+
+  useEffect(() => {
+    getCanSkip()
+  }, [])
+
   return (
     <div>
       <ReactPlayer
         ref={playerRef}
-        // url={`${process.env.NEXT_PUBLIC_SERVER_API}/learning-materials/${lmId}`}
-        url="https://www.youtube.com/watch?v=GHTA143_b-s"
-        playing={false}
-        controls={true}
-        onProgress={handleProgress}
-        onDuration={handleDuration}
+        url={`${process.env.NEXT_PUBLIC_SERVER_API}/learning-materials/${lmId}`}
+        // url="https://www.youtube.com/watch?v=GHTA143_b-s"
+        playing={isPlaying}
+        controls={canSkip ? true : false}
+        // onProgress={handleProgress}
+        // onDuration={handleDuration}
+        // onSeek={handleSeekChange}
         width="100%"
-        height="500px"
+        height="600px"
       />
-      <input
+      {!canSkip && <Button
+        className={`control-button ${isPlaying ? "pause" : "play"}`}
+        onClick={handlePlayPause}
+        startIcon={isPlaying ? <PauseCircleIcon /> : <PlayCircleIcon />}
+        style={{ left: '48%', zIndex: 1 }}
+      >
+        {isPlaying ? "Pause" : "Play"}
+      </Button>}
+      {/* <input
         type="range"
         min={0}
         max={1}
         step='any'
         value={played}
-        onChange={handleSeekChange}
-      />
+        // onChange={handleSeekChange}
+      /> */}
     </div>
   );
 }

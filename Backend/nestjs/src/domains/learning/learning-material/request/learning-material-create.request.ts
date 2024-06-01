@@ -80,7 +80,7 @@ export class LearningMaterialCreateREQ {
       name: body.name,
       difficulty: body.difficulty ? body.difficulty : 1.0,
       type: body.type,
-      percentOfPass: body.percentOfPass, 
+      percentOfPass: body.percentOfPass,
       rating: body.rating ? body.rating : 5.0,
       score: body.score,
       time: body.time ? body.time * 60 : 300,
