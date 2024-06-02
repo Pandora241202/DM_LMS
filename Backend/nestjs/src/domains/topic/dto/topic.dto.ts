@@ -24,6 +24,7 @@ const DFS = (
       if (topicLink[i].start !== stack[stack.length - 1]) continue;
       for (let j = 0; j < topicLink[i].link.length; j++) {
         const index = topicLink[i].link[j];
+        if (index === null) continue;
         stack.push(index);
         currentPath.push(index);
         result.push(...DFS(stack, currentPath, topicLink, start, end));

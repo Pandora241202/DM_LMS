@@ -6,7 +6,7 @@ import { getStartEnd } from 'src/shared/contants.helper';
 import { UserLearnerDTO } from 'src/domains/user/dto/user-learner.dto';
 import { LearningLogDTO } from '../learner-log/dto/learning-log.dto';
 import { TopicDTO } from 'src/domains/topic/dto/topic.dto';
-import { leanObject } from 'src/shared/prisma.helper';
+import { connectRelation, leanObject } from 'src/shared/prisma.helper';
 import { BackgroundKnowledgeType, QualificationType } from '@prisma/client';
 
 @Injectable()
@@ -171,5 +171,68 @@ export class LearningPathService {
     result = result.filter((item, index, self) => index === self.findIndex((t) => t.Topic.id === item.Topic.id));
 
     return result;
+  }
+
+  async generateGraph(paths: number[][], learnerId: number) {
+    let graphNodes = [], exist = [];
+    
+    await this.prismaService.learningGraphNode.deleteMany({where: {learnerId: learnerId}})
+
+    const maxLength = paths.reduce((max, subarray) => {
+        return Math.max(max, subarray.length);
+    }, 0);
+
+    for (let i = 0; i < maxLength; i++) {
+        graphNodes.push([]);
+    }
+
+    paths.forEach(subarray => {
+        subarray.forEach((num, index) => {
+          if (!graphNodes[index].includes(num) && !exist.includes(num)) {
+            graphNodes[index].push(num);
+            exist.push(num)
+          }
+        });
+    });
+
+    for(let i = 0; i < graphNodes.length; i++) {
+      if (graphNodes[i].length === 0) continue;
+
+      for (let j = 0; j < graphNodes[i].length; j++) {
+          await this.prismaService.learningGraphNode.create({
+            data: {
+              Learner: connectRelation(learnerId),
+              LearningMaterial: connectRelation(graphNodes[i][j]),
+              layer: i
+            }
+          })
+      }
+    }
+  }
+
+  async getLearningNodes(learnerId: number) {
+    const nodes = await this.prismaService.learningGraphNode.findMany({where: {learnerId: learnerId}, orderBy: {layer: 'asc'}, select: {layer: true, LearningMaterial: {include: {Topic: true}}}})
+    
+    let result = [[]];
+    for (let i = 0; i < nodes[nodes.length - 1].layer; i++) result.push([])
+
+    for (let i = 0; i < nodes.length; i++) {
+      const layer = nodes[i].layer
+      result[layer].push({
+        id: nodes[i].LearningMaterial.id,
+        name: nodes[i].LearningMaterial.name,
+        difficulty: nodes[i].LearningMaterial.difficulty,
+        type: nodes[i].LearningMaterial.type,
+        rating: nodes[i].LearningMaterial.rating,
+        score: nodes[i].LearningMaterial.score,
+        time: nodes[i].LearningMaterial.time,
+        topic: {
+            id: nodes[i].LearningMaterial.topicId,
+            title: nodes[i].LearningMaterial.Topic.title
+        }
+      })
+    }
+
+    return result
   }
 }

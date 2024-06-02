@@ -169,11 +169,11 @@ const Page = () => {
                 </div>
               </Stack>
             </Grid>
-            {/* <Grid md={12}>
+            {/* <Grid xs={12} md={12}>
               <LearningPathGraph LOs = {LOs}/>
             </Grid> */}
 
-            {LOs
+            {/* {LOs
             .slice(page*consts.LOS_PER_PAGE, page*consts.LOS_PER_PAGE + consts.LOS_PER_PAGE)
             .map((LO, index) => {
               const LearningPathLOs = LO.score >= LO.percentOfPass ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= LO.percentOfPass) ? LearningPathProcessLOs : LearningPathLockedLOs;
@@ -223,7 +223,7 @@ const Page = () => {
                 >
                 </Button>
               </Box>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Container>
       </Box>

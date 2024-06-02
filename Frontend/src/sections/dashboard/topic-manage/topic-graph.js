@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@mui/material";
 import React, { useCallback, memo, useEffect } from 'react';
+import ELK from 'elkjs/lib/elk.bundled.js';
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -8,17 +9,20 @@ import ReactFlow, {
   useEdgesState,
   addEdge,
   Handle,
-  NodeResizer
+  NodeResizer,
+  Position,
+  MarkerType
 } from 'reactflow';
 import 'reactflow/dist/style.css';
+import { useTheme } from '@mui/material/styles';
 
 function TopicNode({ data }) {
   return (
-    <>
-      <NodeResizer minWidth={50} minHeight={50} />
+    <div style={{margin: ['50px', '50px', '50px', '50px'], zIndex: 2, backgroundColor: 'white'}}>
+      <NodeResizer minWidth={50} minHeight={50}/>
       <Handle type="target" position={Position.Left} />
       <div style={{ padding: 10 }}>{data.label}</div>
-      <div
+      {/* <div
         style={{
           display: 'flex',
           position: 'absolute',
@@ -27,21 +31,15 @@ function TopicNode({ data }) {
           justifyContent: 'space-evenly',
           left: 0,
         }}
-      >
+      > */}
         <Handle
-          style={{ position: 'relative', left: 0, transform: 'none' }}
-          id="a"
+          // style={{ position: 'relative', left: 0, transform: 'none' }}
+          // id="a"
           type="source"
-          position={Position.Bottom}
+          position={Position.Right}
         />
-        <Handle
-          style={{ position: 'relative', left: 0, transform: 'none' }}
-          id="b"
-          type="source"
-          position={Position.Bottom}
-        />
-      </div>
-    </>
+      {/* </div> */}
+    </div>
   );
 }
 
@@ -55,16 +53,9 @@ const initialNodes = [
 ];
 const initialEdges = [{ id: 'e1-2', source: '1', target: '3' }];
 
-const nodeCustomType = {
-  default: {
-    style :{
-        radius: 10
-    }
-  }
-};
-
 export const TopicGraph = (props) => {
     const {topics} = props;
+    const theme = useTheme()
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     
@@ -75,14 +66,31 @@ export const TopicGraph = (props) => {
 
     useEffect(() => {
       let node = [], edge =[]
+      let layer = 0, down = 0;
+
       for (let i = 0; i < topics.length; i++) {
-        node.push({id: String(topics[i].id), position: {x: 200*i, y: 50}, data: {label: topics[i].title}})
+        down += 1
+        if (down === 10) {
+          down = 0;
+          layer += 100
+        }
+
+        node.push({id: String(topics[i].id), type: 'topicNode', position: {x: 400*down, y: layer}, data: {label: topics[i].title}})
         
         for(let j = 0; j < topics[i].preTopicIds.length; j++) 
           edge.push({
             id: `e${topics[i].preTopicIds[j]}-${topics[i].id}`, 
             source: `${topics[i].preTopicIds[j]}`, 
-            target: `${topics[i].id}`
+            target: `${topics[i].id}`,
+            type: 'straight',
+            markerEnd: {
+              type: MarkerType.ArrowClosed,
+              color: theme.palette.primary.main
+            },
+            style: {
+              strokeWidth: 2,
+              stroke: theme.palette.primary.main,
+            },
           })
       }
 
@@ -100,6 +108,7 @@ export const TopicGraph = (props) => {
                     onEdgesChange={onEdgesChange}
                     onConnect={onConnect}
                     attributionPosition="top-right"
+                    nodeTypes={nodeCustomTypes}
                     // fitView={true}
                 >
                     <Controls />

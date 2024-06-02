@@ -8,7 +8,7 @@ export const LearningPathProcessLOs = (props) => {
   const { id, topic, learningObject, finished, ...other } = props;
 
   return (
-    <Card>
+    <Card style={{width: '450px', borderColor: 'black'}}>
       <Stack
         alignItems="center"
         direction={{
