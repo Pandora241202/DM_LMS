@@ -37,13 +37,20 @@ export class CourseService {
 
   async ownCourse(instructorId: number) {
     const courses = await this.prismaService.course.findMany({
-      where: {idInstructor: instructorId},
-      orderBy: {id: 'asc'},
+      where: { idInstructor: instructorId },
+      orderBy: { id: 'asc' },
       // select: { id: true, name: true, createdAt: true, updatedAt: true, amountOfTime: true, description: true },
       select: { id: true, name: true, level: true, amountOfTime: true, description: true, visibility: true },
     });
 
-    return courses.map((c) => ({id: c.id, name: c.name, level: c.level, amountOfTime: c.amountOfTime, description: c.description, visibility: c.visibility}));
+    return courses.map((c) => ({
+      id: c.id,
+      name: c.name,
+      level: c.level,
+      amountOfTime: c.amountOfTime,
+      description: c.description,
+      visibility: c.visibility,
+    }));
   }
 
   async update(id: number, body: CourseUpdateREQ) {

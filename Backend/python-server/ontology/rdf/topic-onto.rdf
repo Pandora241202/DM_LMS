@@ -1972,6 +1972,15 @@
 
 
         
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/topic-onto#topic_link219">
+        <rdf:type rdf:resource="http://www.semanticweb.org/thuha/topic-onto#Topic"/>
+        <topic-onto:topicID>None</topic-onto:topicID>
+        <topic-onto:link>1</topic-onto:link>
+    </owl:NamedIndividual>
+
+
+
+        
 
 
 </rdf:RDF>

@@ -40,7 +40,6 @@ export class TopicService {
           ),
         );
       }
-
       await Promise.all(createTopicLinkPromises);
     });
   }
@@ -130,8 +129,8 @@ export class TopicService {
   async list() {
     const topics = await this.prismaService.topic.findMany({
       orderBy: { id: 'asc' },
-      select: { id: true, title: true, subject: true, StartLink: true, EndLink: true},
+      select: { id: true, title: true, subject: true, StartLink: true, EndLink: true },
     });
-    return topics.map(topic => TopicDTO.fromEntity(topic));
+    return topics.map((topic) => TopicDTO.fromEntity(topic));
   }
 }

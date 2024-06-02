@@ -6,6 +6,8 @@ import { getStartEnd } from 'src/shared/contants.helper';
 import { UserLearnerDTO } from 'src/domains/user/dto/user-learner.dto';
 import { LearningLogDTO } from '../learner-log/dto/learning-log.dto';
 import { TopicDTO } from 'src/domains/topic/dto/topic.dto';
+import { connectRelation, leanObject } from 'src/shared/prisma.helper';
+import { BackgroundKnowledgeType, QualificationType } from '@prisma/client';
 
 @Injectable()
 export class LearningPathService {
@@ -16,17 +18,38 @@ export class LearningPathService {
 
     const { start, end } = getStartEnd(body.goal);
     const style = UserLearnerDTO.learningStyle(body.learningStyleQA);
+
+    const learner = await this.prismaService.learner.update({
+      where: { id: learnerId },
+      data: leanObject({
+        backgroundKnowledge: body.backgroundKnowledge,
+        qualification: body.qualification,
+        activeReflective: style.activeReflective,
+        sensitiveIntuitive: style.sensitiveIntuitive,
+        visualVerbal: style.visualVerbal,
+        sequentialGlobal: style.sequentialGlobal,
+      }),
+      select: {
+        backgroundKnowledge: true,
+        qualification: true,
+        activeReflective: true,
+        sensitiveIntuitive: true,
+        visualVerbal: true,
+        sequentialGlobal: true,
+      },
+    });
+
     let temp: number[][] = [];
 
     const learnerIds = (
       await this.prismaService.learner.findMany({
         where: {
-          qualification: body.qualification,
-          backgroundKnowledge: body.backgroundKnowledge,
-          activeReflective: style.activeReflective,
-          visualVerbal: style.visualVerbal,
-          sequentialGlobal: style.sequentialGlobal,
-          sensitiveIntuitive: style.sequentialGlobal,
+          qualification: body.qualification ? body.qualification : learner.qualification,
+          backgroundKnowledge: body.backgroundKnowledge ? body.backgroundKnowledge : learner.backgroundKnowledge,
+          activeReflective: style.activeReflective ? style.activeReflective : learner.activeReflective,
+          visualVerbal: style.visualVerbal ? style.visualVerbal : learner.visualVerbal,
+          sequentialGlobal: style.sequentialGlobal ? style.sequentialGlobal : learner.sequentialGlobal,
+          sensitiveIntuitive: style.sensitiveIntuitive ? style.sensitiveIntuitive : learner.sensitiveIntuitive,
         },
         select: { id: true },
       })
@@ -94,12 +117,13 @@ export class LearningPathService {
   async detail(learnerId: number) {
     const paths = await this.prismaService.learningPath.findMany({
       where: { learnerId: learnerId },
+      orderBy: { learningMaterialOrder: 'asc' },
       select: {
-        learningMaterialOrder: true,
+        // learningMaterialOrder: true,
         learningMaterialId: true,
       },
     });
-    const lmIds = paths.sort((a, b) => a.learningMaterialOrder - b.learningMaterialOrder).map((p) => p.learningMaterialId);
+    const lmIds = paths.map((p) => p.learningMaterialId);
 
     const lms = await this.prismaService.learningMaterial.findMany({
       where: { id: { in: lmIds } },
@@ -108,6 +132,7 @@ export class LearningPathService {
         id: true,
         name: true,
         difficulty: true,
+        percentOfPass: true,
         type: true,
         rating: true,
         score: true,
@@ -119,7 +144,7 @@ export class LearningPathService {
     let result = [];
     for (let i = 0; i < lmIds.length; i++) {
       const log = await this.prismaService.learnerLog.findFirst({
-        where: { id: lmIds[i], learnerId: learnerId },
+        where: { learningMaterialId: lms[i].id, learnerId: learnerId, state: true },
         select: {
           learningMaterial: { include: { Topic: true } },
           score: true,
@@ -129,18 +154,85 @@ export class LearningPathService {
       });
 
       if (!log) result.push({ ...lms[i], score: 0, attempts: 0, time: 0 });
-      else
+      else {
         result.push({
           id: log.learningMaterial.id,
           name: log.learningMaterial.name,
+          percentOfPass: log.learningMaterial.percentOfPass,
           difficulty: log.learningMaterial.difficulty,
           Topic: log.learningMaterial.Topic,
-          score: log.score,
+          score: Math.floor((log.score * 100) / lms[i].score),
           attempts: log.attempts,
           time: log.time,
         });
+      }
     }
 
+    result = result.filter((item, index, self) => index === self.findIndex((t) => t.Topic.id === item.Topic.id));
+
     return result;
+  }
+
+  async generateGraph(paths: number[][], learnerId: number) {
+    let graphNodes = [], exist = [];
+    
+    await this.prismaService.learningGraphNode.deleteMany({where: {learnerId: learnerId}})
+
+    const maxLength = paths.reduce((max, subarray) => {
+        return Math.max(max, subarray.length);
+    }, 0);
+
+    for (let i = 0; i < maxLength; i++) {
+        graphNodes.push([]);
+    }
+
+    paths.forEach(subarray => {
+        subarray.forEach((num, index) => {
+          if (!graphNodes[index].includes(num) && !exist.includes(num)) {
+            graphNodes[index].push(num);
+            exist.push(num)
+          }
+        });
+    });
+
+    for(let i = 0; i < graphNodes.length; i++) {
+      if (graphNodes[i].length === 0) continue;
+
+      for (let j = 0; j < graphNodes[i].length; j++) {
+          await this.prismaService.learningGraphNode.create({
+            data: {
+              Learner: connectRelation(learnerId),
+              LearningMaterial: connectRelation(graphNodes[i][j]),
+              layer: i
+            }
+          })
+      }
+    }
+  }
+
+  async getLearningNodes(learnerId: number) {
+    const nodes = await this.prismaService.learningGraphNode.findMany({where: {learnerId: learnerId}, orderBy: {layer: 'asc'}, select: {layer: true, LearningMaterial: {include: {Topic: true}}}})
+    
+    let result = [[]];
+    for (let i = 0; i < nodes[nodes.length - 1].layer; i++) result.push([])
+
+    for (let i = 0; i < nodes.length; i++) {
+      const layer = nodes[i].layer
+      result[layer].push({
+        id: nodes[i].LearningMaterial.id,
+        name: nodes[i].LearningMaterial.name,
+        difficulty: nodes[i].LearningMaterial.difficulty,
+        type: nodes[i].LearningMaterial.type,
+        rating: nodes[i].LearningMaterial.rating,
+        score: nodes[i].LearningMaterial.score,
+        time: nodes[i].LearningMaterial.time,
+        topic: {
+            id: nodes[i].LearningMaterial.topicId,
+            title: nodes[i].LearningMaterial.Topic.title
+        }
+      })
+    }
+
+    return result
   }
 }

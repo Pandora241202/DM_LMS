@@ -39,7 +39,7 @@ const App = (props) => {
   useAnalytics();
 
   const getLayout = Component.getLayout ?? ((page) => page);
-  console.log('-------------------')
+  // console.log('-------------------')
   return (
     <CacheProvider value={emotionCache}>
       <Head>

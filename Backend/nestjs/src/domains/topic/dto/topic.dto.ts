@@ -24,6 +24,7 @@ const DFS = (
       if (topicLink[i].start !== stack[stack.length - 1]) continue;
       for (let j = 0; j < topicLink[i].link.length; j++) {
         const index = topicLink[i].link[j];
+        if (index === null) continue;
         stack.push(index);
         currentPath.push(index);
         result.push(...DFS(stack, currentPath, topicLink, start, end));
@@ -127,16 +128,16 @@ export class TopicDTO {
     return DFS([], [], transformData(topicLink), start, end);
   }
 
-  static fromEntity(entity: Prisma.TopicGetPayload<{include: {StartLink: true, EndLink: true}}>): TopicDTO{
-    const preTopicIds = entity.EndLink.map(l => l.startId)
-    const postTopicIds = entity.StartLink.map(l => l.endId)
+  static fromEntity(entity: Prisma.TopicGetPayload<{ include: { StartLink: true; EndLink: true } }>): TopicDTO {
+    const preTopicIds = entity.EndLink.map((l) => l.startId);
+    const postTopicIds = entity.StartLink.map((l) => l.endId);
 
     return {
       id: entity.id,
       title: entity.title,
       subject: entity.subject,
       preTopicIds,
-      postTopicIds
-    }
+      postTopicIds,
+    };
   }
 }

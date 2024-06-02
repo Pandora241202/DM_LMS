@@ -72,32 +72,47 @@ model Learner {
   LearningPath        LearningPath[]
   Practice            Practice[]
   RegisterCourse      RegisterCourse[]
+  LearningGraphNode   LearningGraphNode[]
 
   @@map("learners")
 }
 
 model LearningMaterial {
-  id           Int                  @id @default(autoincrement())
-  name         String?
-  difficulty   Float
-  type         LearningMaterialType
-  rating       Float
-  score        Float                @default(10)
-  time         Float?
-  topicId      Int                  @map("topic_id")
-  lessonId     Int?
-  creatorId    Int?                 @map("creator_id")
-  exerciseId   Int?
-  otherId      Int?
-  LearnerLog   LearnerLog[]
-  Creator      AuthenticatedUser?   @relation(fields: [creatorId], references: [id])
-  Exercise     Exercise?            @relation(fields: [exerciseId], references: [id])
-  Lesson       Lesson?              @relation(fields: [lessonId], references: [id])
-  Other        Other?               @relation(fields: [otherId], references: [id])
-  Topic        Topic                @relation(fields: [topicId], references: [id])
-  LearningPath LearningPath[]
+  id                Int                  @id @default(autoincrement())
+  name              String?
+  difficulty        Float
+  type              LearningMaterialType
+  rating            Float
+  score             Float                @default(10)
+  percentOfPass     Float                @default(80)
+  time              Float?
+  topicId           Int                  @map("topic_id")
+  lessonId          Int?
+  creatorId         Int?                 @map("creator_id")
+  exerciseId        Int?
+  otherId           Int?
+  LearnerLog        LearnerLog[]
+  Creator           AuthenticatedUser?   @relation(fields: [creatorId], references: [id])
+  Exercise          Exercise?            @relation(fields: [exerciseId], references: [id])
+  Lesson            Lesson?              @relation(fields: [lessonId], references: [id])
+  Other             Other?               @relation(fields: [otherId], references: [id])
+  Topic             Topic                @relation(fields: [topicId], references: [id])
+  LearningPath      LearningPath[]
+  LearningGraphNode LearningGraphNode[]
 
   @@map("learning_materials")
+}
+
+model LearningGraphNode {
+  id                 Int              @id @default(autoincrement())
+  learnerId          Int
+  learningMaterialId Int
+  layer              Int
+  Learner            Learner          @relation(fields: [learnerId], references: [id])
+  LearningMaterial   LearningMaterial @relation(fields: [learningMaterialId], references: [id])
+
+  @@map("learning_graph_nodes")
+  @@unique([learnerId, learningMaterialId])
 }
 
 model Course {
@@ -146,10 +161,10 @@ model Topic {
 model TopicLink {
   id      Int     @id @default(autoincrement())
   state   Boolean @default(true)
-  startId Int?     @map("start_id")
+  startId Int?    @map("start_id")
   endId   Int?    @map("end_id")
   end     Topic?  @relation("end_link", fields: [endId], references: [id])
-  start   Topic?   @relation("start_link", fields: [startId], references: [id])
+  start   Topic?  @relation("start_link", fields: [startId], references: [id])
 
   @@unique([startId, endId])
   @@map("topic_link")

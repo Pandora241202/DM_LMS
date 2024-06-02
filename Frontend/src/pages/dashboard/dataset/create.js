@@ -72,7 +72,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dataset: Dataset Create
+          Tạo mới một tập dữ liệu
         </title>
       </Head>
       <Box

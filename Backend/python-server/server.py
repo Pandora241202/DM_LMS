@@ -18,6 +18,7 @@ class LearningStyle:
         self.visual_verbal = query['visual_verbal'][0]
         self.global_sequential = query['global_sequential'][0]
         self.sensitive_intuitive = query['sensitive_intuitive'][0]
+
 class RequestHandler(BaseHTTPRequestHandler):
     def send_reponse(self, status, type, response):
         self.send_response(status)
@@ -37,12 +38,10 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_reponse(404, 'text/html', b'File not found')
                 
         elif '/spraql-lm' in self.path:
-            print("hello")
             query = parse_qs(urlparse(self.path).query)
             SpraqlTopic(query["start"][0], query["end"][0], systemOntology / 'rdf' /'topic-onto.rdf' ).spraqlTopic()
             learningSytle = LearningStyle(query)
             paths = SpraqlLM(systemOntology / 'rdf' / 'system-onto.rdf').spraql_lm(learningSytle)
-            print(paths)
             self.send_reponse(200, 'application/json', json.dumps(paths[0]).encode('utf-8'))
         
         elif '/topic-ontology' in self.path:
@@ -57,8 +56,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_reponse(200, 'text/html', b'Feature test')
             
         else:
-            print(self.path)
-            self.send_reponse(404, 'text/html', b'Not found')
+            self.send_reponse(404, 'text/html', b'HELLO FROM PYTHON SERVER')
             
     def do_POST(self):
         if self.path == '/similar-forums':
@@ -66,7 +64,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             post_body = self.rfile.read(content_len).decode('utf-8')
             forums = ForumService.findSimilarForums(post_body)
             self.send_reponse(200, 'application/json', json.dumps(forums).encode('utf-8'))    
- 
 
 def main():
     PORT = 8181

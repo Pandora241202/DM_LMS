@@ -63,6 +63,7 @@ const initialValues = {
   name: '',
   time : 0,
   difficulty: 0,
+  percentOfPass: 100,
   // newPrice: 0,
   // oldPrice: 0,
   score: 10,
@@ -79,7 +80,8 @@ const validationSchema = Yup.object({
   // images: Yup.array(),
   name: Yup.string().max(255).required(),
   time : Yup.number().min(0).required(),
-  difficulty: Yup.number().min(0).required(),
+  difficulty: Yup.number().min(0).max(10).required(),
+  percentOfPass: Yup.number().min(0).max(100).required(),
   rating: Yup.number().min(0).max(5),
   score: Yup.number().min(0),
   topicId: Yup.number().required(),
@@ -107,6 +109,7 @@ export const LMCreateForm = (props) => {
         await lm_manageApi.createLM({
           name: values.name,
           difficulty: values.difficulty,
+          percentOfPass: values.percentOfPass,
           type: values.type,
           score: values.score,
           rating: values.rating,
@@ -263,6 +266,16 @@ export const LMCreateForm = (props) => {
                     onChange={formik.handleChange}
                     type="number"
                     value={formik.values.difficulty}
+                  />
+                  <TextField
+                    error={!!(formik.touched.percentOfPass && formik.errors.percentOfPass)}
+                    fullWidth
+                    label="Chuẩn đầu ra (%)"
+                    name="percentOfPass"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    type="number"
+                    value={formik.values.percentOfPass}
                   />
                   <TextField
                     error={!!(formik.touched.topicId && formik.errors.topicId)}

@@ -21,7 +21,8 @@ const genderOptions = ["MALE", "FEMALE", "UNKNOWN"]
 
 export const AccountGeneralSettings = (props) => {
   const { avatar, user } = props;
-  const { email, name, password, username, gender } = user
+
+  const { email, name, username, gender, qualification, backgroundKnowledge } = user ? user : { email: null, name: null, username: null, gender: null, qualification: null, backgroundKnowledge: null }
   
   return (
     <Stack
@@ -120,6 +121,42 @@ export const AccountGeneralSettings = (props) => {
                     size="small"
                   >
                     Lưu
+                  </Button>
+                </Stack>
+                <Stack
+                  alignItems="center"
+                  direction="row"
+                  spacing={2}
+                >
+                  <TextField
+                    defaultValue={qualification}
+                    label="Trình độ học vấn"
+                    sx={{ flexGrow: 1 }}
+                    disabled={true}
+                  />
+                  <Button
+                    color="inherit"
+                    size="small"
+                  >
+                    
+                  </Button>
+                </Stack>
+                <Stack
+                  alignItems="center"
+                  direction="row"
+                  spacing={2}
+                >
+                  <TextField
+                    defaultValue={backgroundKnowledge}
+                    label="Kiến thức về AI"
+                    sx={{ flexGrow: 1 }}
+                    disabled={true}
+                  />
+                  <Button
+                    color="inherit"
+                    size="small"
+                  >
+                    
                   </Button>
                 </Stack>
                 <Stack

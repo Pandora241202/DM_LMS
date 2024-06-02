@@ -397,7 +397,7 @@ const PreviewLM = () => {
     <>
       <Head>
         <title>
-          Dashboard: Quản lý tài liệu học tập
+          Quản lý tài liệu học tập
         </title>
       </Head>
       <Box
@@ -444,9 +444,10 @@ const PreviewLM = () => {
                 lm.type === "VIDEO" ? <PreviewVideo lmId = {parseInt(lmId, 10)} 
                                                     // currentTime={currentTime} 
                                                     // setCurrentTime={setCurrentTime}
-                                                    valueRating={valueRating}/> : <></>
+                                                    valueRating={valueRating} 
+                                                    /> : <></>
               }{
-                lm.type === "PDF" ? <PreviewOfficeFile lmId = {parseInt(lmId, 10)} /> : <></>
+                lm.type === "PDF" || lm.type === "WORD" || lm.type === 'PPT'? <PreviewOfficeFile lmId = {parseInt(lmId, 10)} /> : <></>
               }
             </Card>
             {/* {console.log(lm)} */}

@@ -115,8 +115,8 @@ export const TopicCreateForm = (props) => {
         await topic_manageApi.createTopic({
           title: values.name,
           subject: values.subject,
-          preTopicId: [values.preTopicId],
-          postTopicId: [values.postTopicId],
+          preTopicIds: [values.preTopicId],
+          postTopicIds: [values.postTopicId],
       })
         toast.success('Chủ đề học tập đã được tạo');
         router.push(paths.dashboard.topic_manage);
@@ -226,7 +226,9 @@ export const TopicCreateForm = (props) => {
                     value={formik.values.preTopicId}
                     select
                   >
-                    {topicOptions.map((option) => (
+                    {topicOptions
+                    .filter((option) => formik.values.subject == option.subject)
+                    .map((option) => (
                       <MenuItem
                         key={option.id}
                         value={option.id}
@@ -234,26 +236,22 @@ export const TopicCreateForm = (props) => {
                       >
                         {option.title}
                       </MenuItem>
-                    ))}
-                    {console.log(topicOptions)}
-                    
+                    ))}                    
                   </TextField>
                   <TextField
                     error={!!(formik.touched.postTopicId && formik.errors.postTopicId)}
                     fullWidth
-                    label="Chủ đề học liên quan"
+                    label="Chủ đề học sau"
                     name="postTopicId"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     value={formik.values.postTopicId}
                     select
                   >
-                    {topicOptions.map((option) => (
-                      <MenuItem
-                        key={option.id}
-                        value={option.id}
-                        selected
-                      >
+                    {topicOptions
+                    .filter((option, index) => formik.values.subject == option.subject && index >= formik.values.preTopicId)
+                    .map((option) => (
+                      <MenuItem key={option.id} value={option.id} selected>
                         {option.title}
                       </MenuItem>
                     ))}

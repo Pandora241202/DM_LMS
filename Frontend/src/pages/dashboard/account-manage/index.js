@@ -190,7 +190,7 @@ const AccountList = () => {
                   <Link
                     color="text.primary"
                     component={NextLink}
-                    href={paths.dashboard.lm_manage}
+                    href={paths.dashboard.account_manage}
                     variant="subtitle2"
                   >
                     Quản lý tài khoản

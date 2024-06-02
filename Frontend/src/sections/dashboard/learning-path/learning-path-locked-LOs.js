@@ -8,7 +8,7 @@ export const LearningPathLockedLOs = (props) => {
   const { id, topic, learningObject, finished, ...other } = props;
 
   return (
-    <Card>
+    <Card style={{width: '450px', borderColor: 'black'}}>
       <Stack
         alignItems="center"
         direction={{
@@ -55,7 +55,7 @@ export const LearningPathLockedLOs = (props) => {
           fontStyle="italic"
           pl={2}
         >
-          Hoàn thành {consts.POTENTIAL_TO_PASS_LO}% bài học trước để mở
+          Trải nghiệm bài học trước để mở
         </Typography>
         <Button
           color="inherit"

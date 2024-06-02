@@ -56,7 +56,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Model: Model Create
+          Tạo mới một model
         </title>
       </Head>
       <Box

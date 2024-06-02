@@ -168,7 +168,7 @@ export class LearningMaterialService {
     );
   }
 
-  async detail(id: number) {
+  async detail(id: number, learnerId?: number) {
     let type: string = '',
       DTO: CodeDTO | QuizDTO | FileDTO;
 
@@ -177,6 +177,7 @@ export class LearningMaterialService {
       select: {
         name: true,
         type: true,
+        time: true,
         Exercise: { select: { quizId: true, codeId: true } },
         Other: { select: { fileId: true } },
       },
@@ -186,7 +187,7 @@ export class LearningMaterialService {
     if (lm.type === LearningMaterialType.CODE) {
       const code = await this.prismaService.code.findFirst({
         where: { id: lm.Exercise.codeId },
-        select: { question: true, exampleCode: true },
+        select: { question: true, exampleCode: true, inputFile: true },
       });
       if (!code) throw new NotFoundException("Couldn't find learning material");
 
@@ -204,10 +205,20 @@ export class LearningMaterialService {
       DTO = QuizDTO.fromEntity(lm.name, quiz as any);
     } else {
       const file = await this.prismaService.file.findFirst({ where: { id: lm.Other.fileId } });
+      let canSkip = false, rangePassed = 0;
+      if (lm.type === LearningMaterialType.VIDEO) {
+        const log = await this.prismaService.learnerLog.findFirst({ where: {learningMaterialId: id, learnerId: learnerId }, select: {attempts: true, score: true, time: true}})
+
+        if (log){
+          if (log.attempts > 1 || log.score != 0) canSkip = true
+          else rangePassed = log.score/log.time
+        }
+      }
+
       if (!file) throw new NotFoundException("Couldn't find learning material");
 
       type = 'OTHER';
-      DTO = FileDTO.fromEntity(file as any);
+      DTO = FileDTO.fromEntity(file as any, canSkip);
     }
 
     return {
@@ -227,8 +238,8 @@ export class LearningMaterialService {
           select: {
             id: true,
             title: true,
-          }
-        }
+          },
+        },
       },
     });
 

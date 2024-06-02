@@ -74,7 +74,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Dataset: Dataset List
+          Danh sách các tập dữ liệu
         </title>
       </Head>
       <Box

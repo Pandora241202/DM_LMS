@@ -5,7 +5,7 @@ export const leanObject = (obj: { [key: string]: any }): { [key: string]: any } 
   const newObj: { [key: string]: any } = {};
 
   for (const key in obj) {
-    if (obj[key]) {
+    if (obj[key] || obj[key] === 0) {
       newObj[key] = obj[key];
     }
   }

@@ -14,7 +14,7 @@ const TopicCreate = () => {
     <>
       <Head>
         <title>
-        Dashboard: Topic Create
+        Tạo chủ đề mới
         </title>
       </Head>
       <Box

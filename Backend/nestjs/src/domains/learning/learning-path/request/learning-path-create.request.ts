@@ -12,11 +12,11 @@ export class GetRecommendedLearningPathREQ {
 
   @IsOptional()
   @IsEnum(BackgroundKnowledgeType)
-  backgroundKnowledge: BackgroundKnowledgeType = BackgroundKnowledgeType.BASIC;
+  backgroundKnowledge: BackgroundKnowledgeType = null;
 
   @IsOptional()
   @IsEnum(QualificationType)
-  qualification: QualificationType = QualificationType.HIGHSCHOOL;
+  qualification: QualificationType = null;
 }
 
 export class LearningPathCreateREQ {
