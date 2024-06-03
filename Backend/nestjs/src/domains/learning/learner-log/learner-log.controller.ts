@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { LearnerLogService } from './learner-log.service';
 import { AuthGuard } from 'src/domains/auth/auth.guard';
 import { LearnerLogCreateREQ } from './request/learner-log-create.request';
@@ -19,8 +19,8 @@ export class LearnerLogController {
   }
 
   @Get(':learnerId')
-  async detail(@Param('learnerId', ParseIntPipe) learnerId: number) {
-    return await this.learnerLogService.detail(learnerId);
+  async detail(@Param('learnerId', ParseIntPipe) learnerId: number, @Query('lmId') lmId: number) {
+    return await this.learnerLogService.detail(learnerId, lmId);
   }
 
   @HttpCode(204)

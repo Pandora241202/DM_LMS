@@ -77,7 +77,7 @@ export class LearnerLogService {
     if (!log) {
       log = await this.prismaService.learnerLog.create({
         data: LearnerLogCreateREQ.toCreateInput(userID, body, score),
-        select: { id: true, attempts: true, score: true},
+        select: { id: true, attempts: true, score: true },
       });
     } else
       await this.prismaService.learnerLog.updateMany({
@@ -107,9 +107,9 @@ export class LearnerLogService {
     }
   }
 
-  async detail(learnerId: number) {
+  async detail(learnerId: number, lmId: number) {
     const log = await this.prismaService.learnerLog.findMany({
-      where: { learnerId: learnerId },
+      where: { learnerId: learnerId, learningMaterialId: lmId ? Number(lmId) : undefined},
       select: {
         learningMaterialId: true,
         learningMaterialVisittedTime: true,

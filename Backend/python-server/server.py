@@ -18,6 +18,7 @@ class LearningStyle:
         self.visual_verbal = query['visual_verbal'][0]
         self.global_sequential = query['global_sequential'][0]
         self.sensitive_intuitive = query['sensitive_intuitive'][0]
+
 class RequestHandler(BaseHTTPRequestHandler):
     def send_reponse(self, status, type, response):
         self.send_response(status)
@@ -63,7 +64,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             post_body = self.rfile.read(content_len).decode('utf-8')
             forums = ForumService.findSimilarForums(post_body)
             self.send_reponse(200, 'application/json', json.dumps(forums).encode('utf-8'))    
- 
 
 def main():
     PORT = 8181

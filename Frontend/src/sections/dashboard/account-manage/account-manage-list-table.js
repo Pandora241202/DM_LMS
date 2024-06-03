@@ -456,7 +456,7 @@ export const AccountManageListTable = (props) => {
                                   xs={12}
                                 >
                                   <TextField
-                                    defaultValue={Account.age}
+                                    // defaultValue={Account.age}
                                     fullWidth
                                     label="Tuổi"
                                     name="age"
@@ -464,7 +464,7 @@ export const AccountManageListTable = (props) => {
                                     InputProps={{
                                       startAdornment: (
                                         <InputAdornment position="start">
-                                          {Account.age}
+                                          {Account.age} 
                                         </InputAdornment>
                                       )
                                     }}

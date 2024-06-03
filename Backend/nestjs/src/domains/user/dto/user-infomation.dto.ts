@@ -37,19 +37,19 @@ export class UserInfoDTO {
       e.Learner?.qualification === QualificationType.HIGHSCHOOL
         ? 'Phổ thông'
         : e.Learner?.qualification === QualificationType.UNDERGRADUATE
-        ? 'Đại học'
-        : e.Learner?.qualification === QualificationType.GRADUATE
-        ? 'Sau đại học'
-        : null;
+          ? 'Đại học'
+          : e.Learner?.qualification === QualificationType.GRADUATE
+            ? 'Sau đại học'
+            : null;
 
     const backgroundKnowledge =
       e.Learner?.backgroundKnowledge === BackgroundKnowledgeType.BASIC
         ? 'Mới bắt đầu'
         : e.Learner?.backgroundKnowledge === BackgroundKnowledgeType.INTERMEDIATE
-        ? 'Trình độ trung cấp'
-        : e.Learner?.backgroundKnowledge === BackgroundKnowledgeType.EXPERT
-        ? 'Chuyên gia'
-        : null;
+          ? 'Trình độ trung cấp'
+          : e.Learner?.backgroundKnowledge === BackgroundKnowledgeType.EXPERT
+            ? 'Chuyên gia'
+            : null;
 
     return leanObject({
       id: e.id,

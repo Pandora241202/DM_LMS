@@ -10,16 +10,19 @@ export class AnalyticsService {
     const result = await this.prismaService.$queryRawUnsafe(
       `SELECT count(*) AS count
             FROM history_login
-            WHERE login_time >= date_trunc('${field}', now())`,
+            WHERE DATE_TRUNC('${field}', login_time) = DATE_TRUNC('${field}', CURRENT_DATE);`,
     );
     return { todayLogin: Number((result as any)[0].count) };
   }
 
   async getHistoryLog(field: 'month' | 'week') {
     const result = await this.prismaService.$queryRawUnsafe(
-      `SELECT count(*) AS count
-            FROM learner_logs
-            WHERE created_at >= date_trunc('${field}', now())`,
+          `SELECT 
+              count(*) as count
+          FROM 
+              learner_logs
+          WHERE 
+              DATE_TRUNC('${field}', created_at) = DATE_TRUNC('${field}', CURRENT_DATE);`,
     );
     return { todayLearnerLog: Number((result as any)[0].count) };
   }

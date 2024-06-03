@@ -14,7 +14,7 @@ const LMCreate = () => {
     <>
       <Head>
         <title>
-          Dashboard: LM Create
+          Tạo một tài liệu học mới
         </title>
       </Head>
       <Box

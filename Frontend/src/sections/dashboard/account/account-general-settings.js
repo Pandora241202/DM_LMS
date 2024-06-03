@@ -21,8 +21,8 @@ const genderOptions = ["MALE", "FEMALE", "UNKNOWN"]
 
 export const AccountGeneralSettings = (props) => {
   const { avatar, user } = props;
-  console.log(user)
-  const { email, name, username, gender, qualification, backgroundKnowledge } = user
+
+  const { email, name, username, gender, qualification, backgroundKnowledge } = user ? user : { email: null, name: null, username: null, gender: null, qualification: null, backgroundKnowledge: null }
   
   return (
     <Stack

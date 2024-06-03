@@ -771,6 +771,38 @@
             <system-ontology:lmID>12</system-ontology:lmID>
             <system-ontology:material_ratings>4.0</system-ontology:material_ratings>
             <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>12.0</system-ontology:time>
+            <system-ontology:topic>47</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-35">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.5158764894683245</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>PDF</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>35</system-ontology:lmID>
+            <system-ontology:material_ratings>3.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
+            <system-ontology:time>7.0</system-ontology:time>
+            <system-ontology:topic>21</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-129">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.822972427770129</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>PDF</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>129</system-ontology:lmID>
+            <system-ontology:material_ratings>3.0</system-ontology:material_ratings>
+            <system-ontology:score>10.0</system-ontology:score>
             <system-ontology:time>42.0</system-ontology:time>
             <system-ontology:topic>26</system-ontology:topic>
         </owl:NamedIndividual>
@@ -850,6 +882,22 @@
             <system-ontology:learning_resouce_type>PDF</system-ontology:learning_resouce_type>
             <system-ontology:lmID>393</system-ontology:lmID>
             <system-ontology:material_ratings>2.0</system-ontology:material_ratings>
+            <system-ontology:score>6.0</system-ontology:score>
+            <system-ontology:time>37.0</system-ontology:time>
+            <system-ontology:topic>165</system-ontology:topic>
+        </owl:NamedIndividual>
+        
+        
+        
+        
+        
+        
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_material-484">
+            <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learning_Material"/>
+            <system-ontology:difficulty>0.3795736373541221</system-ontology:difficulty>
+            <system-ontology:learning_resouce_type>VIDEO</system-ontology:learning_resouce_type>
+            <system-ontology:lmID>484</system-ontology:lmID>
+            <system-ontology:material_ratings>5.0</system-ontology:material_ratings>
             <system-ontology:score>10.0</system-ontology:score>
             <system-ontology:time>36.0</system-ontology:time>
             <system-ontology:topic>71</system-ontology:topic>
@@ -9850,7 +9898,7 @@
         
         
         
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-82">
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-10">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>25</system-ontology:learnerID>
             <system-ontology:lmID>72</system-ontology:lmID>
@@ -10354,7 +10402,7 @@
         
         
         
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-110">
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-44">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>19</system-ontology:learnerID>
             <system-ontology:lmID>100</system-ontology:lmID>
@@ -11314,7 +11362,7 @@
         
         
         
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-175">
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-191">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>12</system-ontology:learnerID>
             <system-ontology:lmID>165</system-ontology:lmID>
@@ -11794,7 +11842,7 @@
         
         
         
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-317">
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learning_log-252">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner_Log"/>
             <system-ontology:learnerID>15</system-ontology:learnerID>
             <system-ontology:lmID>292</system-ontology:lmID>
@@ -12320,9 +12368,9 @@
             <system-ontology:sequential_global>0</system-ontology:sequential_global>
             <system-ontology:sensitive_intuitive>-1</system-ontology:sensitive_intuitive>
         </owl:NamedIndividual>
-
-
-
+        
+        
+        
         
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-13">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
@@ -12334,9 +12382,9 @@
             <system-ontology:sequential_global>0</system-ontology:sequential_global>
             <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
         </owl:NamedIndividual>
-
-
-
+        
+        
+        
         
         <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-15">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
@@ -12492,9 +12540,9 @@
 
 
         
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-44">
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-35">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
-            <system-ontology:learnerID>44</system-ontology:learnerID>
+            <system-ontology:learnerID>35</system-ontology:learnerID>
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
             <system-ontology:active_reflective>0</system-ontology:active_reflective>
@@ -12568,7 +12616,7 @@
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
             <system-ontology:active_reflective>0</system-ontology:active_reflective>
-            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
             <system-ontology:sequential_global>0</system-ontology:sequential_global>
             <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
         </owl:NamedIndividual>
@@ -12709,7 +12757,7 @@
             <system-ontology:backgroundKnowledge>BASIC</system-ontology:backgroundKnowledge>
             <system-ontology:active_reflective>0</system-ontology:active_reflective>
             <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
-            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
             <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
         </owl:NamedIndividual>
 
@@ -12736,7 +12784,7 @@
             <system-ontology:qualification>UNDERGRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
             <system-ontology:active_reflective>0</system-ontology:active_reflective>
-            <system-ontology:visual_verbal>-1</system-ontology:visual_verbal>
+            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
             <system-ontology:sequential_global>1</system-ontology:sequential_global>
             <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
         </owl:NamedIndividual>
@@ -12751,7 +12799,7 @@
             <system-ontology:backgroundKnowledge>EXPERT</system-ontology:backgroundKnowledge>
             <system-ontology:active_reflective>-1</system-ontology:active_reflective>
             <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
-            <system-ontology:sequential_global>0</system-ontology:sequential_global>
+            <system-ontology:sequential_global>1</system-ontology:sequential_global>
             <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
         </owl:NamedIndividual>
 
@@ -12862,7 +12910,7 @@
             <system-ontology:qualification>GRADUATE</system-ontology:qualification>
             <system-ontology:backgroundKnowledge>INTERMEDIATE</system-ontology:backgroundKnowledge>
             <system-ontology:active_reflective>0</system-ontology:active_reflective>
-            <system-ontology:visual_verbal>0</system-ontology:visual_verbal>
+            <system-ontology:visual_verbal>1</system-ontology:visual_verbal>
             <system-ontology:sequential_global>0</system-ontology:sequential_global>
             <system-ontology:sensitive_intuitive>0</system-ontology:sensitive_intuitive>
         </owl:NamedIndividual>
@@ -12940,7 +12988,7 @@
 
 
         
-        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-49">
+        <owl:NamedIndividual rdf:about="http://www.semanticweb.org/thuha/ontologies/system-ontology#learner-46">
             <rdf:type rdf:resource="http://www.semanticweb.org/thuha/ontologies/system-ontology#Learner"/>
             <system-ontology:learnerID>49</system-ontology:learnerID>
             <system-ontology:qualification>None</system-ontology:qualification>

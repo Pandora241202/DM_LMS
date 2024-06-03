@@ -27,8 +27,7 @@ export const DashboardInstructor = () => {
             const weekRegiter = await analyticsApi.getHistoryRegister(user.id, "week")
             const monthRegiter = await analyticsApi.getHistoryRegister(user.id, "month")
             const reponse = await analyticsApi.getHistoryRegisterCourse(user.id)
-            
-            console.log(reponse)
+
             const registerCourse = reponse.data.map(item => ({ x: item.name, y: Number(item.numberOfRegister), id: item.id}))
 
             if (isMounted()) {

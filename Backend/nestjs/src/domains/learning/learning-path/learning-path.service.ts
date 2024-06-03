@@ -6,7 +6,7 @@ import { getStartEnd } from 'src/shared/contants.helper';
 import { UserLearnerDTO } from 'src/domains/user/dto/user-learner.dto';
 import { LearningLogDTO } from '../learner-log/dto/learning-log.dto';
 import { TopicDTO } from 'src/domains/topic/dto/topic.dto';
-import { leanObject } from 'src/shared/prisma.helper';
+import { connectRelation, leanObject } from 'src/shared/prisma.helper';
 import { BackgroundKnowledgeType, QualificationType } from '@prisma/client';
 
 @Injectable()
@@ -20,24 +20,24 @@ export class LearningPathService {
     const style = UserLearnerDTO.learningStyle(body.learningStyleQA);
 
     const learner = await this.prismaService.learner.update({
-        where: { id: learnerId },
-        data: leanObject({
-          backgroundKnowledge: body.backgroundKnowledge,
-          qualification: body.qualification,
-          activeReflective: style.activeReflective,
-          sensitiveIntuitive: style.sensitiveIntuitive,
-          visualVerbal: style.visualVerbal,
-          sequentialGlobal: style.sequentialGlobal,
-        }),
-        select: {
-          backgroundKnowledge: true,
-          qualification: true,
-          activeReflective: true,
-          sensitiveIntuitive: true,
-          visualVerbal: true,
-          sequentialGlobal: true,
-        },
-      });
+      where: { id: learnerId },
+      data: leanObject({
+        backgroundKnowledge: body.backgroundKnowledge,
+        qualification: body.qualification,
+        activeReflective: style.activeReflective,
+        sensitiveIntuitive: style.sensitiveIntuitive,
+        visualVerbal: style.visualVerbal,
+        sequentialGlobal: style.sequentialGlobal,
+      }),
+      select: {
+        backgroundKnowledge: true,
+        qualification: true,
+        activeReflective: true,
+        sensitiveIntuitive: true,
+        visualVerbal: true,
+        sequentialGlobal: true,
+      },
+    });
 
     let temp: number[][] = [];
 
@@ -80,7 +80,7 @@ export class LearningPathService {
             orderBy: { rating: 'desc' },
             select: { id: true },
           });
-          recommendLM.lmID = lm.id;
+          if (lm) recommendLM.lmID = lm.id;
         }
         temp[i].push(recommendLM.lmID);
       }
@@ -117,7 +117,7 @@ export class LearningPathService {
   async detail(learnerId: number) {
     const paths = await this.prismaService.learningPath.findMany({
       where: { learnerId: learnerId },
-      orderBy: {learningMaterialOrder: 'asc'},
+      orderBy: { learningMaterialOrder: 'asc' },
       select: {
         // learningMaterialOrder: true,
         learningMaterialId: true,
@@ -154,7 +154,7 @@ export class LearningPathService {
       });
 
       if (!log) result.push({ ...lms[i], score: 0, attempts: 0, time: 0 });
-      else{
+      else {
         result.push({
           id: log.learningMaterial.id,
           name: log.learningMaterial.name,
@@ -168,12 +168,91 @@ export class LearningPathService {
       }
     }
 
-    result = result.filter((item, index, self) =>
-      index === self.findIndex((t) => (
-        t.Topic.id === item.Topic.id
-      ))
-    );
-    
+    result = result.filter((item, index, self) => index === self.findIndex((t) => t.Topic.id === item.Topic.id));
+
     return result;
+  }
+
+  async generateGraph(paths: number[][], learnerId: number) {
+    let graphNodes = [], exist = [];
+    
+    await this.prismaService.learningGraphNode.deleteMany({where: {learnerId: learnerId}})
+
+    const maxLength = paths.reduce((max, subarray) => {
+        return Math.max(max, subarray.length);
+    }, 0);
+
+    for (let i = 0; i < maxLength; i++) {
+        graphNodes.push([]);
+    }
+
+    paths.forEach(subarray => {
+        // subarray.forEach((num, index) => {
+        //   if (!graphNodes[index].includes(num) && !exist.includes(num)) {
+        //     graphNodes[index].push({
+        //       id: num,
+        //       prio: index === 0 ? null : index - 1
+        //     });
+        //     exist.push(num)
+        //   }
+        // });
+
+        for (let i = 0; i < subarray.length; i++) {
+          const num = subarray[i]
+          if (!graphNodes[i].includes(num) && !exist.includes(num)) {
+            graphNodes[i].push({
+              id: num,
+              prio: i === 0 ? null : subarray[i - 1]
+            });
+            exist.push(num)
+          }
+        }
+    });
+
+    for(let i = 0; i < graphNodes.length; i++) {
+      if (graphNodes[i].length === 0) continue;
+
+      for (let j = 0; j < graphNodes[i].length; j++) {
+          await this.prismaService.learningGraphNode.create({
+            data: {
+              Learner: connectRelation(learnerId),
+              LearningMaterial: connectRelation(graphNodes[i][j].id),
+              prioLearningMaterialId: graphNodes[i][j].prio,
+              layer: i
+            }
+          })
+      }
+    }
+  }
+
+  async getLearningNodes(learnerId: number) {
+    const nodes = await this.prismaService.learningGraphNode.findMany({where: {learnerId: learnerId}, orderBy: {layer: 'asc'}, select: {layer: true, prioLearningMaterialId: true, LearningMaterial: {include: {Topic: true}}}})
+    if (nodes.length === 0) return []
+    
+    let result = [[]];
+    for (let i = 0; i < nodes[nodes.length - 1].layer; i++) result.push([])
+
+    for (let i = 0; i < nodes.length; i++) {
+      const layer = nodes[i].layer
+      const log = await this.prismaService.learnerLog.findFirst({where: {learnerId: learnerId, learningMaterialId: nodes[i].LearningMaterial.id, state: true}, select: {score: true}})
+
+      result[layer].push({
+        id: nodes[i].LearningMaterial.id,
+        name: nodes[i].LearningMaterial.name,
+        difficulty: nodes[i].LearningMaterial.difficulty,
+        type: nodes[i].LearningMaterial.type,
+        rating: nodes[i].LearningMaterial.rating,
+        score: log ? Math.round(log.score*100/nodes[i].LearningMaterial.score) : 0,
+        time: nodes[i].LearningMaterial.time,
+        topic: {
+            id: nodes[i].LearningMaterial.topicId,
+            title: nodes[i].LearningMaterial.Topic.title
+        },
+        prioId: nodes[i].prioLearningMaterialId,
+        percentOfPass: nodes[i].LearningMaterial.percentOfPass,
+      })
+    }
+
+    return result
   }
 }

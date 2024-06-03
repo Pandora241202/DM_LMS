@@ -10,7 +10,11 @@ export class LearningPathConttroller {
 
   @Post('/recommended/:learnerId')
   async getRecommendedOnes(@Param('learnerId', ParseIntPipe) learnerId: number, @Body() body: GetRecommendedLearningPathREQ) {
-    return await this.learningPathService.calculateRecommendedOnes(learnerId, body);
+    const learningPaths = await this.learningPathService.calculateRecommendedOnes(learnerId, body);
+
+    await this.learningPathService.generateGraph(learningPaths, learnerId)
+
+    return learningPaths
   }
 
   @Post(':learnerId')
@@ -21,5 +25,10 @@ export class LearningPathConttroller {
   @Get(':learnerId')
   async detail(@Param('learnerId', ParseIntPipe) learnerId: number) {
     return await this.learningPathService.detail(learnerId);
+  }
+
+  @Get('/graph/:learnerId')
+  async learningGraph(@Param('learnerId', ParseIntPipe) learnerId: number) {
+    return await this.learningPathService.getLearningNodes(learnerId);
   }
 }

@@ -11,6 +11,7 @@ export class LearningLogDTO {
   maxScore: number;
   maxTime: number;
   difficulty: number;
+  type?: string;
 
   static fromEntity(e: Prisma.LearnerLogGetPayload<{ include: { learningMaterial: true } }>): LearningLogDTO {
     return {
@@ -24,6 +25,7 @@ export class LearningLogDTO {
       maxScore: e.learningMaterial.score,
       maxTime: e.learningMaterial.time,
       difficulty: e.learningMaterial.difficulty,
+      type: e.learningMaterial.type
     };
   }
 }

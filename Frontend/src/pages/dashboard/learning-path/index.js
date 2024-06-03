@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import Shuffle01Icon from '@untitled-ui/icons-react/build/esm/Shuffle01';
 import {
   Box,
@@ -28,6 +28,9 @@ import { useAuth } from '../../../hooks/use-auth';
 import * as consts from '../../../constants';
 import { ChooseGoalLearningPathDialog } from '../../../sections/dashboard/learning-path/choose-goal-learning-path-dialog';
 import { BaseInfoLearningPathDialog } from '../../../sections/dashboard/learning-path/base-info-learning-path-dialog';
+import { LearningPathGraph } from '../../../sections/dashboard/learning-path/learning-path-graph';
+
+import { TopicGraph } from './new-course-graph'
 
 const useLOs = (update) => {
   const isMounted = useMounted();
@@ -37,7 +40,8 @@ const useLOs = (update) => {
 
   const getLearningPath = useCallback(async () => {
     try {
-      const response = await learningPathApi.getLearningPath(user.id);
+      // const response = await learningPathApi.getLearningPath(user.id);
+      const response = await learningPathApi.getLearningGraph(user.id)
       if (isMounted()) {
         if (response.data.length == 0) {
           router.push(paths.dashboard.learningPaths.create);
@@ -125,7 +129,9 @@ const Page = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          py: 8
+          py: 8,
+          overflow: 'auto',
+          maxWidth: '100%'
         }}
       >
         <Container maxWidth={settings.stretch ? false : 'xl'}>
@@ -152,6 +158,7 @@ const Page = () => {
                   <Stack
                     direction="row"
                     spacing={4}
+                    // sx={{ overflowX: 'auto' }}
                   >
                     <Button
                       startIcon={(
@@ -168,10 +175,10 @@ const Page = () => {
                 </div>
               </Stack>
             </Grid>
-            {LOs
+            {/* {LOs
             .slice(page*consts.LOS_PER_PAGE, page*consts.LOS_PER_PAGE + consts.LOS_PER_PAGE)
             .map((LO, index) => {
-              const LearningPathLOs = LO.score >= LO.passOfPercent*100 ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= LO.passOfPercent*100) ? LearningPathProcessLOs : LearningPathLockedLOs;
+              const LearningPathLOs = LO.score >= LO.percentOfPass ? LearningPathDoneLOs : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= LO.percentOfPass) ? LearningPathProcessLOs : LearningPathLockedLOs;
               return (
                 <Grid
                   xs={12}
@@ -181,8 +188,13 @@ const Page = () => {
                   <LearningPathLOs id={LO.id} topic={LO.Topic.title} learningObject={LO.name} finished={LO.score} />
                 </Grid>
               )
-            })}
+            })} */}
+            {/* <Box sx={{ overflowX: 'auto', maxWidth: '100%' }}> */}
             <Grid xs={12}>
+              <TopicGraph LOs={LOs} page={page} />
+            </Grid>
+            {/* </Box> */}
+            {/* <Grid xs={12}>
               <Box mt={4}
                 display="flex"
                 justifyContent="center"
@@ -218,7 +230,7 @@ const Page = () => {
                 >
                 </Button>
               </Box>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Container>
       </Box>
