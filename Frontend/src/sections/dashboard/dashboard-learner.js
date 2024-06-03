@@ -55,62 +55,66 @@ export const DashboardLearner = () => {
             sx={{ flexGrow: 1 }}
         >
             <Box sx={{ py: '64px' }}>
-                <Container maxWidth={settings.stretch ? false : 'xl'}>
-                    <Grid
+                <Stack direction={'column'} maxWidth={settings.stretch ? false : 'xl'}>
+                    {/* <Grid
                         container
                         spacing={{
                             xs: 3,
                             lg: 4
                         }}
-                    >
-                    <Grid xs={12}>
-                        <Typography variant="h4">
-                            Chào mừng trở lại
-                        </Typography>
-                        <Typography
-                            color="text.secondary"
-                            sx={{ mt: 1 }}
-                            variant="body2"
-                            marginBottom={2}
-                        >
-                            Học là một cuộc phiêu lưu không bao giờ kết thúc.
-                        </Typography>
-                    </Grid>
-                    {/* <Grid
-                        xs={12}
-                        md={12}
-                    >
-                        {listCourses[0]?.lastestLesson && <AcademyDailyProgress
-                            timeCurrent={listCourses[0]?.lastestLessonMinuteComplete*60}
-                            timeGoal={listCourses[0]?.lastestLesson ? listCourses[0]?.lastestLesson.amountOfTime : ""}
-                            courseName = {listCourses[0]?.course.name}
-                            lessonName = {listCourses[0]?.lastestLesson ? listCourses[0]?.lastestLesson.title : ""}
-                        />}
-                    </Grid> */}
-                    <Grid xs={12} marginBottom={2}>
-                        <Stack
-                            alignItems="flex-start"
-                            direction="row"
-                            justifyContent="space-between"
-                            spacing={3}
-                        >
-                            <Typography variant="h5">
-                                Học gần đây
+                    > */}
+                        <Grid>
+                            <Typography variant="h4">
+                                Chào mừng trở lại
                             </Typography>
-                        </Stack>
-                    </Grid>
-                    {listCourses.map((history) => (
-                        <Grid
-                            key={history.course.id}
-                            xs={12}
-                            md={3.5}    
-                            marginRight={5}
-                        >
-                        <CourseCard course={history.course} />
+                            <Typography
+                                color="text.secondary"
+                                sx={{ mt: 1 }}
+                                variant="body2"
+                                marginBottom={2}
+                            >
+                                Học là một cuộc phiêu lưu không bao giờ kết thúc.
+                            </Typography>
                         </Grid>
-                    ))}
-                    </Grid>
-                </Container>
+                        {/* <Grid
+                            xs={12}
+                            md={12}
+                        >
+                            {listCourses[0]?.lastestLesson && <AcademyDailyProgress
+                                timeCurrent={listCourses[0]?.lastestLessonMinuteComplete*60}
+                                timeGoal={listCourses[0]?.lastestLesson ? listCourses[0]?.lastestLesson.amountOfTime : ""}
+                                courseName = {listCourses[0]?.course.name}
+                                lessonName = {listCourses[0]?.lastestLesson ? listCourses[0]?.lastestLesson.title : ""}
+                            />}
+                        </Grid> */}
+                        <Grid marginBottom={2}>
+                            <Stack
+                                alignItems="flex-start"
+                                direction="row"
+                                justifyContent="space-between"
+                                spacing={3}
+                            >
+                                <Typography variant="h5">
+                                    Học gần đây
+                                </Typography>
+                            </Stack>
+                        </Grid>
+                        <Stack direction={'row'}>
+                            {listCourses.map((history) => (
+                                <Grid
+                                    key={history.course.id}
+                                    xs={4}
+                                    md={12}    
+                                    marginRight={5}
+                                    width={'450px'}
+                                >
+                                    <CourseCard course={history.course} />
+                                </Grid>
+                            ))}
+                            
+                        </Stack>
+                    {/* </Grid> */}
+                </Stack>
             </Box>
         </Box>
     </>

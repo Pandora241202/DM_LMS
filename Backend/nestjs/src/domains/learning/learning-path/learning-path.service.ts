@@ -80,7 +80,7 @@ export class LearningPathService {
             orderBy: { rating: 'desc' },
             select: { id: true },
           });
-          recommendLM.lmID = lm.id;
+          if (lm) recommendLM.lmID = lm.id;
         }
         temp[i].push(recommendLM.lmID);
       }
@@ -187,12 +187,26 @@ export class LearningPathService {
     }
 
     paths.forEach(subarray => {
-        subarray.forEach((num, index) => {
-          if (!graphNodes[index].includes(num) && !exist.includes(num)) {
-            graphNodes[index].push(num);
+        // subarray.forEach((num, index) => {
+        //   if (!graphNodes[index].includes(num) && !exist.includes(num)) {
+        //     graphNodes[index].push({
+        //       id: num,
+        //       prio: index === 0 ? null : index - 1
+        //     });
+        //     exist.push(num)
+        //   }
+        // });
+
+        for (let i = 0; i < subarray.length; i++) {
+          const num = subarray[i]
+          if (!graphNodes[i].includes(num) && !exist.includes(num)) {
+            graphNodes[i].push({
+              id: num,
+              prio: i === 0 ? null : subarray[i - 1]
+            });
             exist.push(num)
           }
-        });
+        }
     });
 
     for(let i = 0; i < graphNodes.length; i++) {
@@ -202,7 +216,8 @@ export class LearningPathService {
           await this.prismaService.learningGraphNode.create({
             data: {
               Learner: connectRelation(learnerId),
-              LearningMaterial: connectRelation(graphNodes[i][j]),
+              LearningMaterial: connectRelation(graphNodes[i][j].id),
+              prioLearningMaterialId: graphNodes[i][j].prio,
               layer: i
             }
           })
@@ -211,7 +226,7 @@ export class LearningPathService {
   }
 
   async getLearningNodes(learnerId: number) {
-    const nodes = await this.prismaService.learningGraphNode.findMany({where: {learnerId: learnerId}, orderBy: {layer: 'asc'}, select: {layer: true, LearningMaterial: {include: {Topic: true}}}})
+    const nodes = await this.prismaService.learningGraphNode.findMany({where: {learnerId: learnerId}, orderBy: {layer: 'asc'}, select: {layer: true, prioLearningMaterialId: true, LearningMaterial: {include: {Topic: true}}}})
     if (nodes.length === 0) return []
     
     let result = [[]];
@@ -219,18 +234,22 @@ export class LearningPathService {
 
     for (let i = 0; i < nodes.length; i++) {
       const layer = nodes[i].layer
+      const log = await this.prismaService.learnerLog.findFirst({where: {learnerId: learnerId, learningMaterialId: nodes[i].LearningMaterial.id, state: true}, select: {score: true}})
+
       result[layer].push({
         id: nodes[i].LearningMaterial.id,
         name: nodes[i].LearningMaterial.name,
         difficulty: nodes[i].LearningMaterial.difficulty,
         type: nodes[i].LearningMaterial.type,
         rating: nodes[i].LearningMaterial.rating,
-        score: nodes[i].LearningMaterial.score,
+        score: log ? Math.round(log.score*100/nodes[i].LearningMaterial.score) : 0,
         time: nodes[i].LearningMaterial.time,
         topic: {
             id: nodes[i].LearningMaterial.topicId,
             title: nodes[i].LearningMaterial.Topic.title
-        }
+        },
+        prioId: nodes[i].prioLearningMaterialId,
+        percentOfPass: nodes[i].LearningMaterial.percentOfPass,
       })
     }
 

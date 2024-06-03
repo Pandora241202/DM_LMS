@@ -157,22 +157,18 @@ const initialLOs = [
     ]
 ]
 
-const TopicRow = ({LOs, page}) => {  
-    console.log(LOs[0])  
+const TopicRow = ({LOs, pass, layer}) => {
     return (
         // <Box sx={{ overflowX: 'auto', maxWidth: '100%' }}>
-            <Stack direction="row" spacing={2} justifyContent="space-between" alignItems="center">
+            <Stack direction="row" spacing={2} justifyContent={"center"}>
                 {LOs.map((LO, index) => {
-                    const LearningPathLOs = LO.score >= consts.PERCENTAGE_TO_PASS_LO ? LearningPathDoneLOs 
-                                                                                    : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= consts.PERCENTAGE_TO_PASS_LO) ? LearningPathProcessLOs 
-                                                                                    : LearningPathLockedLOs;
+                    const LearningPathLOs = (layer === 0 || pass.includes(LO.prioId)) ? (LO.score >= LO.percentOfPass ? LearningPathDoneLOs : LearningPathProcessLOs) : (LO.score >= LO.percentOfPass ? LearningPathDoneLOs : LearningPathLockedLOs) ;
                     return (
                         <Grid
                             xs={12}
                             md={4}
                             key={LO.id}
                         >
-                            {console.log(LO)}
                             <LearningPathLOs id={LO.id} topic={LO.topic.title} learningObject={LO.name} finished={LO.score} />
                         </Grid>
                     );
@@ -183,12 +179,14 @@ const TopicRow = ({LOs, page}) => {
 }
 
 export const TopicGraph = ({LOs = initialLOs, page}) => {
+    const pass = LOs.flatMap(layerLOs => layerLOs.filter(LO => LO.score >= LO.percentOfPass).map(LO => LO.id));
+
     return (
         <>
             <Stack direction="row" justifyContent={'center'}>
                 <Stack direction="column" spacing={5}>
                     {LOs.map((rowLOs, rowIndex) => (
-                        <TopicRow key={rowIndex} LOs={rowLOs} page={page} />
+                        <TopicRow key={rowIndex} layer={rowIndex} LOs={rowLOs} page={page} pass={pass}/>
                     ))}
                 </Stack>
             </Stack>
