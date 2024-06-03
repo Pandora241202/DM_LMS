@@ -130,7 +130,10 @@ export const ModelChosen = (props) => {
             startIcon={<AddIcon />}
             disabled={framework === "selecting" || slugName === "selecting" || variation === "selecting"}
             onClick={() => {
-              setModelVariations([...modelVariations, {...variation, framework: framework, slugName: slugName, title: chooseModel.title}]);
+              setModelVariations([...modelVariations, {modelVariation: {...variation, framework: framework, slugName: slugName, model: {
+                id: chooseModel.id,
+                title: chooseModel.title 
+              }}}]);
               setChooseModel(null);
             }}
           >

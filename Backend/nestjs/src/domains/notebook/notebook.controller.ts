@@ -32,7 +32,9 @@ export class NotebookController {
       if (queryParams.userId) {
         queryParams.userId = +queryParams.userId;
       }
-      const result = await this.notebookService.getMany(queryParams);
+      const result = await this.notebookService.getMany(Object.entries(queryParams).map(([key, value]) => {
+        return { [key]: value };
+      }));
       return JSON.stringify(result.map((f) => NotebookDto.NotebookResponseDto.fromNotebook({ ...f, content: null })));
     } catch (error) {
       console.log(error);

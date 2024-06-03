@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import SearchMdIcon from '@untitled-ui/icons-react/build/esm/SearchMd';
@@ -23,52 +23,46 @@ import {
 } from '@mui/material';
 import { datasetApi } from '../../../api/dataset';
 import { userApi } from '../../../api/user';
-import { useMounted } from '../../../hooks/use-mounted';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
+import { useAuth } from '../../../hooks/use-auth';
 import { DatasetCard } from '../../../sections/dashboard/dataset/dataset-card';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import * as consts from '../../../constants';
 
-const useDatasets = () => {
-  const isMounted = useMounted();
+const Page = () => {
+  const [page, setPage] = useState(0);
+  const [filters, setFilters] = useState([false, true]);
   const [datasets, setDatasets] = useState([]);
-
-  const getDatasets = useCallback(async () => {
-    try {
-      const response = await datasetApi.getDatasets({ isPublic: true });
-      const datasetsInfo = await Promise.all(response.data.map(async r => {
-        const userResponse = await userApi.getUser(r.userId);
-        return {
-          ...r, 
-          author: {
-            avatar: userResponse.data.avatar,
-            name: userResponse.data.username
-          }
-        }
-      }));
-
-      if (isMounted()) {
-        setDatasets(datasetsInfo);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isMounted]);
+  const { user } = useAuth();
 
   useEffect(() => {
-    getDatasets();
-  },[]);
+    const getDatasets = async (criteria) => {
+      try {
+        const response = await datasetApi.getDatasets(criteria);
+        const datasetsInfo = await Promise.all(response.data.map(async r => {
+          const userResponse = await userApi.getUser(r.userId);
+          return {
+            ...r, 
+            author: {
+              avatar: userResponse.data.avatar,
+              name: userResponse.data.username
+            }
+          }
+        }));
+        setDatasets(datasetsInfo);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  return datasets;
-};
-
-const Page = () => {
-  const datasets = useDatasets();
-  const [page, setPage] = useState(0);
+    getDatasets(filters[1] ? {userId: user.id} : {userId: user.id, isPublic: true});
+  }, [filters, user])
 
   usePageView();
+
+  if (!user) return null;
 
   return (
     <>
@@ -141,15 +135,17 @@ const Page = () => {
             </Button>
             <Button 
               color="inherit" 
-              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1}}
+              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1, backgroundColor: filters[0]?"action.disabledBackground":"inherit"}}
               startIcon={<ListAltOutlinedIcon />}
+              onClick={() => setFilters([!filters[0], !filters[1]])}
             >
               Tất cả
             </Button>
             <Button 
               color="inherit" 
-              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1}}
+              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1, backgroundColor: filters[1]?"action.disabledBackground":"inherit"}}
               startIcon={<SubdirectoryArrowRightOutlinedIcon />}
+              onClick={() => setFilters([!filters[0], !filters[1]])}
             >
               Của bạn
             </Button>

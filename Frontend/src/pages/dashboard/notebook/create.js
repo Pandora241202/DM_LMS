@@ -54,8 +54,8 @@ const Page = () => {
 
   const handleSubmitNotebook = useCallback(async () => {
     await notebookApi.postNotebook({
-      modelVariationIds: modelVariations ? modelVariations.map(v => v.id) : null,
-      datasetIds: datasets ? datasets.map(d => d.id) : null,
+      modelVariationIds: modelVariations ? modelVariations.map(v => v.modelVariation.id) : null,
+      datasetIds: datasets ? datasets.map(d => d.dataset.id) : null,
       title: title,
       content: content.map(c => typeof(c) === "string" ? c : c.code ),
       isPublic: isPublic,
@@ -63,7 +63,7 @@ const Page = () => {
       userId: user.id
     })
       .then((response) => {
-        // router.push(paths.dashboard.notebook.details.replace(':notebookId', response.data.id));
+        router.push(paths.dashboard.notebook.details.replace(':notebookId', response.data.id));
       })
       .catch((err) => {
         console.error(err);
@@ -248,20 +248,24 @@ const Page = () => {
                 {datasets.length > 0 && <Typography fontWeight={600} fontSize={12} variant="subtitle1" marginBottom={1}>TẬP DỮ LIỆU</Typography>}
                 {datasets.length > 0 && <FilesTreeView 
                   filesTree={datasets.map(d => { return {
-                    id: d.id,
-                    title: d.title,
-                    items: d.filesType.map((t,i) => `datasets/${d.id}_${i}${t}`)
+                    id: d.dataset.id,
+                    title: d.dataset.title,
+                    items: d.dataset.filesType.map((t,i) => `datasets/${d.dataset.id}_${i}${t}`)
                   }})}
+                  variationKeyId='dataset'
                   setFiles={setDatasets}
+                  editDisabled={user.id !== notebookDetail.userId}
                 />}
                 {modelVariations.length > 0 && <Typography fontWeight={600} fontSize={12} variant="subtitle1" marginBottom={1}>MÔ HÌNH</Typography>}
                 {modelVariations.length > 0 && <FilesTreeView 
                   filesTree={modelVariations.map(v => { return {
-                    id: v.id,
-                    title: `${v.title} - ${v.slugName} - V${v.version}`,
-                    items: v.filesType.map((t,i) => `modelVariations/${v.id}_${i}${t}`)
+                    id: v.modelVariation.id,
+                    title: `${v.modelVariation.model.title} - ${v.modelVariation.slugName} - V${v.modelVariation.version}`,
+                    items: v.modelVariation.filesType.map((t,i) => `modelVariations/${v.modelVariation.id}_${i}${t}`)
                   }})}
                   setFiles={setModelVariations}
+                  variationKeyId='modelVariation'
+                  editDisabled={user.id !== notebookDetail.userId}
                 />}
                 {modelVariations.length == 0 && datasets.length == 0 && <Typography variant="subtitle2">Chưa có input được thêm</Typography>}
                 {modelVariations.length == 0 && datasets.length == 0 && <Typography variant='body2' fontSize={12}>Bạn có thể chọn trong tập dữ liệu hoặc mô hình có sẵn hoặc tải lên từ thiết bị</Typography>}

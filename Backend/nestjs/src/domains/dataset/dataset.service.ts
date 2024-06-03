@@ -14,7 +14,9 @@ export class DatasetService {
 
   async getMany(criteria) {
     return await this.prismaService.dataset.findMany({
-      where: criteria,
+      where: {
+        OR: criteria
+      },
       select: {
         id: true,
         title: true,

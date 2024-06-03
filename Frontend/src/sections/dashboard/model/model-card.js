@@ -6,11 +6,10 @@ import {
   CardActionArea,
   Stack,
   Typography,
-  ToggleButton,
-  ToggleButtonGroup
+  Button
 } from '@mui/material';
 import { paths } from '../../../paths';
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import KeyboardDoubleArrowUpOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowUpOutlined';
 import { modelApi } from '../../../api/model';
 
@@ -28,18 +27,17 @@ export const ModelCard = (props) => {
   } = props;
 
   const [votesValue, setVotesValue] = useState(votes);
-  const [upVote, setUpVote] = useState([]);
+  const [upVote, setUpVote] = useState(false);
 
-  useEffect(() => {
-    const updateModel = async() => {
-      await modelApi.putModel(id, {votes: votesValue})
+  const updateModelVote = useCallback(async() => {
+    await modelApi.putModel(id, {votes: votesValue + (upVote?-1:1)})
       .then((response) => {console.log(response);})
       .catch(error => {
         console.error('Error putting data:', error);
       })
-    }
-    updateModel();
-  }, [votesValue]); 
+    setVotesValue(votesValue + (upVote?-1:1));
+    setUpVote(!upVote);
+    }, [votesValue]);
 
   return (
     <Card 
@@ -48,7 +46,7 @@ export const ModelCard = (props) => {
     >
       <CardActionArea href={paths.dashboard.model.details.replace(':modelId', id)}>
         <CardContent sx={{borderBottom: "1px solid", borderColor: "text.disabled"}}>
-          <Typography color="text.primary" variant="h6" mb={2}>{title}</Typography>
+          <Typography color="text.primary" variant="h6" mb={2} sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{title}</Typography>
           <Typography mb={1} sx={{ overflow: 'hidden', textOverflow: 'ellipsis', fontSize: 13, whiteSpace: 'nowrap' }} color="text.primary" variant="body2">{description?description:"No description"}</Typography>
           <Typography mb={1} color="text.primary" variant="body2" sx={{ fontSize: 13 }}>{modelVariationsCount} Biến thể - {notebooksCount} Ghi chú </Typography> 
           <Typography color="text.primary" variant="body2" sx={{ fontSize: 13, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{authorName} - Cập nhật mới nhất {updatedAt}</Typography> 
@@ -57,15 +55,13 @@ export const ModelCard = (props) => {
       <CardContent sx={{py: 1}}>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Stack direction="row" alignItems="center">
-            <ToggleButtonGroup
-              value={upVote}
-              onChange={(e, value) => {
-                setVotesValue(value.length == 1 ? votesValue+1 : votesValue-1);
-                setUpVote(value);
-              }}
+            <Button 
+              color="inherit" 
+              sx={{borderRadius: 1, backgroundColor: upVote?"action.disabledBackground":"inherit", maxWidth: 37, minWidth: 37, p: 1}}
+              onClick={updateModelVote}
             >
-              <ToggleButton size="small" value={true}><KeyboardDoubleArrowUpOutlinedIcon fontSize='small'/></ToggleButton>
-            </ToggleButtonGroup>
+              <KeyboardDoubleArrowUpOutlinedIcon fontSize='small'/>
+            </Button>
             <Typography color="text.primary" variant="h6" sx={{ ml: 1 }}>{votesValue}</Typography>
           </Stack>
           <Avatar src={authorAvatar} style={{width: 30, height: 30}}/>

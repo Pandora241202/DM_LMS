@@ -12,21 +12,25 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
 
 export const FilesTreeView = (props) => {
-  const { filesTree, setFiles, ...other } = props;
+  const { filesTree, setFiles, variationKeyId, editDisabled, ...other } = props;
   const [expandList, setExpandList] = useState(filesTree.map(_ => false));
 
   return (
     <Stack sx={{ width: "100%", mb: 1 }} overflow="auto">
       {filesTree.map((f, i) =>
-        <>
+        <Stack key={i}>
           <Stack direction="row" alignItems="center" justifyContent="space-between">
-            <Button variant="inherit" sx={{pl: 1, py: 0, fontWeight: 400}} startIcon={expandList[i] ? <ArrowRightOutlinedIcon /> : <ArrowDropDownIcon />} onClick={() => setExpandList([...expandList.slice(0, i), !expandList[i], ...expandList.slice(i+1)])}>{f.title}</Button>
-            <Button variant="inherit" 
+            <Button variant="inherit" sx={{pl: 1, py: 0, fontWeight: 400}} startIcon={expandList[i] ? <ArrowRightOutlinedIcon /> : <ArrowDropDownIcon />} onClick={() => setExpandList([...expandList.slice(0, i), !expandList[i], ...expandList.slice(i+1)])}>
+              <Typography fontSize={14} sx={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                {f.title}
+              </Typography>
+            </Button>
+            {!editDisabled && <Button variant="inherit" 
               sx={{marginLeft: "auto", maxWidth: 30, minWidth: 30, minHeight: 30, maxHeight: 30, borderRadius: '100%', p: 1}}
-              onClick={() => setFiles(pre => pre.filter(p => p.id != f.id))}
+              onClick={() => setFiles(pre => pre.filter(p => p[variationKeyId].id != f.id))}
             >
-                <DeleteOutlinedIcon fontSize='small'/>
-              </Button>
+              <DeleteOutlinedIcon fontSize='small'/>
+            </Button>}
           </Stack>
           {expandList[i] && f.items.map(item => 
             <Link
@@ -43,7 +47,7 @@ export const FilesTreeView = (props) => {
               </Stack>
             </Link>
           )}   
-        </>
+        </Stack>
       )}          
     </Stack>
   );
@@ -51,5 +55,7 @@ export const FilesTreeView = (props) => {
 
 FilesTreeView.propTypes = {
   filesTree: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setFiles: PropTypes.func.isRequired
+  setFiles: PropTypes.func.isRequired,
+  variationKeyId: PropTypes.string.isRequired,
+  editDisabled: PropTypes.bool.isRequired
 };

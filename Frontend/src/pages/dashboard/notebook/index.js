@@ -23,53 +23,47 @@ import {
 } from '@mui/material';
 import { notebookApi } from '../../../api/notebook';
 import { userApi } from '../../../api/user';
-import { useMounted } from '../../../hooks/use-mounted';
+import { useAuth } from '../../../hooks/use-auth';
 import { usePageView } from '../../../hooks/use-page-view';
 import { Layout as DashboardLayout } from '../../../layouts/dashboard';
 import { paths } from '../../../paths';
-import { ModelCard, NotebookCard } from '../../../sections/dashboard/notebook/notebook-card';
+import { NotebookCard } from '../../../sections/dashboard/notebook/notebook-card';
 import { BreadcrumbsSeparator } from '../../../components/breadcrumbs-separator';
 import * as consts from '../../../constants';
 
-const useNotebooks = () => {
-  const isMounted = useMounted();
+const Page = () => {
+  const [page, setPage] = useState(0);
+  const [filters, setFilters] = useState([false, true]);
   const [notebooks, setNotebooks] = useState([]);
-
-  const getNotebooks = useCallback(async () => {
-    try {
-      const response = await notebookApi.getNotebooks({ isPublic: true });
-      const notebooksInfo = await Promise.all(response.data.map(async r => {
-        const userResponse = await userApi.getUser(r.userId);
-        return {
-          ...r, 
-          author: {
-            avatar: userResponse.data.avatar,
-            name: userResponse.data.username
-          }
-        }
-      }));
-
-      if (isMounted()) {
-        setNotebooks(notebooksInfo);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isMounted]);
+  const { user } = useAuth();
 
   useEffect(() => {
-    getNotebooks();
-  },[]);
+    const getNotebooks = async (criteria) => {
+      try {
+        const response = await notebookApi.getNotebooks(criteria);
+        const notebooksInfo = await Promise.all(response.data.map(async r => {
+          const userResponse = await userApi.getUser(r.userId);
+          return {
+            ...r, 
+            author: {
+              avatar: userResponse.data.avatar,
+              name: userResponse.data.username
+            }
+          }
+        }));
+        setNotebooks(notebooksInfo);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  return notebooks;
-};
-
-const Page = () => {
-  const notebooks = useNotebooks();
-  const [page, setPage] = useState(0);
+    getNotebooks(filters[1] ? {userId: user.id} : {userId: user.id, isPublic: true});
+  }, [filters, user])
 
   usePageView();
 
+  if (!user) return null;
+  
   return (
     <>
       <Head>
@@ -141,15 +135,17 @@ const Page = () => {
             </Button>
             <Button 
               color="inherit" 
-              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1}}
+              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1, backgroundColor: filters[0]?"action.disabledBackground":"inherit"}}
               startIcon={<ListAltOutlinedIcon />}
+              onClick={() => setFilters([!filters[0], !filters[1]])}
             >
               Tất cả
             </Button>
             <Button 
               color="inherit" 
-              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1}}
+              sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, py: 1, backgroundColor: filters[1]?"action.disabledBackground":"inherit"}}
               startIcon={<SubdirectoryArrowRightOutlinedIcon />}
+              onClick={() => setFilters([!filters[0], !filters[1]])}
             >
               Của bạn
             </Button>

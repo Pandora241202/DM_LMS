@@ -18,7 +18,9 @@ export class NotebookService {
 
   async getMany(criteria) {
     return await this.prismaService.notebook.findMany({
-      where: criteria,
+      where: {
+        OR: criteria
+      },
       select: {
         id: true,
         title: true,
@@ -40,12 +42,31 @@ export class NotebookService {
       include: {
         modelVariations: {
           select: {
-            modelVariationId: true,
-          },
+            modelVariation: {
+              select: {
+                id: true,
+                slugName: true,
+                version: true,
+                filesType: true,
+                model: {
+                  select: {
+                    id: true,
+                    title: true
+                  }
+                }
+              }
+            }
+          }
         },
         datasets: {
           select: {
-            datasetId: true,
+            dataset: {
+              select: {
+                id: true,
+                title: true,
+                filesType: true
+              }
+            }
           },
         },
       },
@@ -53,11 +74,54 @@ export class NotebookService {
   }
 
   async updateOne(id: number, data: Prisma.NotebookUncheckedUpdateInput) {
-    let updateData: any = { ...data };
-    console.log(updateData);
-    return await this.prismaService.notebook.update({
-      where: { id: id },
-      data: updateData,
+    return await this.prismaService.$transaction(async (prisma) => {
+      data.modelVariations && await prisma.modelVariationsOfNotebooks.deleteMany({
+        where: {
+          notebookId: id
+        }
+      })
+
+      data.datasets && await prisma.datasetsOfNotebooks.deleteMany({
+        where: {
+          notebookId: id
+        }
+      })
+
+      return await prisma.notebook.update({
+        where: { id: id },
+        data: data,
+        include: {
+          modelVariations: {
+            select: {
+              modelVariation: {
+                select: {
+                  id: true,
+                  slugName: true,
+                  version: true,
+                  filesType: true,
+                  model: {
+                    select: {
+                      id: true,
+                      title: true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          datasets: {
+            select: {
+              dataset: {
+                select: {
+                  id: true,
+                  title: true,
+                  filesType: true
+                }
+              }
+            },
+          },
+        },
+      });
     });
   }
 }

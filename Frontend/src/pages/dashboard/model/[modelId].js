@@ -85,12 +85,12 @@ const useModelDetail = () => {
     getModelDetail();
   }, [router.isReady]);
 
-  return {modelDetail, setModelDetail, modelVariations, setModelVariations};
+  return {modelDetail, setModelDetail, modelVariations};
 };
 
 const Page = () => {
   const router = useRouter();
-  const { modelDetail, setModelDetail, modelVariations, setModelVariations } = useModelDetail(); 
+  const { modelDetail, setModelDetail, modelVariations } = useModelDetail(); 
   const [tabTitle, setTabTitle] = useState('model');
   const { user } = useAuth();
   const [upVote, setUpVote] = useState([]);
@@ -109,6 +109,8 @@ const Page = () => {
   if (!modelDetail) {
     return null;
   }
+
+  if (!user) return null;
  
   return (
     <>

@@ -14,7 +14,6 @@ import {
   Avatar,
   Badge
 } from '@mui/material';
-import { useMounted } from '../../../hooks/use-mounted';
 import { modelApi } from '../../../api/model';
 import { datasetApi } from '../../../api/dataset';
 import { paths } from '../../../paths';
@@ -25,74 +24,6 @@ import { ModelChosen } from './model-chosen';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
-
-const useRecommendModels = () => {
-  const isMounted = useMounted();
-  const { user } = useAuth();
-  const [recommendModels, setRecommendModels] = useState([]);
-
-  const getRecommendModels = useCallback(async (criteria) => {
-    try {
-      const response = await modelApi.getModels(criteria);
-      const recommendModelsInfo = await Promise.all(response.data.map(async r => {
-        const userResponse = await userApi.getUser(r.userId);
-        return {
-          ...r, 
-          author: {
-            avatar: userResponse.data.avatar,
-            name: userResponse.data.username
-          }
-        }
-      }));
-
-      if (isMounted()) {
-        setRecommendModels(recommendModelsInfo);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isMounted]);
-
-  useEffect(() => {
-    getRecommendModels({ userId: user.id });
-  },[]);
-
-  return { recommendModels, getRecommendModels };
-};
-
-const useRecommendDatasets = () => {
-  const isMounted = useMounted();
-  const { user } = useAuth();
-  const [recommendDatasets, setRecommendDatasets] = useState([]);
-
-  const getRecommendDatasets = useCallback(async (criteria) => {
-    try {
-      const response = await datasetApi.getDatasets(criteria);
-      const recommendDatasetsInfo = await Promise.all(response.data.map(async r => {
-        const userResponse = await userApi.getUser(r.userId);
-        return {
-          ...r, 
-          author: {
-            avatar: userResponse.data.avatar,
-            name: userResponse.data.username
-          }
-        }
-      }));
-
-      if (isMounted()) {
-        setRecommendDatasets(recommendDatasetsInfo);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isMounted]);
-
-  useEffect(() => {
-    getRecommendDatasets({ userId: user.id });
-  },[]);
-
-  return { recommendDatasets, getRecommendDatasets };
-};
 
 const SmallAvatar = styled(Avatar)(({ theme }) => ({
   width: 30,
@@ -105,10 +36,11 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 
 export const InputChosenDialog = (props) => {
   const { onClose, open = false, setDatasets, setModelVariations, datasets, modelVariations, ...other } = props;
+  const { user } = useAuth();
   const [filters, setFilters] = useState([
     {
       label: "Của bạn",
-      value: true
+      value: true,
     },
     {
       label: "Tất cả",
@@ -124,8 +56,60 @@ export const InputChosenDialog = (props) => {
     }
   ]);
   const [chooseModel, setChooseModel] = useState(null);
-  const { recommendDatasets, getDatasets } = useRecommendDatasets();
-  const { recommendModels, getRecommendModels } = useRecommendModels();
+  const [ recommendDatasets, setRecommendDatasets ] = useState([]);
+  const [ recommendModels, setRecommendModels ] = useState([]);
+
+  useEffect(() => {
+    const getRecommendModels = async (criteria) => {
+      try {
+        const response = await modelApi.getModels(criteria);
+        const recommendModelsInfo = await Promise.all(response.data.map(async r => {
+          const userResponse = await userApi.getUser(r.userId);
+          return {
+            ...r, 
+            author: {
+              avatar: userResponse.data.avatar,
+              name: userResponse.data.username
+            }
+          }
+        }));
+        setRecommendModels(recommendModelsInfo);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const getRecommendDatasets = async (criteria) => {
+      try {
+        const response = await datasetApi.getDatasets(criteria);
+        const recommendDatasetsInfo = await Promise.all(response.data.map(async r => {
+          const userResponse = await userApi.getUser(r.userId);
+          return {
+            ...r, 
+            author: {
+              avatar: userResponse.data.avatar,
+              name: userResponse.data.username
+            }
+          }
+        }));
+        setRecommendDatasets(recommendDatasetsInfo);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    if (filters[3].value) {
+      setRecommendModels([]);
+    } else {
+      getRecommendModels(filters[0].value ? { userId: user.id } : { userId: user.id, isPublic: true });
+    }
+
+    if (filters[2].value) {
+      setRecommendDatasets([]);
+    } else {
+      getRecommendDatasets(filters[0].value ? { userId: user.id } : { userId: user.id, isPublic: true });
+    }
+  },[filters, user]);
 
   const handelAddModel = useCallback((model) => {
     const modelVariationsMap = new Map();
@@ -149,7 +133,7 @@ export const InputChosenDialog = (props) => {
     }
     setChooseModel({...model, modelVariations: modelVariationsMap});
   }, [recommendModels])
-
+  
   return (
     <Dialog
       fullWidth
@@ -183,7 +167,15 @@ export const InputChosenDialog = (props) => {
               key={i}
               color="inherit" 
               sx={{border: '1px solid', borderColor: "text.disabled", borderRadius: 10, p: 1, backgroundColor: filters[i].value?"action.disabledBackground":"inherit", fontSize: 13}}
-              onClick={() => setFilters([...filters.slice(0,i), {...f, value: !f.value}, ...filters.slice(i+1)])}
+              onClick={() => {
+                if (i == 1) {
+                  setFilters([{...filters[0], value: false}, {...filters[1], value: true}, {...filters[2], value: false}, {...filters[3], value: false}])
+                } else if ((i == 2 && filters[3].value) || (i == 3 && filters[2].value)) {
+                  setFilters([...filters.slice(0, 2), {...filters[2], value: !filters[2].value}, {...filters[3], value: !filters[3].value}]);  
+                } else {
+                  setFilters([{...filters[0], value: i==0?!filters[0].value:filters[0].value}, {...filters[1], value: filters[i].value?filters[1].value:false}, {...filters[2], value: i==2?!filters[2].value:filters[2].value}, {...filters[3], value: i==3?!filters[3].value:filters[3].value}])
+                }
+              }}
             >
               {f.label}
             </Button>
@@ -223,7 +215,7 @@ export const InputChosenDialog = (props) => {
                 </Link>
                 <Button 
                   sx={{ minWidth: 30, maxWidth: 30, minHeight: 30, maxHeight: 30, borderRadius: "100%", color: datasets.includes(dataset) ? "primary" : "text.primary", ml: "auto" }}
-                  onClick={() => datasets.includes(dataset) ? setDatasets([...datasets.slice(0, datasets.indexOf(dataset)), ...datasets.slice(datasets.indexOf(dataset) + 1)]) : setDatasets([...datasets, dataset])}
+                  onClick={() => datasets.some(d => d.dataset.id === dataset.id) ? setDatasets([...datasets.slice(0, datasets.findIndex(d => d.dataset.id === dataset.id)), ...datasets.slice(datasets.findIndex(d => d.dataset.id === dataset.id) + 1)]) : setDatasets([...datasets, {dataset: dataset}])}
                 >
                   <AddCircleOutlineIcon />
                 </Button>

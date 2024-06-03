@@ -73,7 +73,9 @@ export class DatasetController {
       if (queryParams.userId) {
         queryParams.userId = +queryParams.userId;
       }
-      const result = await this.datasetService.getMany(queryParams);
+      const result = await this.datasetService.getMany(Object.entries(queryParams).map(([key, value]) => {
+        return { [key]: value };
+      }));
       return JSON.stringify(result.map((f) => DatasetDto.DatasetResponseDto.fromDataset({ ...f, detail: null })));
     } catch (error) {
       console.log(error);

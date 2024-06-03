@@ -14,7 +14,9 @@ export class ModelService {
 
   async getMany(criteria) {
     return await this.prismaService.model.findMany({
-      where: criteria,
+      where: {
+        OR: criteria
+      },
       select: {
         id: true,
         title: true,
