@@ -212,6 +212,7 @@ export class LearningPathService {
 
   async getLearningNodes(learnerId: number) {
     const nodes = await this.prismaService.learningGraphNode.findMany({where: {learnerId: learnerId}, orderBy: {layer: 'asc'}, select: {layer: true, LearningMaterial: {include: {Topic: true}}}})
+    if (nodes.length === 0) return []
     
     let result = [[]];
     for (let i = 0; i < nodes[nodes.length - 1].layer; i++) result.push([])
