@@ -193,3 +193,5 @@ export const TopicGraph = ({LOs = initialLOs, page}) => {
         </>
     )
 }
+
+export default TopicGraph;
