@@ -138,4 +138,4 @@ const TopicGraph = (props) => {
     )
 }
 
-export default TopicGraph
+export default TopicGraph;
