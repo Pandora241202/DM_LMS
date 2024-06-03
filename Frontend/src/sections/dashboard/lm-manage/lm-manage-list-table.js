@@ -151,6 +151,7 @@ export const LMManageListTable = (props) => {
                           alignItems: 'center',
                           display: 'flex'
                         }}
+                        onClick={() => router.push(`${paths.dashboard.explore}/preview_lm/${LM.id}`)}
                       >
                         {/* {LM.image
                           ? ( */}

@@ -30,7 +30,7 @@ import { ChooseGoalLearningPathDialog } from '../../../sections/dashboard/learni
 import { BaseInfoLearningPathDialog } from '../../../sections/dashboard/learning-path/base-info-learning-path-dialog';
 import { LearningPathGraph } from '../../../sections/dashboard/learning-path/learning-path-graph';
 
-import { TopicGraph } from './new-course-graph'
+import { LMGraph } from './lm-graph'
 
 const useLOs = (update) => {
   const isMounted = useMounted();
@@ -191,7 +191,7 @@ const Page = () => {
             })} */}
             {/* <Box sx={{ overflowX: 'auto', maxWidth: '100%' }}> */}
             <Grid xs={12}>
-              <TopicGraph LOs={LOs} page={page} />
+              <LMGraph LOs={LOs} page={page} />
             </Grid>
             {/* </Box> */}
             {/* <Grid xs={12}>

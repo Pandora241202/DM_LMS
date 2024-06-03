@@ -254,7 +254,7 @@ const Page = () => {
                   }})}
                   variationKeyId='dataset'
                   setFiles={setDatasets}
-                  editDisabled={user.id !== notebookDetail.userId}
+                  // editDisabled={user.id !== notebookDetail.userId}
                 />}
                 {modelVariations.length > 0 && <Typography fontWeight={600} fontSize={12} variant="subtitle1" marginBottom={1}>MÔ HÌNH</Typography>}
                 {modelVariations.length > 0 && <FilesTreeView 
@@ -265,7 +265,7 @@ const Page = () => {
                   }})}
                   setFiles={setModelVariations}
                   variationKeyId='modelVariation'
-                  editDisabled={user.id !== notebookDetail.userId}
+                  // editDisabled={user.id !== notebookDetail.userId}
                 />}
                 {modelVariations.length == 0 && datasets.length == 0 && <Typography variant="subtitle2">Chưa có input được thêm</Typography>}
                 {modelVariations.length == 0 && datasets.length == 0 && <Typography variant='body2' fontSize={12}>Bạn có thể chọn trong tập dữ liệu hoặc mô hình có sẵn hoặc tải lên từ thiết bị</Typography>}
