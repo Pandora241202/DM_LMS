@@ -30,7 +30,7 @@ import { ChooseGoalLearningPathDialog } from '../../../sections/dashboard/learni
 import { BaseInfoLearningPathDialog } from '../../../sections/dashboard/learning-path/base-info-learning-path-dialog';
 import { LearningPathGraph } from '../../../sections/dashboard/learning-path/learning-path-graph';
 
-import { TopicGraph } from './new-course-graph'
+import TopicGraph from './new-course-graph'
 
 const useLOs = (update) => {
   const isMounted = useMounted();

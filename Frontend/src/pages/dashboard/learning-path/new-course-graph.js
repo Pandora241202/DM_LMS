@@ -182,7 +182,7 @@ const TopicRow = ({LOs, page}) => {
     );
 }
 
-export const TopicGraph = ({LOs = initialLOs, page}) => {
+const TopicGraph = ({LOs = initialLOs, page}) => {
     return (
         <>
             <Stack direction="row" justifyContent={'center'}>
@@ -195,3 +195,5 @@ export const TopicGraph = ({LOs = initialLOs, page}) => {
         </>
     )
 }
+
+export default TopicGraph;
