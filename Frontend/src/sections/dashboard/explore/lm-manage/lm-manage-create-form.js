@@ -136,6 +136,7 @@ export const LMCreateForm = (props) => {
     onSubmit: async (values, helpers) => {
       try {
         // NOTE: Make API request
+        // console.log(values.type)
         values.type === "QUIZ" 
         ? await lm_manageApi.createLM({
           name: values.name,

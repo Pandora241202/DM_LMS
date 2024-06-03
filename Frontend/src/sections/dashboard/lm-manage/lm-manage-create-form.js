@@ -106,7 +106,23 @@ export const LMCreateForm = (props) => {
     onSubmit: async (values, helpers) => {
       try {
         // NOTE: Make API request
-        await lm_manageApi.createLM({
+        values.type === "QUIZ" 
+        ? await lm_manageApi.createLM({
+          name: values.name,
+          difficulty: values.difficulty,
+          type: values.type,
+          score: values.score,
+          rating: values.rating,
+          percentOfPass: values.percentOfPass,
+          time: values.time,
+          topicId: values.topicId,
+          quiz: {
+            duration: values.time,
+            shuffle: true,
+            fileId: idLMList[0],
+          }
+        })
+        : await lm_manageApi.createLM({
           name: values.name,
           difficulty: values.difficulty,
           percentOfPass: values.percentOfPass,
