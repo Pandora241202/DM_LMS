@@ -17,8 +17,9 @@ import 'reactflow/dist/style.css';
 import { useTheme } from '@mui/material/styles';
 
 function TopicNode({ data }) {
+  const theme = useTheme()
   return (
-    <div style={{margin: ['50px', '50px', '50px', '50px'], zIndex: 2, backgroundColor: 'white'}}>
+    <div style={{margin: ['50px', '50px', '50px', '50px'], zIndex: 2, backgroundColor: theme.palette.primary.main}}>
       <NodeResizer minWidth={50} minHeight={50}/>
       <Handle type="target" position={Position.Left} />
       <div style={{ padding: 10 }}>{data.label}</div>
