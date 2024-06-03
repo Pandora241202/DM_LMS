@@ -178,7 +178,7 @@ const TopicRow = ({LOs, pass, layer}) => {
     );
 }
 
-export const TopicGraph = ({LOs = initialLOs, page}) => {
+const TopicGraph = ({LOs = initialLOs, page}) => {
     const pass = LOs.flatMap(layerLOs => layerLOs.filter(LO => LO.score >= LO.percentOfPass).map(LO => LO.id));
 
     return (
@@ -193,3 +193,5 @@ export const TopicGraph = ({LOs = initialLOs, page}) => {
         </>
     )
 }
+
+export default TopicGraph;

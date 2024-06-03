@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
-import { Handle } from 'react-flow-renderer';
+// import { Handle } from 'react-flow';
 
 const CardNode = ({ data }) => {
   return (
@@ -12,8 +12,8 @@ const CardNode = ({ data }) => {
           </Typography>
         </CardContent>
       </Card>
-      <Handle type="target" position="left" style={{ background: '#555' }} />
-      <Handle type="source" position="right" style={{ background: '#555' }} />
+      {/* <Handle type="target" position="left" style={{ background: '#555' }} />
+      <Handle type="source" position="right" style={{ background: '#555' }} /> */}
     </div>
   );
 };

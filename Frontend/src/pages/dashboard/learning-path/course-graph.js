@@ -90,7 +90,7 @@ const nodeCustomType = {
   }
 };
 
-export const TopicGraph = (props) => {
+const TopicGraph = (props) => {
     const {LOs} = props;
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -137,3 +137,5 @@ export const TopicGraph = (props) => {
         </Card>
     )
 }
+
+export default TopicGraph
