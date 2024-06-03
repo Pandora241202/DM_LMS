@@ -14,6 +14,11 @@ class LearningPathApi {
   getRecommendedLearningPaths(learnerId, request) {
     return axios.post(`${apiUrl}/recommended/${learnerId}`, request);
   }
+
+  getLearningGraph(learnerId) {
+    // console.log(learnerId)
+    return axios.get(`${apiUrl}/graph/${learnerId}`);  
+  }
 }
 
 export const learningPathApi = new LearningPathApi();
