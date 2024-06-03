@@ -55,12 +55,13 @@ const Page = () => {
       "qualification": baseInfoAnswer.length == 0 ? null : baseInfoAnswer[0]
     })
       .then((response) => {
-        console.log(response);
-        if (response.data.length == 1) {
-          handleCreateLearningPath(response.data[0]);
-        }
+        // console.log(response);
+        // if (response.data.length == 1) {
+        //   handleCreateLearningPath(response.data[0]);
+        // }
         setLoading(false);
         setRecommendedLearningPaths(response.data);
+        router.push(paths.dashboard.learningPaths.index);
       })
       .catch(error => {
         setLoading(false);
@@ -128,7 +129,7 @@ const Page = () => {
                   </div>
                   <LinearProgress />
                 </Stack>}
-                {recommendedLearningPaths.length != 0 &&
+                {/* {recommendedLearningPaths.length != 0 &&
                 <Stack justifyContent="space-between" spacing={2}>
                   <div>
                     <Typography variant="body1">
@@ -148,7 +149,7 @@ const Page = () => {
                       Lộ trình {idx}
                     </Button>  
                   </div>)}
-                </Stack>}
+                </Stack>} */}
               </Stack>
             </Grid>
           </Grid>

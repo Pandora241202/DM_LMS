@@ -213,14 +213,15 @@ export class LearningPathService {
       if (graphNodes[i].length === 0) continue;
 
       for (let j = 0; j < graphNodes[i].length; j++) {
-          await this.prismaService.learningGraphNode.create({
-            data: {
-              Learner: connectRelation(learnerId),
-              LearningMaterial: connectRelation(graphNodes[i][j].id),
-              prioLearningMaterialId: graphNodes[i][j].prio,
-              layer: i
-            }
-          })
+          if (graphNodes[i][j].id !== -1)
+            await this.prismaService.learningGraphNode.create({
+              data: {
+                Learner: connectRelation(learnerId),
+                LearningMaterial: connectRelation(graphNodes[i][j].id),
+                prioLearningMaterialId: graphNodes[i][j].prio,
+                layer: i
+              }
+            })
       }
     }
   }

@@ -30,10 +30,10 @@ export class UserLearnerDTO {
     visualVerbal: number;
     sequentialGlobal: number;
   } {
-    const activeReflective = answer ? this.convertScore(1, answer) : null,
-      sensitiveIntuitive = answer ? this.convertScore(2, answer) : null,
-      visualVerbal = answer ? this.convertScore(3, answer) : null,
-      sequentialGlobal = answer ? this.convertScore(4, answer) : null;
+    const activeReflective = answer.length !== 0 ? this.convertScore(1, answer) : null,
+      sensitiveIntuitive = answer.length !== 0 ? this.convertScore(2, answer) : null,
+      visualVerbal = answer.length !== 0 ? this.convertScore(3, answer) : null,
+      sequentialGlobal = answer.length !== 0 ? this.convertScore(4, answer) : null;
 
     return {
       activeReflective,

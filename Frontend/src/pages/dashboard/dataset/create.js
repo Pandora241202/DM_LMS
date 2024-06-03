@@ -85,7 +85,7 @@ const Page = () => {
         <Container maxWidth="xl">
           <Stack spacing={1}>
             <Typography variant="h3">
-              Tạo mô hình mới
+              Tạo tập dữ liệu mới
             </Typography>
             <Breadcrumbs separator={<BreadcrumbsSeparator />}>
               <Link
@@ -102,7 +102,7 @@ const Page = () => {
                 href={paths.dashboard.dataset.index}
                 variant="subtitle2"
               >
-                Mô hình
+                Tập dữ liệu
               </Link>
               <Typography
                 color="text.secondary"

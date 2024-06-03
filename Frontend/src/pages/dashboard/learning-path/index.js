@@ -108,7 +108,7 @@ const Page = () => {
 
         handleCreateLearningPath(response.data[0]);
         setLoading(false);
-        // setRecommendedLearningPaths(response.data);
+        setRecommendedLearningPaths(response.data);
       })
       .catch(error => {
         setLoading(false);
