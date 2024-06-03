@@ -191,7 +191,9 @@ const Page = () => {
             })} */}
             {console.log(LOs)}
             {/* <Box sx={{ overflowX: 'auto', maxWidth: '100%' }}> */}
+            <Grid xs={12}>
               <TopicGraph LOs={LOs} page={page} />
+            </Grid>
             {/* </Box> */}
             {/* <Grid xs={12}>
               <Box mt={4}

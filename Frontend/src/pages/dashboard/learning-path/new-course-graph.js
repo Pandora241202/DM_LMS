@@ -31,7 +31,7 @@ import { BaseInfoLearningPathDialog } from '../../../sections/dashboard/learning
 
 const initialLOs = [
     [
-        {"Topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
+        {"topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -42,7 +42,7 @@ const initialLOs = [
         "type": "CODE"}
     ],
     [
-        {"Topic": {id: 1, title: 'Fundamentals', subject: 'EXPERT'} ,
+        {"topic": {id: 1, title: 'Fundamentals', subject: 'EXPERT'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -51,7 +51,7 @@ const initialLOs = [
         "score" : 0,
         "time": 0,
         "type": "CODE"}, 
-        {"Topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
+        {"topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -60,7 +60,7 @@ const initialLOs = [
         "score" : 0,
         "time": 0,
         "type": "CODE"},
-        {"Topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
+        {"topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -69,7 +69,7 @@ const initialLOs = [
         "score" : 0,
         "time": 0,
         "type": "CODE"},
-        {"Topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
+        {"topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -78,7 +78,7 @@ const initialLOs = [
         "score" : 0,
         "time": 0,
         "type": "CODE"},
-        {"Topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
+        {"topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -89,7 +89,7 @@ const initialLOs = [
         "type": "CODE"},
     ],
     [
-        {"Topic": {id: 1, title: 'Fundamentals', subject: 'EXPERT'} ,
+        {"topic": {id: 1, title: 'Fundamentals', subject: 'EXPERT'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -98,7 +98,7 @@ const initialLOs = [
         "score" : 0,
         "time": 0,
         "type": "CODE"}, 
-        {"Topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
+        {"topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -107,7 +107,7 @@ const initialLOs = [
         "score" : 0,
         "time": 0,
         "type": "CODE"},
-        {"Topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
+        {"topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -118,7 +118,7 @@ const initialLOs = [
         "type": "CODE"}
     ],
     [
-        {"Topic": {id: 1, title: 'Fundamentals', subject: 'EXPERT'} ,
+        {"topic": {id: 1, title: 'Fundamentals', subject: 'EXPERT'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -127,7 +127,7 @@ const initialLOs = [
         "score" : 0,
         "time": 0,
         "type": "CODE"}, 
-        {"Topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
+        {"topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -136,7 +136,7 @@ const initialLOs = [
         "score" : 0,
         "time": 0,
         "type": "CODE"},
-        {"Topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
+        {"topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -145,7 +145,7 @@ const initialLOs = [
         "score" : 0,
         "time": 0,
         "type": "CODE"},
-        {"Topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
+        {"topic": {id: 1, title: 'Matrices and linear algebra fundamentals', subject: 'FUNDAMENTALS'} ,
         "attempts" : 0,
         "difficulty" : 0.07954297954178513,
         "id" : 260,
@@ -160,8 +160,8 @@ const initialLOs = [
 const TopicRow = ({LOs, page}) => {  
     console.log(LOs[0])  
     return (
-        <Box sx={{ overflowX: 'auto', maxWidth: '100%' }}>
-            <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
+        // <Box sx={{ overflowX: 'auto', maxWidth: '100%' }}>
+            <Stack direction="row" spacing={2} justifyContent="space-between" alignItems="center">
                 {LOs.map((LO, index) => {
                     const LearningPathLOs = LO.score >= consts.PERCENTAGE_TO_PASS_LO ? LearningPathDoneLOs 
                                                                                     : (page*consts.LOS_PER_PAGE + index == 0 || LOs[page*consts.LOS_PER_PAGE + index - 1].score >= consts.PERCENTAGE_TO_PASS_LO) ? LearningPathProcessLOs 
@@ -172,19 +172,20 @@ const TopicRow = ({LOs, page}) => {
                             md={4}
                             key={LO.id}
                         >
-                            <LearningPathLOs id={LO.id} topic={LO.Topic.title} learningObject={LO.name} finished={LO.score} />
+                            {console.log(LO)}
+                            <LearningPathLOs id={LO.id} topic={LO.topic.title} learningObject={LO.name} finished={LO.score} />
                         </Grid>
                     );
                 })}
             </Stack>
-        </Box>
+        // </Box>
     );
 }
 
-export const TopicGraph = ({LOs, page}) => {
+export const TopicGraph = ({LOs = initialLOs, page}) => {
     return (
         <>
-            <Stack direction="row">
+            <Stack direction="row" justifyContent={'center'}>
                 <Stack direction="column" spacing={5}>
                     {LOs.map((rowLOs, rowIndex) => (
                         <TopicRow key={rowIndex} LOs={rowLOs} page={page} />
